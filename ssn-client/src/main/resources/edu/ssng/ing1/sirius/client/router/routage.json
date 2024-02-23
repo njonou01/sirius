@@ -1,0 +1,22 @@
+{
+  "signin": {
+    "path": "./routage.json",
+    "title": "./testet"
+  },
+  "signup_start": {
+    "path": "",
+    "title": ""
+  },
+  "signup_student": {
+    "path": "authentification/signup_student",
+    "title": "Sign Up Student"
+  },
+  "": {
+    "path": "authentification/signup_start",
+    "title": "SSN Group 9"
+  },
+  "start": {
+    "path": "authentification/signup_start",
+    "title": "SSN Group 9"
+  }
+}

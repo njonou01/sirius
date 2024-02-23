@@ -1,0 +1,44 @@
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto/Roboto-Regular.ttf');
+}
+@font-face {
+    font-family: 'Roboto-bold';
+    src: url('Roboto/Roboto-Bold.ttf');
+}
+
+.textfield{
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #ccc;
+    -fx-background-color: -fx-control-inner-background;
+    
+}
+.scene{
+    -fx-background-color: white;
+}
+.btn{
+    -fx-border-width: 0;
+    -fx-border-color: #0396FF;
+    -fx-background-color: #0396FF;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-background-radius: 0;
+    -fx-font-weight: bold;
+    -fx-padding: 2px;
+}
+.labeltext{
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b8b8b8;
+}
+
+.stackpane{
+    -fx-background-color: #0346ff;
+    -fx-background-radius: 0 25px 25px 0;
+}
+
+.authentification{
+    -fx-background-radius: 25px 25px 25px 0;
+    -fx-background-color: red;
+}
