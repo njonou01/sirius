@@ -86,4 +86,26 @@ public class Router {
         return true;
     }
 
+    public FXMLLoader getParentNode(String name) {
+        JsonNode node = Router.data.get(name);
+        try {
+            if (node.isNull()) {
+                logger.error("parent nod {} does not exist", name);
+                return null;
+            } else {
+                logger.info("the {} node parent was correctly loaded", name);
+                FXMLLoader fxmlLoader = loadFxml(getPath(node));
+                return fxmlLoader;
+            }
+
+        } catch (Exception e) {
+            logger.error("{} merde", e.getMessage());
+            return null;
+        }
+
+    }
+    public Stage getStage() {
+        return stage;
+    }
+
 }

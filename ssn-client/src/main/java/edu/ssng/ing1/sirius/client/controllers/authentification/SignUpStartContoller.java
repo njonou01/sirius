@@ -1,37 +1,27 @@
 package edu.ssng.ing1.sirius.client.controllers.authentification;
 
-
-import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 
 public class SignUpStartContoller {
 
     @FXML
-    private Button agreeBtn;
+    private PasswordField passwordField;
 
     @FXML
-    private Label emailErrorMsg;
+    private PasswordField passwordConfirmField;
 
     @FXML
-    private TextField emailField;
+    private Button passwordBtn;
 
     @FXML
-    private Label passwordErrorMsg;
+    private Button passwordConfirmBtn;
 
     @FXML
-    private TextField passwordField;
-
-    @FXML
-    private Button showBtn;
-
-    @FXML
-    private Hyperlink signLink;
-
+    private Button nextPageBtn;
 
     @FXML
     void initialize() {
@@ -39,9 +29,35 @@ public class SignUpStartContoller {
 
     @FXML
     public void agreeAndGoToNextPage(ActionEvent event) {
-        Router router = Router.getInstance();
-        router.navigateTo("signup_student");
+        Button btn = (Button) event.getTarget();
+        System.out.println(btn.getParent().getParent());
     }
 
+    public Button getPasswordBtn() {
+        return passwordBtn;
+    }
+
+    public Button getPasswordConfirmBtn() {
+        return passwordConfirmBtn;
+    }
+
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public PasswordField getPasswordConfirmField() {
+        return passwordConfirmField;
+    }
+    
+    protected void verifyPassword(ActionEvent event){
+
+    }
+    protected void verifyPassAndConfirmPass(ActionEvent event){
+        
+    }
+    public Button getNextPageBtn() {
+        return nextPageBtn;
+    }
+    
 
 }

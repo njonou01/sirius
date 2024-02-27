@@ -1,5 +1,6 @@
 package edu.ssng.ing1.sirius.client;
 
+import java.io.IOException;
 
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.application.Application;
@@ -20,7 +21,13 @@ public class MainClient extends Application {
 
         Router router = Router.getInstance();
         router.setStage(stage);
-        router.navigateTo("start");
+        try {
+            router.navigateTo("authentification");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            stage.close();
+        }
     }
 
     public void redirectTo(String pageTiltle) {
