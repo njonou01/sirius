@@ -76,7 +76,7 @@
                         <AnchorPane prefHeight="143.0" prefWidth="312.0" />
                      </children>
                   </VBox>
-                  <CheckBox layoutX="-9.0" layoutY="254.0" mnemonicParsing="false" styleClass="checkbox" />
+                  <CheckBox fx:id="acceptCheckBox" layoutX="-9.0" layoutY="254.0" mnemonicParsing="false" styleClass="checkbox" />
                </children>
             </AnchorPane>
          </children>

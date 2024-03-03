@@ -69,7 +69,7 @@
                               </AnchorPane>
                               <AnchorPane GridPane.rowIndex="4">
                                  <children>
-                                    <CheckBox layoutX="7.0" layoutY="13.0" mnemonicParsing="false" styleClass="checkbox" text="I am currently following this training" />
+                                    <CheckBox fx:id="studyCurentlyCheck" layoutX="7.0" layoutY="13.0" mnemonicParsing="false" styleClass="checkbox" text="I am currently following this training" />
                                  </children>
                               </AnchorPane>
                               <GridPane>
@@ -87,9 +87,9 @@
                                     </AnchorPane>
                                  </children>
                               </GridPane>
-                              <ComboBox prefHeight="36.0" prefWidth="349.0" styleClass="textField" GridPane.rowIndex="1" />
-                              <ComboBox prefHeight="35.0" prefWidth="349.0" styleClass="textField" GridPane.rowIndex="3" />
-                              <ComboBox prefHeight="35.0" prefWidth="349.0" styleClass="textField" GridPane.rowIndex="6" />
+                              <ComboBox fx:id="schoolCombobox" prefHeight="36.0" prefWidth="349.0" styleClass="textField" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="startCombobox" prefHeight="35.0" prefWidth="349.0" styleClass="textField" GridPane.rowIndex="3" />
+                              <ComboBox fx:id="endCombobox" prefHeight="35.0" prefWidth="349.0" styleClass="textField" GridPane.rowIndex="6" />
                            </children>
                         </GridPane>
                         <AnchorPane prefHeight="143.0" prefWidth="312.0">

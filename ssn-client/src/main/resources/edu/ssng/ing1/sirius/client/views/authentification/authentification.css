@@ -108,3 +108,39 @@
 .link {
   -fx-text-fill: -bg-main-color;
 }
+.errortextfield{
+  -fx-border-color: rgb(253, 4, 4);
+  -fx-background-color: rgba(250,0,0,0.1);
+}
+.date-picker {
+  -fx-border-color: rgb(196, 193, 193);
+  -fx-background-color: white;
+  -fx-box-border: transparent;
+  -fx-background-insets: 0;
+  
+}
+.date-picker > .text-field {
+  -fx-background-color: white;
+}
+
+.textField > .text-field {
+  -fx-background-color: white;
+}
+.textField .arrow-button {
+  -fx-background-color: #ffffff; /* Couleur du bouton de sélection */
+  -fx-border-width: 0 0 0 1px;
+  -fx-border-color: rgb(196, 193, 193);
+
+}
+
+
+.date-picker .arrow-button {
+    -fx-background-color: #ffffff; /* Couleur du bouton de sélection */
+    -fx-border-width: 0 0 0 1px;
+    -fx-border-color: rgb(196, 193, 193);
+
+}
+
+
+
+
