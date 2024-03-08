@@ -4,6 +4,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="546.0" prefWidth="475.0" stylesheets="@authentification.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.authentification.SignInController">
+<Pane fx:id="signingPane" prefHeight="546.0" prefWidth="475.0" stylesheets="@authentification.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.authentification.SignInController">
    <children>
       <HBox alignment="CENTER" prefHeight="546.0" prefWidth="480.0">
          <children>
@@ -41,17 +42,18 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <TextField prefHeight="40.0" prefWidth="312.0" styleClass="textField" GridPane.rowIndex="1" />
+                              <TextField fx:id="emailField" prefHeight="40.0" prefWidth="312.0" styleClass="textField" GridPane.rowIndex="1" />
                               <AnchorPane GridPane.rowIndex="3">
                                  <children>
-                                    <TextField prefHeight="41.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="0.0" />
-                                    <Button layoutX="290.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="59.0" styleClass="passwordBtn" text="Show" />
+                                    <TextField fx:id="textFielPassword" layoutX="14.0" layoutY="2.0" prefHeight="40.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <PasswordField fx:id="passwordField" layoutX="119.0" layoutY="8.0" prefHeight="40.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button fx:id="showpasswordBtn" layoutX="290.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="59.0" styleClass="passwordBtn" text="Show" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
                                  <children>
-                                    <CheckBox layoutX="6.0" layoutY="11.0" mnemonicParsing="false" styleClass="checkbox" text="Remember Me" />
-                                    <Hyperlink layoutX="227.0" layoutY="9.0" styleClass="link" text="Forgot Password" />
+                                    <CheckBox fx:id="remindCheckBox" layoutX="6.0" layoutY="11.0" mnemonicParsing="false" styleClass="checkbox" text="Remember Me" />
+                                    <Hyperlink fx:id="resetPaswordLink" layoutX="227.0" layoutY="9.0" styleClass="link" text="Forgot Password" />
                                  </children>
                               </AnchorPane>
                               <AnchorPane>
@@ -68,7 +70,7 @@
                         </GridPane>
                         <AnchorPane prefHeight="143.0" prefWidth="312.0">
                            <children>
-                              <Button layoutX="9.0" layoutY="29.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="340.0" styleClass="signBtn" text="SIGN IN" />
+                              <Button fx:id="signinBtn" layoutX="9.0" layoutY="29.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="340.0" styleClass="signBtn" text="SIGN IN" />
                            </children>
                         </AnchorPane>
                      </children>

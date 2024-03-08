@@ -64,9 +64,7 @@ public class Authentification {
     private SignUpSchoolController signUpSchoolController;
     private SignUpFinalController signUpFinalController;
 
-    private HashMap<String, Pane> stackPaneMap;
 
-    // private SignUpStartContoller signUpStartContoller;
 
     @FXML
     public void changePosition(ActionEvent event) {
@@ -123,32 +121,24 @@ public class Authentification {
         this.signUpSchoolController = signupSchoolLoader.getController();
         this.signUpFinalController = signupFinalLoader.getController();
 
-        this.signUpStartcontroller.getNextPageBtn().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        this.signUpStartcontroller.getNextPageBtn().setOnAction(event -> {
+            if (this.signUpStartcontroller.handleContinious()) {
                 setASignupPaneVisible(signupStudentInfoPane);
             }
         });
 
-        this.signUpStudentController.getNextBtn().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        this.signUpStudentController.getNextBtn().setOnAction(event -> {
+            if (this.signUpStudentController.handleContinious()) {
                 setASignupPaneVisible(signupSchoolPane);
             }
         });
 
-        this.signUpSchoolController.getNextBtn().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                setASignupPaneVisible(signupFinalPane);
-            }
+        this.signUpSchoolController.getNextBtn().setOnAction(event -> {
+            setASignupPaneVisible(signupFinalPane);
         });
 
-        this.signUpFinalController.getSignupBtn().setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                router.navigateTo("main");
-            }
+        this.signUpFinalController.getSignupBtn().setOnAction(event -> {
+            router.navigateTo("main");
         });
         this.stackPane.getChildren().addAll(this.signinPane,
                 this.signupStartPane,
@@ -159,24 +149,16 @@ public class Authentification {
         setASignupPaneVisible(null);
 
         this.signinPane.setVisible(true);
-        // this.signupStartPane.setVisible(false);
-        // this.signupStudentInfoPane.setVisible(false);
-        // this.signupSchoolPane.setVisible(false);
-        // this.signupFinalPane.setVisible(false);
 
         this.isSignUp = false;
         this.initPosOfAnchor = anchor.getLayoutX();
         this.signupStartPane.setVisible(false);
-        // this.stackPane.getChildren().addAll(this.signinPane, this.signupStartPane);
+
         this.appTitle.setText("SSN-APP");
         this.athBtn.setText("Sign Up".toUpperCase());
         this.authLabelSign.setText("Don't have an account Yet ?");
         this.authCommentSign.setText("Lorem ipsum dolor sit amet, consectetur" +
                 "adipiscing elit. Sed ultricies gravida sem et tempor");
-    }
-
-    private void eventGoToNextPage() {
-
     }
 
     private void setASignupPaneVisible(Pane pane) {

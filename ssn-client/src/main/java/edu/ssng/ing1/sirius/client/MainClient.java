@@ -24,15 +24,11 @@ public class MainClient extends Application {
         try {
             router.navigateTo("authentification");
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             stage.close();
         }
     }
 
-    public void redirectTo(String pageTiltle) {
-
-    }
 
     public static void main(String[] args) {
         try {
