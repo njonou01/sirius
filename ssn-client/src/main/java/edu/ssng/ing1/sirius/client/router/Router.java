@@ -53,6 +53,7 @@ public class Router {
 
         } catch (Exception e) {
             logger.error("{}", e.getMessage());
+            e.printStackTrace();
         }
 
     }
@@ -82,6 +83,10 @@ public class Router {
         Parent parent = fxmlLoader.load();
         stage.setTitle(getTile(node));
         stage.setScene(new Scene(parent));
+        System.out.println("**************************************************");
+        System.out.println(stage.getScene());
+        System.out.println("**************************************************");
+
         stage.show();
         return true;
     }
@@ -105,7 +110,10 @@ public class Router {
 
     }
     public Stage getStage() {
-        return stage;
+        return this.stage;
+    }
+    public Scene getScene(){
+        return this.stage.getScene();
     }
 
 }
