@@ -22,17 +22,17 @@ public class MainClient extends Application {
         Router router = Router.getInstance();
         router.setStage(stage);
         try {
-            router.navigateTo("authentification");
+            System.out.println("----------------------------------");
+            System.out.println(router.getStage().getScene());
+            System.out.println("----------------------------------");
+
+            router.navigateTo("main");
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             stage.close();
         }
     }
 
-    public void redirectTo(String pageTiltle) {
-
-    }
 
     public static void main(String[] args) {
         try {
