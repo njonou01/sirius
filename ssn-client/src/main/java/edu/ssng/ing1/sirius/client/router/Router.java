@@ -83,9 +83,6 @@ public class Router {
         Parent parent = fxmlLoader.load();
         stage.setTitle(getTile(node));
         stage.setScene(new Scene(parent));
-        System.out.println("**************************************************");
-        System.out.println(stage.getScene());
-        System.out.println("**************************************************");
 
         stage.show();
         return true;

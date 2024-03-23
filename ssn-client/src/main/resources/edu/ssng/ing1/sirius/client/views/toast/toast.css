@@ -1,0 +1,29 @@
+.toast{
+    -fx-border-width :  0.5px  0.5px 0.5px 10px ;
+    -fx-background-color: white;
+    -fx-border-style: solid;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);
+}
+.error-toast{
+    -fx-border-color: #DF4E4D;
+}
+.icon{
+    -fx-fill: #DF4E4D;
+}
+
+/* Style de la ProgressBar */
+.progress-bar {
+    -fx-background-color: green; /* Couleur de fond transparente */
+}
+
+/* Style de la barre de remplissage */
+.progress-bar .bar {
+    -fx-background-color: #3498db; /* Couleur de remplissage */
+    -fx-min-height: 20px; /* Hauteur minimale de la barre de remplissage */
+    -fx-max-height: 20px; /* Hauteur maximale de la barre de remplissage */
+}
+
+/* Style du texte de pourcentage */
+.progress-bar .text {
+    -fx-text-fill: white; /* Couleur du texte */
+}

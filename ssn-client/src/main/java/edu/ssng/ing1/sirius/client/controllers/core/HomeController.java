@@ -29,8 +29,6 @@ public class HomeController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Router router = Router.getInstance();
-        Scene scene = router.getScene();
-        System.out.println(scene);
 
 
         // scene.addEventFilter(ScrollEvent.ANY, event -> {

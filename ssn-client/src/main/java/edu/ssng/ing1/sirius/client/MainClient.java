@@ -21,18 +21,13 @@ public class MainClient extends Application {
 
         Router router = Router.getInstance();
         router.setStage(stage);
-        try {
-            System.out.println("----------------------------------");
-            System.out.println(router.getStage().getScene());
-            System.out.println("----------------------------------");
 
-            router.navigateTo("main");
-        } catch (Exception e) {
-            e.printStackTrace();
-            stage.close();
-        }
+        router.navigateTo("authentification");
+
+        System.out.println("----main---> " + router.getStage());
+
+
     }
-
 
     public static void main(String[] args) {
         try {

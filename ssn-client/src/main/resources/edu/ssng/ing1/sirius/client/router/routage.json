@@ -1,7 +1,7 @@
 {
   "authentification": {
     "path": "authentification/authentification",
-    "title": "SSN Authentification"
+    "title": "S-Connect"
   },
   "signup-start": {
     "path": "authentification/signup-start",
@@ -29,6 +29,10 @@
   },
   "post": {
     "path": "post/post",
+    "title": "Mon App"
+  },
+  "toast": {
+    "path": "toast/toast",
     "title": "Mon App"
   }
 

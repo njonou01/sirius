@@ -27,7 +27,7 @@
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" smooth="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../../../Downloads/profil.jpg" />
+                        <Image url="@../../../../../../../../../../../../../Downloads/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg" />
                      </image>
                   </ImageView>
                   <Label prefHeight="16.0" prefWidth="326.0" text="Label" />
@@ -52,7 +52,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../../../../../../../../../../../Downloads/profil.jpg" />
+                        <Image url="@../../../../../../../../../../../../../Downloads/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg" />
                      </image>
                   </ImageView>
                   <AnchorPane prefHeight="50.0" prefWidth="569.0">
@@ -94,7 +94,7 @@
                <children>
                   <ImageView fitHeight="404.0" fitWidth="618.0" pickOnBounds="true">
                      <image>
-                        <Image url="@../../../../../../../../../../../../../Downloads/poste-travail-informatique-3d-bureau-dans-chambre.jpg" />
+                        <Image url="@../../../../../../../../../../../../../Downloads/social_like_stock-623x350.jpg" />
                      </image>
                   </ImageView>
                   <MediaView fitHeight="404.0" fitWidth="618.0" />

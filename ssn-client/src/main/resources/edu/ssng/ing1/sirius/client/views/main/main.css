@@ -38,7 +38,7 @@
 }
 .navbar-elmt:hover {
   -fx-border-color: #ccc;
-  -fx-background-color: hsl(0, 17%, 98%);
+  -fx-background-color: rgba(200,200,200,0.8);
   -fx-fill: #191919;
   -fx-text-fill: #191919;
 }

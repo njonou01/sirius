@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 public class SignUpSchoolController implements Initializable {
 
@@ -29,12 +30,17 @@ public class SignUpSchoolController implements Initializable {
     @FXML
     private CheckBox studyCurentlyCheck;
 
+    @FXML
+    private TextField textFieldSchool;
+
     public Button getNextBtn() {
         return nextBtn;
     }
 
-    private ObservableList<String> schoolList;
-    private String[] elements = { "Option 1", "Option 2", "Option 3", "Yess" };
+    private String data[] = { "Apple", "Banana", "Orange", "Peach", "Grapes", "Pineapple" };
+
+    private ObservableList<String> schoolList = FXCollections.observableArrayList(
+            data);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,27 +48,19 @@ public class SignUpSchoolController implements Initializable {
             endCombobox.setDisable(studyCurentlyCheck.isSelected());
         });
         initStartCombobox(30, 0);
-        initSchoolCombobox();
-        initSchoolComboboxEvent();
-    }
-
-    private void initSchoolCombobox() {
-        this.schoolList = FXCollections.observableArrayList(elements);
-        schoolCombobox.setItems(FXCollections.observableArrayList(elements));
-        schoolCombobox.setEditable(true);
-
-    }
-
-    private void initSchoolComboboxEvent() {
-        schoolCombobox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-           if (schoolCombobox.getEditor().getText().trim().isEmpty()) {
-            return ;
-           }
-
+        textFieldSchool.textProperty().addListener((observable, oldValue, newValue) -> {
             schoolCombobox.hide();
-            schoolCombobox.setItems(filterItems(newValue));;
+            schoolCombobox.setItems(filterItems(newValue));
             schoolCombobox.show();
         });
+        schoolCombobox.setOnAction(event -> {
+            String selected = schoolCombobox.getSelectionModel().getSelectedItem();
+            if (selected != null) {
+                textFieldSchool.setText(selected);
+                schoolCombobox.hide();
+            }
+        });
+
     }
 
     private void initStartCombobox(int begin, int end) {
@@ -74,13 +72,38 @@ public class SignUpSchoolController implements Initializable {
 
     private ObservableList<String> filterItems(String filterText) {
         ObservableList<String> filteredList = FXCollections.observableArrayList();
-        for (String item : this.schoolList) {
-            if (item.toLowerCase().contains(filterText.toLowerCase())) {
+        for (String item : this.schoolList)
+            if (item.toLowerCase().contains(filterText.toLowerCase()))
                 filteredList.add(item);
-            }
-        }
-        System.out.println(filteredList);
 
         return filteredList;
     }
+
+    protected Boolean handleContinious() {
+        boolean schooltest = manageSchool();
+        return schooltest;
+    }
+
+    public boolean isASchoolText(String text) {
+        for (String element : data)
+            if (element.equals(text))
+                return true;
+        return false;
+    }
+
+    private Boolean manageSchool() {
+        if (!isASchoolText(textFieldSchool.getText())) {
+            textFieldSchool.getStyleClass().add("errortextfield");
+            textFieldSchool.textProperty().addListener((observable, oldvalue, newvalue) -> {
+                textFieldSchool.getStyleClass().removeAll(isASchoolText(textFieldSchool.getText())
+                        ? "errortextfield"
+                        : "");
+                textFieldSchool.getStyleClass().add(!isASchoolText(textFieldSchool.getText())
+                        ? "errortextfield"
+                        : "");
+            });
+        }
+        return isASchoolText(textFieldSchool.getText());
+    }
+
 }

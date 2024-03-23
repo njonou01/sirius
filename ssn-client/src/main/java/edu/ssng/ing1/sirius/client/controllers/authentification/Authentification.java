@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -63,8 +64,7 @@ public class Authentification {
     private SignUpStudentInfoController signUpStudentController;
     private SignUpSchoolController signUpSchoolController;
     private SignUpFinalController signUpFinalController;
-
-
+    private String appName = "S-Connect";
 
     @FXML
     public void changePosition(ActionEvent event) {
@@ -75,15 +75,14 @@ public class Authentification {
 
         this.isSignUp = !this.isSignUp;
 
-        // this.signinPane.setVisible(!isSignUp);
-        // this.signupStartPane.setVisible(isSignUp);
-
         if (isSignUp) {
             setASignupPaneVisible(this.signupStartPane);
             this.signinPane.setVisible(false);
+            router.getStage().setTitle(appName + " " + "Sign Up");
         } else {
             setASignupPaneVisible(null);
             this.signinPane.setVisible(true);
+            router.getStage().setTitle(appName + " " + "Sign In");
         }
 
         this.athBtn.setText(isSignUp ? "Sign In" : "Sign Up");
@@ -97,9 +96,8 @@ public class Authentification {
     }
 
     private void reverseNodes(Node... nodes) {
-        for (Node node : nodes) {
+        for (Node node : nodes)
             reverseNode(node);
-        }
     }
 
     public void initialize() throws IOException {
@@ -134,7 +132,9 @@ public class Authentification {
         });
 
         this.signUpSchoolController.getNextBtn().setOnAction(event -> {
-            setASignupPaneVisible(signupFinalPane);
+            if (this.signUpSchoolController.handleContinious()) {
+                setASignupPaneVisible(signupFinalPane);
+            }
         });
 
         this.signUpFinalController.getSignupBtn().setOnAction(event -> {
