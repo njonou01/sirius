@@ -146,9 +146,9 @@ public class Authentification {
                 this.signupSchoolPane,
                 this.signupFinalPane);
 
-        setASignupPaneVisible(null);
+        setASignupPaneVisible(signupSchoolPane);
 
-        this.signinPane.setVisible(true);
+        this.signinPane.setVisible(false);
 
         this.isSignUp = false;
         this.initPosOfAnchor = anchor.getLayoutX();

@@ -1,15 +1,14 @@
 package edu.ssng.ing1.sirius.client.controllers.authentification;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
-import edu.ssng.ing1.sirius.client.router.Router;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,7 +16,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 
 public class SignInController implements Initializable {
@@ -56,14 +54,16 @@ public class SignInController implements Initializable {
             passwordField.setVisible(!this.passwordIsVisible);
             this.passwordIsVisible = !this.passwordIsVisible;
         });
+
         signinBtn.setOnAction(event -> {
+            try {
+                Date date = Date.valueOf("2024-03-28");
+                AuthRequest.signInAs(new Student("nuvvll", "dvddfnull", "nfddull", "nul", "null", date, "nulddfl", "nullfds","rddghhgd"));
+            } catch (NullPointerException | IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
             if (Rules.isValidEmail(emailField.getText())) {
-                try {
-                    AuthRequest.signInAs(new Students().add(new Student("Gaby", "Gaby", "Gaby")));
-                } catch (NullPointerException | IOException | InterruptedException e) {
-                    Toast.buildToast("Une erreur est survenue");
-                    e.printStackTrace();
-                }
+
             } else {
                 emailField.getStyleClass().add("errortextfield");
                 emailField.textProperty().addListener((observable, oldvalue, newvalue) -> {
@@ -73,5 +73,4 @@ public class SignInController implements Initializable {
             }
         });
     }
-
 }

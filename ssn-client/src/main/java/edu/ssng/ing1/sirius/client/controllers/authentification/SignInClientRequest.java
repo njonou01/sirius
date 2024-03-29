@@ -20,10 +20,7 @@ public class SignInClientRequest extends ClientRequest<Student, String> {
 
     @Override
     public String readResult(String body) throws IOException {
-        final ObjectMapper mapper = new ObjectMapper();
-        @SuppressWarnings("unchecked")
-        final Map<String, Integer> studentIdMap = mapper.readValue(body, Map.class);
-        final String result = studentIdMap.get("student_id").toString();
+        final String result = body;
         return result;
     }
 }

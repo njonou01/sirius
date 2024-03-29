@@ -29,39 +29,36 @@ public class AuthRequest {
     private static final String requestOrder = "INSERT_STUDENT";
     private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
 
-    public static void signInAs(Students students) throws NullPointerException, IOException, InterruptedException  {
-        
-        final NetworkConfig networkConfig =  ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
-        logger.trace("Students loaded : {}", students.toString());
+    public static void signInAs(Student student) throws NullPointerException, IOException, InterruptedException {
+
+        final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
+        logger.trace("Students loaded : {}", student.toString());
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
-        for(final Student guy : students.getStudents()) {
-            final ObjectMapper objectMapper = new ObjectMapper();
-            final String jsonifiedGuy = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(guy);
-            logger.trace("Student with its JSON face : {}", jsonifiedGuy);
-            final String requestId = UUID.randomUUID().toString();
-            final Request request = new Request();
-            request.setRequestId(requestId);
-            request.setRequestOrder(requestOrder);
-            request.setRequestContent(jsonifiedGuy);
-            objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-            final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final String jsonifiedStudent = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(student);
+        logger.trace("Student with its JSON face : {}", jsonifiedStudent);
+        final String requestId = UUID.randomUUID().toString();
+        final Request request = new Request();
+        request.setRequestId(requestId);
+        request.setRequestOrder(requestOrder);
+        request.setRequestContent(jsonifiedStudent);
+        objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        final byte[] requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
 
-            final SignInClientRequest clientRequest = new SignInClientRequest (
-                                                                        networkConfig,
-                                                                        birthdate++, request, guy, requestBytes);
-            clientRequests.push(clientRequest);
-        }
+        final SignInClientRequest clientRequest_ = new SignInClientRequest(
+                networkConfig,
+                birthdate++, request, student, requestBytes);
+        clientRequests.push(clientRequest_);
 
         while (!clientRequests.isEmpty()) {
             final ClientRequest clientRequest = clientRequests.pop();
             clientRequest.join();
-            final Student guy = (Student)clientRequest.getInfo();
-            logger.debug("Thread {} complete : {} {} {} --> {}",
-                                    clientRequest.getThreadName(),
-                                    guy.getFirstname(), guy.getName(), guy.getGroup(),
-                                    clientRequest.getResult());
+            final Student student_response = (Student) clientRequest.getInfo();
+            logger.debug("Thread {} complete : {}  --> {}",
+                    clientRequest.getThreadName(), student_response.toString(),
+                    clientRequest.getResult());
         }
     }
 }
