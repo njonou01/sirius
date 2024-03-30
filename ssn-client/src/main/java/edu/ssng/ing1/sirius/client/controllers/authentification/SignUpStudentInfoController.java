@@ -2,20 +2,16 @@ package edu.ssng.ing1.sirius.client.controllers.authentification;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 import edu.ssng.ing1.City;
-import edu.ssng.ing1.sirius.business.dto.Cities;
-import javafx.event.EventHandler;
+import edu.ssng.ing1.sirius.client.requests.authentification.CommonRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 public class SignUpStudentInfoController implements Initializable {
     @FXML

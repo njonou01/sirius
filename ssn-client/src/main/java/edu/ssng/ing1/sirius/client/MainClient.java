@@ -1,7 +1,5 @@
 package edu.ssng.ing1.sirius.client;
 
-import java.io.IOException;
-
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;

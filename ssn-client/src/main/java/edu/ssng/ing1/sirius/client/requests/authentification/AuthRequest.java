@@ -1,11 +1,9 @@
-package edu.ssng.ing1.sirius.client.controllers.authentification;
+package edu.ssng.ing1.sirius.client.requests.authentification;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import edu.ssng.commons.LoggingUtils;
 import edu.ssng.ing1.sirius.business.dto.Student;
-import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
@@ -13,24 +11,22 @@ import edu.ssng.ing1.sirius.commons.Request;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.SQLException;
+
 import java.util.*;
 
 public class AuthRequest {
 
-    private final static String LoggingLabel = "I n s e r t e r - C l i e n t";
-    private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final static String networkConfigFile = "network.yaml";
-    private static final String threadName = "inserter-client";
     private static String requestOrder;
-    private static final Deque<ClientRequest> clientRequests = new ArrayDeque<ClientRequest>();
+    private static final Deque<ClientRequest<Student, String>> clientRequests = new ArrayDeque<ClientRequest<Student, String>>();
 
     public static void signUpAs(Student student) throws NullPointerException, IOException, InterruptedException {
+        final String LoggingLabel = "C R E A T E - U S E R - C L I E N T";
+        final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+        final String threadName = "create-user";
+
         requestOrder = "INSERT_STUDENT";
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.trace("Students loaded : {}", student.toString());
@@ -54,16 +50,20 @@ public class AuthRequest {
         clientRequests.push(clientRequest_);
 
         while (!clientRequests.isEmpty()) {
-            final ClientRequest clientRequest = clientRequests.pop();
+            final ClientRequest<Student, String> clientRequest = clientRequests.pop();
             clientRequest.join();
             final Student student_response = (Student) clientRequest.getInfo();
             logger.debug("Thread {} complete : {}  --> {}",
-                    clientRequest.getThreadName(), student_response.toString(),
+                    threadName, student_response.toString(),
                     clientRequest.getResult());
         }
     }
 
     public static void signInAs(Student student) throws NullPointerException, IOException, InterruptedException {
+        final String LoggingLabel = "S I G N - I N - C L I E N T";
+        final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+        final String threadName = "signin-client";
+
         requestOrder = "SELECT_STUDENT";
 
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
@@ -83,17 +83,22 @@ public class AuthRequest {
         clientRequests.push(clientRequest);
 
         while (!clientRequests.isEmpty()) {
-            final ClientRequest joinedClientRequest = clientRequests.pop();
+            final ClientRequest<Student, String> joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
-            logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-            final Students students = (Students) joinedClientRequest.getResult();
+            logger.debug("Thread {} complete.", threadName);
+            String signResponse = joinedClientRequest.getResult();
+            System.out.println(signResponse);
         }
     }
 
     public static Boolean isUser(Student student) throws NullPointerException, IOException, InterruptedException {
-        requestOrder = "DOES_STUDENT_EXIST";
+        final String LoggingLabel = "D O E S - U S E R - E X S I S T - C L I E N T";
+        final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+        final String threadName = "doest-user-exist-client";
 
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
+        requestOrder = "DOES_STUDENT_EXIST";
+
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
@@ -114,11 +119,11 @@ public class AuthRequest {
         clientRequests.push(clientRequest_);
 
         while (!clientRequests.isEmpty()) {
-            final ClientRequest clientRequest = clientRequests.pop();
+            final ClientRequest<Student,String> clientRequest = clientRequests.pop();
             clientRequest.join();
             final Student student_response = (Student) clientRequest.getInfo();
             logger.debug("Thread {} complete : {}  --> {}",
-                    clientRequest.getThreadName(), student_response.toString(),
+                    threadName, student_response.toString(),
                     clientRequest.getResult());
             return clientRequest.getResult().equals("success");
         }

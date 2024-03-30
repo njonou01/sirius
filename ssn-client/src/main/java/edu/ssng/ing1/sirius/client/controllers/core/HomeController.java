@@ -6,9 +6,7 @@ import java.util.ResourceBundle;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.ScrollEvent;
 
 public class HomeController implements Initializable{
 

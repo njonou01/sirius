@@ -1,5 +1,9 @@
 package edu.ssng.ing1.sirius.client.controllers.authentification;
 
+import java.io.IOException;
+
+import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.client.requests.authentification.AuthRequest;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -30,7 +34,7 @@ public class SignUpStartContoller {
     private TextField textFielPasswordConfirm;
 
     private Boolean passwordIsVisible = false;
-    
+
     private Boolean passwordConfirmIsVisible = false;
 
     @FXML
@@ -56,7 +60,14 @@ public class SignUpStartContoller {
         Boolean bool1 = manageEmail();
         Boolean bool2 = manageConfirmPassWord();
         Boolean bool3 = managePassword();
-        return (bool1 && bool2 && bool3);
+        Boolean doesStudentExist;
+        try {
+            doesStudentExist = AuthRequest.isUser(new Student(""));
+            return doesStudentExist ? true : false;
+        } catch (NullPointerException | IOException | InterruptedException e) {
+            doesStudentExist = true;
+        }
+        return (bool1 && bool2 && bool3 && !doesStudentExist);
     }
 
     private Boolean manageEmail() {

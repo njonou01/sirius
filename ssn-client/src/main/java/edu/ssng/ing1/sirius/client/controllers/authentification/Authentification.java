@@ -1,29 +1,22 @@
 package edu.ssng.ing1.sirius.client.controllers.authentification;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 
-/**
- * Test
- */
+
 public class Authentification {
     @FXML
     private Button athBtn;
@@ -60,7 +53,6 @@ public class Authentification {
     private Pane signupFinalPane;
     private Pane signupStudentInfoPane;
     private SignUpStartContoller signUpStartcontroller;
-    private SignInController signIncontroller;
     private SignUpStudentInfoController signUpStudentController;
     private SignUpSchoolController signUpSchoolController;
     private SignUpFinalController signUpFinalController;
@@ -114,7 +106,7 @@ public class Authentification {
         this.signupFinalPane = (Pane) signupFinalLoader.load();
 
         this.signUpStartcontroller = signupStartLoader.getController();
-        this.signIncontroller = signinLoader.getController();
+        signinLoader.getController();
         this.signUpStudentController = signupStudentInfoLoader.getController();
         this.signUpSchoolController = signupSchoolLoader.getController();
         this.signUpFinalController = signupFinalLoader.getController();
@@ -146,9 +138,9 @@ public class Authentification {
                 this.signupSchoolPane,
                 this.signupFinalPane);
 
-        setASignupPaneVisible(signupSchoolPane);
+        setASignupPaneVisible(null);
 
-        this.signinPane.setVisible(false);
+        this.signinPane.setVisible(true);
 
         this.isSignUp = false;
         this.initPosOfAnchor = anchor.getLayoutX();

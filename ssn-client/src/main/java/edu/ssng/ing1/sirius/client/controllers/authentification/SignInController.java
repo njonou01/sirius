@@ -1,13 +1,7 @@
 package edu.ssng.ing1.sirius.client.controllers.authentification;
 
-import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.sql.Date;
 import java.util.ResourceBundle;
-
-import edu.ssng.ing1.sirius.business.dto.Student;
-import edu.ssng.ing1.sirius.business.dto.Students;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

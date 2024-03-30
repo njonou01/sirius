@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import edu.ssng.ing1.sirius.business.dto.Universities;
 import edu.ssng.ing1.sirius.business.dto.University;
+import edu.ssng.ing1.sirius.client.requests.authentification.CommonRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

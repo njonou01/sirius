@@ -1,4 +1,4 @@
-package edu.ssng.ing1.sirius.client.controllers.authentification;
+package edu.ssng.ing1.sirius.client.requests.authentification;
 
 import java.io.IOException;
 import java.util.Map;

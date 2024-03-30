@@ -1,9 +1,7 @@
-package edu.ssng.ing1.sirius.client.controllers.authentification;
+package edu.ssng.ing1.sirius.client.requests.authentification;
 
 import java.io.IOException;
-import java.util.Map;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
