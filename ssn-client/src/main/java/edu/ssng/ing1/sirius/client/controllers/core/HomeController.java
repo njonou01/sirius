@@ -3,7 +3,6 @@ package edu.ssng.ing1.sirius.client.controllers.core;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
@@ -26,7 +25,6 @@ public class HomeController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Router router = Router.getInstance();
 
 
         // scene.addEventFilter(ScrollEvent.ANY, event -> {
