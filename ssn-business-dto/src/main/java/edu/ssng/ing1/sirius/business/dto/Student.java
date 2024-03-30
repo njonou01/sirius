@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 
-
 import java.util.Objects;
 
 public class Student {
@@ -19,9 +18,10 @@ public class Student {
     public Date bithday;
     public String phoneNumber;
     public String profileImage;
-    public String username ;
+    public String username;
 
-    public Student(String firstname, String familyname, String email, String gender, String password, Date bithday, String phoneNumber, String profileImage, String username) {
+    public Student(String firstname, String familyname, String email, String gender, String password, Date bithday,
+            String phoneNumber, String profileImage, String username) {
         this.firstname = firstname;
         this.familyname = familyname;
         this.email = email;
@@ -33,21 +33,26 @@ public class Student {
         this.username = username;
     }
 
-    public Student(String password, String username) {
+    public Student(String username, String password) {
         this.password = password;
         this.username = username;
     }
 
+    public Student(String username) {
+        this.username = username;
+    }
 
     public Student() {
     }
 
     public final Student build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResulset(resultSet,  "familyname","firstname",
+        setFieldsFromResulset(resultSet, "familyname", "firstname",
                 "email", "phoneNumber", "gender", "username", "password", "bithday");
         return this;
     }
+    
+
     public final int signin(PreparedStatement preparedStatement)
             throws NoSuchFieldException, IllegalAccessException, SQLException {
         return build(preparedStatement).executeUpdate();
@@ -56,8 +61,8 @@ public class Student {
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
 
-        return buildPreparedStatement(preparedStatement, bithday , familyname, firstname,
-                email, phoneNumber, gender,username,
+        return buildPreparedStatement(preparedStatement, bithday, familyname, firstname,
+                email, phoneNumber, gender, username,
                 BCrypt.hashpw(password, BCrypt.gensalt()));
     }
 
@@ -177,7 +182,7 @@ public class Student {
     }
 
     private final PreparedStatement buildPreparedStatement(PreparedStatement preparedStatement,
-    final Date date ,final String... fieldNames )
+            final Date date, final String... fieldNames)
             throws NoSuchFieldException, SQLException, IllegalAccessException {
         int ix = 0;
         for (final String fieldName : fieldNames) {

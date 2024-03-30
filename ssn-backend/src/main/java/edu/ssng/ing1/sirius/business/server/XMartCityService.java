@@ -33,10 +33,14 @@ public class XMartCityService {
 
     private enum Queries {
         SELECT_ALL_CITIES("SELECT t.id_city , t.zipcode , t.city_name FROM \"ssn-db-ing1\".city t"),
-        SELECT_ALL_STUDENTS("SELECT t.name, t.firstname, t.group FROM \"ssn-db-ing1\".students t"),
+        SELECT_ALL_STUDENTS(
+                "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
+                        "\tFROM \"ssn-db-ing1\".student"),
         SELECT_ALL_UNIVERSITIES("SELECT t.id_university, t.label, t.shortname, t.acronym\n" + //
                 "\tFROM \"ssn-db-ing1\".university t ;"),
-
+        DOES_STUDENT_EXIST(
+                "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
+                        "\tFROM \"ssn-db-ing1\".student where username = ? "),
         INSERT_STUDENT(
                 "INSERT INTO \"ssn-db-ing1\".student (familly_name, first_name, email, phone_number, gender, username, \"password\", birthday) VALUES(?, ?, ?, ?, ?, ?, ? , ?)");
 
@@ -84,6 +88,9 @@ public class XMartCityService {
 
                 case INSERT_STUDENT:
                     return insertStudentResponse(preparedStatement, request);
+                case DOES_STUDENT_EXIST:
+                    return doesStudentExistResponse(preparedStatement, request);
+
                 default:
                     break;
             }
@@ -168,8 +175,32 @@ public class XMartCityService {
             return new Response(request.getRequestId(), bodyResponse);
 
         } catch (PSQLException e) {
+            e.printStackTrace();
             String errormsg = "werrrr";
             String bodyResponse = String.format("{\"error\": \"%s\"}", errormsg);
+            return new Response(request.getRequestId(), bodyResponse);
+        }
+
+    }
+
+    public Response doesStudentExistResponse(PreparedStatement preparedStatement, Request request)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final Student student = mapper.readValue(request.getRequestBody(), Student.class);
+        preparedStatement.setString(1, student.getUsername());
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            String errormsg = "success";
+            resultSet.close();
+            String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
+            return new Response(request.getRequestId(), bodyResponse);
+
+        } else {
+            String errormsg = "noonnnnnnnnnn c'a n'a pas fonctionné";
+            resultSet.close();
+            String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
             return new Response(request.getRequestId(), bodyResponse);
         }
 

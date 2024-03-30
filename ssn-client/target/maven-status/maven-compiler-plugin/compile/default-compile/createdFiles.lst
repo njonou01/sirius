@@ -1,3 +1,4 @@
+edu/ssng/ing1/sirius/client/controllers/authentification/IsUserClientRequest.class
 edu/ssng/ing1/sirius/client/controllers/authentification/SignUpClientRequest.class
 edu/ssng/ing1/sirius/client/router/Router.class
 edu/ssng/ing1/sirius/client/toast/ToastType.class

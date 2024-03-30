@@ -30,6 +30,7 @@ public class SignUpStartContoller {
     private TextField textFielPasswordConfirm;
 
     private Boolean passwordIsVisible = false;
+    
     private Boolean passwordConfirmIsVisible = false;
 
     @FXML

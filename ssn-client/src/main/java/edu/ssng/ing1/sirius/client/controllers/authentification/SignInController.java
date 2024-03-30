@@ -56,12 +56,6 @@ public class SignInController implements Initializable {
         });
 
         signinBtn.setOnAction(event -> {
-            try {
-                Date date = Date.valueOf("2024-03-28");
-                AuthRequest.signInAs(new Student("nuvvll", "dvddfnull", "nfddull", "nul", "null", date, "nulddfl", "nullfds","rddghhgd"));
-            } catch (NullPointerException | IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
             if (Rules.isValidEmail(emailField.getText())) {
 
             } else {
