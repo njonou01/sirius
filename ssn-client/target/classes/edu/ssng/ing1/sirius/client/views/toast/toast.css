@@ -1,0 +1,34 @@
+.toast{
+    -fx-border-width :  0.5px  0.5px 0.5px 10px ;
+    -fx-background-color: white;
+    -fx-border-style: solid;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);
+}
+.success-toast{
+    -fx-border-color: #34C759;
+}
+.success-toast .icon{
+    -fx-fill: #34C759;
+}
+
+.error-toast{
+    -fx-border-color: #DF4E4D;
+}
+.error-toast .icon{
+    -fx-fill: #DF4E4D;
+}
+
+.warning-toast{
+    -fx-border-color: #FF9500;
+}
+.warning-toast .icon{
+    -fx-fill: #FF9500;
+}
+
+.info-toast{
+    -fx-border-color: #007AFF;
+}
+.info-toast .icon{
+    -fx-fill: #007AFF;
+}
+

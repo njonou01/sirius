@@ -1,0 +1,146 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("../asset/font/Roboto/Roboto-Regular.ttf");
+}
+@font-face {
+  font-family: "Roboto-Bold";
+  src: url("../asset/font/Roboto/Roboto-Bold.ttf");
+}
+
+
+.root {
+  -fx-font-family: "Roboto";
+  -fx-background-color: #fff;
+  -bg-main-color: rgba(40, 53, 147, 1);
+  -bg-main-color-hover: rgba(40, 53, 147, 0.8);
+}
+
+.root * {
+  -fx-font-size: 14px;
+  -fx-text-fill: rgb(95, 95, 95);
+  -fx-spacing: 5px;
+}
+.scene {
+  -fx-background-color: white;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0, 2, 2);
+}
+.labelauthtext {
+  -fx-fill: #ffffff;
+  -fx-font-weight: bold;
+  -fx-font-size: 15px;
+}
+.authCommentText {
+  -fx-fill: #ffffff;
+}
+.authMsgBox {
+  -fx-background-color: -bg-main-color;
+}
+.authBtn {
+  -fx-background-color: transparent;
+  -fx-border-color: #ffffff;
+  -fx-text-fill: #ffffff;
+  -fx-padding: 8px 25px;
+}
+.authBtn:hover {
+  -fx-border-color: linear-gradient(
+    to right,
+    -bg-main-color,
+    rgba(255, 255, 255, 1)
+  );
+  -fx-border-color-transition: color 1s;
+  -fx-background-color: linear-gradient(
+    to right,
+    -bg-main-color,
+    rgba(255, 255, 255, 0.3)
+  );
+  -fx-font-weight: bold;
+}
+
+.appTitle {
+  -fx-text-fill: #ffffff;
+  -fx-font-weight: bold;
+  -fx-font-size: 25px;
+}
+.textField {
+  -fx-border-color: rgb(196, 193, 193);
+  -fx-background-color: white;
+}
+.signBtn {
+  -fx-background-color: -bg-main-color;
+  -fx-text-fill: rgb(255, 255, 255);
+  -fx-font-weight: bold;
+  -fx-border-radius: 0;
+  -fx-background-radius: 0;
+}
+.signBtn:hover {
+  /* -fx-border-color: linear-gradient(to left, -bg-main-color, rgba(255,255,255,0.3)); */
+  -fx-border-color-transition: color 1s;
+  -fx-background-color: linear-gradient(
+    to left,
+    -bg-main-color-hover,
+    rgba(255, 255, 255, 0.3)
+  );
+  -fx-font-weight: bold;
+}
+.signTitle {
+  -fx-transform: uppercase;
+  -fx-font-size: 16px;
+}
+.passwordBtn {
+  -fx-background-color: -bg-main-color;
+  -fx-text-fill: #fff;
+  -fx-background-radius: 0;
+  -fx-font-weight: bold;
+}
+.passwordBtn:hover {
+  -fx-effect: dropshadow(gaussian, -bg-main-color-hover, 4, 0, 2, 2);
+}
+.checkbox .box {
+  -fx-background-color: rgb(255, 255, 255);
+  -fx-border-color: rgb(196, 193, 193);
+}
+.check-box:selected .mark {
+  -fx-background-color: -bg-main-color;
+}
+.check-box .mark {
+    -fx-shape: "M22 0h-22v22h22v-22z";
+}
+.link {
+  -fx-text-fill: -bg-main-color;
+}
+.errortextfield{
+  -fx-border-color: rgb(253, 4, 4);
+  -fx-background-color: rgba(250,0,0,0.1);
+}
+.date-picker {
+  -fx-border-color: rgb(196, 193, 193);
+  -fx-background-color: white;
+  -fx-box-border: transparent;
+  -fx-background-insets: 0;
+  
+}
+.date-picker > .text-field {
+  -fx-background-color: white;
+}
+
+.textField > .text-field {
+  -fx-background-color: white;
+}
+.textField .arrow-button {
+  -fx-background-color: #ffffff; /* Couleur du bouton de sélection */
+  -fx-border-width: 0 0 0 1px;
+  -fx-border-color: rgb(196, 193, 193);
+
+}
+
+
+.date-picker .arrow-button {
+    -fx-background-color: #ffffff; /* Couleur du bouton de sélection */
+    -fx-border-width: 0 0 0 1px;
+    -fx-border-color: rgb(196, 193, 193);
+
+}
+
+
+
+

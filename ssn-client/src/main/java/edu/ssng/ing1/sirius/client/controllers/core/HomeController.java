@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import org.slf4j.Logger;
 import edu.ssng.ing1.sirius.client.MainClient;
-import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;

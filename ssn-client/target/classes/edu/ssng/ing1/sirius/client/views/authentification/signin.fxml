@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="signingPane" prefHeight="546.0" prefWidth="475.0" stylesheets="@authentification.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.authentification.SignInController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="546.0" prefWidth="480.0">
+         <children>
+            <AnchorPane prefHeight="534.0" prefWidth="328.0">
+               <children>
+                  <VBox layoutX="16.0" layoutY="99.0" prefHeight="546.0" prefWidth="312.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane prefHeight="140.0" prefWidth="349.0">
+                           <children>
+                              <Text layoutX="76.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="signTitle" text="Log in to Your SSN Account" />
+                              <Text layoutX="-3.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in to your account so  you can continuous buildind" />
+                           </children>
+                        </AnchorPane>
+                        <GridPane prefHeight="239.0" prefWidth="350.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <TextField fx:id="emailField" prefHeight="40.0" prefWidth="312.0" styleClass="textField" GridPane.rowIndex="1" />
+                              <AnchorPane GridPane.rowIndex="3">
+                                 <children>
+                                    <TextField fx:id="textFielPassword" layoutX="14.0" layoutY="2.0" prefHeight="40.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <PasswordField fx:id="passwordField" layoutX="119.0" layoutY="8.0" prefHeight="40.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <Button fx:id="showpasswordBtn" layoutX="290.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="59.0" styleClass="passwordBtn" text="Show" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="5">
+                                 <children>
+                                    <CheckBox fx:id="remindCheckBox" layoutX="6.0" layoutY="11.0" mnemonicParsing="false" styleClass="checkbox" text="Remember Me" />
+                                    <Hyperlink fx:id="resetPaswordLink" layoutX="227.0" layoutY="9.0" styleClass="link" text="Forgot Password" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane>
+                                 <children>
+                                    <Label layoutX="-4.0" layoutY="18.0" text="Email" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane GridPane.rowIndex="2">
+                                 <children>
+                                    <Label layoutY="15.0" text="Password" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </GridPane>
+                        <AnchorPane prefHeight="143.0" prefWidth="312.0">
+                           <children>
+                              <Button fx:id="signinBtn" layoutX="9.0" layoutY="29.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="340.0" styleClass="signBtn" text="SIGN IN" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</Pane>
