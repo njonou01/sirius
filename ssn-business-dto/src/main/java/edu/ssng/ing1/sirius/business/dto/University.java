@@ -1,13 +1,9 @@
 package edu.ssng.ing1.sirius.business.dto;
 
 import java.lang.reflect.Field;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
-
-import org.mindrot.jbcrypt.BCrypt;
 
 public class University {
     private Integer id_university;
@@ -110,16 +106,7 @@ public class University {
         }
     }
 
-    private final PreparedStatement buildPreparedStatement(PreparedStatement preparedStatement,
-            final Date date, final String... fieldNames)
-            throws NoSuchFieldException, SQLException, IllegalAccessException {
-        int ix = 0;
-        for (final String fieldName : fieldNames) {
-            preparedStatement.setString(++ix, fieldName);
-        }
-        preparedStatement.setDate(++ix, date);
-        return preparedStatement;
-    }
+
 
     @Override
     public int hashCode() {

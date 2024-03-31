@@ -59,36 +59,41 @@ public class AuthRequest {
         }
     }
 
-    public static void signInAs(Student student) throws NullPointerException, IOException, InterruptedException {
+    public static Boolean signInAs(Student student) throws NullPointerException, IOException, InterruptedException {
         final String LoggingLabel = "S I G N - I N - C L I E N T";
         final Logger logger = LoggerFactory.getLogger(LoggingLabel);
         final String threadName = "signin-client";
 
-        requestOrder = "SELECT_STUDENT";
+        requestOrder = "SIGN_IN_AS";
 
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
+        final String jsonifiedStudent = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(student);
+        logger.trace("Student with its JSON face : {}", jsonifiedStudent);
         final String requestId = UUID.randomUUID().toString();
         final Request request = new Request();
         request.setRequestId(requestId);
         request.setRequestOrder(requestOrder);
+        request.setRequestContent(jsonifiedStudent);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte[] requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
-        final SignUpClientRequest clientRequest = new SignUpClientRequest(
+
+        final SignInClientRequest clientRequest_ = new SignInClientRequest(
                 networkConfig,
                 birthdate++, request, student, requestBytes);
-        clientRequests.push(clientRequest);
+        clientRequests.push(clientRequest_);
 
         while (!clientRequests.isEmpty()) {
             final ClientRequest<Student, String> joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", threadName);
             String signResponse = joinedClientRequest.getResult();
-            System.out.println(signResponse);
+            return signResponse.equalsIgnoreCase("success");
         }
+        return false;
     }
 
     public static Boolean isUser(Student student) throws NullPointerException, IOException, InterruptedException {
@@ -119,7 +124,7 @@ public class AuthRequest {
         clientRequests.push(clientRequest_);
 
         while (!clientRequests.isEmpty()) {
-            final ClientRequest<Student,String> clientRequest = clientRequests.pop();
+            final ClientRequest<Student, String> clientRequest = clientRequests.pop();
             clientRequest.join();
             final Student student_response = (Student) clientRequest.getInfo();
             logger.debug("Thread {} complete : {}  --> {}",

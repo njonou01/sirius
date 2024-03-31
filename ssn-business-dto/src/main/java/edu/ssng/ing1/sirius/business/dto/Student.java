@@ -33,13 +33,13 @@ public class Student {
         this.username = username;
     }
 
-    public Student(String username, String password) {
+    public Student(String email, String password) {
         this.password = password;
-        this.username = username;
+        this.email = email;
     }
 
-    public Student(String username) {
-        this.username = username;
+    public Student(String email) {
+        this.username = email;
     }
 
     public Student() {

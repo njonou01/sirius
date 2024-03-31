@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.requests.authentification.AuthRequest;
+import edu.ssng.ing1.sirius.client.toast.Toast;
+import edu.ssng.ing1.sirius.client.toast.ToastType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -60,14 +62,8 @@ public class SignUpStartContoller {
         Boolean bool1 = manageEmail();
         Boolean bool2 = manageConfirmPassWord();
         Boolean bool3 = managePassword();
-        Boolean doesStudentExist;
-        try {
-            doesStudentExist = AuthRequest.isUser(new Student(""));
-            return doesStudentExist ? true : false;
-        } catch (NullPointerException | IOException | InterruptedException e) {
-            doesStudentExist = true;
-        }
-        return (bool1 && bool2 && bool3 && !doesStudentExist);
+       
+        return (bool1 && bool2 && bool3);
     }
 
     private Boolean manageEmail() {
@@ -82,7 +78,17 @@ public class SignUpStartContoller {
                         : "");
             });
         }
-        return Rules.isValidEmail(emailField.getText());
+        Boolean doesStudentExist;
+        try {
+            doesStudentExist = AuthRequest.isUser(new Student(emailField.getText()));
+            return doesStudentExist ? true : false;
+        } catch (NullPointerException | IOException | InterruptedException e) {
+            doesStudentExist = true;
+        }
+        if (!doesStudentExist) {
+            Toast.buildToast(ToastType.ERROR,"Cet email existe déja ");
+        }
+        return Rules.isValidEmail(emailField.getText()) && doesStudentExist;
     }
 
     private Boolean manageConfirmPassWord() {

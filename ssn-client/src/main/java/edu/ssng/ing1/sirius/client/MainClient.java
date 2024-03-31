@@ -1,5 +1,7 @@
 package edu.ssng.ing1.sirius.client;
 
+import java.util.prefs.Preferences;
+
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -17,18 +19,23 @@ public class MainClient extends Application {
         stage.setWidth(bounds.getWidth());
         stage.setHeight(bounds.getHeight());
 
+        String ssnemailpref = "SSN_USER_EMAIL";
+        Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
+        String userEmail = prefs.get(ssnemailpref, null);
+
         Router router = Router.getInstance();
         router.setStage(stage);
-
-        router.navigateTo("authentification");
-
+        if (userEmail != null) {
+            Router.getInstance().navigateTo("authentification");
+        } else {
+            Router.getInstance().navigateTo("main");
+        }
         System.out.println("----main---> " + router.getStage());
-
 
     }
 
     public static void main(String[] args) {
-            launch(args);
+        launch(args);
     }
 
 }

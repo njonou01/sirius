@@ -14,17 +14,14 @@ import edu.ssng.ing1.sirius.business.dto.University;
 import edu.ssng.ing1.sirius.commons.Request;
 import edu.ssng.ing1.sirius.commons.Response;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.*;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Random;
 
 public class XMartCityService {
 
@@ -40,9 +37,11 @@ public class XMartCityService {
                 "\tFROM \"ssn-db-ing1\".university t ;"),
         DOES_STUDENT_EXIST(
                 "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
-                        "\tFROM \"ssn-db-ing1\".student where username = ? "),
+                        "\tFROM \"ssn-db-ing1\".student where email = ? "),
         INSERT_STUDENT(
-                "INSERT INTO \"ssn-db-ing1\".student (familly_name, first_name, email, phone_number, gender, username, \"password\", birthday) VALUES(?, ?, ?, ?, ?, ?, ? , ?)");
+                "INSERT INTO \"ssn-db-ing1\".student (familly_name, first_name, email, phone_number, gender, username, \"password\", birthday) VALUES(?, ?, ?, ?, ?, ?, ? , ?)"),
+        SIGN_IN_AS(
+                "SELECT  password FROM \"ssn-db-ing1\".student where email=? ");
 
         private final String query;
 
@@ -90,7 +89,8 @@ public class XMartCityService {
                     return insertStudentResponse(preparedStatement, request);
                 case DOES_STUDENT_EXIST:
                     return doesStudentExistResponse(preparedStatement, request);
-
+                case SIGN_IN_AS:
+                    return signinAsResponse(preparedStatement, request);
                 default:
                     break;
             }
@@ -183,12 +183,40 @@ public class XMartCityService {
 
     }
 
+    public Response signinAsResponse(PreparedStatement preparedStatement, Request request)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final Student student = mapper.readValue(request.getRequestBody(), Student.class);
+        preparedStatement.setString(1, student.getEmail());
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            final String hashedPassword = resultSet.getString("password");
+            if (BCrypt.checkpw(student.getPassword(), hashedPassword)) {
+                String bodyResponse = String.format("{\"msg\": \"%s\"}", "success");
+                return new Response(request.getRequestId(), bodyResponse);
+            }
+            resultSet.close();
+            String msg = "mot de passe incorrect";
+            String bodyResponse = String.format("{\"msg\": \"%s\"}", msg);
+            return new Response(request.getRequestId(), bodyResponse);
+
+        } else {
+            String errormsg = "l'utilisateur n'existe pas ";
+            resultSet.close();
+            String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
+            return new Response(request.getRequestId(), bodyResponse);
+        }
+
+    }
+
     public Response doesStudentExistResponse(PreparedStatement preparedStatement, Request request)
             throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
 
         final ObjectMapper mapper = new ObjectMapper();
         final Student student = mapper.readValue(request.getRequestBody(), Student.class);
-        preparedStatement.setString(1, student.getUsername());
+        preparedStatement.setString(1, student.getEmail());
 
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {

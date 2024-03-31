@@ -1,7 +1,10 @@
 package edu.ssng.ing1.sirius.client.requests.authentification;
 
 import java.io.IOException;
+import java.util.Map;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
@@ -18,7 +21,9 @@ public class SignInClientRequest extends ClientRequest<Student, String> {
 
     @Override
     public String readResult(String body) throws IOException {
-        final String result = body;
+ final ObjectMapper mapper = new ObjectMapper();
+        final Map<String, String> studentIdMap = mapper.readValue(body, new TypeReference<Map<String, String>>() {});
+        final String result = studentIdMap.get("msg").toString();
         return result;
     }
 }

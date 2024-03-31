@@ -3,6 +3,7 @@ package edu.ssng.ing1.sirius.client.requests.authentification;
 import java.io.IOException;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
@@ -21,9 +22,8 @@ public class SignUpClientRequest extends ClientRequest<Student, String> {
     @Override
     public String readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        @SuppressWarnings("unchecked")
-        final Map<String, Integer> studentIdMap = mapper.readValue(body, Map.class);
-        final String result = studentIdMap.get("student_id").toString();
+        final Map<String, String> studentIdMap = mapper.readValue(body, new TypeReference<Map<String, String>>() {});
+        final String result = studentIdMap.get("msg").toString();
         return result;
     }
 }

@@ -23,7 +23,6 @@ public class IsUserClientRequest extends ClientRequest<Student, String> {
     public String readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         final Map<String, String> studentIdMap = mapper.readValue(body, new TypeReference<Map<String, String>>() {});
-        // final Map<String, String> studentIdMap = mapper.readValue(body, new TypeReference<Map<String, String>>() {});
         final String result = studentIdMap.get("msg").toString();
         return result;
     }
