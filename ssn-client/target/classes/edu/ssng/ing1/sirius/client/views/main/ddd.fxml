@@ -23,9 +23,9 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.core.HomeController">
+<BorderPane fx:id="corePane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.core.HomeController">
    <center>
-      <SplitPane dividerPositions="0.15, 0.72" prefHeight="850.0" prefWidth="1200.0">
+      <SplitPane fx:id="homePane" dividerPositions="0.15, 0.72" prefHeight="850.0" prefWidth="1200.0">
          <items>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
@@ -593,7 +593,7 @@
                   </VBox>
                   <VBox alignment="CENTER" styleClass="navbar-elmt">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="55.0" prefWidth="80.0" styleClass="btn-transparent">
+                        <Button fx:id="homePageBtn" mnemonicParsing="false" prefHeight="55.0" prefWidth="80.0" styleClass="btn-transparent">
                            <graphic>
                               <FontIcon iconLiteral="fas-home" iconSize="25" selectionEnd="0" styleClass="navbar-icon" />
                            </graphic>
@@ -602,7 +602,7 @@
                   </VBox>
                   <VBox alignment="CENTER" styleClass="navbar-elmt">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" styleClass="btn-transparent">
+                        <Button fx:id="friendPageBtn" mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" styleClass="btn-transparent">
                            <graphic>
                               <FontIcon iconLiteral="fas-users" iconSize="25" styleClass="navbar-icon" />
                            </graphic>

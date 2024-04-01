@@ -3,8 +3,6 @@ package edu.ssng.ing1.sirius.business.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import edu.ssng.ing1.City;
-
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;

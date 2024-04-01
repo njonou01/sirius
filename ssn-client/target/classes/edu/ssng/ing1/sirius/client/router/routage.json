@@ -27,6 +27,14 @@
     "path": "main/ddd",
     "title": "Mon App"
   },
+  "friend-page": {
+    "path": "main/testfriend",
+    "title": "Mon App"
+  },
+  "friend-invitation": {
+    "path": "main/friend-invitation",
+    "title": "Mon App"
+  },
   "post": {
     "path": "post/post",
     "title": "Mon App"

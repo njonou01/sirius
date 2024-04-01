@@ -1,6 +1,7 @@
 package edu.ssng.ing1.sirius.business.dto;
 
 import org.mindrot.jbcrypt.BCrypt;
+
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,9 @@ public class Student {
     public String phoneNumber;
     public String profileImage;
     public String username;
+    public byte[] profileImageStream ;
+
+    
 
     public Student(String firstname, String familyname, String email, String gender, String password, Date bithday,
             String phoneNumber, String profileImage, String username) {
@@ -171,6 +175,13 @@ public class Student {
 
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
+    }
+    public byte[] getProfileImageStream() {
+        return profileImageStream;
+    }
+
+    public void setProfileImageStream(byte[] bs) {
+        this.profileImageStream = bs;
     }
 
     private void setFieldsFromResulset(final ResultSet resultSet, final String... fieldNames)

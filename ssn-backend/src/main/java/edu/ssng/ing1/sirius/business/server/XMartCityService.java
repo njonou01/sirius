@@ -5,8 +5,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.ssng.ing1.City;
+import edu.ssng.ing1.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.Cities;
+import edu.ssng.ing1.sirius.business.dto.City;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.business.dto.Universities;
@@ -19,9 +20,16 @@ import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.Base64;
+import java.util.zip.Deflater;
+import java.util.zip.GZIPOutputStream;
 
 public class XMartCityService {
 
@@ -33,6 +41,15 @@ public class XMartCityService {
         SELECT_ALL_STUDENTS(
                 "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
                         "\tFROM \"ssn-db-ing1\".student"),
+        SELECT_FRIENDS(
+                "SELECT student.familly_name as familyname , student.first_name as firstname, student.email as email, student.phone_number as phoneNumber, student.gender as gender, student.username as username,student.profile_image as profile_image , student.password as password , student.birthday as bithday \n"
+                        + //
+                        "\tFROM \"ssn-db-ing1\".befriend as befriend inner join \"ssn-db-ing1\".student as student on befriend.receiver = student.id_student where befriend.sender = ? and befriend.status = 'accepted'"),
+
+        SELECT_FRIEND_REQUEST_WITHOUT_ANSWER(
+                "SELECT student.familly_name, student.first_name, student.email, student.phone_number, student.gender, student.username,student.profile_image\n"
+                        + //
+                        "\tFROM \"ssn-db-ing1\".befriend as befriend inner join \"ssn-db-ing1\".student as student on befriend.receiver = student.id_student where befriend.sender=2 and befriend.status = 'no reponse'"),
         SELECT_ALL_UNIVERSITIES("SELECT t.id_university, t.label, t.shortname, t.acronym\n" + //
                 "\tFROM \"ssn-db-ing1\".university t ;"),
         DOES_STUDENT_EXIST(
@@ -82,6 +99,12 @@ public class XMartCityService {
                 case SELECT_ALL_CITIES:
                     return selectCitiesResponse(preparedStatement, request);
 
+                case SELECT_FRIEND_REQUEST_WITHOUT_ANSWER:
+                    return selectStudentsResponse(preparedStatement, request);
+
+                case SELECT_FRIENDS:
+                    return selectFriendResponse(preparedStatement, request);
+
                 case SELECT_ALL_UNIVERSITIES:
                     return selectUniversitiesResponse(preparedStatement, request);
 
@@ -127,6 +150,49 @@ public class XMartCityService {
         listOfStudents.close();
         bodyResponse = mapper.writeValueAsString(students);
         return new Response(request.getRequestId(), bodyResponse);
+    }
+
+    public Response selectFriendResponse(PreparedStatement preparedStatement, Request request) throws SQLException,
+            JsonParseException, JsonMappingException, IOException, NoSuchFieldException, IllegalAccessException {
+        Students students = new Students();
+        final ObjectMapper mapper = new ObjectMapper();
+        final BeFriend friend_relation = mapper.readValue(request.getRequestBody(), BeFriend.class);
+        preparedStatement.setInt(1, friend_relation.getSender());
+        String bodyResponse = "";
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+        ResultSet listOfStudents = preparedStatement.executeQuery();
+        while (listOfStudents.next()) {
+            Student student = new Student().build(listOfStudents);
+            InputStream inputStream = classLoader.getResourceAsStream("media/images/ssn-profile-image.png");
+            byte[] imageBytes = convertInputStreamToBytes(inputStream);
+
+            
+            student.setProfileImageStream(imageBytes);
+            students.add(student);
+            inputStream.close();
+        }
+        listOfStudents.close();
+        bodyResponse = mapper.writeValueAsString(students);
+        File file = new File("montest.json");
+
+        mapper.writeValue(file, bodyResponse);
+        return new Response(request.getRequestId(), bodyResponse);
+    }
+
+    private static byte[] convertInputStreamToBytes(InputStream inputStream) {
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            return outputStream.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public Response selectUniversitiesResponse(PreparedStatement preparedStatement, Request request)
@@ -232,6 +298,63 @@ public class XMartCityService {
             return new Response(request.getRequestId(), bodyResponse);
         }
 
+    }
+
+    public static byte[] serializeImage2(InputStream inputStream) throws IOException {
+        // Lecture de l'InputStream et conversion en tableau de bytes
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    public static byte[] serializeImage3(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        // Lire les données de l'image à partir de l'InputStream
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = inputStream.read(buffer)) > 0) {
+            byteArrayOutputStream.write(buffer, 0, len);
+        }
+
+        // Compression des données de l'image
+        byte[] imageData = byteArrayOutputStream.toByteArray();
+        Deflater deflater = new Deflater();
+        deflater.setInput(imageData);
+        deflater.finish();
+
+        byteArrayOutputStream.reset(); // Réinitialiser le flux de sortie
+
+        while (!deflater.finished()) {
+            int count = deflater.deflate(buffer);
+            byteArrayOutputStream.write(buffer, 0, count);
+        }
+
+        deflater.end();
+        byte[] compressedData = byteArrayOutputStream.toByteArray();
+
+        byteArrayOutputStream.close();
+        inputStream.close();
+
+        return compressedData;
+    }
+
+    public static String serializeImage(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteArrayOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        String base64EncodedImage = java.util.Base64.getEncoder().encodeToString(bytes);
+
+        return base64EncodedImage;
     }
 
 }

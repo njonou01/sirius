@@ -25,7 +25,7 @@ public class MainClient extends Application {
 
         Router router = Router.getInstance();
         router.setStage(stage);
-        if (userEmail != null) {
+        if (userEmail == null) {
             Router.getInstance().navigateTo("authentification");
         } else {
             Router.getInstance().navigateTo("main");
