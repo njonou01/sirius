@@ -10,6 +10,7 @@ import java.sql.Date;
 
 import java.util.Objects;
 
+
 public class Student {
     public String firstname;
     public String familyname;
@@ -52,7 +53,7 @@ public class Student {
     public final Student build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
         setFieldsFromResulset(resultSet, "familyname", "firstname",
-                "email", "phoneNumber", "gender", "username", "password", "bithday");
+                "email", "phoneNumber", "gender", "username", "password", "bithday" ,"");
         return this;
     }
     

@@ -24,12 +24,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.util.Base64;
 import java.util.zip.Deflater;
-import java.util.zip.GZIPOutputStream;
 
 public class XMartCityService {
 
@@ -165,11 +162,9 @@ public class XMartCityService {
         ResultSet listOfStudents = preparedStatement.executeQuery();
         while (listOfStudents.next()) {
             Student student = new Student().build(listOfStudents);
-            InputStream inputStream = classLoader.getResourceAsStream("media/images/ssn-profile-image.png");
-            byte[] imageBytes = convertInputStreamToBytes(inputStream);
-
-            
-            student.setProfileImageStream(imageBytes);
+            student.setProfileImage(listOfStudents.getString("profile_image"));
+            InputStream inputStream = classLoader.getResourceAsStream("media/images/" + student.getProfileImage());
+            student.setProfileImageStream(convertInputStreamToBytes(inputStream));
             students.add(student);
             inputStream.close();
         }

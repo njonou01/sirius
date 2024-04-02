@@ -1,7 +1,10 @@
 package edu.ssng.ing1.sirius.client.controllers.core;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Base64;
 import java.util.ResourceBundle;
 
 import edu.ssng.ing1.BeFriend;
@@ -12,15 +15,14 @@ import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 
-public class FriendPageController implements Initializable{
+public class FriendPageController implements Initializable {
 
     @FXML
     private FlowPane invitationZone;
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,7 +32,9 @@ public class FriendPageController implements Initializable{
                 FXMLLoader loader = Router.getInstance().getParentNode("friend-invitation");
                 AnchorPane pane = (AnchorPane) loader.load();
                 FriendInvitationController fr = loader.getController();
-                fr.getName().setText(student.getFamilyname()+ " " + student.getFirstname());
+                fr.getName().setText(student.getFamilyname() + " " + student.getFirstname());
+                Image image = new Image(convertBytesToInputStream(student.getProfileImageStream()));
+                fr.getProfileImage().setImage(image);
                 invitationZone.getChildren().add(pane);
             }
         } catch (NullPointerException | IOException | InterruptedException e) {
@@ -39,4 +43,11 @@ public class FriendPageController implements Initializable{
         }
     }
 
+    public static InputStream toInputStream(String base64String) {
+        byte[] byteArray = Base64.getDecoder().decode(base64String);
+        return new ByteArrayInputStream(byteArray);
+    }
+    private static InputStream convertBytesToInputStream(byte[] byteArray) {
+        return new ByteArrayInputStream(byteArray);
+    }
 }

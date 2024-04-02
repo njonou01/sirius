@@ -56,8 +56,13 @@ public class CoreBackendServer implements Runnable {
 
     public CoreBackendServer() throws IOException, SQLException {
         coreServerSocket = new ServerSocket(config.getListenPort());
-        coreServerSocket.setSoTimeout(5000);
+        int bufferSize =  20*1024 * 1024; 
+        logger.debug("Taille par défaut du buffer : " +  coreServerSocket.getReceiveBufferSize() + " octets");
+        coreServerSocket.setSoTimeout(1000*60);
+        coreServerSocket.setReceiveBufferSize(bufferSize);
         logger.debug("Configuration loaded : {}", coreServerSocket.toString());
+        logger.debug("Taille par défaut du buffer : " +  coreServerSocket.getReceiveBufferSize() + " octets");
+
         coreThread = new Thread(this, threadName);
         // Starts mysefl.
         coreThread.start();
@@ -76,6 +81,8 @@ public class CoreBackendServer implements Runnable {
                 // process ...
                 if (0 < connectionPool.available()) {
                     final Socket accept = coreServerSocket.accept();
+                    accept.setReceiveBufferSize(20*1024*1024); // Par exemple, 8 Ko
+
                     // Just to be sure ... Specially if you didn't care about the warning above
                     // Oh (wo-)man, Note you might have a client socket in your hand with a null
                     // connection
