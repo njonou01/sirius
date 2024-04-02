@@ -1,6 +1,6 @@
 package edu.ssng.ing1.sirius.client;
 
-import java.io.IOException;
+import java.util.prefs.Preferences;
 
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.application.Application;
@@ -19,28 +19,24 @@ public class MainClient extends Application {
         stage.setWidth(bounds.getWidth());
         stage.setHeight(bounds.getHeight());
 
+        String ssnemailpref = "SSN_USER_EMAIL";
+        Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
+        String userEmail = prefs.get(ssnemailpref, null);
+
         Router router = Router.getInstance();
         router.setStage(stage);
-        try {
-            router.navigateTo("authentification");
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            stage.close();
+        if (userEmail == null) {
+            Router.getInstance().navigateTo("authentification");
+        } else {
+            Router.getInstance().navigateTo("main");
         }
-    }
-
-    public void redirectTo(String pageTiltle) {
+        System.out.println("----main---> " + router.getStage());
 
     }
 
     public static void main(String[] args) {
-        try {
-            launch(args);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
+        
+        launch(args);
     }
 
 }
