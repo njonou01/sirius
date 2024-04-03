@@ -25,6 +25,8 @@ public class HomeController implements Initializable {
     @FXML
     private Button friendPageBtn;
     @FXML
+    private Button createActivityBtn;
+    @FXML
     private BorderPane corePane;
     @FXML
     private SplitPane homePane;
@@ -39,18 +41,18 @@ public class HomeController implements Initializable {
     @FXML
     private Button homePageBtn;
 
-    private final Logger logger = LoggerFactory.getLogger("LoggingLabel");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        createActivityBtn.setOnAction(event -> {
+        });
         // String ssnemailpref = "SSN_USER_EMAIL";
         // Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
         // String userEmail = prefs.get(ssnemailpref, null);
         // if (userEmail != null) {
-        //     System.out.println(userEmail);
-        //     logger.debug("hummmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+        // System.out.println(userEmail);
+        // logger.debug("hummmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
         // }
-        
 
         // scene.addEventFilter(ScrollEvent.ANY, event -> {
         // if (event.getTarget() == scene || event.getTarget() == postScroolPane) {
