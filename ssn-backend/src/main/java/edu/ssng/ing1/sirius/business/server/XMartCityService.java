@@ -281,7 +281,7 @@ public class XMartCityService {
 
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            String errormsg = "noonnnnnnnnnn c'a n'a pas fonctionné";
+            String errormsg = "user exist";
             resultSet.close();
             String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
             return new Response(request.getRequestId(), bodyResponse);
