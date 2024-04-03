@@ -57,11 +57,9 @@ public class CoreBackendServer implements Runnable {
     public CoreBackendServer() throws IOException, SQLException {
         coreServerSocket = new ServerSocket(config.getListenPort());
         int bufferSize =  20*1024 * 1024; 
-        logger.debug("Taille par défaut du buffer : " +  coreServerSocket.getReceiveBufferSize() + " octets");
         coreServerSocket.setSoTimeout(1000*60);
         coreServerSocket.setReceiveBufferSize(bufferSize);
         logger.debug("Configuration loaded : {}", coreServerSocket.toString());
-        logger.debug("Taille par défaut du buffer : " +  coreServerSocket.getReceiveBufferSize() + " octets");
 
         coreThread = new Thread(this, threadName);
         // Starts mysefl.

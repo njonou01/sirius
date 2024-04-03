@@ -26,47 +26,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.util.zip.Deflater;
 
 public class XMartCityService {
 
     private final static String LoggingLabel = "B u s i n e s s - S e r v e r";
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
-
-    private enum Queries {
-        SELECT_ALL_CITIES("SELECT t.id_city , t.zipcode , t.city_name FROM \"ssn-db-ing1\".city t"),
-        SELECT_ALL_STUDENTS(
-                "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
-                        "\tFROM \"ssn-db-ing1\".student"),
-        SELECT_FRIENDS(
-                "SELECT student.familly_name as familyname , student.first_name as firstname, student.email as email, student.phone_number as phoneNumber, student.gender as gender, student.username as username,student.profile_image as profile_image , student.password as password , student.birthday as bithday \n"
-                        + //
-                        "\tFROM \"ssn-db-ing1\".befriend as befriend inner join \"ssn-db-ing1\".student as student on befriend.receiver = student.id_student where befriend.sender = ? and befriend.status = 'accepted'"),
-
-        SELECT_FRIEND_REQUEST_WITHOUT_ANSWER(
-                "SELECT student.familly_name, student.first_name, student.email, student.phone_number, student.gender, student.username,student.profile_image\n"
-                        + //
-                        "\tFROM \"ssn-db-ing1\".befriend as befriend inner join \"ssn-db-ing1\".student as student on befriend.receiver = student.id_student where befriend.sender=2 and befriend.status = 'no reponse'"),
-        SELECT_ALL_UNIVERSITIES("SELECT t.id_university, t.label, t.shortname, t.acronym\n" + //
-                "\tFROM \"ssn-db-ing1\".university t ;"),
-        DOES_STUDENT_EXIST(
-                "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
-                        "\tFROM \"ssn-db-ing1\".student where email = ? "),
-        INSERT_STUDENT(
-                "INSERT INTO \"ssn-db-ing1\".student (familly_name, first_name, email, phone_number, gender, username, \"password\", birthday) VALUES(?, ?, ?, ?, ?, ?, ? , ?)"),
-        SIGN_IN_AS(
-                "SELECT  password FROM \"ssn-db-ing1\".student where email=? ");
-
-        private final String query;
-
-        private Queries(final String query) {
-            this.query = query;
-        }
-
-        public String getQuery() {
-            return query;
-        }
-    }
 
     public static XMartCityService inst = null;
 
@@ -154,7 +118,7 @@ public class XMartCityService {
         Students students = new Students();
         final ObjectMapper mapper = new ObjectMapper();
         final BeFriend friend_relation = mapper.readValue(request.getRequestBody(), BeFriend.class);
-        preparedStatement.setInt(1,1);
+        preparedStatement.setInt(1, friend_relation.getSender().getId_student());
         String bodyResponse = "";
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -294,5 +258,5 @@ public class XMartCityService {
         }
 
     }
-    
+
 }
