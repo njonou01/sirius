@@ -11,11 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import org.slf4j.Logger;
 
-import edu.ssng.ing1.BeFriend;
-import edu.ssng.ing1.sirius.business.dto.Student;
-import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.client.MainClient;
-import edu.ssng.ing1.sirius.client.requests.friend.FriendCommonRequest;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 public class HomeController implements Initializable {
     @FXML
@@ -50,14 +43,13 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String ssnemailpref = "SSN_USER_EMAIL";
-        logger.debug("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-        Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
-        String userEmail = prefs.get(ssnemailpref, null);
-        if (userEmail != null) {
-            System.out.println(userEmail);
-            logger.debug("hummmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-        }
+        // String ssnemailpref = "SSN_USER_EMAIL";
+        // Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
+        // String userEmail = prefs.get(ssnemailpref, null);
+        // if (userEmail != null) {
+        //     System.out.println(userEmail);
+        //     logger.debug("hummmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+        // }
         
 
         // scene.addEventFilter(ScrollEvent.ANY, event -> {

@@ -2,13 +2,11 @@ package edu.ssng.ing1;
 
 import java.sql.Date;
 
+import edu.ssng.ing1.sirius.business.dto.Student;
+
 public class BeFriend {
-    private int sender;
-    public BeFriend(int sender, int receiver) {
-        this.sender = sender;
-        this.receiver = receiver;
-    }
-    private int receiver;
+    private Student sender;
+    private Student receiver;
     private String status;
     private Date end_relation_at;
     private Date befriend_since;
@@ -17,7 +15,7 @@ public class BeFriend {
     public BeFriend() {
     }
 
-    public BeFriend(int sender, int receiver, String status, Date end_relation_at, Date befriend_since,
+    public BeFriend(Student sender, Student receiver, String status, Date end_relation_at, Date befriend_since,
             Date received_at) {
         this.sender = sender;
         this.receiver = receiver;
@@ -27,19 +25,19 @@ public class BeFriend {
         this.received_at = received_at;
     }
 
-    public int getSender() {
+    public Student getSender() {
         return this.sender;
     }
 
-    public void setSender(int sender) {
+    public void setSender(Student sender) {
         this.sender = sender;
     }
 
-    public int getReceiver() {
+    public Student getReceiver() {
         return this.receiver;
     }
 
-    public void setReceiver(int receiver) {
+    public void setReceiver(Student receiver) {
         this.receiver = receiver;
     }
 
@@ -75,12 +73,12 @@ public class BeFriend {
         this.received_at = received_at;
     }
 
-    public BeFriend sender(int sender) {
+    public BeFriend sender(Student sender) {
         setSender(sender);
         return this;
     }
 
-    public BeFriend receiver(int receiver) {
+    public BeFriend receiver(Student receiver) {
         setReceiver(receiver);
         return this;
     }
@@ -116,4 +114,5 @@ public class BeFriend {
                 ", received_at='" + getReceived_at() + "'" +
                 "}";
     }
+
 }

@@ -3,22 +3,15 @@ package edu.ssng.ing1.sirius.client.requests.friend;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import edu.ssng.commons.LoggingUtils;
 import edu.ssng.ing1.BeFriend;
-import edu.ssng.ing1.sirius.business.dto.Cities;
-import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
-import edu.ssng.ing1.sirius.business.dto.Universities;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
-import edu.ssng.ing1.sirius.client.requests.authentification.SignInClientRequest;
 import edu.ssng.ing1.sirius.commons.Request;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.event.Level;
-
 import java.io.IOException;
 
 import java.util.*;

@@ -154,7 +154,7 @@ public class XMartCityService {
         Students students = new Students();
         final ObjectMapper mapper = new ObjectMapper();
         final BeFriend friend_relation = mapper.readValue(request.getRequestBody(), BeFriend.class);
-        preparedStatement.setInt(1, friend_relation.getSender());
+        preparedStatement.setInt(1,1);
         String bodyResponse = "";
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -281,75 +281,18 @@ public class XMartCityService {
 
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            String errormsg = "success";
+            String errormsg = "noonnnnnnnnnn c'a n'a pas fonctionné";
             resultSet.close();
             String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
             return new Response(request.getRequestId(), bodyResponse);
 
         } else {
-            String errormsg = "noonnnnnnnnnn c'a n'a pas fonctionné";
+            String errormsg = "success";
             resultSet.close();
             String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
             return new Response(request.getRequestId(), bodyResponse);
         }
 
     }
-
-    public static byte[] serializeImage2(InputStream inputStream) throws IOException {
-        // Lecture de l'InputStream et conversion en tableau de bytes
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            byteArrayOutputStream.write(buffer, 0, bytesRead);
-        }
-
-        return byteArrayOutputStream.toByteArray();
-    }
-
-    public static byte[] serializeImage3(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-        // Lire les données de l'image à partir de l'InputStream
-        byte[] buffer = new byte[1024];
-        int len;
-        while ((len = inputStream.read(buffer)) > 0) {
-            byteArrayOutputStream.write(buffer, 0, len);
-        }
-
-        // Compression des données de l'image
-        byte[] imageData = byteArrayOutputStream.toByteArray();
-        Deflater deflater = new Deflater();
-        deflater.setInput(imageData);
-        deflater.finish();
-
-        byteArrayOutputStream.reset(); // Réinitialiser le flux de sortie
-
-        while (!deflater.finished()) {
-            int count = deflater.deflate(buffer);
-            byteArrayOutputStream.write(buffer, 0, count);
-        }
-
-        deflater.end();
-        byte[] compressedData = byteArrayOutputStream.toByteArray();
-
-        byteArrayOutputStream.close();
-        inputStream.close();
-
-        return compressedData;
-    }
-
-    public static String serializeImage(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            byteArrayOutputStream.write(buffer, 0, bytesRead);
-        }
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        String base64EncodedImage = java.util.Base64.getEncoder().encodeToString(bytes);
-
-        return base64EncodedImage;
-    }
-
+    
 }
