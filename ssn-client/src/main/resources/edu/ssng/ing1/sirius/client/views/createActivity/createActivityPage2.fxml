@@ -31,13 +31,13 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="date début" />
-                  <DatePicker minWidth="145.0" prefHeight="25.0" prefWidth="125.0" />
+                  <DatePicker fx:id="datePickerBegin" minWidth="145.0" prefHeight="25.0" prefWidth="125.0" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="date fin" />
-                  <DatePicker minWidth="145.0" prefHeight="25.0" prefWidth="123.0" />
+                  <DatePicker fx:id="datePickerEnd" minWidth="145.0" prefHeight="25.0" prefWidth="123.0" />
                </children>
             </VBox>
          </children>
