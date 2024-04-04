@@ -9,26 +9,58 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.ssng.ing1.sirius.business.dto.Activite;
+import edu.ssng.ing1.sirius.business.dto.Activites;
 import edu.ssng.ing1.sirius.client.MainClient;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class Router {
-    private static Router instance;
+public class RouterPoUp {
+    private static RouterPoUp instance;
     private Stage stage;
-    private final static String LoggingLabel = "ROUTAGE";
+    private final static String LoggingLabel = "◅◅◅◅◅◅◅◅ ROUTAGE - POPup ▻▻▻▻▻▻▻▻";
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private static JsonNode data;
+    public static Activite activite = new Activite();
+    public static Activites activites = new Activites();
 
-    private Router() {
+    private RouterPoUp() {
+        Router root = Router.getInstance();
+        Stage primaryStage = root.getStage();
+
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initOwner(primaryStage);
+        stage.initStyle(StageStyle.UNDECORATED);
+
+        VBox popupRoot = new VBox(10);
+        popupRoot.setAlignment(Pos.CENTER);
+        double screenWidth = Screen.getPrimary().getBounds().getWidth();
+        double screenHeight = Screen.getPrimary().getBounds().getHeight();
+        double popupWidth = screenWidth * 0.95;
+        double popupHeight = screenHeight * 0.95;
+
+        Scene popupScene = new Scene(popupRoot, 6, 6);
+        stage.setWidth(popupWidth);
+        stage.setHeight(popupHeight);
+        stage.setScene(popupScene);
+        stage.setTitle("Create Activity");
+        stage.centerOnScreen();
+
     }
 
-    public static Router getInstance() {
+    public static RouterPoUp getInstance() {
         if (instance == null) {
-            instance = new Router();
-            Router.readRoutageJson("routage.json");
+            instance = new RouterPoUp();
+            RouterPoUp.readRoutageJson("routagePopUp.json");
         }
         return instance;
     }
@@ -36,8 +68,6 @@ public class Router {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
-
 
     private FXMLLoader loadFxml(String path) {
         String finalPath = "views/" + path + ".fxml";
@@ -47,7 +77,7 @@ public class Router {
     public void navigateTo(String name) {
 
         try {
-            JsonNode node = Router.data.get(name);
+            JsonNode node = RouterPoUp.data.get(name);
             if (!displayScene(node))
                 logger.error("Page {} does not exist", name);
             else
@@ -61,10 +91,10 @@ public class Router {
     }
 
     private static void readRoutageJson(String file) {
-        InputStream inputStream = Router.class.getResourceAsStream(file);
+        InputStream inputStream = RouterPoUp.class.getResourceAsStream(file);
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Router.data = mapper.readTree(inputStream);
+            RouterPoUp.data = mapper.readTree(inputStream);
         } catch (Exception e) {
             System.out.println("error");
         }
@@ -91,7 +121,7 @@ public class Router {
     }
 
     public FXMLLoader getParentNode(String name) {
-        JsonNode node = Router.data.get(name);
+        JsonNode node = RouterPoUp.data.get(name);
         try {
             if (node.isNull()) {
                 logger.error("parent nod {} does not exist", name);
@@ -108,10 +138,12 @@ public class Router {
         }
 
     }
+
     public Stage getStage() {
         return this.stage;
     }
-    public Scene getScene(){
+
+    public Scene getScene() {
         return this.stage.getScene();
     }
 

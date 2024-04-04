@@ -29,6 +29,7 @@ public class MainClient extends Application {
                 Stage mainStage = new Stage();
                 Screen screen = Screen.getPrimary();
                 Rectangle2D bounds = screen.getVisualBounds();
+                
 
                 mainStage.setX(bounds.getMinX());
                 mainStage.setY(bounds.getMinY());

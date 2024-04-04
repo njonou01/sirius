@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 
 import edu.ssng.ing1.sirius.client.MainClient;
 import edu.ssng.ing1.sirius.client.router.Router;
+import edu.ssng.ing1.sirius.client.router.RouterPoUp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,10 +42,14 @@ public class HomeController implements Initializable {
     @FXML
     private Button homePageBtn;
 
+    RouterPoUp routerPoUp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        routerPoUp = RouterPoUp.getInstance();
         createActivityBtn.setOnAction(event -> {
+            System.out.println("je marcheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+            routerPoUp.navigateTo("createActivityPage1");
         });
         // String ssnemailpref = "SSN_USER_EMAIL";
         // Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
