@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 // import edu.ssng.ing1.sirius.MainSelectClient;
 import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
+import edu.ssng.ing1.sirius.client.router.RouterPoUp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,9 +22,12 @@ public class ActivityCreatedController implements Initializable {
 
     @FXML
     VBox parentVBox;
+    RouterPoUp router;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        router= RouterPoUp.getInstance();
+
         Activites activites = new Activites();
         // try {
         //     activites= MainSelectClient.SelectActivite();
@@ -94,6 +98,23 @@ public class ActivityCreatedController implements Initializable {
         newVBox.getChildren().addAll(hbox, textArea, buttonHBox);
 
         parentVBox.getChildren().add(newVBox);
+
+    }
+
+    @FXML
+    public void closePage(){
+
+        router.getStage().close();
+        
+    }
+
+    @FXML
+    public void seePart(){
+        router.navigateTo("listeParticipant");
+    }
+    
+    @FXML
+    public void openChat(){
 
     }
 

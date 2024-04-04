@@ -36,6 +36,7 @@ public class MainClient extends Application {
                 mainStage.setWidth(bounds.getWidth());
                 mainStage.setHeight(bounds.getHeight());
                 Router.getInstance().setStage(mainStage);
+                // Router.getInstance().navigateTo("authentification");
                 Router.getInstance().navigateTo("main");
                 mainStage.show();
             } catch (Exception e) {

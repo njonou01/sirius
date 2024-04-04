@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="16.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.createActivityPage1Controller">
    <children>
@@ -19,6 +20,12 @@
          <children>
             <Label text="Nom de l'activité" />
             <TextField fx:id="nameActivityField" maxWidth="300.0" prefWidth="300.0" />
+            <Label text="Max : 20">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+            <Label fx:id="label" contentDisplay="CENTER" textFill="#d41d1dd9" />
          </children>
       </VBox>
       <VBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="57.0" prefWidth="453.0">
