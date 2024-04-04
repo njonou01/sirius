@@ -31,7 +31,7 @@
       <VBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="57.0" prefWidth="453.0">
          <children>
             <Label text="Catégorie" />
-            <ChoiceBox prefHeight="25.0" prefWidth="301.0" />
+            <ChoiceBox fx:id="choiceCategorie" prefHeight="25.0" prefWidth="301.0" />
          </children>
       </VBox>
       <HBox alignment="CENTER" prefHeight="41.0" prefWidth="600.0" spacing="25.0">

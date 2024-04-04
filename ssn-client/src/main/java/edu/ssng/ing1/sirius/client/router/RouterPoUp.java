@@ -31,6 +31,7 @@ public class RouterPoUp {
     private static JsonNode data;
     public static Activite activite = new Activite();
     public static Activites activites = new Activites();
+    private static String[] categorie = {"JeuxVideos", "Visionage", "Lecture"};
 
     private RouterPoUp() {
         Router root = Router.getInstance();
@@ -145,6 +146,13 @@ public class RouterPoUp {
 
     public Scene getScene() {
         return this.stage.getScene();
+    }
+
+    public static String[] getCategorie() {
+        return categorie;
+    }
+    public static void setCategorie(String[] categorie) {
+        RouterPoUp.categorie = categorie;
     }
 
 }

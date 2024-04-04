@@ -14,15 +14,16 @@
       <Label text="Créer Votre activité" />
       <VBox maxWidth="300.0" prefHeight="56.0" prefWidth="600.0">
          <children>
-            <Label text="Nombre de participant" />
+            <Label fx:id="labelTexteField" text="Nombre de participant" />
             <TextField fx:id="nbrParticipantTextField" />
+            <Label fx:id="label" textFill="#e32d2df9" />
             <Label text="OU" textAlignment="CENTER">
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
             </Label>
-            <Label text="0" />
-            <Slider />
+            <Label fx:id="labelCount" text="0" />
+            <Slider fx:id="slider" max="100" min="0" showTickLabels="true" showTickMarks="true" value="0" />
          </children>
       </VBox>
       <HBox maxWidth="300.0" prefHeight="44.0" prefWidth="300.0" spacing="10.0">
