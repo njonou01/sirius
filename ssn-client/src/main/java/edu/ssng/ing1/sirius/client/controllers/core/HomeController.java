@@ -42,6 +42,9 @@ public class HomeController implements Initializable {
     @FXML
     private Button homePageBtn;
 
+    @FXML
+    private Button seeActivitybtn;
+
     RouterPoUp routerPoUp;
 
     @Override
@@ -89,6 +92,19 @@ public class HomeController implements Initializable {
         });
 
     }
+
+    @FXML
+   public void seeActivity(){
+    routerPoUp.navigateTo("activityCreated");
+
+    }
+    @FXML
+    public void closePage(){
+
+        routerPoUp.getStage().close();
+        
+    }
+
 
     public static InputStream deserializeImage(String base64EncodedImage) {
         byte[] bytes = java.util.Base64.getDecoder().decode(base64EncodedImage);

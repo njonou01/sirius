@@ -192,12 +192,12 @@
                                                             </Button>
                                                          </children>
                                                       </StackPane>
-                                                      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                      <Button mnemonicParsing="false" fx:id="seeActivitybtn" onAction="#seeActivity" prefHeight="26.0" prefWidth="224.0">
                                                          <graphic>
                                                             <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
                                                                <children>
                                                                   <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activité" />
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activittté" />
                                                                </children>
                                                             </HBox>
                                                          </graphic>

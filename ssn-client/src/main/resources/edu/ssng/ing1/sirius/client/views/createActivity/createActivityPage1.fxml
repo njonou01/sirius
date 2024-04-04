@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
@@ -23,7 +24,7 @@
       <VBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="57.0" prefWidth="453.0">
          <children>
             <Label text="Catégorie" />
-            <TextField fx:id="categorieActivityField" maxWidth="300.0" prefHeight="25.0" prefWidth="600.0" />
+            <ChoiceBox prefHeight="25.0" prefWidth="301.0" />
          </children>
       </VBox>
       <HBox alignment="CENTER" prefHeight="41.0" prefWidth="600.0" spacing="25.0">
