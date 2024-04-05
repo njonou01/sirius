@@ -7,6 +7,7 @@ import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPoUp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 /**
@@ -18,9 +19,31 @@ public class createActivityPage3Controller  implements Initializable{
     @FXML
     TextArea LibeleTextField;
 
+    private int maxLength = 20;
+
+    @FXML
+    private Label label;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         router= RouterPoUp.getInstance();
+
+        LibeleTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > maxLength) {
+                LibeleTextField.setText(oldValue);
+            }
+
+            if (!newValue.matches("[a-zA-Z0-9]*")) {
+                LibeleTextField.setStyle("-fx-background-color: #FFCCCC;");
+                // nameActivityField.setStyle("-fx-text-fill: red;");
+                // label.setText("Les caractères spéciaux ne sont pas autorisés");
+                // label.setStyle("-fx-text-fill: red;");
+            } else {
+                LibeleTextField.setStyle("");
+                // label.setText("");
+            }
+
+        });
         
     }
 

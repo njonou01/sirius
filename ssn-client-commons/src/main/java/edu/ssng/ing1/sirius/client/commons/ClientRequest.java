@@ -30,7 +30,7 @@ public abstract class ClientRequest<N, S> implements Runnable {
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private final BlockingDeque<Integer> waitArtifact = new LinkedBlockingDeque<Integer>(1);
     private final N info;
-    private S result;
+    protected S result;
 
     public ClientRequest(final NetworkConfig networkConfig,
             final int myBirthDate,

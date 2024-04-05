@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ssng.ing1.BeFriend;
+import edu.ssng.ing1.sirius.business.dto.Activite;
+import edu.ssng.ing1.sirius.business.dto.Activites;
 import edu.ssng.ing1.sirius.business.dto.Cities;
 import edu.ssng.ing1.sirius.business.dto.City;
 import edu.ssng.ing1.sirius.business.dto.Student;
@@ -54,8 +56,17 @@ public class XMartCityService {
             PreparedStatement preparedStatement = connection.prepareStatement(query.getQuery());
 
             switch (query) {
+                case SELECT_ALL_ACTIVITY:
+
+                    return SelectAllActivite(connection, preparedStatement);
+                    
+
                 case SELECT_ALL_STUDENTS:
+                    
                     return selectStudentsResponse(preparedStatement, request);
+
+                case INSERT_ACTIVITY:
+                    return InsertActivite(preparedStatement, request);
 
                 case SELECT_ALL_CITIES:
                     return selectCitiesResponse(preparedStatement, request);
@@ -94,6 +105,81 @@ public class XMartCityService {
         }
 
         return new Response("error", "Requete impossible");
+    }
+
+    private Response InsertActivite(final PreparedStatement preparedStatement, final Request request)
+            throws NoSuchFieldException, IllegalAccessException, JsonParseException, JsonMappingException, IOException {
+        Response response = new Response();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            Activite activite = objectMapper.readValue(request.getRequestBody(), Activite.class);
+
+            // PreparedStatement preparedStatement =
+            // connection.prepareStatement(Queries.INSERT_ACTIVITY.query,
+            // Statement.RETURN_GENERATED_KEYS);
+            activite.build(preparedStatement);
+
+            int rows = preparedStatement.executeUpdate();
+            if (rows > 0) {
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int generatedId = generatedKeys.getInt(1);
+                    response.setResponseBody("{ \"student_id\": " + generatedId + " }");
+                }
+            }
+            response.setRequestId(request.getRequestId());
+
+            String responseBody = objectMapper.writeValueAsString(activite);
+
+            // response.setResponseBody("{ \"student_id\": 123 }");
+
+            System.out.println("Eloka" + responseBody + "Michel");
+            System.out.println(response.getResponseBody());
+
+            System.out.println(
+                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+
+            response.setRequestId(request.getRequestId());
+
+        } catch (SQLException e) {
+            logger.error("Error handling INSERT_STUDENT request: {}", e.getMessage());
+
+        }
+        return response;
+    }
+
+    private Response SelectAllActivite(final Connection connection, PreparedStatement preparedStatement) throws JsonProcessingException, NoSuchFieldException, IllegalAccessException {
+
+        Response response = new Response();
+    try {
+        System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        // PreparedStatement preparedStatement = connection.prepareStatement(Queries.SELECT_ALL_ACTIVITY.query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        
+        Activites activites = new Activites();
+        while (resultSet.next()) {
+            Activite activite = new Activite().build(resultSet);
+            activites.add(activite);
+        }
+
+        
+        ObjectMapper objectMapper = new ObjectMapper();
+        String responseBody = objectMapper.writeValueAsString(activites);
+        System.out.println(responseBody);
+        System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+
+
+        
+        response.setResponseBody(responseBody);
+    } catch (SQLException e) {
+        logger.error("Error handling SELECT_ALL_STUDENTS request: {}", e.getMessage());
+        
+    }
+    return response;
+        
+       
     }
 
     public Response selectStudentsResponse(PreparedStatement preparedStatement, Request request)

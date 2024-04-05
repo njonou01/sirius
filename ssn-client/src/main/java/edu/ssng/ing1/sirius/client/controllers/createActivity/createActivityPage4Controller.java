@@ -5,9 +5,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import edu.ssng.ing1.sirius.client.requests.activities.InsertActivityQuery;
 // import edu.ssng.ing1.sirius.MainInsertClient;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPoUp;
+import edu.ssng.ing1.sirius.client.toast.Toast;
+import edu.ssng.ing1.sirius.client.toast.ToastType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -33,11 +36,15 @@ public class createActivityPage4Controller implements Initializable {
         RouterPoUp.activite.setProvenance("HomePage");
         RouterPoUp.activite.setConfidentialite("Privé");
         RouterPoUp.activite.setDatecreation("1990-05-03 20:00:00");
-        // try {
-        //     MainInsertClient.InsertActivite(Router.activite);
-        // } catch (IOException | InterruptedException | SQLException e) {
-        //     System.out.println("OOOOOOOOOOOOO"+e.getMessage()+"OOOOOOOOOOOOO");
-        // }
+        RouterPoUp.activite.setState(true);
+        try {
+            InsertActivityQuery.InsertActivite(RouterPoUp.activite);
+        } catch (IOException | InterruptedException | SQLException e) {
+            System.out.println("OOOOOOOOOOOOO"+e.getMessage()+"OOOOOOOOOOOOO");
+        }
+        Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
+
+        router.getStage().close();
 
     }
 

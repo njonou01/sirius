@@ -47,7 +47,11 @@ public class createActivityPage2Controller implements Initializable {
     @FXML
     private DatePicker datePickerEnd;
 
+    private Integer numberChoice;
+
     private int maxLength = 3;
+
+    private Object lastFocused = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -76,24 +80,29 @@ public class createActivityPage2Controller implements Initializable {
         nbrParticipantTextField.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
 
-                labelCount.setOpacity(0.5);
-                slider.setOpacity(0.5);
-                RouterPoUp.activite.setNbrparticipant(Integer.valueOf(nbrParticipantTextField.getText())); 
-            } else {
-                labelCount.setOpacity(1.0);
-                slider.setOpacity(1.0); 
+                if (lastFocused != nbrParticipantTextField) {
+                    slider.setOpacity(0.5); 
+                    labelCount.setOpacity(0.5); 
+                    nbrParticipantTextField.setOpacity(1.0);
+                    labelTexteField.setOpacity(1.0);
+                    lastFocused = nbrParticipantTextField;
+                }
             }
+               
+          
         });
         
-        // Écouteur de focus pour le Slider
+        
         slider.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                labelTexteField.setOpacity(0.5);
-                nbrParticipantTextField.setOpacity(0.5);
-                RouterPoUp.activite.setNbrparticipant((int) slider.getValue());
-            } else {
-                labelTexteField.setOpacity(1.0);
-                nbrParticipantTextField.setOpacity(1.0); 
+                
+                if (lastFocused != slider) {
+                    nbrParticipantTextField.setOpacity(0.5); 
+                    labelTexteField.setOpacity(0.5); 
+                    slider.setOpacity(1.0);
+                    labelCount.setOpacity(1.0);
+                    lastFocused = slider;
+                }
             }
         });
 
@@ -106,6 +115,7 @@ public class createActivityPage2Controller implements Initializable {
             if (localDate != null) {
                 Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
                 System.out.println("Timestamp : " + timestamp);
+                RouterPoUp.activite.setDatedebut(""+timestamp);
             }
         });
 
@@ -113,19 +123,36 @@ public class createActivityPage2Controller implements Initializable {
             LocalDate localDate = datePickerEnd.getValue();
             if (localDate != null) {
                 Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
-                System.out.println("Timestamp : " + timestamp);
+                RouterPoUp.activite.setDatefin(""+timestamp);
+                
             }
+        });
+
+
+        nbrParticipantTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                numberChoice = Integer.parseInt(newValue);
+                slider.setValue(numberChoice.doubleValue()); 
+            } catch (NumberFormatException e) {
+               
+            }
+        });
+        
+       
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            numberChoice = newValue.intValue();
+            nbrParticipantTextField.setText(String.valueOf(numberChoice)); 
         });
 
     }
 
     @FXML
     public void nextPage() {
+        RouterPoUp.activite.setNbrparticipant(numberChoice);
 
         router.navigateTo("createActivityPage3");
-        RouterPoUp.activite.setDatedebut(dateDebutTextField.getText());
-        RouterPoUp.activite.setDatefin(dateDeFInTextField.getText());
-        RouterPoUp.activite.setNbrparticipant(Integer.parseInt(nbrParticipantTextField.getText()));
+        
+        System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPoUp.activite+"uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
 
     }
 

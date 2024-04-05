@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 // import edu.ssng.ing1.sirius.MainSelectClient;
 import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
+import edu.ssng.ing1.sirius.client.requests.activities.SelectActivityQuery;
 import edu.ssng.ing1.sirius.client.router.RouterPoUp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,19 +30,19 @@ public class ActivityCreatedController implements Initializable {
         router= RouterPoUp.getInstance();
 
         Activites activites = new Activites();
-        // try {
-        //     activites= MainSelectClient.SelectActivite();
-        // } catch (IOException | InterruptedException | SQLException e) {
-        //     // TODO Auto-generated catch block
-        //     e.printStackTrace();
-        // }
+        try {
+            activites= SelectActivityQuery.SelectActivite();
+        } catch (IOException | InterruptedException | SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-        // try {
-        //     Thread.sleep(1000);
-        // } catch (InterruptedException e) {
-        //     // TODO Auto-generated catch block
-        //     e.printStackTrace();
-        // }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         for (final Activite activite : activites.getActivites()) {
            
            
