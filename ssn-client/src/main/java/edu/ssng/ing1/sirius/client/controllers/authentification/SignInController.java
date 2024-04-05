@@ -62,7 +62,7 @@ public class SignInController implements Initializable {
                 try {
                     if (AuthRequest.signInAs(new Student(emailField.getText(), passwordField.getText()))) {
                         String ssnemailpref = "SSN_USER_EMAIL";
-
+                        Router.getInstance().getStage().hide();
                         Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
                         prefs.put(ssnemailpref, emailField.getText());
 

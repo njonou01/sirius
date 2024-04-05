@@ -3,14 +3,14 @@ package edu.ssng.ing1.sirius.client.requests.friend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import edu.ssng.ing1.sirius.business.dto.Students;
+import edu.ssng.ing1.sirius.business.dto.BeFriends;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
 import edu.ssng.ing1.sirius.commons.Request;
 
 import java.io.IOException;
 
-public class SelectFriendsClientRequest extends ClientRequest<Object, Students> {
+public class SelectFriendsClientRequest extends ClientRequest<Object, BeFriends> {
 
     public SelectFriendsClientRequest(
             NetworkConfig networkConfig, int myBirthDate, Request request, Object info, byte[] bytes)
@@ -19,9 +19,9 @@ public class SelectFriendsClientRequest extends ClientRequest<Object, Students> 
     }
 
     @Override
-    public Students readResult(String body) throws IOException {
+    public BeFriends readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
-        final Students students = mapper.readValue(body, Students.class);
-        return students;
+        final BeFriends befriends = mapper.readValue(body,BeFriends.class);
+        return befriends;
     }
 }

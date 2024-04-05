@@ -1,24 +1,22 @@
 package edu.ssng.ing1.sirius.client.controllers.core;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
-
-import org.slf4j.LoggerFactory;
-
-import org.slf4j.Logger;
+import java.util.stream.Collectors;
 
 import edu.ssng.ing1.sirius.client.MainClient;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 
 public class HomeController implements Initializable {
@@ -40,10 +38,31 @@ public class HomeController implements Initializable {
     private ScrollPane postScroolPane;
     @FXML
     private Button homePageBtn;
+    @FXML
+    private MenuItem deconnexionbtn;
 
+    @FXML
+    private ImageView profileImage;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        deconnexionbtn.setOnAction(event -> {
+            String ssnemailpref = "SSN_USER_EMAIL";
+            Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
+            prefs.remove(ssnemailpref);
+            Router.getInstance().navigateTo("authentification");
+            Router.getInstance().getStage().sizeToScene();
+        });
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("media/images/ssn-logo.png");
+        profileImage.setImage(new Image(inputStream));
+        try {
+            PreloadRequest.getInstance().getAllFriends().getBefriends().stream()
+                    .filter(friend -> "accepted".equals(friend.getStatus()))
+                    .collect(Collectors.toList());
+        } catch (NullPointerException | IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
         createActivityBtn.setOnAction(event -> {
         });
         // String ssnemailpref = "SSN_USER_EMAIL";
@@ -66,14 +85,8 @@ public class HomeController implements Initializable {
         // });
         friendPageBtn.setOnAction(event -> {
 
-            try {
-                Router router = Router.getInstance();
-                FXMLLoader signinLoader = router.getParentNode("friend-page");
-                BorderPane signinPane = (BorderPane) signinLoader.load();
-                corePane.setCenter(signinPane);
-            } catch (IOException e) {
-                System.out.println(e);
-            }
+            corePane.setCenter(InterfaceInitilizer.getFriendPane());
+
         });
         homePageBtn.setOnAction(event -> {
             try {
@@ -83,11 +96,6 @@ public class HomeController implements Initializable {
             }
         });
 
-    }
-
-    public static InputStream deserializeImage(String base64EncodedImage) {
-        byte[] bytes = java.util.Base64.getDecoder().decode(base64EncodedImage);
-        return new ByteArrayInputStream(bytes);
     }
 
 }
