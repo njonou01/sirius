@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import edu.ssng.ing1.sirius.client.controllers.authentification.Rules;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPoUp;
@@ -15,6 +17,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 
 /**
  * createActivityPage2Controller
@@ -22,8 +26,13 @@ import javafx.scene.control.TextFormatter;
 public class createActivityPage1Controller implements Initializable {
     private RouterPoUp router;
 
+    Font customFont2 = Font.loadFont(getClass().getResourceAsStream("../../../../../../../../resources/edu/ssng/ing1/sirius/client/views/asset/font/Roboto/Roboto-Italic.ttf"), 30);
+
     @FXML
     private TextField categorieActivityField;
+
+    @FXML
+    private FontIcon reduce;
 
     @FXML
     private TextField nameActivityField;
@@ -34,13 +43,17 @@ public class createActivityPage1Controller implements Initializable {
     @FXML
     private ChoiceBox choiceCategorie;
 
+    // @FXML
+    // private BorderPane borderPaneActivity;
+
     private int maxLength = 20;
 
     @SuppressWarnings("unchecked")
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         router = RouterPoUp.getInstance();
-
+        
+        // borderPaneActivity.getStylesheets().add(getClass().getResource("addActivity.css").toExternalForm());
         choiceCategorie.getItems().addAll(RouterPoUp.getCategorie());
         nameActivityField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > maxLength) {

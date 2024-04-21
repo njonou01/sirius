@@ -71,8 +71,9 @@ public class Authentification {
             setASignupPaneVisible(this.signupStartPane);
             this.signinPane.setVisible(false);
             router.getStage().setTitle(appName + " " + "Sign Up");
+            
         } else {
-            setASignupPaneVisible(null);
+            setASignupPaneVisible(null); 
             this.signinPane.setVisible(true);
             router.getStage().setTitle(appName + " " + "Sign In");
         }

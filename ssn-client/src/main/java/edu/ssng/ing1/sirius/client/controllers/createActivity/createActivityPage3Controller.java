@@ -59,7 +59,7 @@ public class createActivityPage3Controller  implements Initializable{
 
         router.getStage().close();;
         
-    }
+    } 
 
     
 }

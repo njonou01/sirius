@@ -1,0 +1,25 @@
+ @font-face {
+    font-family: "Jomhuria";
+    src: url("../font/Jomhuria/Jomhuria-Regular.ttf");
+  }
+
+.BorderPane {
+     -fx-font: 16px "Prager Headlines"; 
+     -fx-background-color: #ebecf8; 
+}
+
+.createActivityTitle{
+  /* -fx-font-family: "Jomhuria"; */
+  -fx-text-fill: #39809F;
+  
+
+} 
+.btn{
+  -fx-background-color: #003045;
+}
+
+
+.monFontIcon {
+  -fx-fill: #003045; /* Rouge */
+}
+

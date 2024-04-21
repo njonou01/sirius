@@ -5,12 +5,12 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import edu.ssng.ing1.sirius.client.requests.activities.InsertActivityQuery;
 // import edu.ssng.ing1.sirius.MainInsertClient;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPoUp;
 import edu.ssng.ing1.sirius.client.toast.Toast;
 import edu.ssng.ing1.sirius.client.toast.ToastType;
+import edu.ssng.ing1.sirius.requests.activities.InsertActivityQuery;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import edu.ssng.ing1.sirius.business.dto.City;
-import edu.ssng.ing1.sirius.client.requests.authentification.CommonRequest;
+import edu.ssng.ing1.sirius.requests.authentification.CommonRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

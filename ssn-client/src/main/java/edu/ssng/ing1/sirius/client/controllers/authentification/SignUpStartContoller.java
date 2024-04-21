@@ -3,9 +3,9 @@ package edu.ssng.ing1.sirius.client.controllers.authentification;
 import java.io.IOException;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
-import edu.ssng.ing1.sirius.client.requests.authentification.AuthRequest;
 import edu.ssng.ing1.sirius.client.toast.Toast;
 import edu.ssng.ing1.sirius.client.toast.ToastType;
+import edu.ssng.ing1.sirius.requests.authentification.AuthRequest;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
