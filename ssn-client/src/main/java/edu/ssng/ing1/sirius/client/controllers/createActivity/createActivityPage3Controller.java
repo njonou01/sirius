@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import edu.ssng.ing1.sirius.client.router.Router;
-import edu.ssng.ing1.sirius.client.router.RouterPoUp;
+import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -13,8 +13,8 @@ import javafx.scene.control.TextArea;
 /**
  * createActivityPage2Controller
  */
-public class createActivityPage3Controller  implements Initializable{
-    RouterPoUp router;
+public class createActivityPage3Controller implements Initializable {
+    RouterPopUp router;
 
     @FXML
     TextArea LibeleTextField;
@@ -26,7 +26,7 @@ public class createActivityPage3Controller  implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        router= RouterPoUp.getInstance();
+        router = RouterPopUp.getInstance();
 
         LibeleTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > maxLength) {
@@ -34,6 +34,7 @@ public class createActivityPage3Controller  implements Initializable{
             }
 
             if (!newValue.matches("[a-zA-Z0-9]*")) {
+
                 LibeleTextField.setStyle("-fx-background-color: #FFCCCC;");
                 // nameActivityField.setStyle("-fx-text-fill: red;");
                 // label.setText("Les caractères spéciaux ne sont pas autorisés");
@@ -44,22 +45,27 @@ public class createActivityPage3Controller  implements Initializable{
             }
 
         });
-        
+
     }
 
     @FXML
-    public void nextPage(){
+    public void nextPage() {
 
         router.navigateTo("createActivityPage4");
-        RouterPoUp.activite.setLibelle(LibeleTextField.getText());
+        RouterPopUp.MinousProgress += 0.33;
+        RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
+
+        RouterPopUp.activite.setLibelle(LibeleTextField.getText());
 
     }
+
     @FXML
-    public void closePage(){
-
-        router.getStage().close();;
+    public void closePage() {
         
-    } 
 
-    
+        router.getStage().close();
+        ;
+
+    }
+
 }

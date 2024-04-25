@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 
 import edu.ssng.ing1.sirius.client.MainClient;
 import edu.ssng.ing1.sirius.client.router.Router;
-import edu.ssng.ing1.sirius.client.router.RouterPoUp;
+import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,13 +45,12 @@ public class HomeController implements Initializable {
     @FXML
     private Button seeActivitybtn;
 
-    RouterPoUp routerPoUp;
+    Router routerPoUp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        routerPoUp = RouterPoUp.getInstance();
+        routerPoUp = Router.getInstance();
         createActivityBtn.setOnAction(event -> {
-            System.out.println("je marcheeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             routerPoUp.navigateTo("createActivityPage1");
         });
         // String ssnemailpref = "SSN_USER_EMAIL";
@@ -94,17 +93,23 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-   public void seeActivity(){
-    routerPoUp.navigateTo("activityCreated");
+    public void seeActivity() {
+        routerPoUp.navigateTo("activityCreated");
 
     }
+
     @FXML
-    public void closePage(){
+    public void seeMyActivity() {
+        routerPoUp.navigateTo("seeMyActivity");
+
+    }
+
+    @FXML
+    public void closePage() {
 
         routerPoUp.getStage().close();
-        
-    }
 
+    }
 
     public static InputStream deserializeImage(String base64EncodedImage) {
         byte[] bytes = java.util.Base64.getDecoder().decode(base64EncodedImage);

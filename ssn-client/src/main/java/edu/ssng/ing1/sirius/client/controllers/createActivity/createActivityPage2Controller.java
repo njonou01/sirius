@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import edu.ssng.ing1.sirius.client.router.Router;
-import edu.ssng.ing1.sirius.client.router.RouterPoUp;
+import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
  * createActivityPage2Controller
  */
 public class createActivityPage2Controller implements Initializable {
-    RouterPoUp router;
+    RouterPopUp router;
 
     @FXML
     TextField nbrParticipantTextField;
@@ -55,7 +55,7 @@ public class createActivityPage2Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        router = RouterPoUp.getInstance();
+        router = RouterPopUp.getInstance();
 
         nbrParticipantTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > maxLength) {
@@ -64,6 +64,7 @@ public class createActivityPage2Controller implements Initializable {
             }
 
             if (!newValue.matches("^([1-9]|[1-9][0-9]|100|101)$")) {
+                
 
                 nbrParticipantTextField.setStyle("-fx-background-color: #FFCCCC;");
                 // nameActivityField.setStyle("-fx-text-fill: red;");
@@ -115,7 +116,7 @@ public class createActivityPage2Controller implements Initializable {
             if (localDate != null) {
                 Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
                 System.out.println("Timestamp : " + timestamp);
-                RouterPoUp.activite.setDatedebut(""+timestamp);
+                RouterPopUp.activite.setDatedebut(""+timestamp);
             }
         });
 
@@ -123,7 +124,7 @@ public class createActivityPage2Controller implements Initializable {
             LocalDate localDate = datePickerEnd.getValue();
             if (localDate != null) {
                 Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
-                RouterPoUp.activite.setDatefin(""+timestamp);
+                RouterPopUp.activite.setDatefin(""+timestamp);
                 
             }
         });
@@ -148,16 +149,20 @@ public class createActivityPage2Controller implements Initializable {
 
     @FXML
     public void nextPage() {
-        RouterPoUp.activite.setNbrparticipant(numberChoice);
+        RouterPopUp.MinousProgress += 0.33;
+        RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
 
         router.navigateTo("createActivityPage3");
         
-        System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPoUp.activite+"uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+
+        
+        System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite+"uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
 
     }
 
     @FXML
     public void closePage() {
+        
 
         router.getStage().close();
         ;

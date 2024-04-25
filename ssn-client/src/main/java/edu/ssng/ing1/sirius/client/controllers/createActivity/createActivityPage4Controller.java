@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 // import edu.ssng.ing1.sirius.MainInsertClient;
 import edu.ssng.ing1.sirius.client.router.Router;
-import edu.ssng.ing1.sirius.client.router.RouterPoUp;
+import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import edu.ssng.ing1.sirius.client.toast.Toast;
 import edu.ssng.ing1.sirius.client.toast.ToastType;
 import edu.ssng.ing1.sirius.requests.activities.InsertActivityQuery;
@@ -19,28 +19,28 @@ import javafx.scene.control.Button;
  * createActivityPage2Controller
  */
 public class createActivityPage4Controller implements Initializable {
-    RouterPoUp router;
+    RouterPopUp router;
 
     Button overBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        router = RouterPoUp.getInstance();
+        router = RouterPopUp.getInstance();
 
     }
 
     @FXML
     public void insertActivity() {
-        RouterPoUp.activite.setId_student(1);
-        RouterPoUp.activite.setNomCreateur("Eloka");
-        RouterPoUp.activite.setProvenance("HomePage");
-        RouterPoUp.activite.setConfidentialite("Privé");
-        RouterPoUp.activite.setDatecreation("1990-05-03 20:00:00");
-        RouterPoUp.activite.setState(true);
+        RouterPopUp.activite.setId_student(1);
+        RouterPopUp.activite.setNomCreateur("Eloka");
+        RouterPopUp.activite.setProvenance("HomePage");
+        RouterPopUp.activite.setConfidentialite("Privé");
+        RouterPopUp.activite.setDatecreation("1990-05-03 20:00:00");
+        RouterPopUp.activite.setState(true);
         try {
-            InsertActivityQuery.InsertActivite(RouterPoUp.activite);
+            InsertActivityQuery.InsertActivite(RouterPopUp.activite);
         } catch (IOException | InterruptedException | SQLException e) {
-            System.out.println("OOOOOOOOOOOOO"+e.getMessage()+"OOOOOOOOOOOOO");
+            System.out.println("OOOOOOOOOOOOO" + e.getMessage() + "OOOOOOOOOOOOO");
         }
         Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
 
@@ -50,6 +50,7 @@ public class createActivityPage4Controller implements Initializable {
 
     @FXML
     public void closePage() {
+       
 
         router.getStage().close();
 

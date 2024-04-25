@@ -35,9 +35,17 @@
     "path": "friend/friend-invitation",
     "title": "Mon App"
   },
+  "activityCreated": {
+    "path": "createActivity/activityCreated",
+    "title": "SSN Group 9"
+  },
   "post": {
     "path": "post/post",
     "title": "Mon App"
+  },
+  "seeMyActivity": {
+    "path": "createActivity/seeMyActivity",
+    "title": "SSN Group 9"
   },
   "toast": {
     "path": "toast/toast",

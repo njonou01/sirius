@@ -192,12 +192,12 @@
                                                             </Button>
                                                          </children>
                                                       </StackPane>
-                                                      <Button mnemonicParsing="false" fx:id="seeActivitybtn" onAction="#seeActivity" prefHeight="26.0" prefWidth="224.0">
+                                                      <Button mnemonicParsing="false" onAction="#seeMyActivity" prefHeight="26.0" prefWidth="224.0">
                                                          <graphic>
                                                             <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
                                                                <children>
                                                                   <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activittté" />
+                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Mes Activités" />
                                                                </children>
                                                             </HBox>
                                                          </graphic>
@@ -222,7 +222,7 @@
                                       <panes>
                                         <TitledPane alignment="CENTER" animated="false" text="En découvrir plus">
                                           <content>
-                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="270.0">
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="211.0" prefWidth="269.0">
                                                    <children>
                                                       <VBox alignment="CENTER" prefHeight="29.0" prefWidth="268.0">
                                                          <children>
@@ -289,7 +289,33 @@
                                                                                     <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
                                                                                        <children>
                                                                                           <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activities" wrappingWidth="181.5322265625" />
+                                                                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Créer activité" wrappingWidth="181.5322265625" />
+                                                                                          <FontIcon iconLiteral="fas-plus" styleClass="icon" />
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                 </children>
+                                                                              </HBox>
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                     <padding>
+                                                                        <Insets bottom="5.0" top="5.0" />
+                                                                     </padding>
+                                                                  </HBox>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Button mnemonicParsing="false" onAction="#seeActivity" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
+                                                               <graphic>
+                                                                  <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
+                                                                     <children>
+                                                                        <HBox>
+                                                                           <children>
+                                                                              <HBox>
+                                                                                 <children>
+                                                                                    <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                                       <children>
+                                                                                          <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Tous les activités" wrappingWidth="181.5322265625" />
                                                                                           <FontIcon iconLiteral="fas-plus" styleClass="icon" />
                                                                                        </children>
                                                                                     </HBox>

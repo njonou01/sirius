@@ -15,11 +15,32 @@
 
 } 
 .btn{
-  -fx-background-color: #003045;
+  -fx-background-color: #39809F;
+}
+.centerBox{
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10px;
 }
 
 
 .monFontIcon {
   -fx-fill: #003045; /* Rouge */
 }
+
+.TextField{
+  -fx-background-color: #ddf5ff;
+  
+}
+
+.ProgressBar{
+
+  -fx-accent: #39809F;
+ 
+}
+
+.popup-window {
+  /* -fx-background-color: transparent;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0); */
+}
+
 

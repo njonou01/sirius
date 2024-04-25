@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 // import edu.ssng.ing1.sirius.MainSelectClient;
 import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
-import edu.ssng.ing1.sirius.client.router.RouterPoUp;
+import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import edu.ssng.ing1.sirius.requests.activities.SelectActivityQuery;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,11 +23,11 @@ public class ActivityCreatedController implements Initializable {
 
     @FXML
     VBox parentVBox;
-    RouterPoUp router;
+    RouterPopUp router;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        router= RouterPoUp.getInstance();
+        router= RouterPopUp.getInstance();
 
         Activites activites = new Activites();
         try {
@@ -119,4 +119,6 @@ public class ActivityCreatedController implements Initializable {
 
     }
 
+
+    
 }

@@ -10,10 +10,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="881.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.createActivityPage4Controller">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="881.0" styleClass="centerBox" stylesheets="@../asset/css/addActivity.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.createActivityPage4Controller">
    <children>
-      <VBox prefHeight="596.0" prefWidth="329.0">
+      <VBox prefHeight="596.0" prefWidth="329.0" styleClass="centerBox">
          <children>
             <Label text="Invitez depuis :">
                <VBox.margin>
@@ -42,7 +41,7 @@
             </HBox>
          </children>
       </VBox>
-      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="617.0">
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="617.0" styleClass="centerBox">
          <children>
             <Label text="Invitez vos amis">
                <VBox.margin>

@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-
+import javafx.stage.Modality;
 public class Toast {
 
     private static Set<Stage> toastStageList = new CopyOnWriteArraySet<Stage>();
@@ -40,7 +40,7 @@ public class Toast {
             scene.setFill(Color.TRANSPARENT);
 
             Stage toastStage = new Stage();
-
+            toastStage.initModality(Modality.APPLICATION_MODAL);
             toastStage.initOwner(owner);
             toastStage.initStyle(StageStyle.UNDECORATED);
 
