@@ -15,10 +15,14 @@
    <content>
       <VBox fx:id="parentVBox" alignment="CENTER" prefHeight="627.0" prefWidth="1010.0" spacing="10.0" styleClass="activityBg" stylesheets="@../asset/css/addActivity.css">
          <children>
-            <FontIcon iconColor="#254b84" iconLiteral="fas-arrow-left" onMouseClicked="#backBTN" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label prefHeight="47.0" prefWidth="315.0" text="Vos Activitées Actives">
+                  <FontIcon iconColor="#254b84" iconLiteral="fas-arrow-left" iconSize="20" onMouseClicked="#backBTN" text="">
+                     <HBox.margin>
+                        <Insets right="100.0" />
+                     </HBox.margin>
+                  </FontIcon>
+                  <Label prefHeight="46.0" prefWidth="315.0" text="Vos Activitées Actives">
                      <font>
                         <Font size="32.0" />
                      </font>

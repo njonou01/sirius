@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.BeFriends;
-import edu.ssng.ing1.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
 import edu.ssng.ing1.sirius.business.dto.Cities;

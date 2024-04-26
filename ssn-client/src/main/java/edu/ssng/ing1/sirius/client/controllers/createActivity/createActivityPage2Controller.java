@@ -9,6 +9,7 @@ import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -47,6 +48,9 @@ public class createActivityPage2Controller implements Initializable {
     @FXML
     private DatePicker datePickerEnd;
 
+    @FXML
+    private ChoiceBox choiceConfidentSelection;
+
     private Integer numberChoice;
 
     private int maxLength = 3;
@@ -57,6 +61,9 @@ public class createActivityPage2Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         router = RouterPopUp.getInstance();
 
+        choiceConfidentSelection.getItems().addAll(RouterPopUp.getConfi());
+        choiceConfidentSelection.getSelectionModel().selectFirst();
+
         nbrParticipantTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > maxLength) {
                 nbrParticipantTextField.setText(oldValue);
@@ -64,7 +71,6 @@ public class createActivityPage2Controller implements Initializable {
             }
 
             if (!newValue.matches("^([1-9]|[1-9][0-9]|100|101)$")) {
-                
 
                 nbrParticipantTextField.setStyle("-fx-background-color: #FFCCCC;");
                 // nameActivityField.setStyle("-fx-text-fill: red;");
@@ -82,24 +88,22 @@ public class createActivityPage2Controller implements Initializable {
             if (newValue) {
 
                 if (lastFocused != nbrParticipantTextField) {
-                    slider.setOpacity(0.5); 
-                    labelCount.setOpacity(0.5); 
+                    slider.setOpacity(0.5);
+                    labelCount.setOpacity(0.5);
                     nbrParticipantTextField.setOpacity(1.0);
                     labelTexteField.setOpacity(1.0);
                     lastFocused = nbrParticipantTextField;
                 }
             }
-               
-          
+
         });
-        
-        
+
         slider.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                
+
                 if (lastFocused != slider) {
-                    nbrParticipantTextField.setOpacity(0.5); 
-                    labelTexteField.setOpacity(0.5); 
+                    nbrParticipantTextField.setOpacity(0.5);
+                    labelTexteField.setOpacity(0.5);
                     slider.setOpacity(1.0);
                     labelCount.setOpacity(1.0);
                     lastFocused = slider;
@@ -108,7 +112,7 @@ public class createActivityPage2Controller implements Initializable {
         });
 
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            labelCount.setText(""+newValue.intValue());
+            labelCount.setText("" + newValue.intValue());
         });
 
         datePickerBegin.setOnAction(event -> {
@@ -116,7 +120,7 @@ public class createActivityPage2Controller implements Initializable {
             if (localDate != null) {
                 Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
                 System.out.println("Timestamp : " + timestamp);
-                RouterPopUp.activite.setDatedebut(""+timestamp);
+                RouterPopUp.activite.setDatedebut("" + timestamp);
             }
         });
 
@@ -124,25 +128,23 @@ public class createActivityPage2Controller implements Initializable {
             LocalDate localDate = datePickerEnd.getValue();
             if (localDate != null) {
                 Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
-                RouterPopUp.activite.setDatefin(""+timestamp);
-                
+                RouterPopUp.activite.setDatefin("" + timestamp);
+
             }
         });
-
 
         nbrParticipantTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 numberChoice = Integer.parseInt(newValue);
-                slider.setValue(numberChoice.doubleValue()); 
+                slider.setValue(numberChoice.doubleValue());
             } catch (NumberFormatException e) {
-               
+
             }
         });
-        
-       
+
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             numberChoice = newValue.intValue();
-            nbrParticipantTextField.setText(String.valueOf(numberChoice)); 
+            nbrParticipantTextField.setText(String.valueOf(numberChoice));
         });
 
     }
@@ -154,16 +156,14 @@ public class createActivityPage2Controller implements Initializable {
         RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
 
         router.navigateTo("createActivityPage3");
-        
 
-        
-        System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite+"uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+        System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
+                + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
 
     }
 
     @FXML
     public void closePage() {
-        
 
         router.getStage().close();
         ;

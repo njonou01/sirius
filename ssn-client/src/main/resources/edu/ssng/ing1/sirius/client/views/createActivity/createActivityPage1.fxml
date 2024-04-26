@@ -74,7 +74,7 @@
                   <VBox alignment="CENTER_LEFT" maxWidth="300.0" prefHeight="57.0" prefWidth="453.0">
                      <children>
                         <Label text="type" />
-                        <ChoiceBox fx:id="choiceCategorie1" prefHeight="25.0" prefWidth="301.0" styleClass="TextField" />
+                        <ChoiceBox fx:id="choiceType" prefHeight="25.0" prefWidth="301.0" styleClass="TextField" />
                      </children>
                   </VBox>
                   <HBox alignment="CENTER" prefHeight="53.0" prefWidth="927.0" spacing="25.0">

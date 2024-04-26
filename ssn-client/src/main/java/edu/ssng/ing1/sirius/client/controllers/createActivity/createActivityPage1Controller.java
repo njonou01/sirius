@@ -60,6 +60,9 @@ public class createActivityPage1Controller implements Initializable {
     private ChoiceBox choiceCategorie;
 
     @FXML
+    private ChoiceBox choiceType;
+
+    @FXML
     private BorderPane borderPaneRoot;
 
     @FXML
@@ -87,7 +90,9 @@ public class createActivityPage1Controller implements Initializable {
 
         // borderPaneActivity.getStylesheets().add(getClass().getResource("addActivity.css").toExternalForm());
         choiceCategorie.getItems().addAll(RouterPopUp.getCategorie());
+        choiceType.getItems().addAll(RouterPopUp.getType());
         choiceCategorie.getSelectionModel().selectFirst();
+        choiceType.getSelectionModel().selectFirst();
         nameActivityField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > maxLength) {
                 nameActivityField.setText(oldValue);

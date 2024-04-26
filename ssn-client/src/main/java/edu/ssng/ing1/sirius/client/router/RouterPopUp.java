@@ -37,6 +37,8 @@ public class RouterPopUp {
     public static Activite activite = new Activite();
     public static Activites activites = new Activites();
     private static String[] categorie = { "JeuxVideos", "Visionage", "Lecture" };
+    private static String[] type = { "en ligne", "presentielle"};
+    private static String[] confi = { "Public", "private" };
     public Circle circle = new Circle(50, Color.BLUE);
     private Router root;
     private static Scene scene;
@@ -74,6 +76,10 @@ public class RouterPopUp {
 
         // retrievedLayout = (VBox) scene.lookup("#VBoxCenter");
 
+    }
+
+    public static String[] getConfi() {
+        return confi;
     }
 
     public void setReducePopUp() {
@@ -226,6 +232,11 @@ public class RouterPopUp {
     public static String[] getCategorie() {
         return categorie;
     }
+
+    public static String[] getType() {
+        return type;
+    }
+
 
     public static void setCategorie(String[] categorie) {
         RouterPopUp.categorie = categorie;

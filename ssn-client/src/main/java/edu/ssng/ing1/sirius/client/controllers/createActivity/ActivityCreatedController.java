@@ -224,7 +224,7 @@ public class ActivityCreatedController implements Initializable {
 
     @FXML
     public void quitActivity() {
-
+        
     }
 
     private void progresseIndicator() {

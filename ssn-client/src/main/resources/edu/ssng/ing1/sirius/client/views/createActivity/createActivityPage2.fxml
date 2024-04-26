@@ -58,7 +58,7 @@
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="Confidentialité" />
-                  <ChoiceBox prefHeight="25.0" prefWidth="347.0" styleClass="TextField" />
+                  <ChoiceBox fx:id="choiceConfidentSelection" prefHeight="25.0" prefWidth="347.0" styleClass="TextField" />
                </children>
             </VBox>
          </children>

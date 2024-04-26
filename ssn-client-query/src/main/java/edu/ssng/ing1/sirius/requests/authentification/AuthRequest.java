@@ -9,7 +9,6 @@ import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
-import edu.ssng.ing1.sirius.client.requests.self.SelectSelfRequest;
 import edu.ssng.ing1.sirius.commons.Request;
 
 import org.slf4j.Logger;
