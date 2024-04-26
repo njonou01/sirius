@@ -95,7 +95,7 @@ public class createActivityPage1Controller implements Initializable {
 
             if (!newValue.matches("[a-zA-Z0-9]*")) {
                 nameActivityField.setStyle("-fx-background-color: #FFCCCC;");
-                // nameActivityField.setStyle("-fx-text-fill: red;");
+                //   ,nameActivityField.setStyle("-fx-text-fill: red;");
                 label.setText("Les caractères spéciaux ne sont pas autorisés");
                 // label.setStyle("-fx-text-fill: red;");
             } else {
