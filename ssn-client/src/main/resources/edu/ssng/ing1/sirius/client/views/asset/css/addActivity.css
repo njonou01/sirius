@@ -21,6 +21,14 @@
   -fx-background-color: #ffffff;
   -fx-background-radius: 10px;
 }
+.leftBox{
+  -fx-background-color: #b8cfef;
+  -fx-background-radius: 10px;
+}
+.activitycreatedBG{
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10px;
+}
 
 
 .monFontIcon {

@@ -45,32 +45,16 @@ public class HomeController implements Initializable {
     @FXML
     private Button seeActivitybtn;
 
-    Router routerPoUp;
+    Router router = Router.getInstance();
+    RouterPopUp routerPoUp;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        routerPoUp = Router.getInstance();
+        routerPoUp = RouterPopUp.getInstance();
         createActivityBtn.setOnAction(event -> {
             routerPoUp.navigateTo("createActivityPage1");
         });
-        // String ssnemailpref = "SSN_USER_EMAIL";
-        // Preferences prefs = Preferences.userRoot().node(MainClient.class.getName());
-        // String userEmail = prefs.get(ssnemailpref, null);
-        // if (userEmail != null) {
-        // System.out.println(userEmail);
-        // logger.debug("hummmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
-        // }
 
-        // scene.addEventFilter(ScrollEvent.ANY, event -> {
-        // if (event.getTarget() == scene || event.getTarget() == postScroolPane) {
-        // double deltaY = event.getDeltaY();
-        // double currentVvalue = postScroolPane.getVvalue();
-        // double newVvalue = currentVvalue - deltaY /
-        // postScroolPane.getContent().getBoundsInLocal().getHeight();
-        // postScroolPane.setVvalue(Math.max(0, Math.min(1, newVvalue)));
-        // event.consume();
-        // }
-        // });
         friendPageBtn.setOnAction(event -> {
 
             try {
@@ -94,20 +78,20 @@ public class HomeController implements Initializable {
 
     @FXML
     public void seeActivity() {
-        routerPoUp.navigateTo("activityCreated");
+        router.navigateTo("activityCreated");
 
     }
 
     @FXML
     public void seeMyActivity() {
-        routerPoUp.navigateTo("seeMyActivity");
+        router.navigateTo("seeMyActivity");
 
     }
 
     @FXML
     public void closePage() {
 
-        routerPoUp.getStage().close();
+        router.getStage().close();
 
     }
 

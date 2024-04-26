@@ -58,11 +58,13 @@ public class XMartCityService {
             switch (query) {
                 case SELECT_ALL_ACTIVITY:
 
-                    return SelectAllActivite(connection, preparedStatement);
-                    
+                    return SelectAllActivite(preparedStatement);
+                case SELECT_MY_ACTIVITY:
+
+                    return SelectMyActivite(request, preparedStatement);
 
                 case SELECT_ALL_STUDENTS:
-                    
+
                     return selectStudentsResponse(preparedStatement, request);
 
                 case INSERT_ACTIVITY:
@@ -86,6 +88,8 @@ public class XMartCityService {
                     return doesStudentExistResponse(preparedStatement, request);
                 case SIGN_IN_AS:
                     return signinAsResponse(preparedStatement, request);
+                case GET_DATA_CONNEXION:
+                    return getConnexionData(preparedStatement, request);
                 default:
                     break;
             }
@@ -149,37 +153,70 @@ public class XMartCityService {
         return response;
     }
 
-    private Response SelectAllActivite(final Connection connection, PreparedStatement preparedStatement) throws JsonProcessingException, NoSuchFieldException, IllegalAccessException {
+    private Response SelectAllActivite(PreparedStatement preparedStatement)
+            throws JsonProcessingException, NoSuchFieldException, IllegalAccessException {
 
         Response response = new Response();
-    try {
-        System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        // PreparedStatement preparedStatement = connection.prepareStatement(Queries.SELECT_ALL_ACTIVITY.query);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        try {
+            System.out.println(
+                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+            // PreparedStatement preparedStatement =
+            // connection.prepareStatement(Queries.SELECT_ALL_ACTIVITY.query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        
-        Activites activites = new Activites();
-        while (resultSet.next()) {
-            Activite activite = new Activite().build(resultSet);
-            activites.add(activite);
+            Activites activites = new Activites();
+            while (resultSet.next()) {
+                Activite activite = new Activite().build(resultSet);
+                activites.add(activite);
+            }
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            String responseBody = objectMapper.writeValueAsString(activites);
+            System.out.println(responseBody);
+            System.out.println(
+                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+
+            response.setResponseBody(responseBody);
+        } catch (SQLException e) {
+            logger.error("Error handling SELECT_ALL_STUDENTS request: {}", e.getMessage());
+
         }
+        return response;
 
-        
-        ObjectMapper objectMapper = new ObjectMapper();
-        String responseBody = objectMapper.writeValueAsString(activites);
-        System.out.println(responseBody);
-        System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-
-
-        
-        response.setResponseBody(responseBody);
-    } catch (SQLException e) {
-        logger.error("Error handling SELECT_ALL_STUDENTS request: {}", e.getMessage());
-        
     }
-    return response;
-        
-       
+    private Response SelectMyActivite(final Request request, PreparedStatement preparedStatement)
+            throws NoSuchFieldException, IllegalAccessException, IOException {
+
+        Response response = new Response();
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            Student student = objectMapper.readValue(request.getRequestBody(), Student.class);
+            preparedStatement.setInt(1,student.getId_student());
+            System.out.println(
+                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+            // PreparedStatement preparedStatement =
+            // connection.prepareStatement(Queries.SELECT_ALL_ACTIVITY.query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            Activites activites = new Activites();
+            while (resultSet.next()) {
+                Activite activite = new Activite().build(resultSet);
+                activites.add(activite);
+            }
+
+            String responseBody = objectMapper.writeValueAsString(activites);
+            System.out.println(responseBody);
+            System.out.println(
+                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+
+            response.setResponseBody(responseBody);
+        } catch (SQLException e) {
+            logger.error("Error handling SELECT_MY_STUDENTS request: {}", e.getMessage());
+
+        }
+        return response;
+
     }
 
     public Response selectStudentsResponse(PreparedStatement preparedStatement, Request request)
@@ -303,6 +340,7 @@ public class XMartCityService {
 
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
+
             final String hashedPassword = resultSet.getString("password");
             if (BCrypt.checkpw(student.getPassword(), hashedPassword)) {
                 String bodyResponse = String.format("{\"msg\": \"%s\"}", "success");
@@ -319,6 +357,31 @@ public class XMartCityService {
             String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
             return new Response(request.getRequestId(), bodyResponse);
         }
+
+    }
+
+    public Response getConnexionData(PreparedStatement preparedStatement, Request request)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final Student student = new Student();
+        preparedStatement.setString(1, student.getEmail());
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            student.build(resultSet);
+            String bodyResponse = mapper.writeValueAsString(student);
+            resultSet.close();
+            return new Response(request.getRequestId(), bodyResponse);
+
+        } else {
+            String errormsg = "l'utilisateur n'existe pas ";
+            
+            String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
+            resultSet.close();
+            return new Response(request.getRequestId(), bodyResponse);
+        }
+        
 
     }
 
