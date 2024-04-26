@@ -85,7 +85,6 @@ public class HomeController implements Initializable {
     @FXML
     public void seeMyActivity() {
         router.navigateTo("seeMyActivity");
-
     }
 
     @FXML

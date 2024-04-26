@@ -196,12 +196,12 @@
                                                                         </Button>
                                                                      </children>
                                                                   </StackPane>
-                                                                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                                  <Button mnemonicParsing="false" onAction="#seeMyActivity" prefHeight="26.0" prefWidth="224.0">
                                                                      <graphic>
                                                                         <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
                                                                            <children>
                                                                               <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activité" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Mes Activités" />
                                                                            </children>
                                                                         </HBox>
                                                                      </graphic>
@@ -222,7 +222,7 @@
                                                       <Insets left="10.0" right="10.0" top="5.0" />
                                                    </padding>
                                                 </VBox>
-                                                <Accordion>
+                                                <Accordion prefHeight="241.0" prefWidth="271.0">
                                                   <panes>
                                                     <TitledPane alignment="CENTER" animated="false" text="En découvrir plus">
                                                       <content>
@@ -282,7 +282,7 @@
                                                                               </HBox>
                                                                            </graphic>
                                                                         </Button>
-                                                                        <Button fx:id="createActivityBtn" layoutX="20.0" layoutY="87.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
+                                                                        <Button layoutX="20.0" layoutY="87.0" mnemonicParsing="false" onAction="#seeActivity" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
                                                                            <graphic>
                                                                               <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
                                                                                  <children>
@@ -293,7 +293,33 @@
                                                                                                 <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
                                                                                                    <children>
                                                                                                       <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activities" wrappingWidth="181.5322265625" />
+                                                                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Les Activités" wrappingWidth="181.5322265625" />
+                                                                                                      <FontIcon iconLiteral="fas-plus" styleClass="icon" />
+                                                                                                   </children>
+                                                                                                </HBox>
+                                                                                             </children>
+                                                                                          </HBox>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                 </children>
+                                                                                 <padding>
+                                                                                    <Insets bottom="5.0" top="5.0" />
+                                                                                 </padding>
+                                                                              </HBox>
+                                                                           </graphic>
+                                                                        </Button>
+                                                                        <Button fx:id="createActivityBtn" mnemonicParsing="false" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
+                                                                           <graphic>
+                                                                              <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
+                                                                                 <children>
+                                                                                    <HBox>
+                                                                                       <children>
+                                                                                          <HBox>
+                                                                                             <children>
+                                                                                                <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                                                   <children>
+                                                                                                      <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Créer Activité" wrappingWidth="181.5322265625" />
                                                                                                       <FontIcon iconLiteral="fas-plus" styleClass="icon" />
                                                                                                    </children>
                                                                                                 </HBox>

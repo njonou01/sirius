@@ -41,7 +41,7 @@ public class Toast {
             scene.setFill(Color.TRANSPARENT);
 
             Stage toastStage = new Stage();
-            toastStage.initModality(Modality.APPLICATION_MODAL);
+            // toastStage.initModality(Modality.APPLICATION_MODAL);
             toastStage.initOwner(owner);
             toastStage.initStyle(StageStyle.UNDECORATED);
 

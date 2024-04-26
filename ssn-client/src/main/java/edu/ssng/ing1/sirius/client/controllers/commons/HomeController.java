@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.router.Router;
+import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,6 +22,8 @@ import javafx.scene.layout.StackPane;
 public class HomeController implements Initializable {
     HashMap<Button, BorderPane> btnmapper = new HashMap<Button, BorderPane>();
 
+    @FXML
+    private Button seeActivitybtn;
     @FXML
     private ImageView logo;
     @FXML
@@ -53,8 +56,12 @@ public class HomeController implements Initializable {
     @FXML
     private ImageView profileImage2;
 
+    Router router = Router.getInstance();
+    RouterPopUp routerPoUp;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        RouterPopUp routerPoUp=RouterPopUp.getInstance();
         logo.setImage(getImage("media/images/ssn-logo.png"));
         Student user = UserInfo.getUser();
         if (user != null) {
@@ -62,7 +69,7 @@ public class HomeController implements Initializable {
             profileImage2.setImage(getImage(user.getProfileImageStream()));
 
             btnmapper.put(homePageBtn, homePane);
-            BorderPane invitation = Initializer.initInvitationPage() ;
+            BorderPane invitation = Initializer.initInvitationPage();
             invitation.setVisible(false);
             Appstack.getChildren().add(invitation);
             btnmapper.put(friendPageBtn, invitation);
@@ -71,7 +78,7 @@ public class HomeController implements Initializable {
             });
 
         }
-        initializeBtn(homePageBtn,friendPageBtn);
+        initializeBtn(homePageBtn, friendPageBtn);
 
         deconnexionbtn.setOnAction(event -> {
             UserInfo.removeUser();
@@ -80,6 +87,7 @@ public class HomeController implements Initializable {
             Router.getInstance().setFullScreenStage();
         });
         createActivityBtn.setOnAction(event -> {
+            routerPoUp.navigateTo("createActivityPage1");
         });
 
     }
@@ -97,6 +105,7 @@ public class HomeController implements Initializable {
     private static InputStream convertBytesToInputStream(byte[] byteArray) {
         return new ByteArrayInputStream(byteArray);
     }
+
     public void initializeBtn(Button... btnsListf) {
         for (Button button : btnsListf) {
             button.setOnAction(event -> {
@@ -109,6 +118,19 @@ public class HomeController implements Initializable {
         }
     }
 
-    
+    @FXML
+    public void seeActivity() {
+        router.navigateTo("activityCreated");
+    }
+
+    @FXML
+    public void seeMyActivity() {
+        router.navigateTo("seeMyActivity");
+    }
+
+    @FXML
+    public void closePage() {
+        router.getStage().close();
+    }
 
 }
