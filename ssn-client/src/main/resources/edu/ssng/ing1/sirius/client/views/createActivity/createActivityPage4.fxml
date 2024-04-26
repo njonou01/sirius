@@ -4,15 +4,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="881.0" styleClass="centerBox" stylesheets="@../asset/css/addActivity.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.createActivityPage4Controller">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="881.0" spacing="10.0" stylesheets="@../asset/css/addActivity.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.createActivityPage4Controller">
    <children>
-      <VBox prefHeight="596.0" prefWidth="329.0" styleClass="centerBox">
+      <VBox prefHeight="596.0" prefWidth="329.0" styleClass="leftBox">
          <children>
             <Label text="Invitez depuis :">
                <VBox.margin>
@@ -51,6 +52,11 @@
                   <Font size="32.0" />
                </font>
             </Label>
+            <ImageView fitHeight="78.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../media/images/UconnectLogo.png" />
+               </image>
+            </ImageView>
             <HBox alignment="CENTER" prefHeight="18.0" prefWidth="600.0" spacing="15.0" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
@@ -62,10 +68,9 @@
                   </FlowPane>
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="19.0" prefWidth="600.0" spacing="15.0">
+            <HBox alignment="CENTER" prefHeight="44.0" prefWidth="617.0" spacing="15.0">
                <children>
-                  <Button fx:id="overBtn" mnemonicParsing="false" onAction="#insertActivity" text="Terminer" />
-                  <Button mnemonicParsing="false" onAction="#closePage" text="Fermer" />
+                  <Button fx:id="overBtn" mnemonicParsing="false" onAction="#insertActivity" prefHeight="40.0" prefWidth="72.0" styleClass="btn" text="Terminer" />
                </children>
             </HBox>
          </children>

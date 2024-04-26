@@ -73,7 +73,7 @@ public class createActivityPage2Controller implements Initializable {
                 // nbrParticipantTextField.setText(oldValue);
             } else {
                 nbrParticipantTextField.setStyle("");
-                label.setText("");
+                // label.setText("");
             }
 
         });
@@ -149,6 +149,7 @@ public class createActivityPage2Controller implements Initializable {
 
     @FXML
     public void nextPage() {
+        RouterPopUp.activite.setNbrparticipant(numberChoice);
         RouterPopUp.MinousProgress += 0.33;
         RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
 

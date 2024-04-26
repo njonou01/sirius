@@ -31,7 +31,7 @@ public class createActivityPage4Controller implements Initializable {
 
     @FXML
     public void insertActivity() {
-        RouterPopUp.activite.setId_student(1);
+        RouterPopUp.activite.setId_student(3);
         RouterPopUp.activite.setNomCreateur("Eloka");
         RouterPopUp.activite.setProvenance("HomePage");
         RouterPopUp.activite.setConfidentialite("Privé");
