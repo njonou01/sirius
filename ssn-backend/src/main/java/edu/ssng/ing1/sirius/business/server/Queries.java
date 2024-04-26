@@ -4,7 +4,7 @@ package edu.ssng.ing1.sirius.business.server;
         SELECT_ALL_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t"),
         SELECT_MY_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t WHERE t.id_student = ?"),
 
-        INSERT_ACTIVITY("INSERT into \"ssn-db-ing1\".Activite (\"datecreation\", \"datedebut\", \"datefin\", \"nom_interet_activite\", \"libelle\", \"categorie\", \"provenance\", \"confidentialite\", \"nomcreateur\",\"nbrparticipant\", \"id_student\" , \"state\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+        INSERT_ACTIVITY("INSERT into \"ssn-db-ing1\".Activite (\"datecreation\", \"datedebut\", \"datefin\", \"nom_interet_activite\", \"libelle\", \"categorie\", \"provenance\", \"confidentialite\", \"nomcreateur\", \"id_student\",\"nbrparticipant\" , \"state\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
 
 
         SELECT_ALL_CITIES("SELECT t.id_city , t.zipcode , t.city_name FROM \"ssn-db-ing1\".city t"),
