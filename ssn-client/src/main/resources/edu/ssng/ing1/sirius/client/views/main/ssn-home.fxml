@@ -23,459 +23,468 @@
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<BorderPane fx:id="corePane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.core.HomeController">
+<BorderPane fx:id="corePane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.commons.HomeController">
    <center>
-      <SplitPane fx:id="homePane" dividerPositions="0.15, 0.72" prefHeight="850.0" prefWidth="1200.0">
-         <items>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <HBox alignment="TOP_RIGHT" prefHeight="848.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <VBox alignment="TOP_RIGHT" prefHeight="848.0" prefWidth="370.0" spacing="15.0">
+      <StackPane fx:id="Appstack">
+         <children>
+            <BorderPane fx:id="homePane">
+               <center>
+                  <SplitPane dividerPositions="0.15, 0.72" prefHeight="850.0" prefWidth="1200.0">
+                     <items>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <VBox maxWidth="263.0" prefWidth="263.0" spacing="15.0" style="-fx-background-radius: 15px; -fx-background-color: white;">
+                              <HBox alignment="TOP_RIGHT" prefHeight="848.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox alignment="CENTER" prefHeight="29.0" prefWidth="268.0">
+                                    <VBox alignment="TOP_RIGHT" prefHeight="848.0" prefWidth="370.0" spacing="15.0">
                                        <children>
-                                          <HBox prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
+                                          <VBox maxWidth="263.0" prefWidth="263.0" spacing="15.0" style="-fx-background-radius: 15px; -fx-background-color: white;">
                                              <children>
-                                                <AnchorPane prefWidth="253.0">
+                                                <VBox alignment="CENTER" prefHeight="29.0" prefWidth="268.0">
                                                    <children>
-                                                      <StackPane layoutX="218.0" prefHeight="18.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                      <HBox prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
                                                          <children>
-                                                            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" style="-fx-padding: 0;" text="100" textAlignment="RIGHT">
-                                                               <styleClass>
-                                                                  <String fx:value="node-transparent" />
-                                                                  <String fx:value="interaction-btn" />
-                                                               </styleClass>
-                                                            </Button>
-                                                            <Button mnemonicParsing="false">
-                                                               <graphic>
-                                                                  <FontIcon iconLiteral="fas-plus" styleClass="icon" visible="false" />
-                                                               </graphic>
-                                                               <styleClass>
-                                                                  <String fx:value="node-transparent" />
-                                                                  <String fx:value="interaction-btn" />
-                                                               </styleClass>
-                                                            </Button>
-                                                         </children>
-                                                      </StackPane>
-                                                      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
-                                                         <graphic>
-                                                            <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                            <AnchorPane prefWidth="253.0">
                                                                <children>
-                                                                  <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Groupes" />
-                                                               </children>
-                                                            </HBox>
-                                                         </graphic>
-                                                         <styleClass>
-                                                            <String fx:value="node-transparent" />
-                                                            <String fx:value="interaction-btn" />
-                                                         </styleClass>
-                                                      </Button>
-                                                   </children>
-                                                </AnchorPane>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="5.0" top="5.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox layoutX="20.0" layoutY="15.0" prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
-                                             <children>
-                                                <AnchorPane prefWidth="253.0">
-                                                   <children>
-                                                      <StackPane layoutX="218.0" prefHeight="18.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <children>
-                                                            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" style="-fx-padding: 0;" text="100" textAlignment="RIGHT">
-                                                               <styleClass>
-                                                                  <String fx:value="node-transparent" />
-                                                                  <String fx:value="interaction-btn" />
-                                                               </styleClass>
-                                                            </Button>
-                                                            <Button mnemonicParsing="false">
-                                                               <graphic>
-                                                                  <FontIcon iconLiteral="fas-plus" styleClass="icon" visible="false" />
-                                                               </graphic>
-                                                               <styleClass>
-                                                                  <String fx:value="node-transparent" />
-                                                                  <String fx:value="interaction-btn" />
-                                                               </styleClass>
-                                                            </Button>
-                                                         </children>
-                                                      </StackPane>
-                                                      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
-                                                         <graphic>
-                                                            <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
-                                                               <children>
-                                                                  <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Evènements" />
-                                                               </children>
-                                                            </HBox>
-                                                         </graphic>
-                                                         <styleClass>
-                                                            <String fx:value="node-transparent" />
-                                                            <String fx:value="interaction-btn" />
-                                                         </styleClass>
-                                                      </Button>
-                                                   </children>
-                                                </AnchorPane>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="5.0" top="5.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox layoutX="20.0" layoutY="53.0" prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
-                                             <children>
-                                                <AnchorPane prefWidth="253.0">
-                                                   <children>
-                                                      <StackPane layoutX="218.0" prefHeight="18.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <children>
-                                                            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" style="-fx-padding: 0;" text="100" textAlignment="RIGHT">
-                                                               <styleClass>
-                                                                  <String fx:value="node-transparent" />
-                                                                  <String fx:value="interaction-btn" />
-                                                               </styleClass>
-                                                            </Button>
-                                                            <Button mnemonicParsing="false">
-                                                               <graphic>
-                                                                  <FontIcon iconLiteral="fas-plus" styleClass="icon" visible="false" />
-                                                               </graphic>
-                                                               <styleClass>
-                                                                  <String fx:value="node-transparent" />
-                                                                  <String fx:value="interaction-btn" />
-                                                               </styleClass>
-                                                            </Button>
-                                                         </children>
-                                                      </StackPane>
-                                                      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
-                                                         <graphic>
-                                                            <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
-                                                               <children>
-                                                                  <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Amis" />
-                                                               </children>
-                                                            </HBox>
-                                                         </graphic>
-                                                         <styleClass>
-                                                            <String fx:value="node-transparent" />
-                                                            <String fx:value="interaction-btn" />
-                                                         </styleClass>
-                                                      </Button>
-                                                   </children>
-                                                </AnchorPane>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="5.0" top="5.0" />
-                                             </padding>
-                                          </HBox>
-                                          <HBox layoutX="20.0" layoutY="91.0" prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
-                                             <children>
-                                                <AnchorPane prefWidth="253.0">
-                                                   <children>
-                                                      <StackPane layoutX="218.0" prefHeight="18.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                         <children>
-                                                            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" style="-fx-padding: 0;" text="100" textAlignment="RIGHT">
-                                                               <styleClass>
-                                                                  <String fx:value="node-transparent" />
-                                                                  <String fx:value="interaction-btn" />
-                                                               </styleClass>
-                                                            </Button>
-                                                            <Button mnemonicParsing="false">
-                                                               <graphic>
-                                                                  <FontIcon iconLiteral="fas-plus" styleClass="icon" visible="false" />
-                                                               </graphic>
-                                                               <styleClass>
-                                                                  <String fx:value="node-transparent" />
-                                                                  <String fx:value="interaction-btn" />
-                                                               </styleClass>
-                                                            </Button>
-                                                         </children>
-                                                      </StackPane>
-                                                      <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
-                                                         <graphic>
-                                                            <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
-                                                               <children>
-                                                                  <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activité" />
-                                                               </children>
-                                                            </HBox>
-                                                         </graphic>
-                                                         <styleClass>
-                                                            <String fx:value="node-transparent" />
-                                                            <String fx:value="interaction-btn" />
-                                                         </styleClass>
-                                                      </Button>
-                                                   </children>
-                                                </AnchorPane>
-                                             </children>
-                                             <padding>
-                                                <Insets bottom="5.0" top="5.0" />
-                                             </padding>
-                                          </HBox>
-                                       </children>
-                                       <padding>
-                                          <Insets left="10.0" right="10.0" top="5.0" />
-                                       </padding>
-                                    </VBox>
-                                    <Accordion>
-                                      <panes>
-                                        <TitledPane alignment="CENTER" animated="false" text="En découvrir plus">
-                                          <content>
-                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="270.0">
-                                                   <children>
-                                                      <VBox alignment="CENTER" prefHeight="29.0" prefWidth="268.0">
-                                                         <children>
-                                                            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
-                                                               <graphic>
-                                                                  <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
+                                                                  <StackPane layoutX="218.0" prefHeight="18.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                      <children>
-                                                                        <HBox>
+                                                                        <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" style="-fx-padding: 0;" text="100" textAlignment="RIGHT">
+                                                                           <styleClass>
+                                                                              <String fx:value="node-transparent" />
+                                                                              <String fx:value="interaction-btn" />
+                                                                           </styleClass>
+                                                                        </Button>
+                                                                        <Button mnemonicParsing="false">
+                                                                           <graphic>
+                                                                              <FontIcon iconLiteral="fas-plus" styleClass="icon" visible="false" />
+                                                                           </graphic>
+                                                                           <styleClass>
+                                                                              <String fx:value="node-transparent" />
+                                                                              <String fx:value="interaction-btn" />
+                                                                           </styleClass>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                                     <graphic>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
                                                                            <children>
-                                                                              <HBox>
-                                                                                 <children>
-                                                                                    <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
-                                                                                       <children>
-                                                                                          <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Groupes" wrappingWidth="181.5322265625" />
-                                                                                          <FontIcon iconLiteral="fas-plus" styleClass="icon" />
-                                                                                       </children>
-                                                                                    </HBox>
-                                                                                 </children>
-                                                                              </HBox>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Groupes" />
                                                                            </children>
                                                                         </HBox>
-                                                                     </children>
-                                                                     <padding>
-                                                                        <Insets bottom="5.0" top="5.0" />
-                                                                     </padding>
-                                                                  </HBox>
-                                                               </graphic>
-                                                            </Button>
-                                                            <Button layoutX="20.0" layoutY="51.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
-                                                               <graphic>
-                                                                  <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
-                                                                     <children>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <HBox>
-                                                                                 <children>
-                                                                                    <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
-                                                                                       <children>
-                                                                                          <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Evènements" wrappingWidth="181.5322265625" />
-                                                                                          <FontIcon iconLiteral="fas-plus" styleClass="icon" />
-                                                                                       </children>
-                                                                                    </HBox>
-                                                                                 </children>
-                                                                              </HBox>
-                                                                           </children>
-                                                                        </HBox>
-                                                                     </children>
-                                                                     <padding>
-                                                                        <Insets bottom="5.0" top="5.0" />
-                                                                     </padding>
-                                                                  </HBox>
-                                                               </graphic>
-                                                            </Button>
-                                                            <Button fx:id="createActivityBtn" layoutX="20.0" layoutY="87.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
-                                                               <graphic>
-                                                                  <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
-                                                                     <children>
-                                                                        <HBox>
-                                                                           <children>
-                                                                              <HBox>
-                                                                                 <children>
-                                                                                    <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
-                                                                                       <children>
-                                                                                          <FontIcon iconLiteral="fas-users" styleClass="icon" />
-                                                                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activities" wrappingWidth="181.5322265625" />
-                                                                                          <FontIcon iconLiteral="fas-plus" styleClass="icon" />
-                                                                                       </children>
-                                                                                    </HBox>
-                                                                                 </children>
-                                                                              </HBox>
-                                                                           </children>
-                                                                        </HBox>
-                                                                     </children>
-                                                                     <padding>
-                                                                        <Insets bottom="5.0" top="5.0" />
-                                                                     </padding>
-                                                                  </HBox>
-                                                               </graphic>
-                                                            </Button>
-                                                         </children>
-                                                         <padding>
-                                                            <Insets left="10.0" right="10.0" top="5.0" />
-                                                         </padding>
-                                                      </VBox>
-                                                   </children>
-                                                </AnchorPane>
-                                          </content>
-                                             <styleClass>
-                                                <String fx:value="title-pane" />
-                                                <String fx:value="no-arrow-button" />
-                                             </styleClass>
-                                        </TitledPane>
-                                      </panes>
-                                    </Accordion>
-                                 </children>
-                              </VBox>
-                           </children>
-                           <padding>
-                              <Insets left="8.0" right="8.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </HBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ScrollPane fx:id="postScroolPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="132.0" layoutY="130.0" prefHeight="848.0" prefWidth="664.0" styleClass="scroll-pane-" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <content>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <VBox spacing="10.0">
-                                 <children>
-                                    <AnchorPane>
-                                       <children>
-                                          <VBox spacing="10.0">
-                                             <children>
-                                                <VBox prefHeight="48.0" prefWidth="651.0" spacing="10.0" styleClass="box-entry">
-                                                   <children>
-                                                      <HBox prefHeight="10.0" prefWidth="609.0">
-                                                         <children>
-                                                            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="674.0" spacing="15.0">
-                                                               <children>
-                                                                  <ImageView fx:id="profileImage" fitHeight="50.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
-                                                                     <image>
-                                                                        <Image url="@../../../../../../../../../../../../../Downloads/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg" />
-                                                                     </image>
-                                                                  </ImageView>
-                                                                  <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="617.0" style="-fx-padding: 0 0 0 20px;" text="Commenter un post">
+                                                                     </graphic>
                                                                      <styleClass>
-                                                                        <String fx:value="text-entry" />
                                                                         <String fx:value="node-transparent" />
+                                                                        <String fx:value="interaction-btn" />
                                                                      </styleClass>
                                                                   </Button>
                                                                </children>
-                                                            </HBox>
-                                                         </children>
-                                                         <HBox.margin>
-                                                            <Insets />
-                                                         </HBox.margin>
-                                                      </HBox>
-                                                      <HBox prefHeight="22.0" prefWidth="621.0" spacing="55.0">
-                                                         <children>
-                                                            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="88.0" spacing="15.0">
-                                                               <children>
-                                                                  <FontIcon iconLiteral="fas-image" iconSize="30" styleClass="icon-entry" />
-                                                                  <Label text="Medias" />
-                                                               </children>
-                                                            </HBox>
-                                                            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="15.0">
-                                                               <children>
-                                                                  <FontIcon iconLiteral="fas-image" iconSize="30" styleClass="icon-entry" />
-                                                                  <Label text="Evenement" />
-                                                               </children>
-                                                            </HBox>
-                                                            <HBox alignment="CENTER" layoutX="101.0" layoutY="10.0" prefHeight="37.0" prefWidth="146.0" spacing="15.0">
-                                                               <children>
-                                                                  <FontIcon iconLiteral="fas-image" iconSize="30" styleClass="icon-entry" />
-                                                                  <Label text="Rédiger un article" />
-                                                               </children>
-                                                            </HBox>
+                                                            </AnchorPane>
                                                          </children>
                                                          <padding>
-                                                            <Insets left="40.0" right="40.0" />
+                                                            <Insets bottom="5.0" top="5.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                      <HBox layoutX="20.0" layoutY="15.0" prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
+                                                         <children>
+                                                            <AnchorPane prefWidth="253.0">
+                                                               <children>
+                                                                  <StackPane layoutX="218.0" prefHeight="18.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                     <children>
+                                                                        <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" style="-fx-padding: 0;" text="100" textAlignment="RIGHT">
+                                                                           <styleClass>
+                                                                              <String fx:value="node-transparent" />
+                                                                              <String fx:value="interaction-btn" />
+                                                                           </styleClass>
+                                                                        </Button>
+                                                                        <Button mnemonicParsing="false">
+                                                                           <graphic>
+                                                                              <FontIcon iconLiteral="fas-plus" styleClass="icon" visible="false" />
+                                                                           </graphic>
+                                                                           <styleClass>
+                                                                              <String fx:value="node-transparent" />
+                                                                              <String fx:value="interaction-btn" />
+                                                                           </styleClass>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                                     <graphic>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Evènements" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </graphic>
+                                                                     <styleClass>
+                                                                        <String fx:value="node-transparent" />
+                                                                        <String fx:value="interaction-btn" />
+                                                                     </styleClass>
+                                                                  </Button>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets bottom="5.0" top="5.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                      <HBox layoutX="20.0" layoutY="53.0" prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
+                                                         <children>
+                                                            <AnchorPane prefWidth="253.0">
+                                                               <children>
+                                                                  <StackPane layoutX="218.0" prefHeight="18.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                     <children>
+                                                                        <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" style="-fx-padding: 0;" text="100" textAlignment="RIGHT">
+                                                                           <styleClass>
+                                                                              <String fx:value="node-transparent" />
+                                                                              <String fx:value="interaction-btn" />
+                                                                           </styleClass>
+                                                                        </Button>
+                                                                        <Button mnemonicParsing="false">
+                                                                           <graphic>
+                                                                              <FontIcon iconLiteral="fas-plus" styleClass="icon" visible="false" />
+                                                                           </graphic>
+                                                                           <styleClass>
+                                                                              <String fx:value="node-transparent" />
+                                                                              <String fx:value="interaction-btn" />
+                                                                           </styleClass>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                                     <graphic>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Amis" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </graphic>
+                                                                     <styleClass>
+                                                                        <String fx:value="node-transparent" />
+                                                                        <String fx:value="interaction-btn" />
+                                                                     </styleClass>
+                                                                  </Button>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets bottom="5.0" top="5.0" />
+                                                         </padding>
+                                                      </HBox>
+                                                      <HBox layoutX="20.0" layoutY="91.0" prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
+                                                         <children>
+                                                            <AnchorPane prefWidth="253.0">
+                                                               <children>
+                                                                  <StackPane layoutX="218.0" prefHeight="18.0" prefWidth="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="218.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                     <children>
+                                                                        <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" style="-fx-padding: 0;" text="100" textAlignment="RIGHT">
+                                                                           <styleClass>
+                                                                              <String fx:value="node-transparent" />
+                                                                              <String fx:value="interaction-btn" />
+                                                                           </styleClass>
+                                                                        </Button>
+                                                                        <Button mnemonicParsing="false">
+                                                                           <graphic>
+                                                                              <FontIcon iconLiteral="fas-plus" styleClass="icon" visible="false" />
+                                                                           </graphic>
+                                                                           <styleClass>
+                                                                              <String fx:value="node-transparent" />
+                                                                              <String fx:value="interaction-btn" />
+                                                                           </styleClass>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </StackPane>
+                                                                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                                     <graphic>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activité" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </graphic>
+                                                                     <styleClass>
+                                                                        <String fx:value="node-transparent" />
+                                                                        <String fx:value="interaction-btn" />
+                                                                     </styleClass>
+                                                                  </Button>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets bottom="5.0" top="5.0" />
                                                          </padding>
                                                       </HBox>
                                                    </children>
                                                    <padding>
-                                                      <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
+                                                      <Insets left="10.0" right="10.0" top="5.0" />
                                                    </padding>
                                                 </VBox>
-                                                <HBox alignment="CENTER" prefHeight="28.0" prefWidth="620.0">
-                                                   <children>
-                                                      <Line endX="-10.0" startX="-100.0" />
-                                                      <Label maxHeight="15.0" maxWidth="269.0" prefHeight="15.0" prefWidth="269.0" text="Sélectionner la vue du fil d’actualité" />
-                                                      <MenuButton mnemonicParsing="false" prefHeight="23.0" prefWidth="247.0" styleClass="btn-transparent" text="Les plus pertinents d’abord">
-                                                         <items>
-                                                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                                                            <MenuItem mnemonicParsing="false" text="Action 2" />
-                                                         </items>
-                                                      </MenuButton>
-                                                      <Line endX="40.0" startX="-60.0" />
-                                                   </children>
-                                                </HBox>
+                                                <Accordion>
+                                                  <panes>
+                                                    <TitledPane alignment="CENTER" animated="false" text="En découvrir plus">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="139.0" prefWidth="270.0">
+                                                               <children>
+                                                                  <VBox alignment="CENTER" prefHeight="29.0" prefWidth="268.0">
+                                                                     <children>
+                                                                        <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
+                                                                           <graphic>
+                                                                              <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
+                                                                                 <children>
+                                                                                    <HBox>
+                                                                                       <children>
+                                                                                          <HBox>
+                                                                                             <children>
+                                                                                                <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                                                   <children>
+                                                                                                      <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Groupes" wrappingWidth="181.5322265625" />
+                                                                                                      <FontIcon iconLiteral="fas-plus" styleClass="icon" />
+                                                                                                   </children>
+                                                                                                </HBox>
+                                                                                             </children>
+                                                                                          </HBox>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                 </children>
+                                                                                 <padding>
+                                                                                    <Insets bottom="5.0" top="5.0" />
+                                                                                 </padding>
+                                                                              </HBox>
+                                                                           </graphic>
+                                                                        </Button>
+                                                                        <Button layoutX="20.0" layoutY="51.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
+                                                                           <graphic>
+                                                                              <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
+                                                                                 <children>
+                                                                                    <HBox>
+                                                                                       <children>
+                                                                                          <HBox>
+                                                                                             <children>
+                                                                                                <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                                                   <children>
+                                                                                                      <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Evènements" wrappingWidth="181.5322265625" />
+                                                                                                      <FontIcon iconLiteral="fas-plus" styleClass="icon" />
+                                                                                                   </children>
+                                                                                                </HBox>
+                                                                                             </children>
+                                                                                          </HBox>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                 </children>
+                                                                                 <padding>
+                                                                                    <Insets bottom="5.0" top="5.0" />
+                                                                                 </padding>
+                                                                              </HBox>
+                                                                           </graphic>
+                                                                        </Button>
+                                                                        <Button fx:id="createActivityBtn" layoutX="20.0" layoutY="87.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="248.0" styleClass="btn-transparent">
+                                                                           <graphic>
+                                                                              <HBox prefHeight="28.0" prefWidth="237.0" styleClass="interaction-block">
+                                                                                 <children>
+                                                                                    <HBox>
+                                                                                       <children>
+                                                                                          <HBox>
+                                                                                             <children>
+                                                                                                <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                                                   <children>
+                                                                                                      <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                                                      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Activities" wrappingWidth="181.5322265625" />
+                                                                                                      <FontIcon iconLiteral="fas-plus" styleClass="icon" />
+                                                                                                   </children>
+                                                                                                </HBox>
+                                                                                             </children>
+                                                                                          </HBox>
+                                                                                       </children>
+                                                                                    </HBox>
+                                                                                 </children>
+                                                                                 <padding>
+                                                                                    <Insets bottom="5.0" top="5.0" />
+                                                                                 </padding>
+                                                                              </HBox>
+                                                                           </graphic>
+                                                                        </Button>
+                                                                     </children>
+                                                                     <padding>
+                                                                        <Insets left="10.0" right="10.0" top="5.0" />
+                                                                     </padding>
+                                                                  </VBox>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                         <styleClass>
+                                                            <String fx:value="title-pane" />
+                                                            <String fx:value="no-arrow-button" />
+                                                         </styleClass>
+                                                    </TitledPane>
+                                                  </panes>
+                                                </Accordion>
                                              </children>
                                           </VBox>
                                        </children>
-                                    </AnchorPane>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox spacing="20.0">
-                                             <children>
-                                                <fx:include source="../post/post.fxml" />
-                                                <fx:include source="../post/post.fxml" />
-                                                <fx:include source="../post/post.fxml" />
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                           </children>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
-                        </HBox>
-                     </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="848.0" prefWidth="306.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                        <VBox>
-                           <children>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                                 <children>
-                                    <VBox prefHeight="200.0" prefWidth="304.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                          <HBox alignment="CENTER_LEFT">
-                                             <children>
-                                                <Label text="Label" />
-                                             </children>
-                                          </HBox>
-                                          <HBox>
-                                             <children>
-                                                <Label text="C'est l'anniversaire de " />
-                                             </children>
-                                          </HBox>
-                                       </children>
+                                       <padding>
+                                          <Insets left="8.0" right="8.0" />
+                                       </padding>
                                     </VBox>
                                  </children>
-                              </AnchorPane>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </HBox>
                            </children>
-                        </VBox>
-                    </content>
-                  </ScrollPane>
-               </children>
-            </AnchorPane>
-         </items>
-      </SplitPane>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane fx:id="postScroolPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="132.0" layoutY="130.0" prefHeight="848.0" prefWidth="664.0" styleClass="scroll-pane-" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <content>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <VBox spacing="10.0">
+                                             <children>
+                                                <AnchorPane>
+                                                   <children>
+                                                      <VBox spacing="10.0">
+                                                         <children>
+                                                            <VBox prefHeight="48.0" prefWidth="651.0" spacing="10.0" styleClass="box-entry">
+                                                               <children>
+                                                                  <HBox prefHeight="10.0" prefWidth="609.0">
+                                                                     <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="674.0" spacing="15.0">
+                                                                           <children>
+                                                                              <ImageView fx:id="profileImage" fitHeight="50.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                                                                                 <image>
+                                                                                    <Image url="@../../../../../../../../../../../../../Downloads/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg" />
+                                                                                 </image>
+                                                                              </ImageView>
+                                                                              <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="617.0" style="-fx-padding: 0 0 0 20px;" text="Commenter un post">
+                                                                                 <styleClass>
+                                                                                    <String fx:value="text-entry" />
+                                                                                    <String fx:value="node-transparent" />
+                                                                                 </styleClass>
+                                                                              </Button>
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                     <HBox.margin>
+                                                                        <Insets />
+                                                                     </HBox.margin>
+                                                                  </HBox>
+                                                                  <HBox prefHeight="22.0" prefWidth="621.0" spacing="55.0">
+                                                                     <children>
+                                                                        <HBox alignment="CENTER" prefHeight="37.0" spacing="15.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-image" iconSize="30" styleClass="icon-entry" />
+                                                                              <Label prefHeight="23.0" prefWidth="63.0" text="Medias" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" spacing="15.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-image" iconSize="30" styleClass="icon-entry" />
+                                                                              <Label text="Evenement" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <HBox alignment="CENTER" layoutX="101.0" layoutY="10.0" prefHeight="37.0" spacing="15.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-image" iconSize="30" styleClass="icon-entry" />
+                                                                              <Label text="Rédiger un article" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                     <padding>
+                                                                        <Insets left="40.0" right="40.0" />
+                                                                     </padding>
+                                                                  </HBox>
+                                                               </children>
+                                                               <padding>
+                                                                  <Insets bottom="10.0" left="10.0" right="15.0" top="10.0" />
+                                                               </padding>
+                                                            </VBox>
+                                                            <HBox alignment="CENTER" prefHeight="28.0" prefWidth="620.0">
+                                                               <children>
+                                                                  <Line endX="-63.5" startX="-100.0" />
+                                                                  <Label maxHeight="23.0" maxWidth="284.0" prefHeight="23.0" prefWidth="284.0" text="Sélectionner la vue du fil d’actualité" />
+                                                                  <MenuButton mnemonicParsing="false" prefHeight="32.0" prefWidth="255.0" styleClass="btn-transparent" text="Les plus pertinents d’abord">
+                                                                     <items>
+                                                                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                                                                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                                                                     </items>
+                                                                  </MenuButton>
+                                                                  <Line endX="40.0" />
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox spacing="20.0">
+                                                         <children>
+                                                            <fx:include source="../post/post.fxml" />
+                                                            <fx:include source="../post/post.fxml" />
+                                                            <fx:include source="../post/post.fxml" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                       <padding>
+                                          <Insets top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="848.0" prefWidth="306.0" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <content>
+                                    <VBox>
+                                       <children>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <VBox prefHeight="200.0" prefWidth="304.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <HBox alignment="CENTER_LEFT">
+                                                         <children>
+                                                            <Label text="Label" />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox>
+                                                         <children>
+                                                            <Label text="C'est l'anniversaire de " />
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </VBox>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                     </items>
+                  </SplitPane>
+               </center>
+            </BorderPane>
+         </children>
+      </StackPane>
    </center>
    <top>
       <AnchorPane prefHeight="44.0" prefWidth="1270.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="72.0" prefWidth="1270.0" spacing="10.0" styleClass="header-bar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
+                  <ImageView fx:id="logo" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
                   <VBox prefHeight="88.0" prefWidth="432.0">
                      <children>
                         <AnchorPane prefHeight="87.0" prefWidth="432.0" styleClass="search-bar">
@@ -504,7 +513,7 @@
                   </VBox>
                   <VBox alignment="CENTER" styleClass="navbar-elmt">
                      <children>
-                        <Button fx:id="friendPageBtn" mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" styleClass="btn-transparent">
+                        <Button fx:id="friendPageBtn" mnemonicParsing="false" prefHeight="78.0" prefWidth="70.0" styleClass="btn-transparent">
                            <graphic>
                               <FontIcon iconLiteral="fas-users" iconSize="25" styleClass="navbar-icon" />
                            </graphic>
@@ -544,7 +553,7 @@
                         <MenuItem fx:id="deconnexionbtn" mnemonicParsing="false" text="Deconnection" />
                      </items>
                      <graphic>
-                        <ImageView fx:id="profileImage" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="profileImage2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../../../../../../../../../../Downloads/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg" />
                            </image>

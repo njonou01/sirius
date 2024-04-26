@@ -2,7 +2,7 @@ package edu.ssng.ing1.sirius.client.controllers.authentification;
 
 import java.io.IOException;
 
-
+import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
-
 
 public class Authentification {
     @FXML
@@ -57,6 +56,7 @@ public class Authentification {
     private SignUpSchoolController signUpSchoolController;
     private SignUpFinalController signUpFinalController;
     private String appName = "S-Connect";
+    private Student student = new Student() ;
 
     @FXML
     public void changePosition(ActionEvent event) {
@@ -68,6 +68,7 @@ public class Authentification {
         this.isSignUp = !this.isSignUp;
 
         if (isSignUp) {
+            renitializeAll();
             setASignupPaneVisible(this.signupStartPane);
             this.signinPane.setVisible(false);
             router.getStage().setTitle(appName + " " + "Sign Up");
@@ -114,23 +115,32 @@ public class Authentification {
         this.signUpStartcontroller.getNextPageBtn().setOnAction(event -> {
             if (this.signUpStartcontroller.handleContinious()) {
                 setASignupPaneVisible(signupStudentInfoPane);
+                this.signUpStartcontroller.setStudentData(student);
+                System.out.println(student);
+
             }
         });
 
         this.signUpStudentController.getNextBtn().setOnAction(event -> {
             if (this.signUpStudentController.handleContinious()) {
                 setASignupPaneVisible(signupSchoolPane);
+                this.signUpStudentController.setStudentData(student);
+                System.out.println(student);
+
             }
         });
 
         this.signUpSchoolController.getNextBtn().setOnAction(event -> {
             if (this.signUpSchoolController.handleContinious()) {
                 setASignupPaneVisible(signupFinalPane);
+                this.signUpSchoolController.setStudentData(student);
+                System.out.println(student);
+
             }
         });
 
         this.signUpFinalController.getSignupBtn().setOnAction(event -> {
-            router.navigateTo("main");
+            
         });
         this.stackPane.getChildren().addAll(this.signinPane,
                 this.signupStartPane,
@@ -160,6 +170,11 @@ public class Authentification {
         else
             for (Node pane_ : this.stackPane.getChildren())
                 pane_.setVisible(pane.equals((Pane) pane_));
+    }
+
+    private void renitializeAll() {
+        this.signUpStartcontroller.renitialize();
+        this.signUpStudentController.renitialize();
     }
 
 }

@@ -51,9 +51,8 @@ public abstract class ClientRequest<N, S> implements Runnable {
     @Override
     public void run() {
         try (Socket socket = new Socket()) {
-            int bufferSize = 20 * 1024 * 1024; // 200 Mo en octets
+            int bufferSize = 50 * 1024 * 1024; 
             socket.setReceiveBufferSize(bufferSize);
-            logger.debug("Taille du buffer définie à : {} octets pour le client", bufferSize);
             socket.connect(new InetSocketAddress(networkConfig.getIpaddress(), networkConfig.getTcpport()));
             logger.debug("Connecté au serveur {} sur le port {}", networkConfig.getIpaddress(), networkConfig.getTcpport());
     
@@ -85,13 +84,13 @@ public abstract class ClientRequest<N, S> implements Runnable {
     
                 final ObjectMapper mapper = new ObjectMapper();
                 Response response = mapper.readValue(inputData, Response.class);
-                System.out.println(response);
                 // logger.debug("Response = {}", response.toString());
     
                 result = readResult(response.responseBody);
             }
         } catch (IOException e) {
             logger.error("La connexion a échoué : {}", e.getMessage());
+            e.printStackTrace();
         } catch (InterruptedException e) {
             logger.error("L'attente a été interrompue : {}", e.getMessage());
             Thread.currentThread().interrupt();

@@ -17,6 +17,7 @@
         <version>${javafx.plugin.version}</version>
         <configuration>
           <mainClass>${main.class}</mainClass>
+          <preLoader>MyPreloader</preLoader>
         </configuration>
       </plugin>
       <plugin>

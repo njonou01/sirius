@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -11,92 +12,201 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <Pane prefHeight="546.0" prefWidth="475.0" stylesheets="@authentification.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.authentification.SignUpStartContoller">
    <children>
-      <HBox alignment="CENTER" prefHeight="546.0" prefWidth="480.0">
+      <AnchorPane>
          <children>
-            <AnchorPane prefHeight="534.0" prefWidth="328.0">
+            <HBox alignment="CENTER" prefHeight="546.0" prefWidth="480.0">
                <children>
-                  <VBox layoutX="16.0" layoutY="99.0" prefHeight="546.0" prefWidth="312.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane prefHeight="534.0" prefWidth="328.0">
                      <children>
-                        <AnchorPane prefHeight="169.0" prefWidth="349.0">
+                        <VBox layoutX="16.0" layoutY="99.0" prefHeight="546.0" prefWidth="312.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <Text layoutX="70.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="signTitle" text="Sign UP to Your SSN Account" />
-                              <Text layoutX="6.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in to your account so  you can continuous buildind" />
-                           </children>
-                        </AnchorPane>
-                        <GridPane prefHeight="328.0" prefWidth="350.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <AnchorPane GridPane.rowIndex="3">
+                              <AnchorPane prefHeight="169.0" prefWidth="349.0">
                                  <children>
-                                    <TextField fx:id="textFielPassword" prefHeight="39.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <PasswordField fx:id="passwordField" layoutX="-1.0" prefHeight="39.0" prefWidth="349.0" styleClass="textField" />
-                                    <Button fx:id="passwordBtn" layoutX="287.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="62.0" styleClass="passwordBtn" text="Show" />
+                                    <Text layoutX="70.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="signTitle" text="Sign UP to Your SSN Account" />
+                                    <Text layoutX="6.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Log in to your account so  you can continuous buildind" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane GridPane.rowIndex="5">
-                                 <children>
-                                    <TextField fx:id="textFielPasswordConfirm" prefHeight="39.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <PasswordField fx:id="passwordConfirmField" layoutX="-1.0" prefHeight="39.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Button fx:id="passwordConfirmBtn" layoutX="287.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="62.0" styleClass="passwordBtn" text="Show" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane prefHeight="64.0" prefWidth="349.0" GridPane.rowIndex="7" />
-                              <AnchorPane GridPane.rowIndex="2">
-                                 <children>
-                                    <Label layoutY="15.0" text="Password" />
-                                 </children>
-                              </AnchorPane>
-                              <AnchorPane GridPane.rowIndex="4">
-                                 <children>
-                                    <Label layoutY="15.0" text="Confirm Password" />
-                                 </children>
-                              </AnchorPane>
-                              <GridPane>
+                              <GridPane prefHeight="328.0" prefWidth="350.0">
                                  <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                  </columnConstraints>
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="54.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="65.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="29.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <AnchorPane GridPane.rowIndex="3">
                                        <children>
-                                          <Label layoutY="15.0" text="Email" />
+                                          <TextField fx:id="textFielPassword" prefHeight="30.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <PasswordField fx:id="passwordField" layoutX="-1.0" prefHeight="39.0" prefWidth="349.0" styleClass="textField" />
+                                          <Button fx:id="passwordBtn" layoutX="287.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="62.0" styleClass="passwordBtn">
+                                             <graphic>
+                                                <FontIcon fx:id="showPasswordIcon" iconColor="WHITE" iconLiteral="fas-eye" iconSize="25" />
+                                             </graphic>
+                                          </Button>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                                    <AnchorPane GridPane.rowIndex="5">
+                                       <children>
+                                          <TextField fx:id="textFielPasswordConfirm" prefHeight="39.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <PasswordField fx:id="passwordConfirmField" layoutX="-1.0" prefHeight="39.0" prefWidth="349.0" styleClass="textField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <Button fx:id="passwordConfirmBtn" layoutX="287.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="62.0" styleClass="passwordBtn">
+                                             <graphic>
+                                                <FontIcon fx:id="showConfirmPasswordIcon" iconColor="WHITE" iconLiteral="fas-eye" iconSize="25" />
+                                             </graphic>
+                                          </Button>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="64.0" prefWidth="349.0" GridPane.rowIndex="7" />
+                                    <AnchorPane GridPane.rowIndex="2">
+                                       <children>
+                                          <HBox layoutY="27.0" AnchorPane.bottomAnchor="4.0">
+                                             <children>
+                                                <Label text="Password" />
+                                                <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Label fx:id="emailErrorMsg" style="-fx-text-fill: red;" text="L'email entrée est invalide" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="45.0" prefWidth="349.0" GridPane.rowIndex="4">
+                                       <children>
+                                          <HBox layoutY="30.0" AnchorPane.bottomAnchor="4.0">
+                                             <children>
+                                                <Label text="Confirm Password" />
+                                                <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutY="2.0">
+                                             <children>
+                                                <Button fx:id="passwordErrorMsg" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-padding: 0;" textFill="RED">
+                                                   <graphic>
+                                                      <HBox>
+                                                         <children>
+                                                            <Label layoutY="2.0" style="-fx-text-fill: red;" text="Le mot de passe entrée n'est pas bon" textFill="RED" />
+                                                            <Button fx:id="showPasswordPrecision" mnemonicParsing="false" style="-fx-padding: 0; -fx-background-color: transparent;">
+                                                               <graphic>
+                                                                  <FontIcon iconColor="RED" iconLiteral="fas-exclamation-circle" />
+                                                               </graphic>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <HBox layoutY="13.0" AnchorPane.bottomAnchor="4.0">
+                                                   <children>
+                                                      <Label text="Email" />
+                                                      <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                    <TextField fx:id="emailField" layoutX="10.0" layoutY="120.0" prefHeight="40.0" prefWidth="312.0" styleClass="textField" GridPane.rowIndex="1" />
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+                                       <children>
+                                          <HBox layoutY="2.0" AnchorPane.topAnchor="2.0">
+                                             <children>
+                                                <Label fx:id="passwordConfirmErrorMsg" style="-fx-text-fill: red;" text="Le mot de passe et la confirmation ne sont pas similaire" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </GridPane>
-                              <TextField fx:id="emailField" layoutX="10.0" layoutY="120.0" prefHeight="40.0" prefWidth="312.0" styleClass="textField" GridPane.rowIndex="1" />
+                              <AnchorPane prefHeight="165.0" prefWidth="300.0">
+                                 <children>
+                                    <Button fx:id="nextPageBtn" layoutX="9.0" layoutY="29.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="340.0" styleClass="signBtn" text="Continue" />
+                                 </children>
+                              </AnchorPane>
                            </children>
-                        </GridPane>
-                        <AnchorPane prefHeight="165.0" prefWidth="349.0">
+                        </VBox>
+                        <VBox fx:id="passwordErrorPrecision" alignment="CENTER" layoutX="9.0" layoutY="125.0" visible="false">
                            <children>
-                              <Button fx:id="nextPageBtn" layoutX="9.0" layoutY="29.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="340.0" styleClass="signBtn" text="Continue" />
+                              <AnchorPane style="-fx-background-color: rgba(0, 0, 0, 0.7);">
+                                 <children>
+                                    <VBox prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <HBox layoutX="10.0" layoutY="10.0">
+                                             <children>
+                                                <FontIcon fx:id="isMinEightCaractersIcon" fill="RED" iconLiteral="fas-times" iconSize="20" />
+                                                <Label style="-fx-text-fill: #fff; -fx-font-size: 16;" text="Au moins 8 caractères " textFill="WHITE" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Label style="-fx-text-fill: #fff; -fx-font-size: 16;" text="Au moins une une majuscule">
+                                                   <graphic>
+                                                      <FontIcon fx:id="atLeastOneLowerCaseIcon" fill="RED" iconLiteral="fas-times" iconSize="20" />
+                                                   </graphic></Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0">
+                                             <children>
+                                                <FontIcon fx:id="atLeastOneCapitalLetterIcon" fill="RED" iconLiteral="fas-times" iconSize="20" />
+                                                <Label style="-fx-text-fill: #fff; -fx-font-size: 16;" text="Au moins une minuscule" />
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0">
+                                             <children>
+                                                <FontIcon fx:id="atLeastOneSpecialCaractercon" fill="RED" iconLiteral="fas-times" iconSize="20" />
+                                                <Label style="-fx-text-fill: #fff; -fx-font-size: 16;" text="Au moins un caractère spécial" />
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="85.0">
+                                             <children>
+                                                <FontIcon fx:id="noSpaceIcon" fill="RED" iconLiteral="fas-times" iconSize="20" />
+                                                <Label style="-fx-text-fill: #fff; -fx-font-size: 16;" text="Sans espaces" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </AnchorPane>
+                              <Polygon fill="DODGERBLUE" points="-9.0, 40.0, 9.0, 40.0, 0.5, 25.0" rotate="180.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: rgba(0, 0, 0, 0.7);" translateX="80.0" />
                            </children>
-                        </AnchorPane>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
+            </HBox>
          </children>
-      </HBox>
+      </AnchorPane>
    </children>
 </Pane>

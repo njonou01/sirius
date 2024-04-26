@@ -40,10 +40,8 @@ public class CoreBackendServer implements Runnable {
     private volatile boolean topToStop = false;
     private int requestHandlerCreatedSoFar = 0;
 
-    // Should rather use an Interface variable
     private ConnectionPoolImpl connectionPool = ConnectionPoolImpl.getInstance(dbEditorIsPGSQLHere);
 
-    // This class method should be factorized.
     private final CoreBackendServerConfiguration withConfiguration() {
         final Yaml yaml = new Yaml(new Constructor(CoreBackendServerConfiguration.class));
         final InputStream nptStrm = this.getClass().getClassLoader()
@@ -56,7 +54,7 @@ public class CoreBackendServer implements Runnable {
 
     public CoreBackendServer() throws IOException, SQLException {
         coreServerSocket = new ServerSocket(config.getListenPort());
-        int bufferSize =  20*1024 * 1024; 
+        int bufferSize =  50 *1024 * 1024; 
         coreServerSocket.setSoTimeout(1000*60);
         coreServerSocket.setReceiveBufferSize(bufferSize);
         logger.debug("Configuration loaded : {}", coreServerSocket.toString());
@@ -67,7 +65,7 @@ public class CoreBackendServer implements Runnable {
     }
 
     public void join() throws InterruptedException {
-        coreThread.join(); // If any caller wants to wait for me; Certainly the main process ...
+        coreThread.join(); 
     }
 
     @Override
@@ -75,21 +73,14 @@ public class CoreBackendServer implements Runnable {
         while (!topToStop) {
             try {
                 logger.trace("{} {}", topToStop, connectionPool.available());
-                // WOW CAUTION : Be sure I AM the ONLY instance of this class in that JAVA
-                // process ...
                 if (0 < connectionPool.available()) {
                     final Socket accept = coreServerSocket.accept();
-                    accept.setReceiveBufferSize(20*1024*1024); // Par exemple, 8 Ko
+                    accept.setReceiveBufferSize(50*1024*1024); // P
 
-                    // Just to be sure ... Specially if you didn't care about the warning above
-                    // Oh (wo-)man, Note you might have a client socket in your hand with a null
-                    // connection
-                    // so no matter to construct a Request Handler
-                    // which will deliver a special reply to the client : No more connection
-                    // available.
+                    
                     final RequestHandler requestHandler = new RequestHandler(
                             accept,
-                            connectionPool.get(), // Might be null
+                            connectionPool.get(),
                             requestHandlerCreatedSoFar++,
                             this);
 
@@ -98,11 +89,8 @@ public class CoreBackendServer implements Runnable {
             } catch (SocketTimeoutException es) {
                 logger.trace("Timeout on accept : topToStop = {}", topToStop);
             } catch (IOException e) {
-                // Do not insist and brak the loop
                 logger.error("There is I/O mess here : exception tells  {}", e);
                 topToStop = true;
-                // You should care that somme client are still running and be sure to terminate
-                // them properly.
             }
         }
         logger.debug("Main Thread in Core Backend Server is terminated - topToStop = {}", topToStop);

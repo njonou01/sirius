@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import edu.ssng.ing1.sirius.business.dto.BeFriend;
 
 import edu.ssng.ing1.sirius.business.dto.BeFriends;
+import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
@@ -20,7 +21,7 @@ public class FriendCommonRequest {
 
     private final static String networkConfigFile = "network.yaml";
 
-    public static BeFriends selectFriends(BeFriend friend_relation)
+    public static BeFriends selectFriends(Student receiver)
             throws NullPointerException, IOException, InterruptedException {
         final String LoggingLabel = "S E L E C T - F R I E N D S";
         final Logger logger = LoggerFactory.getLogger(LoggingLabel);
@@ -32,7 +33,7 @@ public class FriendCommonRequest {
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
         final String jsonifiedStudent = objectMapper.writerWithDefaultPrettyPrinter()
-                .writeValueAsString(friend_relation);
+                .writeValueAsString(receiver);
         logger.trace("Friends with its JSON face : {}", jsonifiedStudent);
         final String requestId = UUID.randomUUID().toString();
         final Request request = new Request();
@@ -44,7 +45,7 @@ public class FriendCommonRequest {
 
         final SelectFriendsClientRequest clientRequest_ = new SelectFriendsClientRequest(
                 networkConfig,
-                birthdate++, request, friend_relation, requestBytes);
+                birthdate++, request, receiver, requestBytes);
         clientRequests.push(clientRequest_);
 
         while (!clientRequests.isEmpty()) {

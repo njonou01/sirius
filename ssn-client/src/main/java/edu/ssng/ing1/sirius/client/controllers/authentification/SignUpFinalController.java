@@ -1,8 +1,11 @@
 package edu.ssng.ing1.sirius.client.controllers.authentification;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.client.requests.authentification.AuthRequest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -25,6 +28,17 @@ public class SignUpFinalController implements Initializable {
         acceptCheckBox.setOnAction(event -> {
             signupBtn.setDisable(!acceptCheckBox.isSelected());
         });
+    }
+
+    public CheckBox getAcceptCheckBox() {
+        return acceptCheckBox;
+    }
+
+    protected void setStudentInfo(Student student) {
+        try {
+            AuthRequest.signUpAs(student);
+        } catch (NullPointerException | IOException | InterruptedException e) {
+        }
     }
 
 }

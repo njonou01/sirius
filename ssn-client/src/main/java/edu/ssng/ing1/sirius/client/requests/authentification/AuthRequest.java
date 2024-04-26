@@ -134,44 +134,10 @@ public class AuthRequest {
             logger.debug("Thread {} complete : {}  --> {}",
                     threadName, student_response.toString(),
                     clientRequest.getResult());
-            return clientRequest.getResult().equals("success");
+            return clientRequest.getResult().equals("user exist");
         }
         return null;
     }
 
-    public Student getSelf(Student student) throws NullPointerException, IOException, InterruptedException {
-        Deque<ClientRequest<Object, Student>> clientRequests_ = new ArrayDeque<ClientRequest<Object, Student>>();
-        final String LoggingLabel = "S T U D E N T - I N FO ";
-        final Logger logger = LoggerFactory.getLogger(LoggingLabel);
-        final String threadName = "student-info";
-        requestOrder = "STUDENT_INFO";
-        final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
-        logger.debug("Load Network config file : {}", networkConfig.toString());
-
-        int birthdate = 0;
-        final ObjectMapper objectMapper = new ObjectMapper();
-        final String jsonifiedStudent = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(student);
-        logger.trace("Student with its JSON face : {}", jsonifiedStudent);
-        final String requestId = UUID.randomUUID().toString();
-        final Request request = new Request();
-        request.setRequestId(requestId);
-        request.setRequestOrder(requestOrder);
-        request.setRequestContent(jsonifiedStudent);
-        objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-        final byte[] requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
-
-        final SelectSelfRequest clientRequest_ = new SelectSelfRequest(
-                networkConfig,
-                birthdate++, request, student, requestBytes);
-        clientRequests_.push(clientRequest_);
-
-        while (!clientRequests_.isEmpty()) {
-            final ClientRequest<Object, Student> joinedClientRequest = clientRequests_.pop();
-            joinedClientRequest.join();
-            logger.debug("Thread {} complete.", threadName);
-            final Student student_return = (Student) joinedClientRequest.getResult();
-            return student_return;
-        }
-        return null;
-    }
+    
 }

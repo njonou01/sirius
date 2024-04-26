@@ -2,25 +2,38 @@ package edu.ssng.ing1.sirius.business.dto;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
-
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Student {
+    // sign up start -> ok
     private String firstname;
     private String familyname;
-    private String email;
-
     private String gender;
-    private String password;
     private Date bithday;
     private String phoneNumber;
+    private int zipcode;
+    private String adress;
+
+    // sign up start-> ok
+    private String email;
+    private String password;
+
+    // université - schoolcontroller -> ok
+    private String university;
+    private Date formation_start;
+    private Date formation_stop;
+    private String formation_description;
+    private String training_followed;
+
     private String profileImage;
-    private String username;
     private byte[] profileImageStream;
     private int id_student;
 
@@ -42,7 +55,7 @@ public class Student {
     }
 
     public Student(String firstname, String familyname, String email, String gender, String password, Date bithday,
-            String phoneNumber, String profileImage, String username, byte[] profileImageStream, int id_student) {
+            String phoneNumber, String profileImage, byte[] profileImageStream, int id_student) {
         this.firstname = firstname;
         this.familyname = familyname;
         this.email = email;
@@ -51,7 +64,6 @@ public class Student {
         this.bithday = bithday;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
-        this.username = username;
         this.profileImageStream = profileImageStream;
         this.id_student = id_student;
     }
@@ -120,14 +132,6 @@ public class Student {
         this.profileImage = profileImage;
     }
 
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public byte[] getProfileImageStream() {
         return this.profileImageStream;
     }
@@ -184,11 +188,6 @@ public class Student {
         return this;
     }
 
-    public Student username(String username) {
-        setUsername(username);
-        return this;
-    }
-
     public Student profileImageStream(byte[] profileImageStream) {
         setProfileImageStream(profileImageStream);
         return this;
@@ -197,6 +196,54 @@ public class Student {
     public Student id_student(int id_student) {
         setId_student(id_student);
         return this;
+    }
+
+    public int getZipcode() {
+        return this.zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public String getAdress() {
+        return this.adress;
+    }
+
+    public void setAdress(String adress) {
+        this.adress = adress;
+    }
+
+    public String getUniversity() {
+        return this.university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public Date getFormation_start() {
+        return this.formation_start;
+    }
+
+    public void setFormation_start(Date formation_start) {
+        this.formation_start = formation_start;
+    }
+
+    public Date getFormation_stop() {
+        return this.formation_stop;
+    }
+
+    public void setFormation_stop(Date formation_stop) {
+        this.formation_stop = formation_stop;
+    }
+
+    public String getFormation_description() {
+        return this.formation_description;
+    }
+
+    public void setFormation_description(String formation_description) {
+        this.formation_description = formation_description;
     }
 
     @Override
@@ -211,38 +258,40 @@ public class Student {
                 && Objects.equals(email, student.email) && Objects.equals(gender, student.gender)
                 && Objects.equals(password, student.password) && Objects.equals(bithday, student.bithday)
                 && Objects.equals(phoneNumber, student.phoneNumber)
-                && Objects.equals(profileImage, student.profileImage) && Objects.equals(username, student.username)
                 && Objects.equals(profileImageStream, student.profileImageStream) && id_student == student.id_student;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(firstname, familyname, email, gender, password, bithday, phoneNumber, profileImage,
-                username, profileImageStream, id_student);
+                profileImageStream, id_student);
     }
 
     @Override
     public String toString() {
-        return "{" +
-                " firstname='" + getFirstname() + "'" +
-                ", familyname='" + getFamilyname() + "'" +
-                ", email='" + getEmail() + "'" +
-                ", gender='" + getGender() + "'" +
-                ", password='" + getPassword() + "'" +
-                ", bithday='" + getBithday() + "'" +
-                ", phoneNumber='" + getPhoneNumber() + "'" +
-                ", profileImage='" + getProfileImage() + "'" +
-                ", username='" + getUsername() + "'" +
-                ", profileImageStream='" + getProfileImageStream() + "'" +
-                ", id_student='" + getId_student() + "'" +
-                "}";
+        return "Student [firstname=" + firstname + ", familyname=" + familyname + ", gender=" + gender + ", bithday="
+                + bithday + ", phoneNumber=" + phoneNumber + ", zipcode=" + zipcode + ", adress=" + adress + ", email="
+                + email + ", password=" + password + ", university=" + university + ", formation_start="
+                + formation_start
+                + ", formation_stop=" + formation_stop + ", formation_description=" + formation_description
+                + ", training_followed=" + training_followed + ", profileImage=" + profileImage
+                + ", profileImageStream=" + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]";
     }
 
     public final Student build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
         setFieldsFromResulset(resultSet, "familyname", "firstname",
-                "email", "phoneNumber", "gender", "username", "password", "bithday");
+                "email", "phoneNumber", "gender", "password", "bithday");
         return this;
+    }
+
+    public final void buildUniversity(final ResultSet resultSet)
+            throws SQLException, NoSuchFieldException, IllegalAccessException {
+        setFieldsFromResulset(resultSet,  "university",
+                "formation_start",
+                "formation_stop",
+                "formation_description",
+                "training_followed");
     }
 
     public final int signin(PreparedStatement preparedStatement)
@@ -253,8 +302,8 @@ public class Student {
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
 
-        return buildPreparedStatement(preparedStatement, bithday, familyname, firstname,
-                email, phoneNumber, gender, username,
+        return createStudentStatement(preparedStatement, bithday, familyname, firstname,
+                email, phoneNumber, gender,
                 BCrypt.hashpw(password, BCrypt.gensalt()));
     }
 
@@ -266,7 +315,7 @@ public class Student {
         }
     }
 
-    private final PreparedStatement buildPreparedStatement(PreparedStatement preparedStatement,
+    private final PreparedStatement createStudentStatement(PreparedStatement preparedStatement,
             final Date date, final String... fieldNames)
             throws NoSuchFieldException, SQLException, IllegalAccessException {
         int ix = 0;
@@ -275,6 +324,27 @@ public class Student {
         }
         preparedStatement.setDate(++ix, date);
         return preparedStatement;
+    }
+
+    public final PreparedStatement setUniversityStudentStatement(PreparedStatement preparedStatement,
+            final int is_student, final int id_university, final String description, final Date... dates)
+            throws NoSuchFieldException, SQLException, IllegalAccessException {
+        int ix = 0;
+        for (final Date fieldName : dates) {
+            preparedStatement.setDate(++ix, fieldName);
+        }
+        preparedStatement.setString(++ix, description);
+        preparedStatement.setInt(++ix, is_student);
+        preparedStatement.setInt(++ix, id_university);
+        return preparedStatement;
+    }
+
+    public String getTraining_followed() {
+        return training_followed;
+    }
+
+    public void setTraining_followed(String training_followed) {
+        this.training_followed = training_followed;
     }
 
 }

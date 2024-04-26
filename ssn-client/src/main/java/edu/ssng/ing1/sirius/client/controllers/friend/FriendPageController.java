@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.BeFriends;
 import edu.ssng.ing1.sirius.business.dto.Student;
-import edu.ssng.ing1.sirius.client.controllers.core.PreloadRequest;
+import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
+import edu.ssng.ing1.sirius.client.requests.friend.FriendCommonRequest;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +40,7 @@ public class FriendPageController implements Initializable {
     @FXML
     private Button birthdayBtn;
     @FXML
-    private VBox allFriendPanel;
+    private ScrollPane  allFriendPanel;
     @FXML
     private Button friendHomeBtn;
     @FXML
@@ -47,15 +48,15 @@ public class FriendPageController implements Initializable {
     @FXML
     private Button friendSuggestionsBtn;
     @FXML
-    private VBox homePanel;
+    private ScrollPane  homePanel;
     @FXML
-    private VBox invatationPane;
+    private ScrollPane invatationPane;
     @FXML
     private FlowPane invitationZone;
     @FXML
     private FlowPane invitationPanelZone;
     @FXML
-    private VBox sugggestionPanel;
+    private ScrollPane  sugggestionPanel;
     @FXML
     private HBox invitationViewMore;
     @FXML
@@ -66,7 +67,7 @@ public class FriendPageController implements Initializable {
     private ScrollPane friendScroll;
     @FXML
     private Label numberOfFriends;
-    Map<Button, VBox> btnmapper = new HashMap<Button, VBox>();
+    Map<Button, ScrollPane> btnmapper = new HashMap<Button, ScrollPane>();
     private BeFriends friends;
 
     public FriendPageController() {
@@ -74,6 +75,13 @@ public class FriendPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            int student_id = UserInfo.getUser().getId_student();
+            friends  = FriendCommonRequest.selectFriends(new Student(student_id));
+            System.out.println(friends.getBefriends().size());
+        } catch (NullPointerException | IOException | InterruptedException e) {
+            friends  = null;
+        }
         btnmapper.put(allFriendBtn, allFriendPanel);
         btnmapper.put(friendHomeBtn, homePanel);
         btnmapper.put(friendInvitationsBtn, invatationPane);
@@ -84,26 +92,26 @@ public class FriendPageController implements Initializable {
         invViewMoreBtn.setOnAction(event -> friendInvitationsBtn.fire());
 
         try {
-            this.friends = PreloadRequest.getInstance().getAllFriends();
             Set<BeFriend> friends_invitation = friends.getBefriends().stream()
                     .filter(friend -> "no reponse".equals(friend.getStatus()))
                     .collect(Collectors.toSet());
             List<AnchorPane> acceptedfriend = friends.getBefriends().stream()
                     .filter(friend -> "accepted".equals(friend.getStatus())).map(friend -> {
                         try {
-                            Student student = friend.getReceiver();
+                            Student student = friend.getSender();
                             FXMLLoader loader = Router.getInstance().getParentNode("friend-card");
                             AnchorPane pane = (AnchorPane) loader.load();
                             FriendCardController fr = loader.getController();
-                            fr.getName().setText(student.getFamilyname() + " " + student.getFirstname());
                             Image image = new Image(convertBytesToInputStream(student.getProfileImageStream()));
+                            fr.getName().setText(student.getFamilyname() + " " + student.getFirstname());
                             fr.getProfileImage().setImage(image);
+                            fr.getFormation().setText(student.getUniversity());
                             return pane;
                         } catch (Exception e) {
                             return new AnchorPane();
                         }
                     }).collect(Collectors.toList());
-            friendZone.getChildren().addAll(acceptedfriend);
+            friendZone.getChildren().setAll(acceptedfriend);
 
             numberOfFriends.setText(acceptedfriend.size() + " " + (acceptedfriend.size() <= 1 ? "ami(e)" : "ami(e)s"));
 
@@ -114,13 +122,14 @@ public class FriendPageController implements Initializable {
             invitationZone.getChildren().setAll(
                     friends_invitation.stream().limit(5).map(friend -> {
                         try {
-                            Student student = friend.getReceiver();
+                            Student student = friend.getSender();
                             FXMLLoader loader = Router.getInstance().getParentNode("friend-invitation");
                             AnchorPane pane = (AnchorPane) loader.load();
                             FriendInvitationController fr = loader.getController();
                             fr.getName().setText(student.getFamilyname() + " " + student.getFirstname());
                             Image image = new Image(convertBytesToInputStream(student.getProfileImageStream()));
                             fr.getProfileImage().setImage(image);
+                            fr.getFormation().setText(student.getUniversity());
                             return pane;
                         } catch (Exception e) {
                             return new AnchorPane();
@@ -129,20 +138,21 @@ public class FriendPageController implements Initializable {
 
             invitationPanelZone.getChildren().setAll(friends_invitation.stream().map(friend -> {
                 try {
-                    Student student = friend.getReceiver();
+                    Student student = friend.getSender();
                     FXMLLoader loader = Router.getInstance().getParentNode("friend-invitation");
                     AnchorPane pane = (AnchorPane) loader.load();
                     FriendInvitationController fr = loader.getController();
                     fr.getName().setText(student.getFamilyname() + " " + student.getFirstname());
                     Image image = new Image(convertBytesToInputStream(student.getProfileImageStream()));
                     fr.getProfileImage().setImage(image);
+                    fr.getFormation().setText(student.getUniversity());
                     return pane;
                 } catch (Exception e) {
                     return new AnchorPane();
                 }
             }).collect(Collectors.toList()));
 
-        } catch (NullPointerException | IOException | InterruptedException e) {
+        } catch (NullPointerException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -150,8 +160,7 @@ public class FriendPageController implements Initializable {
     public void initializeBtn(Button... btnsListf) {
         for (Button button : btnsListf) {
             button.setOnAction(event -> {
-                friendScroll.setVvalue(0);
-                for (VBox entry : this.btnmapper.values()) {
+                for (ScrollPane entry : this.btnmapper.values()) {
                     entry.setVisible(false);
                 }
                 btnmapper.get(button).setVisible(true);
