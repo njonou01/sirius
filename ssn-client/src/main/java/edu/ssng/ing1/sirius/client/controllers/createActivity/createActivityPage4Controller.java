@@ -38,12 +38,13 @@ public class createActivityPage4Controller implements Initializable {
         RouterPopUp.activite.setConfidentialite("Privé");
         RouterPopUp.activite.setDatecreation("1990-05-03 20:00:00");
         RouterPopUp.activite.setState(true);
+        Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
         try {
             InsertActivityQuery.InsertActivite(RouterPopUp.activite);
         } catch (IOException | InterruptedException | SQLException e) {
             System.out.println("OOOOOOOOOOOOO" + e.getMessage() + "OOOOOOOOOOOOO");
         }
-        Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
+        
 
         router.getStage().close();
 
