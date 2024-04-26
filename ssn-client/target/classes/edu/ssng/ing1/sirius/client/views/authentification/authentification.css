@@ -112,15 +112,15 @@
   -fx-border-color: rgb(253, 4, 4);
   -fx-background-color: rgba(250,0,0,0.1);
 }
+
 .date-picker {
   -fx-border-color: rgb(196, 193, 193);
-  -fx-background-color: white;
+  -fx-background-color: transparent;
   -fx-box-border: transparent;
   -fx-background-insets: 0;
-  
 }
 .date-picker > .text-field {
-  -fx-background-color: white;
+  -fx-background-color: transparent;
 }
 
 .textField > .text-field {
@@ -135,12 +135,52 @@
 
 
 .date-picker .arrow-button {
-    -fx-background-color: #ffffff; /* Couleur du bouton de sélection */
-    -fx-border-width: 0 0 0 1px;
-    -fx-border-color: rgb(196, 193, 193);
+    -fx-background-color: transparent; /* Couleur du bouton de sélection */
+}
+
+
+
+.search-field .text-field {
+  -fx-background-color: transparent; 
+}
+.search-field *{
+  -fx-background-color: transparent;
+}
+
+
+
+
+.search-field .list-view {
+  -fx-background-color: #ffffff; 
+  -fx-border-color: #cccccc; 
+  -fx-border-width: 1px; 
+  -fx-padding: 5px; 
+  -fx-text-fill: #000;
+}
+.search-field .list-view *{
+
+  -fx-text-fill: #000;
+}
+.search-field .list-view .list-cell {
+  -fx-padding: 5px; 
+}
+
+.search-field .list-view .list-cell:hover {
+  -fx-background-color: #0731b9; 
+}
+
+
+.search-field .list-view .list-cell:selected {
+  -fx-background-color: rgb(80, 80, 80); 
 
 }
 
+
+
+.errortextfield{
+  -fx-border-color: rgb(253, 4, 4);
+  -fx-background-color: rgba(250,0,0,0.1);
+}
 
 
 

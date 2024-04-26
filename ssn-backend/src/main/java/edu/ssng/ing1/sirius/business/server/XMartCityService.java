@@ -2,9 +2,12 @@ package edu.ssng.ing1.sirius.business.server;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.ssng.ing1.sirius.business.dto.BeFriend;
+import edu.ssng.ing1.sirius.business.dto.BeFriends;
 import edu.ssng.ing1.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
@@ -88,6 +91,8 @@ public class XMartCityService {
                     return doesStudentExistResponse(preparedStatement, request);
                 case SIGN_IN_AS:
                     return signinAsResponse(preparedStatement, request);
+                case STUDENT_INFO:
+                    return selectSelfInfoResponse(preparedStatement, request);
                 case GET_DATA_CONNEXION:
                     return getConnexionData(preparedStatement, request);
                 default:
@@ -236,45 +241,70 @@ public class XMartCityService {
         return new Response(request.getRequestId(), bodyResponse);
     }
 
+    public Response selectSelfInfoResponse(PreparedStatement preparedStatement, Request request)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
+        Student student = new Student();
+        final ObjectMapper mapper = new ObjectMapper();
+        String email = mapper.readValue(request.getRequestBody(), String.class);
+        preparedStatement.setString(1, email);
+
+        String bodyResponse = "";
+
+        ResultSet listOfStudents = preparedStatement.executeQuery();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+        while (listOfStudents.next()) {
+            student = new Student().build(listOfStudents);
+            student.setId_student(listOfStudents.getInt("id_student"));
+            student.setProfileImage(listOfStudents.getString("profile_image"));
+            InputStream inputStream = classLoader.getResourceAsStream("media/images/" + student.getProfileImage());
+            student.setProfileImageStream(convertInputStreamToBytes(inputStream));
+            break;
+        }
+        listOfStudents.close();
+        bodyResponse = mapper.writeValueAsString(student);
+        return new Response(request.getRequestId(), bodyResponse);
+    }
+
     public Response selectFriendResponse(PreparedStatement preparedStatement, Request request) throws SQLException,
             JsonParseException, JsonMappingException, IOException, NoSuchFieldException, IllegalAccessException {
-        Students students = new Students();
+        BeFriends friends = new BeFriends();
         final ObjectMapper mapper = new ObjectMapper();
-        final BeFriend friend_relation = mapper.readValue(request.getRequestBody(), BeFriend.class);
-        preparedStatement.setInt(1, friend_relation.getSender().getId_student());
+        final Student receiver = mapper.readValue(request.getRequestBody(), Student.class);
+        preparedStatement.setInt(1, receiver.getId_student());
         String bodyResponse = "";
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
         ResultSet listOfStudents = preparedStatement.executeQuery();
         while (listOfStudents.next()) {
-            Student student = new Student().build(listOfStudents);
-            student.setProfileImage(listOfStudents.getString("profile_image"));
-            InputStream inputStream = classLoader.getResourceAsStream("media/images/" + student.getProfileImage());
-            student.setProfileImageStream(convertInputStreamToBytes(inputStream));
-            students.add(student);
+            Student sender = new Student().build(listOfStudents);
+            sender.buildUniversity(listOfStudents);
+            sender.setProfileImage(listOfStudents.getString("profile_image"));
+            InputStream inputStream = classLoader.getResourceAsStream("media/images/" + sender.getProfileImage());
+            sender.setProfileImageStream(convertInputStreamToBytes(inputStream));
+            BeFriend friend = new BeFriend().build(listOfStudents);
+            friend.setSender(sender);
+            friend.setReceiver(receiver);
+            friends.add(friend);
             inputStream.close();
         }
         listOfStudents.close();
-        bodyResponse = mapper.writeValueAsString(students);
-        File file = new File("montest.json");
-
-        mapper.writeValue(file, bodyResponse);
+        bodyResponse = mapper.writeValueAsString(friends);
         return new Response(request.getRequestId(), bodyResponse);
     }
 
-    private static byte[] convertInputStreamToBytes(InputStream inputStream) {
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            return outputStream.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+    private static byte[] convertInputStreamToBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[4096]; 
+        
+        int nRead;
+        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
         }
+        
+        buffer.flush();
+        return buffer.toByteArray();
     }
 
     public Response selectUniversitiesResponse(PreparedStatement preparedStatement, Request request)
@@ -398,7 +428,6 @@ public class XMartCityService {
             resultSet.close();
             String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
             return new Response(request.getRequestId(), bodyResponse);
-
         } else {
             String errormsg = "success";
             resultSet.close();

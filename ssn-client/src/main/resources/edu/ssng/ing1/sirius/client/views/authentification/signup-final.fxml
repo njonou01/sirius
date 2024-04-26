@@ -65,9 +65,14 @@
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                                  <children>
                                     <Label layoutX="4.0" text="By clicking Agree &amp; Join or Continue, you agree to ssng" />
-                                    <Hyperlink layoutY="16.0" styleClass="link" text="User Agreement, Privacy Policy," />
-                                    <Label layoutX="216.0" layoutY="19.0" text="and" />
-                                    <Hyperlink layoutX="241.0" layoutY="16.0" styleClass="link" text="and Cookie Policy" />
+                                    <HBox alignment="CENTER" layoutY="16.0">
+                                       <children>
+                                          <Hyperlink styleClass="link" text="User Agreement, Privacy Policy," />
+                                          <Label prefHeight="18.0" prefWidth="27.0" text="and" />
+                                          <Hyperlink prefHeight="24.0" prefWidth="100.0" styleClass="link" text=" Cookie Policy" />
+                                          <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                               <Button fx:id="signupBtn" mnemonicParsing="false" prefHeight="40.0" prefWidth="340.0" styleClass="signBtn" text="Sign UP" GridPane.rowIndex="6" />

@@ -11,8 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ssng.ing1.sirius.client.MainClient;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class Router {
@@ -108,11 +110,22 @@ public class Router {
         }
 
     }
+
     public Stage getStage() {
         return this.stage;
     }
-    public Scene getScene(){
+
+    public Scene getScene() {
         return this.stage.getScene();
+    }
+
+    public void setFullScreenStage() {
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+        stage.setX(bounds.getMinX());
+        stage.setY(bounds.getMinY());
+        stage.setWidth(bounds.getWidth());
+        stage.setHeight(bounds.getHeight());
     }
 
 }

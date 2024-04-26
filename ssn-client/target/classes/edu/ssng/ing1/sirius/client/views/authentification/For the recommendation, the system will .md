@@ -1,0 +1,1 @@
+For the recommendation, the system will use information such as, the specialty, the centers of interest, the old publication, his friends, the publications liked, the goal is to recommend the student having the maximum in common with the 'user

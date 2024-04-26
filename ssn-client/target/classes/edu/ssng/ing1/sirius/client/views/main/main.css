@@ -10,6 +10,7 @@
 .root {
   -fx-font-family: "Roboto";
   -bg-main-color: #F0F2F5;
+  -fx-font-size: 17px;
 }
 .root-page{
     -fx-background-color: -bg-main-color;

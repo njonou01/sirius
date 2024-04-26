@@ -3,14 +3,18 @@ package edu.ssng.ing1.sirius.requests.authentification;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import edu.ssng.commons.LoggingUtils;
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
+import edu.ssng.ing1.sirius.client.requests.self.SelectSelfRequest;
 import edu.ssng.ing1.sirius.commons.Request;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 
 import java.io.IOException;
 
@@ -130,8 +134,10 @@ public class AuthRequest {
             logger.debug("Thread {} complete : {}  --> {}",
                     threadName, student_response.toString(),
                     clientRequest.getResult());
-            return clientRequest.getResult().equals("success");
+            return clientRequest.getResult().equals("user exist");
         }
         return null;
     }
+
+    
 }

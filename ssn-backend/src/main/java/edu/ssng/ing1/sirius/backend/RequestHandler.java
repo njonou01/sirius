@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.Connection;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -46,6 +47,7 @@ public class RequestHandler implements Runnable {
             final int myBirthDate,
             final CoreBackendServer father) throws IOException {
         this.socket = socket;
+        socket.setReceiveBufferSize(50*1024*1024); 
         this.connection = connection;
         this.father = father;
         final StringBuffer threadName = new StringBuffer();

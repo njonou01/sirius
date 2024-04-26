@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -42,7 +44,17 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <TextField fx:id="firstNameField" prefHeight="40.0" prefWidth="312.0" styleClass="textField" GridPane.rowIndex="1" />
+                              <GridPane GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TextField fx:id="lastnameField" prefHeight="40.0" prefWidth="312.0" styleClass="textField" />
+                                 </children>
+                              </GridPane>
                               <AnchorPane GridPane.rowIndex="5">
                                  <children>
                                     <GridPane layoutY="8.0" prefHeight="38.0" prefWidth="349.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -54,29 +66,116 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <TextField fx:id="zipField" prefHeight="40.0" prefWidth="179.0" styleClass="textField" />
-                                          <TextField fx:id="addresField" prefHeight="40.0" prefWidth="178.0" styleClass="textField" GridPane.columnIndex="1" />
+                                          <TextField fx:id="zipField" prefHeight="38.0" prefWidth="152.0" styleClass="textField">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin></TextField>
+                                          <TextField fx:id="addresField" prefHeight="38.0" prefWidth="154.0" styleClass="textField" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="5.0" />
+                                             </GridPane.margin></TextField>
                                        </children>
                                     </GridPane>
                                  </children>
                               </AnchorPane>
                               <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="7">
                                  <children>
-                                    <DatePicker fx:id="birthdayField" layoutX="45.0" layoutY="2.0" prefHeight="38.0" prefWidth="349.0" styleClass="date-picker" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="178.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="178.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <DatePicker fx:id="birthdayField" prefHeight="38.0" prefWidth="349.0">
+                                             <GridPane.margin>
+                                                <Insets right="5.0" />
+                                             </GridPane.margin></DatePicker>
+                                          <ComboBox fx:id="sexeField" prefHeight="38.0" prefWidth="176.0" styleClass="textField" GridPane.columnIndex="1">
+                                             <padding>
+                                                <Insets left="5.0" />
+                                             </padding>
+                                             <GridPane.margin>
+                                                <Insets left="5.0" />
+                                             </GridPane.margin></ComboBox>
+                                       </children>
+                                    </GridPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane GridPane.rowIndex="2">
+                              <AnchorPane>
                                  <children>
-                                    <Label layoutX="3.0" layoutY="15.0" text="Last Name" />
+                                    <HBox layoutX="3.0" layoutY="15.0">
+                                       <children>
+                                          <Label text="Nom " />
+                                          <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
                               <AnchorPane GridPane.rowIndex="4">
                                  <children>
-                                    <Label layoutY="15.0" text="ZIP" />
-                                    <Label layoutX="178.0" layoutY="15.0" text="Adress" />
+                                    <HBox layoutY="15.0">
+                                       <children>
+                                          <Label text="ZIP" />
+                                          <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="178.0" layoutY="15.0">
+                                       <children>
+                                          <Label text="Adress" />
+                                          <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                    </HBox>
                                  </children>
                               </AnchorPane>
-                              <GridPane>
+                              <GridPane GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="174.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="176.0" minWidth="10.0" prefWidth="175.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TextField fx:id="firstNameField" prefHeight="38.0" prefWidth="155.0" styleClass="textField">
+                                       <padding>
+                                          <Insets left="5.0" />
+                                       </padding>
+                                       <GridPane.margin>
+                                          <Insets right="5.0" />
+                                       </GridPane.margin></TextField>
+                                    <TextField fx:id="phoneNumber" prefHeight="40.0" prefWidth="357.0" styleClass="textField" GridPane.columnIndex="1">
+                                       <GridPane.margin>
+                                          <Insets left="5.0" />
+                                       </GridPane.margin>
+                                    </TextField>
+                                 </children>
+                              </GridPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
+                                 <children>
+                                    <HBox layoutY="13.0">
+                                       <children>
+                                          <Label text="Birthday" />
+                                          <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                       </children>
+                                    </HBox>
+                                    <HBox layoutX="175.0" layoutY="15.0">
+                                       <children>
+                                          <Label text="Sexe">
+                                             <HBox.margin>
+                                                <Insets left="5.0" />
+                                             </HBox.margin></Label>
+                                          <Label style="-fx-text-fill: red;" text="*" textFill="RED" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                              <GridPane prefHeight="38.0" prefWidth="349.0" GridPane.rowIndex="2">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,18 +186,34 @@
                                  <children>
                                     <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <Label layoutY="15.0" text="First Name" />
+                                          <HBox layoutY="15.0">
+                                             <children>
+                                                <Label text="Prénom" />
+                                                <Label />
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <HBox layoutY="15.0">
+                                                   <children>
+                                                      <Label text="Télephone">
+                                                         <padding>
+                                                            <Insets left="5.0" />
+                                                         </padding>
+                                                      </Label>
+                                                      <Label />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </GridPane>
-                              <TextField fx:id="lastnameField" prefHeight="40.0" prefWidth="357.0" styleClass="textField" GridPane.rowIndex="3" />
-                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="6">
-                                 <children>
-                                    <Label layoutY="13.0" text="Birthday" />
-                                 </children>
-                              </AnchorPane>
                            </children>
                         </GridPane>
                         <AnchorPane prefHeight="143.0" prefWidth="312.0">

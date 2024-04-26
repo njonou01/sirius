@@ -42,13 +42,18 @@
                               <Font size="14.0" />
                            </font>
                         </Text>
-                        <HBox prefHeight="16.0" prefWidth="572.0" spacing="5.0">
+                        <HBox prefHeight="16.0" prefWidth="572.0" spacing="5.0" visible="false">
                            <children>
                               <FontIcon iconLiteral="fas-users" />
                               <Text fx:id="someFriend" strokeType="OUTSIDE" strokeWidth="0.0" text="Kakoue Merveille jean Daniel et 8 autres personnes" />
                            </children>
                         </HBox>
-                        <Text fx:id="durationOfInvitation" strokeType="OUTSIDE" strokeWidth="0.0" text="Il y a 3 mois" />
+                        <HBox>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Il y a " />
+                              <Text fx:id="durationOfInvitation" layoutX="10.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="xx" />
+                           </children>
+                        </HBox>
                         <Button mnemonicParsing="false" style="-fx-padding: 0; -fx-text-fill: blue;" styleClass="btn-transparent" text="Message" />
                      </children>
                      <padding>

@@ -25,10 +25,19 @@
   },
   "main": {
     "path": "main/ssn-home",
+    "title": "Fil d'Actualité | U-CONNECT"
+  }
+  ,
+  "tester": {
+    "path": "main/test-icon",
     "title": "Mon App"
   },
   "friend-page": {
     "path": "friend/friend-page",
+    "title": "Mon App"
+  },
+  "friend-card": {
+    "path": "friend/friend-card",
     "title": "Mon App"
   },
   "friend-invitation": {
