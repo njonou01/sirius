@@ -3,7 +3,7 @@ package edu.ssng.ing1.sirius.client.controllers.createActivity;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.Duration;
+import javafx.util.Duration;
 import java.util.ResourceBundle;
 
 import org.kordamp.ikonli.fontawesome5.FontAwesomeBrands;
@@ -19,6 +19,7 @@ import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import edu.ssng.ing1.sirius.requests.activities.SelectActivityQuery;
 import edu.ssng.ing1.sirius.requests.activities.SelectMyActivityQuery;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -39,10 +40,21 @@ public class SeeMyActivityController implements Initializable {
     @FXML
     VBox parentVBox;
 
+    @FXML
+    ProgressIndicator progress1;
+
+    @FXML
+    ProgressIndicator progress2;
+
+    @FXML
+    ProgressIndicator progress3;
+
     Router router;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        
 
         router = Router.getInstance();
         Student student = new Student();
@@ -70,6 +82,27 @@ public class SeeMyActivityController implements Initializable {
             // activite.getDatecreation()
             // + activite.getNomCreateur() + activite.getNbrparticipant());
         }
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            double newValue = progress1.getProgress() + 0.1;
+            if (newValue > 1) {
+                newValue = 0;
+            }
+            progress1.setProgress(newValue);
+
+            newValue = progress2.getProgress() + 0.1;
+            if (newValue > 1) {
+                newValue = 0;
+            }
+            progress2.setProgress(newValue);
+
+            newValue = progress3.getProgress() + 0.1;
+            if (newValue > 1) {
+                newValue = 0;
+            }
+            progress3.setProgress(newValue);
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
     }
 
