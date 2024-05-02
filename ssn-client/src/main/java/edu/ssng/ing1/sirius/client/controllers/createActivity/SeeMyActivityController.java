@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import javafx.util.Duration;
+
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import org.kordamp.ikonli.fontawesome5.FontAwesomeBrands;
@@ -49,8 +51,14 @@ public class SeeMyActivityController implements Initializable {
     @FXML
     ProgressIndicator progress3;
 
+    @FXML
+    FontIcon chatIcon;
+
     Router router;
 
+    HashMap<Activite,ProgressIndicator> progessActivityMap;
+
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -106,6 +114,9 @@ public class SeeMyActivityController implements Initializable {
 
     }
 
+
+   
+
     @FXML
     public void addActivity() {
 
@@ -160,6 +171,7 @@ public class SeeMyActivityController implements Initializable {
         HBox.setMargin(hBox, new Insets(10, 0, 0, 0));
         // setPadding(hBox, new Insets(10, 0, 0, 0));
         parentVBox.getChildren().add(hBox);
+        
 
     }
     // public void oneActivity2(Activite activite) {
@@ -247,6 +259,7 @@ public class SeeMyActivityController implements Initializable {
 
     @FXML
     public void goToDiscution() {
+        router.navigateTo("groupeActivity");
 
     }
 
