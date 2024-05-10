@@ -17,10 +17,13 @@ import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 public class HomeController implements Initializable {
     @FXML
@@ -48,8 +51,11 @@ public class HomeController implements Initializable {
     Router router = Router.getInstance();
     RouterPopUp routerPoUp;
 
+   
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        
         routerPoUp = RouterPopUp.getInstance();
         createActivityBtn.setOnAction(event -> {
             routerPoUp.navigateTo("createActivityPage1");
@@ -93,6 +99,8 @@ public class HomeController implements Initializable {
         router.getStage().close();
 
     }
+
+    
 
     public static InputStream deserializeImage(String base64EncodedImage) {
         byte[] bytes = java.util.Base64.getDecoder().decode(base64EncodedImage);
