@@ -70,7 +70,7 @@ public static void main(String[] args) throws IOException, InterruptedException,
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
             final Activites students = (Activites) joinedClientRequest.getResult();
-
+            
             System.out.println( "ddd"+students.getActivites());
            
         return students;

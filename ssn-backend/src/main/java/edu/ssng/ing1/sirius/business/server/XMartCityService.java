@@ -16,6 +16,7 @@ import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.business.dto.Universities;
 import edu.ssng.ing1.sirius.business.dto.University;
+import edu.ssng.ing1.sirius.business.server.notifyProcess.StudentConnectedProcess;
 import edu.ssng.ing1.sirius.commons.Request;
 import edu.ssng.ing1.sirius.commons.Response;
 
@@ -30,6 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class XMartCityService {
 
@@ -89,7 +92,7 @@ public class XMartCityService {
                 case DOES_STUDENT_EXIST:
                     return doesStudentExistResponse(preparedStatement, request);
                 case SIGN_IN_AS:
-                    return signinAsResponse(preparedStatement, request);
+                    return signinAsResponse(preparedStatement, request, connection);
                 case STUDENT_INFO:
                     return selectSelfInfoResponse(preparedStatement, request);
                 case GET_DATA_CONNEXION:
@@ -188,6 +191,7 @@ public class XMartCityService {
         return response;
 
     }
+
     private Response SelectMyActivite(final Request request, PreparedStatement preparedStatement)
             throws NoSuchFieldException, IllegalAccessException, IOException {
 
@@ -196,7 +200,7 @@ public class XMartCityService {
             ObjectMapper objectMapper = new ObjectMapper();
 
             Student student = objectMapper.readValue(request.getRequestBody(), Student.class);
-            preparedStatement.setInt(1,student.getId_student());
+            preparedStatement.setInt(1, student.getId_student());
             System.out.println(
                     "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             // PreparedStatement preparedStatement =
@@ -295,13 +299,13 @@ public class XMartCityService {
 
     private static byte[] convertInputStreamToBytes(InputStream inputStream) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        byte[] data = new byte[4096]; 
-        
+        byte[] data = new byte[4096];
+
         int nRead;
         while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
             buffer.write(data, 0, nRead);
         }
-        
+
         buffer.flush();
         return buffer.toByteArray();
     }
@@ -360,7 +364,7 @@ public class XMartCityService {
 
     }
 
-    public Response signinAsResponse(PreparedStatement preparedStatement, Request request)
+    public Response signinAsResponse(PreparedStatement preparedStatement, Request request, Connection connection)
             throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
 
         final ObjectMapper mapper = new ObjectMapper();
@@ -372,7 +376,17 @@ public class XMartCityService {
 
             final String hashedPassword = resultSet.getString("password");
             if (BCrypt.checkpw(student.getPassword(), hashedPassword)) {
+
+                StudentConnectedProcess studentConnectedProcess = new StudentConnectedProcess();
+                ConnectedStudent.addNewStudentConnected(student);
+                
+                System.out.println(ConnectedStudent.getStudentConnectedemailHashmap());
                 String bodyResponse = String.format("{\"msg\": \"%s\"}", "success");
+
+                Set<String> set = new HashSet<>();
+                // set.add("kshemwell0@4shared.com");
+                BroadcastNotification.broadcast("NEW_CONNECTION",
+                        StudentConnectedProcess.getFriends(student.getEmail(), connection),student.getEmail());
                 return new Response(request.getRequestId(), bodyResponse);
             }
             resultSet.close();
@@ -405,12 +419,11 @@ public class XMartCityService {
 
         } else {
             String errormsg = "l'utilisateur n'existe pas ";
-            
+
             String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
             resultSet.close();
             return new Response(request.getRequestId(), bodyResponse);
         }
-        
 
     }
 

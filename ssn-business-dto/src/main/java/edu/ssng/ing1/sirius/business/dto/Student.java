@@ -5,6 +5,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.lang.reflect.Field;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,8 +39,20 @@ public class Student {
     private byte[] profileImageStream;
     private int id_student;
 
+    private InetAddress addressIp;
+
     public Student() {
 
+    }
+
+    {
+
+        try {
+            addressIp = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public Student(String email) {
@@ -55,7 +69,7 @@ public class Student {
     }
 
     public Student(String firstname, String familyname, String email, String gender, String password, Date bithday,
-            String phoneNumber, String profileImage, byte[] profileImageStream, int id_student) {
+            String phoneNumber, String profileImage, byte[] profileImageStream, int id_student, InetAddress addressIp) {
         this.firstname = firstname;
         this.familyname = familyname;
         this.email = email;
@@ -66,6 +80,7 @@ public class Student {
         this.profileImage = profileImage;
         this.profileImageStream = profileImageStream;
         this.id_student = id_student;
+        this.addressIp = addressIp;
     }
 
     public String getFirstname() {
@@ -102,6 +117,14 @@ public class Student {
 
     public String getPassword() {
         return this.password;
+    }
+
+    public InetAddress getAddressIp() {
+        return addressIp;
+    }
+
+    public void setAddressIp(InetAddress addressIp) {
+        this.addressIp = addressIp;
     }
 
     public void setPassword(String password) {
@@ -273,9 +296,11 @@ public class Student {
                 + bithday + ", phoneNumber=" + phoneNumber + ", zipcode=" + zipcode + ", adress=" + adress + ", email="
                 + email + ", password=" + password + ", university=" + university + ", formation_start="
                 + formation_start
-                + ", formation_stop=" + formation_stop + ", formation_description=" + formation_description
-                + ", training_followed=" + training_followed + ", profileImage=" + profileImage
-                + ", profileImageStream=" + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]";
+                + ", formation_stop= " + formation_stop + ", formation_description=" + formation_description
+                + ", training_followed= " + training_followed + ", profileImage=" + profileImage
+                + ", profileImageStream= " + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]"
+                + ", addressIp= " + addressIp.getHostAddress()
+                + ", addressIp= " + addressIp.getHostAddress();
     }
 
     public final Student build(final ResultSet resultSet)
@@ -287,7 +312,7 @@ public class Student {
 
     public final void buildUniversity(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResulset(resultSet,  "university",
+        setFieldsFromResulset(resultSet, "university",
                 "formation_start",
                 "formation_stop",
                 "formation_description",

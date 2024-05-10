@@ -1,6 +1,6 @@
 package edu.ssng.ing1.sirius.business.server;
 
- enum Queries {
+public enum Queries {
         SELECT_ALL_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t"),
         SELECT_MY_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t WHERE t.id_student = ?"),
 
@@ -15,6 +15,21 @@ package edu.ssng.ing1.sirius.business.server;
                         "SELECT student.id_student, student.familly_name as familyname , student.first_name as firstname, student.email as email, student.phone_number as phoneNumber, student.gender as gender,student.profile_image as profile_image , student.password as password , student.birthday as bithday\n"
                                         + //
                                         "FROM \"ssn-db-ing1\".student student where email = ?"),
+        SELECT_FRIENDS_FOR_CONNEXION(
+                "SELECT \n" +
+                "distinct (email)\n" +
+                "FROM \n" +
+                "    \"ssn-db-ing1\".student s\n" +
+                "JOIN \n" +
+                "    \"ssn-db-ing1\".befriend b ON s.id_student = b.sender OR s.id_student = b.receiver\n" +
+                "WHERE \n" +
+                "    (b.sender IN (SELECT id_student FROM \"ssn-db-ing1\".student WHERE email = ? )\n"
+                +
+                "    OR b.receiver IN (SELECT id_student FROM \"ssn-db-ing1\".student WHERE email = ? ))\n"
+                +
+                "    AND b.status = 'accepted'\n" +
+                "    AND (b.end_relation_at IS NULL OR b.end_relation_at > now())\n" +
+                "\tAND email <> ? "),
         SELECT_FRIENDS("SELECT DISTINCT ON (STUDENT.EMAIL)\n" +
                         "    STUDENT.FAMILLY_NAME AS FAMILYNAME,\n" +
                         "    STUDENT.FIRST_NAME AS FIRSTNAME,\n" +

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import edu.ssng.commons.LoggingUtils;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
+import edu.ssng.ing1.sirius.client.commons.ClientConnexion;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
@@ -89,14 +90,14 @@ public class AuthRequest {
                 birthdate++, request, student, requestBytes);
         clientRequests.push(clientRequest_);
 
-        while (!clientRequests.isEmpty()) {
+         {
             final ClientRequest<Student, String> joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", threadName);
             String signResponse = joinedClientRequest.getResult();
             return signResponse.equalsIgnoreCase("success");
         }
-        return false;
+        
     }
 
     public static Boolean isUser(Student student) throws NullPointerException, IOException, InterruptedException {
