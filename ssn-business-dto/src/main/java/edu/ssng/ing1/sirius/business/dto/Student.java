@@ -39,7 +39,11 @@ public class Student {
     private byte[] profileImageStream;
     private int id_student;
 
+<<<<<<< HEAD
     private String addressIp;
+=======
+    private InetAddress addressIp;
+>>>>>>> 0285e05d3d8d85261cd79eeb25f2ff5aeacdb83a
 
     public Student() {
 
@@ -48,7 +52,11 @@ public class Student {
     {
 
         try {
+<<<<<<< HEAD
             addressIp = InetAddress.getLocalHost().getHostAddress();
+=======
+            addressIp = InetAddress.getLocalHost();
+>>>>>>> 0285e05d3d8d85261cd79eeb25f2ff5aeacdb83a
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -69,7 +77,11 @@ public class Student {
     }
 
     public Student(String firstname, String familyname, String email, String gender, String password, Date bithday,
+<<<<<<< HEAD
             String phoneNumber, String profileImage, byte[] profileImageStream, int id_student, String addressIp) {
+=======
+            String phoneNumber, String profileImage, byte[] profileImageStream, int id_student, InetAddress addressIp) {
+>>>>>>> 0285e05d3d8d85261cd79eeb25f2ff5aeacdb83a
         this.firstname = firstname;
         this.familyname = familyname;
         this.email = email;
@@ -119,11 +131,19 @@ public class Student {
         return this.password;
     }
 
+<<<<<<< HEAD
     public String getAddressIp() {
         return addressIp;
     }
 
     public void setAddressIp(String addressIp) {
+=======
+    public InetAddress getAddressIp() {
+        return addressIp;
+    }
+
+    public void setAddressIp(InetAddress addressIp) {
+>>>>>>> 0285e05d3d8d85261cd79eeb25f2ff5aeacdb83a
         this.addressIp = addressIp;
     }
 
@@ -299,8 +319,13 @@ public class Student {
                 + ", formation_stop= " + formation_stop + ", formation_description=" + formation_description
                 + ", training_followed= " + training_followed + ", profileImage=" + profileImage
                 + ", profileImageStream= " + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]"
+<<<<<<< HEAD
                 + ", addressIp= " + addressIp
                 + ", addressIp= " + addressIp;
+=======
+                + ", addressIp= " + addressIp.getHostAddress()
+                + ", addressIp= " + addressIp.getHostAddress();
+>>>>>>> 0285e05d3d8d85261cd79eeb25f2ff5aeacdb83a
     }
 
     public final Student build(final ResultSet resultSet)

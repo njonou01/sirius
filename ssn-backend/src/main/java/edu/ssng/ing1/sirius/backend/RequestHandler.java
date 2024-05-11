@@ -76,7 +76,7 @@ public class RequestHandler implements Runnable {
             final Response response = xmartCityService.dispatch(request, connection);
 
             final byte[] outoutData = getResponse(response);
-            LoggingUtils.logDataMultiLine(logger, Level.DEBUG, outoutData);
+            // LoggingUtils.logDataMultiLine(logger, Level.DEBUG, outoutData);
             outstream.write(outoutData);
 
         } catch (IOException e) {

@@ -1,3 +1,13 @@
+<<<<<<< HEAD
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\ClientRequest.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\ConfigLoader.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\NetworkConfig.java
+=======
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\business\ReceiveMessages.java
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\ClientConnexion.java
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\ClientRequest.java
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\ConfigLoader.java
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\NetworkConfig.java
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\business\SsnNotifyService.java
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-commons\src\main\java\edu\ssng\ing1\sirius\client\commons\NotifyHandler.java
+>>>>>>> 0285e05d3d8d85261cd79eeb25f2ff5aeacdb83a
