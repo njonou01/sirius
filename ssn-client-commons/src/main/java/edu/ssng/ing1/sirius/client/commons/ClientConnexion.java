@@ -68,7 +68,7 @@ public class ClientConnexion extends Thread {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         } finally {
             if (serverSocket != null) {
                 try {

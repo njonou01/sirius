@@ -377,16 +377,18 @@ public class XMartCityService {
             final String hashedPassword = resultSet.getString("password");
             if (BCrypt.checkpw(student.getPassword(), hashedPassword)) {
 
-                StudentConnectedProcess studentConnectedProcess = new StudentConnectedProcess();
-                ConnectedStudent.addNewStudentConnected(student);
-                
-                System.out.println(ConnectedStudent.getStudentConnectedemailHashmap());
+                // StudentConnectedProcess studentConnectedProcess = new
+                // StudentConnectedProcess();
+                // ConnectedStudent.addNewStudentConnected(student);
+
+                // System.out.println(ConnectedStudent.getStudentConnectedemailHashmap());
                 String bodyResponse = String.format("{\"msg\": \"%s\"}", "success");
 
-                Set<String> set = new HashSet<>();
-                // set.add("kshemwell0@4shared.com");
-                BroadcastNotification.broadcast("NEW_CONNECTION",
-                        StudentConnectedProcess.getFriends(student.getEmail(), connection),student.getEmail());
+                // Set<String> set = new HashSet<>();
+                // // set.add("kshemwell0@4shared.com");
+                // BroadcastNotification.broadcast("NEW_CONNECTION",
+                // StudentConnectedProcess.getFriends(student.getEmail(),
+                // connection),student.getEmail());
                 return new Response(request.getRequestId(), bodyResponse);
             }
             resultSet.close();

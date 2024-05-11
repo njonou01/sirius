@@ -42,7 +42,7 @@ public class BroadcastNotification {
         }
 
     }
-    static synchronized void broadcast(String type, Set<String> receivers, Object object,String... messageArguments)
+    static synchronized void broadcast(String type, Set<String> receivers,Object object,String... messageArguments)
             throws JsonProcessingException {
         System.out.println("Broadcasting message to " + receivers.size() + " friends.");
         int triedConnection = 0;

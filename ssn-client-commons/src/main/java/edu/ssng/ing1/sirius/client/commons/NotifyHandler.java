@@ -41,10 +41,17 @@ public class NotifyHandler extends Thread{
             Notification notification = getToNotify(buffer);
             SsnNotifyService xmartNotificationService = new SsnNotifyService();
             xmartNotificationService.dispatch(notification);
-            this.socket.close();
+            
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }finally{
+            try {
+                this.socket.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         
     }
