@@ -1,0 +1,37 @@
+"SELECT DISTINCT ON (STUDENT.EMAIL)\n" +
+        "    STUDENT.ID_STUDENT AS ID_STUDENT,\n" +
+        "    STUDENT.FAMILLY_NAME AS FAMILYNAME,\n" +
+        "    STUDENT.FIRST_NAME AS FIRSTNAME,\n" +
+        "    STUDENT.EMAIL AS EMAIL,\n" +
+        "    STUDENT.PHONE_NUMBER AS PHONENUMBER,\n" +
+        "    STUDENT.GENDER AS GENDER,\n" +
+        "    STUDENT.USERNAME AS USERNAME,\n" +
+        "    STUDENT.PROFILE_IMAGE AS PROFILE_IMAGE,\n" +
+        "    STUDENT.PASSWORD AS PASSWORD,\n" +
+        "    STUDENT.BIRTHDAY AS BITHDAY,\n" +
+        "    BEFRIEND.STATUS,\n" +
+        "    BEFRIEND.BEFRIEND_SINCE,\n" +
+        "    BEFRIEND.RECEIVED_AT,\n" +
+        "    BEFRIEND.END_RELATION_AT,\n" +
+        "    UNIVERSITY.LABEL AS UNIVERSITY,\n" +
+        "    ATTENDED.START AS FORMATION_START,\n" +
+        "    ATTENDED.END AS FORMATION_STOP,\n" +
+        "    ATTENDED.DESCRIPTION AS FORMATION_DESCRIPTION,\n" +
+        "    ATTENDED.TRAINING_FOLLOWED \n" +
+        "FROM\n" +
+        "    \"ssn-db-ing1\".BEFRIEND AS BEFRIEND\n" +
+        "    INNER JOIN \"ssn-db-ing1\".STUDENT AS STUDENT ON BEFRIEND.SENDER = STUDENT.ID_STUDENT\n" +
+        "    INNER JOIN \"ssn-db-ing1\".UNIVERSITY AS UNIVERSITY ON STUDENT.ID_UNIVERSITY = UNIVERSITY.ID_UNIVERSITY\n"
+        +
+        "    INNER JOIN (\n" +
+        "        SELECT ID_STUDENT, MAX(START) AS MAX_START\n" +
+        "        FROM \"ssn-db-ing1\".ATTENDED\n" +
+        "        GROUP BY ID_STUDENT\n" +
+        "    ) AS MAX_START_ATTENDED ON STUDENT.ID_STUDENT = MAX_START_ATTENDED.ID_STUDENT\n" +
+        "    INNER JOIN \"ssn-db-ing1\".ATTENDED ON STUDENT.ID_STUDENT = ATTENDED.ID_STUDENT AND ATTENDED.START = MAX_START_ATTENDED.MAX_START\n"
+        +
+        "WHERE\n" +
+        "    BEFRIEND.RECEIVER = ?\n" +
+        " AND BEFRIEND.STATUS <> 'rejected' \n" +
+        // " AND ATTENDED.END > CURRENT_DATE;\n" +
+        "")

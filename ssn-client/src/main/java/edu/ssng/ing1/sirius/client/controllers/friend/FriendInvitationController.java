@@ -1,10 +1,25 @@
 package edu.ssng.ing1.sirius.client.controllers.friend;
 
+import java.util.Map;
+
+import edu.ssng.ing1.sirius.requests.friend.FriendCommonRequest;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 
 public class FriendInvitationController {
+
+
+
+    @FXML
+    private Button acceptBtn;
+
+    public Button getAcceptBtn() {
+        return acceptBtn;
+    }
 
     @FXML
     private Text durationOfInvitation;
@@ -13,12 +28,20 @@ public class FriendInvitationController {
     private Text formation;
 
     @FXML
+    private Button ignoreBtn;
+
+    public Button getIgnoreBtn() {
+        return ignoreBtn;
+    }
+
+    @FXML
     private Text name;
 
     @FXML
-    private Text someFriend;
-    @FXML
     private ImageView profileImage;
+
+    @FXML
+    private Text someFriend;
 
     public ImageView getProfileImage() {
         return profileImage;
@@ -59,4 +82,9 @@ public class FriendInvitationController {
     public void setProfileImage(ImageView profileImage) {
         this.profileImage = profileImage;
     }
+    
+
+
+    
+
 }

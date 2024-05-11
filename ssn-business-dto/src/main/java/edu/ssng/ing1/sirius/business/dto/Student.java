@@ -14,6 +14,7 @@ import java.util.Objects;
 
 public class Student {
     // sign up start -> ok
+    private int id_student;
     private String firstname;
     private String familyname;
     private String gender;
@@ -35,7 +36,6 @@ public class Student {
 
     private String profileImage;
     private byte[] profileImageStream;
-    private int id_student;
 
     public Student() {
 
@@ -280,8 +280,8 @@ public class Student {
 
     public final Student build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResulset(resultSet, "familyname", "firstname",
-                "email", "phoneNumber", "gender", "password", "bithday");
+        setFieldsFromResulset(resultSet, "id_student","familyname", "firstname",
+                "email", "phoneNumber", "gender", "bithday");
         return this;
     }
 

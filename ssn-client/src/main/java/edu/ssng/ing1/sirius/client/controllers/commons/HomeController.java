@@ -18,6 +18,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 public class HomeController implements Initializable {
     HashMap<Button, BorderPane> btnmapper = new HashMap<Button, BorderPane>();
@@ -28,7 +31,9 @@ public class HomeController implements Initializable {
     private ImageView logo;
     @FXML
     private BorderPane corePane;
-
+    @FXML
+    private Circle profileimageClip;
+    
     @FXML
     private Button createActivityBtn;
 
@@ -50,8 +55,7 @@ public class HomeController implements Initializable {
     @FXML
     private ScrollPane postScroolPane;
 
-    @FXML
-    private ImageView profileImage;
+
 
     @FXML
     private ImageView profileImage2;
@@ -65,9 +69,11 @@ public class HomeController implements Initializable {
         logo.setImage(getImage("media/images/ssn-logo.png"));
         Student user = UserInfo.getUser();
         if (user != null) {
-            profileImage.setImage(getImage(user.getProfileImageStream()));
+            Image profilImage = getImage(user.getProfileImageStream());
+            profileimageClip.setFill(new ImagePattern(profilImage));
+            profileimageClip.setStroke(Color.TRANSPARENT);
             profileImage2.setImage(getImage(user.getProfileImageStream()));
-
+            CommonsClient.setclipOnImage(profileImage2);
             btnmapper.put(homePageBtn, homePane);
             BorderPane invitation = Initializer.initInvitationPage();
             invitation.setVisible(false);

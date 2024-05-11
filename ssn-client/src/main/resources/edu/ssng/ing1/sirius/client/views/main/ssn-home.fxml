@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -381,11 +382,7 @@
                                                                      <children>
                                                                         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="674.0" spacing="15.0">
                                                                            <children>
-                                                                              <ImageView fx:id="profileImage" fitHeight="50.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
-                                                                                 <image>
-                                                                                    <Image url="@../../../../../../../../../../../../../Downloads/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg" />
-                                                                                 </image>
-                                                                              </ImageView>
+                                                                              <Circle fx:id="profileimageClip" fill="DODGERBLUE" radius="30.0" stroke="#00000043" strokeType="INSIDE" />
                                                                               <Button alignment="BASELINE_LEFT" mnemonicParsing="false" prefHeight="40.0" prefWidth="617.0" style="-fx-padding: 0 0 0 20px;" text="Commenter un post">
                                                                                  <styleClass>
                                                                                     <String fx:value="text-entry" />
@@ -579,7 +576,7 @@
                         <MenuItem fx:id="deconnexionbtn" mnemonicParsing="false" text="Deconnection" />
                      </items>
                      <graphic>
-                        <ImageView fx:id="profileImage2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="profileImage2" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../../../../../../../../../../../../Downloads/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg" />
                            </image>

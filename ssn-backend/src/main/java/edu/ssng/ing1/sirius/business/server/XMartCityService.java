@@ -12,24 +12,27 @@ import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
 import edu.ssng.ing1.sirius.business.dto.Cities;
 import edu.ssng.ing1.sirius.business.dto.City;
+import edu.ssng.ing1.sirius.business.dto.Message;
+import edu.ssng.ing1.sirius.business.dto.Messages;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.business.dto.Universities;
 import edu.ssng.ing1.sirius.business.dto.University;
 import edu.ssng.ing1.sirius.commons.Request;
 import edu.ssng.ing1.sirius.commons.Response;
-
 import org.mindrot.jbcrypt.BCrypt;
 import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class XMartCityService {
 
@@ -59,41 +62,41 @@ public class XMartCityService {
 
             switch (query) {
                 case SELECT_ALL_ACTIVITY:
-
                     return SelectAllActivite(preparedStatement);
                 case SELECT_MY_ACTIVITY:
-
                     return SelectMyActivite(request, preparedStatement);
-
                 case SELECT_ALL_STUDENTS:
-
                     return selectStudentsResponse(preparedStatement, request);
-
                 case INSERT_ACTIVITY:
                     return InsertActivite(preparedStatement, request);
-
                 case SELECT_ALL_CITIES:
                     return selectCitiesResponse(preparedStatement, request);
-
                 case SELECT_FRIEND_REQUEST_WITHOUT_ANSWER:
                     return selectStudentsResponse(preparedStatement, request);
-
                 case SELECT_FRIENDS:
                     return selectFriendResponse(preparedStatement, request);
-
                 case SELECT_ALL_UNIVERSITIES:
                     return selectUniversitiesResponse(preparedStatement, request);
-
                 case INSERT_STUDENT:
                     return insertStudentResponse(preparedStatement, request);
                 case DOES_STUDENT_EXIST:
                     return doesStudentExistResponse(preparedStatement, request);
+                case SELECT_SUGGESTED_FRIENDS:
+                    return selectSuggestedFriendsResponse(preparedStatement, request);
                 case SIGN_IN_AS:
                     return signinAsResponse(preparedStatement, request);
                 case STUDENT_INFO:
                     return selectSelfInfoResponse(preparedStatement, request);
                 case GET_DATA_CONNEXION:
                     return getConnexionData(preparedStatement, request);
+                case REJECT_INVITATION:
+                    return deleteInvitationResponse(preparedStatement, request);
+                case BECOME_FRIENDS:
+                    return becomeFriendsResponse(preparedStatement, request);
+                case FETCH_STUDENT_MESSAGES:
+                    return fetchStudentMessages(preparedStatement, request);
+                case SEND_AND_SEND_MESSAGE:
+                    return sendAndSaveMessage(preparedStatement, request);
                 default:
                     break;
             }
@@ -113,6 +116,125 @@ public class XMartCityService {
         }
 
         return new Response("error", "Requete impossible");
+    }
+
+    private Response sendAndSaveMessage(PreparedStatement preparedStatement, Request request) throws JsonParseException,
+            JsonMappingException, IOException, NoSuchFieldException, IllegalAccessException, SQLException {
+        final ObjectMapper mapper = new ObjectMapper();
+        final Message message = mapper.readValue(request.getRequestBody(), Message.class);
+        int rowsAffected = message.build(preparedStatement).executeUpdate();
+        if (rowsAffected > 0) {
+            ResultSet resultSet = preparedStatement.getResultSet();
+            if (resultSet.next()) {
+                final Message newMessage = new Message().build(resultSet);
+            }
+            resultSet.close();
+        } else {
+
+        }
+    }
+
+    private Response fetchStudentMessages(PreparedStatement preparedStatement, Request request)
+            throws NoSuchFieldException, IllegalAccessException {
+        final ObjectMapper mapper = new ObjectMapper();
+        try {
+            int student_id = mapper.readValue(request.getRequestBody(), Integer.class);
+            preparedStatement.setInt(1, student_id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Messages messages = new Messages();
+            while (resultSet.next()) {
+                Message message = new Message().build(resultSet);
+                messages.add(message);
+            }
+            resultSet.close();
+            String bodyResponse = mapper.writeValueAsString(messages);
+            return new Response(request.getRequestId(), bodyResponse);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (JsonParseException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private Response selectSuggestedFriendsResponse(PreparedStatement preparedStatement, Request request)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
+        Students students = new Students();
+        final ObjectMapper mapper = new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
+        Student user = objectMapper.readValue(request.getRequestBody(), Student.class);
+        preparedStatement.setInt(1, user.getId_student());
+        String bodyResponse = "";
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        ResultSet listOfStudents = preparedStatement.executeQuery();
+        while (listOfStudents.next()) {
+            Student student = new Student().build(listOfStudents);
+            student.setProfileImage(listOfStudents.getString("profile_image"));
+            InputStream inputStream = classLoader.getResourceAsStream("media/images/" + student.getProfileImage());
+            student.setProfileImageStream(convertInputStreamToBytes(inputStream));
+            students.add(student);
+        }
+        listOfStudents.close();
+        Students suggestedStudents = new Students();
+        suggestedStudents.setStudents(students.getStudents()
+                .stream()
+                // .filter(student -> {}).limit(75)
+                .collect(Collectors.toSet()));
+
+        bodyResponse = mapper.writeValueAsString(students);
+        return new Response(request.getRequestId(), bodyResponse);
+    }
+
+    private Response becomeFriendsResponse(PreparedStatement preparedStatement, Request request)
+            throws NoSuchFieldException,
+            IllegalAccessException, SQLException, JsonParseException, JsonMappingException, IOException {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            Map<String, Integer> map = mapper.readValue(request.getRequestBody(),
+                    new TypeReference<Map<String, Integer>>() {
+                    });
+
+            preparedStatement.setInt(1, map.get("sender"));
+            preparedStatement.setInt(2, map.get("receiver"));
+            preparedStatement.executeUpdate();
+            String bodyResponse = String.format("{\"response\": \"%s\"}", "success");
+            return new Response(request.getRequestId(), bodyResponse);
+
+        } catch (Exception e) {
+            String bodyResponse = String.format("{\"response\": \"%s\"}", "error");
+            return new Response(request.getRequestId(), bodyResponse);
+        }
+
+    }
+
+    private Response deleteInvitationResponse(PreparedStatement preparedStatement, Request request)
+            throws NoSuchFieldException,
+            IllegalAccessException, SQLException, JsonParseException, JsonMappingException, IOException {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            Map<String, Integer> map = mapper.readValue(request.getRequestBody(),
+                    new TypeReference<Map<String, Integer>>() {
+                    });
+
+            preparedStatement.setInt(1, map.get("sender"));
+            preparedStatement.setInt(2, map.get("receiver"));
+            preparedStatement.executeUpdate();
+            String bodyResponse = String.format("{\"response\": \"%s\"}", "success");
+            return new Response(request.getRequestId(), bodyResponse);
+
+        } catch (PSQLException e) {
+            String bodyResponse = String.format("{\"response\": \"%s\"}", "error");
+            return new Response(request.getRequestId(), bodyResponse);
+        } catch (Exception e) {
+            String bodyResponse = String.format("{\"response\": \"%s\"}", "error");
+            return new Response(request.getRequestId(), bodyResponse);
+        }
+
     }
 
     private Response InsertActivite(final PreparedStatement preparedStatement, final Request request)
@@ -188,6 +310,7 @@ public class XMartCityService {
         return response;
 
     }
+
     private Response SelectMyActivite(final Request request, PreparedStatement preparedStatement)
             throws NoSuchFieldException, IllegalAccessException, IOException {
 
@@ -196,7 +319,7 @@ public class XMartCityService {
             ObjectMapper objectMapper = new ObjectMapper();
 
             Student student = objectMapper.readValue(request.getRequestBody(), Student.class);
-            preparedStatement.setInt(1,student.getId_student());
+            preparedStatement.setInt(1, student.getId_student());
             System.out.println(
                     "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             // PreparedStatement preparedStatement =
@@ -291,19 +414,6 @@ public class XMartCityService {
         listOfStudents.close();
         bodyResponse = mapper.writeValueAsString(friends);
         return new Response(request.getRequestId(), bodyResponse);
-    }
-
-    private static byte[] convertInputStreamToBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        byte[] data = new byte[4096]; 
-        
-        int nRead;
-        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, nRead);
-        }
-        
-        buffer.flush();
-        return buffer.toByteArray();
     }
 
     public Response selectUniversitiesResponse(PreparedStatement preparedStatement, Request request)
@@ -405,12 +515,11 @@ public class XMartCityService {
 
         } else {
             String errormsg = "l'utilisateur n'existe pas ";
-            
+
             String bodyResponse = String.format("{\"msg\": \"%s\"}", errormsg);
             resultSet.close();
             return new Response(request.getRequestId(), bodyResponse);
         }
-        
 
     }
 
@@ -434,6 +543,19 @@ public class XMartCityService {
             return new Response(request.getRequestId(), bodyResponse);
         }
 
+    }
+
+    private static byte[] convertInputStreamToBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[4096];
+
+        int nRead;
+        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+
+        buffer.flush();
+        return buffer.toByteArray();
     }
 
 }

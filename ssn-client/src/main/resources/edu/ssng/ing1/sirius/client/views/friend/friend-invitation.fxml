@@ -68,8 +68,8 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="23.0" prefWidth="153.0" spacing="15.0">
                            <children>
-                              <Button mnemonicParsing="false" styleClass="btn-transparent" text="Ignorer " />
-                              <Button mnemonicParsing="false" style="-fx-background-color: blue; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px;" text="Accepter" />
+                              <Button fx:id="ignoreBtn" mnemonicParsing="false" styleClass="btn-transparent" text="Ignorer " />
+                              <Button fx:id="acceptBtn" mnemonicParsing="false" style="-fx-background-color: blue; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px;" text="Accepter" />
                            </children>
                         </HBox>
                      </children>
