@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-import org.mindrot.jbcrypt.BCrypt;
 
 public class Message {
     private int idMessage;

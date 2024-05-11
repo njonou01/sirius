@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.ActivityCreatedController">
+   <content>
+      <VBox fx:id="parentVBox" alignment="CENTER" prefHeight="560.0" prefWidth="927.0" spacing="10.0" stylesheets="@../asset/css/addActivity.css">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <FontIcon iconColor="#175684" iconLiteral="fas-arrow-left" iconSize="20" onMouseClicked="#backBTN">
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </FontIcon>
+                  <Label prefHeight="63.0" prefWidth="315.0" text="Vos Activitées Actives">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="300.0" right="20.0" />
+         </padding>
+      </VBox>
+   </content>
+</ScrollPane>

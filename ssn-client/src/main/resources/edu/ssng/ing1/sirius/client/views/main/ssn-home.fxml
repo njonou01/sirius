@@ -554,7 +554,7 @@
                   </VBox>
                   <VBox alignment="CENTER" styleClass="navbar-elmt">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" styleClass="btn-transparent">
+                        <Button fx:id="messagingBtn" mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" styleClass="btn-transparent">
                            <graphic>
                               <FontIcon iconLiteral="fas-envelope" iconSize="25" styleClass="navbar-icon" />
                            </graphic>

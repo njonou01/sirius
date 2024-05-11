@@ -122,16 +122,17 @@ public class XMartCityService {
             JsonMappingException, IOException, NoSuchFieldException, IllegalAccessException, SQLException {
         final ObjectMapper mapper = new ObjectMapper();
         final Message message = mapper.readValue(request.getRequestBody(), Message.class);
-        int rowsAffected = message.build(preparedStatement).executeUpdate();
-        if (rowsAffected > 0) {
-            ResultSet resultSet = preparedStatement.getResultSet();
-            if (resultSet.next()) {
-                final Message newMessage = new Message().build(resultSet);
-            }
-            resultSet.close();
-        } else {
+        // int rowsAffected = message.build(preparedStatement).executeUpdate();
+        // if (rowsAffected > 0) {
+        //     ResultSet resultSet = preparedStatement.getResultSet();
+        //     if (resultSet.next()) {
+        //         final Message newMessage = new Message().build(resultSet);
+        //     }
+        //     resultSet.close();
+        // } else {
 
-        }
+        // }
+        return null;
     }
 
     private Response fetchStudentMessages(PreparedStatement preparedStatement, Request request)

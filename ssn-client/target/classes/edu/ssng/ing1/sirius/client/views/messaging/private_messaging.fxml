@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane fx:id="borderPane" prefHeight="862.0" prefWidth="1208.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.messaging.PrivateMessagingController">
+   <center>
+      <VBox maxHeight="783.0" maxWidth="856.0" prefHeight="783.0" prefWidth="856.0">
+         <children>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" pannable="true" prefHeight="740.0" prefWidth="737.0" vbarPolicy="ALWAYS" vmin="1.0" vvalue="1.0" VBox.vgrow="ALWAYS">
+               <content>
+                  <ListView fx:id="chatPane" maxHeight="738.0" maxWidth="889.0" prefHeight="738.0" prefWidth="889.0" style="-fx-border-color: transparent;" />
+               </content>
+            </ScrollPane>
+            <VBox VBox.vgrow="NEVER">
+               <children>
+                  <HBox minHeight="-Infinity" spacing="10.0">
+                     <children>
+                        <HBox alignment="CENTER" style="-fx-border-color: gray; -fx-background-color: transparent; -fx-border-radius: 10px; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="37.0" style="-fx-background-color: transparent;">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fas-microphone" iconSize="20" />
+                                 </graphic>
+                              </Button>
+                              <TextArea fx:id="messageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="100.0" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#sendMethod" prefHeight="16.0" prefWidth="649.0" promptText="Rédiger votre méssage" scaleShape="false" style="-fx-border-color: transparent; -fx-border-width: 0; -fx-background-color: transparent;">
+                                 <font>
+                                    <Font name="SansSerif Regular" size="14.0" />
+                                 </font>
+                              </TextArea>
+                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: transparent;">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fas-paperclip" iconSize="20" />
+                                 </graphic>
+                              </Button>
+                              <Button alignment="CENTER" layoutX="605.0" layoutY="11.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: transparent;">
+                                 <graphic>
+                                    <FontIcon iconLiteral="far-file-image" iconSize="20" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </HBox>
+                        <Button fx:id="buttonSend" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sendButtonAction" prefHeight="43.0" prefWidth="43.0" scaleShape="false" style="-fx-padding: 0; -fx-background-radius: 1000px;" textAlignment="CENTER" HBox.hgrow="NEVER">
+                           <graphic>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <FontIcon iconLiteral="fas-paper-plane" iconSize="20" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="-5.0" />
+                                 </padding>
+                              </HBox>
+                           </graphic>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <FlowPane />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <left>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <VBox maxHeight="783.0" maxWidth="230.0" prefWidth="230.0">
+               <children>
+                  <HBox fx:id="onlineUsersHbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="217.0">
+                     <children>
+                        <Label prefHeight="50.0" prefWidth="225.0" text="Utilisateurs en ligne:" textAlignment="CENTER" textFill="#fc6747">
+                           <font>
+                              <Font name="SansSerif Regular" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <opaqueInsets>
+                              <Insets bottom="10.0" />
+                           </opaqueInsets>
+                        </Label>
+                        <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" text="0" textFill="#fc6747">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <font>
+                              <Font name="SansSerif Regular" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ListView fx:id="userList" focusTraversable="false" maxHeight="1.7976931348623157E308" prefHeight="739.0" prefWidth="217.0" style="-fx-border-image-width: 0; -fx-background-color: transparent;">
+            </ListView>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
+      </AnchorPane>
+   </left>
+   <top>
+      <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: #283593;" BorderPane.alignment="CENTER">
+         <left>
+            <HBox prefWidth="259.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="userImageView" fitHeight="69.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../../../../../../../../../../Downloads/profil.jpg" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <VBox>
+                     <HBox.margin>
+                        <Insets left="10.0" top="30.0" />
+                     </HBox.margin>
+                     <children>
+                        <Label fx:id="usernameLabel" text="Dominic Heal" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children></HBox>
+         </left>
+      </BorderPane>
+   </top>
+   <rotationAxis>
+      <Point3D />
+   </rotationAxis>
+   <right>
+      <BorderPane maxHeight="783.0" maxWidth="283.0" prefHeight="783.0" prefWidth="283.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>

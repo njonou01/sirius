@@ -63,6 +63,10 @@
   "loading": {
     "path": "loading/loading",
     "title": "Mon App"
+  },
+  "messaging": {
+    "path": "messaging/private_messaging",
+    "title": "Mon App"
   }
 
   

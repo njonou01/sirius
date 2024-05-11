@@ -19,4 +19,12 @@ public class Initializer {
             return null;
         }
     }
+    public static BorderPane initMessagingPage() {
+        FXMLLoader fxml = Router.getInstance().getParentNode("messaging");
+        try {
+            return (BorderPane) fxml.load();
+        } catch (IOException e) {
+            return null;
+        }
+    }
 }

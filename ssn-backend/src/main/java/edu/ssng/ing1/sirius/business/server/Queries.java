@@ -108,7 +108,7 @@ enum Queries {
                         "    ? IN (message.sender_id, message.receiver_id) \n" +
                         "ORDER BY \n" +
                         "    message.sent_at DESC;"),
-        SEND_MESSAGE("INSERT INTO \"ssn-db-ing1\".message (sender_id, receiver_id, message_text, media)\n" +
+        SEND_AND_SEND_MESSAGE("INSERT INTO \"ssn-db-ing1\".message (sender_id, receiver_id, message_text, media)\n" +
                         "VALUES (?, ?, ?, ?)\n" +
                         "RETURNING *;");
 

@@ -33,7 +33,7 @@ public class HomeController implements Initializable {
     private BorderPane corePane;
     @FXML
     private Circle profileimageClip;
-    
+
     @FXML
     private Button createActivityBtn;
 
@@ -48,14 +48,13 @@ public class HomeController implements Initializable {
 
     @FXML
     private Button homePageBtn;
-
+    @FXML
+    private Button messagingBtn;
     @FXML
     private BorderPane homePane;
 
     @FXML
     private ScrollPane postScroolPane;
-
-
 
     @FXML
     private ImageView profileImage2;
@@ -65,7 +64,7 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        RouterPopUp routerPoUp=RouterPopUp.getInstance();
+        RouterPopUp routerPoUp = RouterPopUp.getInstance();
         logo.setImage(getImage("media/images/ssn-logo.png"));
         Student user = UserInfo.getUser();
         if (user != null) {
@@ -76,15 +75,16 @@ public class HomeController implements Initializable {
             CommonsClient.setclipOnImage(profileImage2);
             btnmapper.put(homePageBtn, homePane);
             BorderPane invitation = Initializer.initInvitationPage();
+            BorderPane messaging = Initializer.initMessagingPage();
+            messaging.setVisible(false);
             invitation.setVisible(false);
-            Appstack.getChildren().add(invitation);
+            Appstack.getChildren().addAll(invitation, messaging);
             btnmapper.put(friendPageBtn, invitation);
-            friendPageBtn.setOnAction(event -> {
-                System.out.println("hello");
-            });
+            btnmapper.put(homePageBtn, homePane);
+            btnmapper.put(messagingBtn, messaging);
 
         }
-        initializeBtn(homePageBtn, friendPageBtn);
+        initializeBtn(homePageBtn, friendPageBtn , messagingBtn);
 
         deconnexionbtn.setOnAction(event -> {
             UserInfo.removeUser();
