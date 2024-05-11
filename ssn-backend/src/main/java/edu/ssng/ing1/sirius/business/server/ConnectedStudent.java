@@ -13,7 +13,7 @@ import edu.ssng.ing1.sirius.business.dto.Student;
 public class ConnectedStudent {
 
     private static Set<String> setOfStudentConnected= new HashSet<>();
-    private static HashMap<String,InetAddress> studentConnectedemailHashmap= new HashMap<>();
+    private static HashMap<String,String> studentConnectedemailHashmap= new HashMap<>();
 
 
 
@@ -36,10 +36,10 @@ public class ConnectedStudent {
         ConnectedStudent.setOfStudentConnected = setOfStudentConnected;
     }
 
-    public static HashMap<String, InetAddress> getStudentConnectedemailHashmap() {
+    public static HashMap<String, String> getStudentConnectedemailHashmap() {
         return studentConnectedemailHashmap;
     }
-    public static void setStudentConnectedemailHashmap(HashMap<String, InetAddress> studentConnectedemailHashmap) {
+    public static void setStudentConnectedemailHashmap(HashMap<String, String> studentConnectedemailHashmap) {
         ConnectedStudent.studentConnectedemailHashmap = studentConnectedemailHashmap;
     }
 

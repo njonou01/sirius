@@ -39,7 +39,7 @@ public class Student {
     private byte[] profileImageStream;
     private int id_student;
 
-    private InetAddress addressIp;
+    private String addressIp;
 
     public Student() {
 
@@ -48,7 +48,7 @@ public class Student {
     {
 
         try {
-            addressIp = InetAddress.getLocalHost();
+            addressIp = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -69,7 +69,7 @@ public class Student {
     }
 
     public Student(String firstname, String familyname, String email, String gender, String password, Date bithday,
-            String phoneNumber, String profileImage, byte[] profileImageStream, int id_student, InetAddress addressIp) {
+            String phoneNumber, String profileImage, byte[] profileImageStream, int id_student, String addressIp) {
         this.firstname = firstname;
         this.familyname = familyname;
         this.email = email;
@@ -119,11 +119,11 @@ public class Student {
         return this.password;
     }
 
-    public InetAddress getAddressIp() {
+    public String getAddressIp() {
         return addressIp;
     }
 
-    public void setAddressIp(InetAddress addressIp) {
+    public void setAddressIp(String addressIp) {
         this.addressIp = addressIp;
     }
 
@@ -299,8 +299,8 @@ public class Student {
                 + ", formation_stop= " + formation_stop + ", formation_description=" + formation_description
                 + ", training_followed= " + training_followed + ", profileImage=" + profileImage
                 + ", profileImageStream= " + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]"
-                + ", addressIp= " + addressIp.getHostAddress()
-                + ", addressIp= " + addressIp.getHostAddress();
+                + ", addressIp= " + addressIp
+                + ", addressIp= " + addressIp;
     }
 
     public final Student build(final ResultSet resultSet)
