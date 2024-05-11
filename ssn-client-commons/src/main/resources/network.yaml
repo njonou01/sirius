@@ -1,3 +1,4 @@
-ipaddress : 127.0.0.1
+ipaddress : 172.31.249.143
+# ipaddress : 127.0.0.1
 # ipaddress : 172.31.252.91
 tcpport : 45065
