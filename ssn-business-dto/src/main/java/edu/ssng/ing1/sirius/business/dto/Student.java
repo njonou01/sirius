@@ -39,21 +39,11 @@ public class Student {
     private byte[] profileImageStream;
     private int id_student;
 
-    private String addressIp;
 
     public Student() {
 
     }
 
-    {
-
-        try {
-            addressIp = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
     public Student(String email) {
         this.email = email;
@@ -69,7 +59,7 @@ public class Student {
     }
 
     public Student(String firstname, String familyname, String email, String gender, String password, Date bithday,
-            String phoneNumber, String profileImage, byte[] profileImageStream, int id_student, String addressIp) {
+            String phoneNumber, String profileImage, byte[] profileImageStream, int id_student) {
         this.firstname = firstname;
         this.familyname = familyname;
         this.email = email;
@@ -80,7 +70,7 @@ public class Student {
         this.profileImage = profileImage;
         this.profileImageStream = profileImageStream;
         this.id_student = id_student;
-        this.addressIp = addressIp;
+      
     }
 
     public String getFirstname() {
@@ -117,14 +107,6 @@ public class Student {
 
     public String getPassword() {
         return this.password;
-    }
-
-    public String getAddressIp() {
-        return addressIp;
-    }
-
-    public void setAddressIp(String addressIp) {
-        this.addressIp = addressIp;
     }
 
     public void setPassword(String password) {
@@ -298,9 +280,9 @@ public class Student {
                 + formation_start
                 + ", formation_stop= " + formation_stop + ", formation_description=" + formation_description
                 + ", training_followed= " + training_followed + ", profileImage=" + profileImage
-                + ", profileImageStream= " + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]"
-                + ", addressIp= " + addressIp
-                + ", addressIp= " + addressIp;
+                + ", profileImageStream= " + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]";
+               
+               
     }
 
     public final Student build(final ResultSet resultSet)

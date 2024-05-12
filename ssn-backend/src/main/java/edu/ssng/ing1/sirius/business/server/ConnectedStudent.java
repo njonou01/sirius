@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.commons.SomeInfo;
 
 /**
  * ConnectedStudent
@@ -13,19 +14,19 @@ import edu.ssng.ing1.sirius.business.dto.Student;
 public class ConnectedStudent {
 
     private static Set<String> setOfStudentConnected= new HashSet<>();
-    private static HashMap<String,String> studentConnectedemailHashmap= new HashMap<>();
+    private static HashMap<String,Set<String>> studentConnectedemailHashmap= new HashMap<>();
 
 
 
 
-    public static void addNewStudentConnected(Student student){
-        setOfStudentConnected.add(student.getEmail());
-        studentConnectedemailHashmap.put(student.getEmail(), student.getAddressIp());
+    public static void addNewStudentConnected(SomeInfo someInfo){
+        setOfStudentConnected.add(someInfo.getInfo());
+        studentConnectedemailHashmap.put(someInfo.getInfo(), someInfo.getIpAdress());
     }
 
-    public static void removeNewStudentConnected(Student student){
-        setOfStudentConnected.remove(student.getEmail());
-        studentConnectedemailHashmap.remove(student.getEmail());
+    public static void removeNewStudentConnected(SomeInfo someInfo){
+        setOfStudentConnected.remove(someInfo.getInfo());
+        studentConnectedemailHashmap.remove(someInfo.getInfo());
     }
 
     public static Set<String> getSetOfStudentConnected() {
@@ -36,10 +37,10 @@ public class ConnectedStudent {
         ConnectedStudent.setOfStudentConnected = setOfStudentConnected;
     }
 
-    public static HashMap<String, String> getStudentConnectedemailHashmap() {
+    public static HashMap<String, Set<String>> getStudentConnectedemailHashmap() {
         return studentConnectedemailHashmap;
     }
-    public static void setStudentConnectedemailHashmap(HashMap<String, String> studentConnectedemailHashmap) {
+    public static void setStudentConnectedemailHashmap(HashMap<String, Set<String>> studentConnectedemailHashmap) {
         ConnectedStudent.studentConnectedemailHashmap = studentConnectedemailHashmap;
     }
 

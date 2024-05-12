@@ -19,6 +19,7 @@ import edu.ssng.ing1.sirius.business.dto.University;
 import edu.ssng.ing1.sirius.business.server.notifyProcess.StudentConnectedProcess;
 import edu.ssng.ing1.sirius.commons.Request;
 import edu.ssng.ing1.sirius.commons.Response;
+import edu.ssng.ing1.sirius.commons.SomeInfo;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.postgresql.util.PSQLException;
@@ -92,9 +93,9 @@ public class XMartCityService {
                 case DOES_STUDENT_EXIST:
                     return doesStudentExistResponse(preparedStatement, request);
                 case SIGN_IN_AS:
-                    return signinAsResponse(preparedStatement, request, connection);
+                    return signinAsResponse(preparedStatement, request);
                 case STUDENT_INFO:
-                    return selectSelfInfoResponse(preparedStatement, request);
+                    return selectSelfInfoResponse(preparedStatement, request, connection);
                 case GET_DATA_CONNEXION:
                     return getConnexionData(preparedStatement, request);
                 default:
@@ -244,12 +245,12 @@ public class XMartCityService {
         return new Response(request.getRequestId(), bodyResponse);
     }
 
-    public Response selectSelfInfoResponse(PreparedStatement preparedStatement, Request request)
+    public Response selectSelfInfoResponse(PreparedStatement preparedStatement, Request request,Connection connection)
             throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
         Student student = new Student();
         final ObjectMapper mapper = new ObjectMapper();
-        String email = mapper.readValue(request.getRequestBody(), String.class);
-        preparedStatement.setString(1, email);
+        SomeInfo someInfo = mapper.readValue(request.getRequestBody(), SomeInfo.class);
+        preparedStatement.setString(1, someInfo.getInfo());
 
         String bodyResponse = "";
 
@@ -266,6 +267,13 @@ public class XMartCityService {
         }
         listOfStudents.close();
         bodyResponse = mapper.writeValueAsString(student);
+
+                // Set<String> set = new HashSet<>();
+                // // set.add("kshemwell0@4shared.com");
+                ConnectedStudent.addNewStudentConnected(someInfo);
+                BroadcastNotification.broadcast("NEW_CONNECTION",
+                StudentConnectedProcess.getFriends(someInfo.getInfo(),
+                connection),someInfo.getInfo());
         return new Response(request.getRequestId(), bodyResponse);
     }
 
@@ -364,7 +372,7 @@ public class XMartCityService {
 
     }
 
-    public Response signinAsResponse(PreparedStatement preparedStatement, Request request, Connection connection)
+    public Response signinAsResponse(PreparedStatement preparedStatement, Request request)
             throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
 
         final ObjectMapper mapper = new ObjectMapper();
@@ -376,19 +384,8 @@ public class XMartCityService {
 
             final String hashedPassword = resultSet.getString("password");
             if (BCrypt.checkpw(student.getPassword(), hashedPassword)) {
-
-                StudentConnectedProcess studentConnectedProcess = new
-                StudentConnectedProcess();
-                ConnectedStudent.addNewStudentConnected(student);
-
                 System.out.println(ConnectedStudent.getStudentConnectedemailHashmap());
                 String bodyResponse = String.format("{\"msg\": \"%s\"}", "success");
-
-                // Set<String> set = new HashSet<>();
-                // // set.add("kshemwell0@4shared.com");
-                BroadcastNotification.broadcast("NEW_CONNECTION",
-                StudentConnectedProcess.getFriends(student.getEmail(),
-                connection),student.getEmail());
                 return new Response(request.getRequestId(), bodyResponse);
             }
             resultSet.close();

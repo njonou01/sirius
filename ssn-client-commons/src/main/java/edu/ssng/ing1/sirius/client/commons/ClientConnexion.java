@@ -20,6 +20,7 @@ public class ClientConnexion extends Thread {
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private static NetworkConfig networkConfig;
     Socket clientSocket ;
+    ServerSocket serverSocket = null;
     // private final Set<RequestHandler> setHandlers = Collections
     //         .synchronizedSet(new LinkedHashSet<RequestHandler>());
 
@@ -42,12 +43,20 @@ public class ClientConnexion extends Thread {
     @Override
     public void run() {
 
-        ServerSocket serverSocket = null;
+        
         try {
             System.out.println("Ready To get All Notification....");
             System.out.println(networkConfig.getTcpportServerNotify());
 
             serverSocket = new ServerSocket(networkConfig.getTcpportServerNotify());
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    serverSocket.close();
+                    System.out.println("Server stopped.");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }));
             int i = 0;
 
             while (true) {

@@ -20,7 +20,7 @@ public class MainClient extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new ClientConnexion().start();
+       
 
 
         try {

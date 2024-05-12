@@ -36,13 +36,19 @@ public class BroadcastNotification {
         byte[] notifTosend = objectMapper.writeValueAsBytes(notification);
 
         for (String receiver : receivers) {
-            System.out.println("l'addres recup est : " + ConnectedStudent
-                    .getStudentConnectedemailHashmap().get(receiver));
-            tryconnection(receiver,notifTosend);
+            Set<String> ipReceivers = ConnectedStudent
+                    .getStudentConnectedemailHashmap().get(receiver);
+            System.out.println("Address found : " + ipReceivers);
+
+            for (String ipReceiver : ipReceivers) {
+                tryconnection(ipReceiver, notifTosend, receiver);
+            }
+
         }
 
     }
-    static synchronized void broadcast(String type, Set<String> receivers,Object object,String... messageArguments)
+
+    static synchronized void broadcast(String type, Set<String> receivers, Object object, String... messageArguments)
             throws JsonProcessingException {
         System.out.println("Broadcasting message to " + receivers.size() + " friends.");
         int triedConnection = 0;
@@ -52,78 +58,78 @@ public class BroadcastNotification {
         notification.setMessage(notificationType.getMessage(messageArguments));
         notification.setOrder(type);
         ObjectMapper objectMapper = new ObjectMapper();
-        String bject=objectMapper.writeValueAsString(object);
+        String bject = objectMapper.writeValueAsString(object);
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
 
         notification.setBody(bject);
         byte[] notifTosend = objectMapper.writeValueAsBytes(notification);
 
         for (String receiver : receivers) {
-            System.out.println("l'addres recup est : " + ConnectedStudent
-                    .getStudentConnectedemailHashmap().get(receiver));
-            tryconnection(receiver,notifTosend);
+            Set<String> ipReceivers = ConnectedStudent
+                    .getStudentConnectedemailHashmap().get(receiver);
+            System.out.println("Address found : " + ipReceivers);
+
+            for (String ipReceiver : ipReceivers) {
+                tryconnection(ipReceiver, notifTosend, receiver);
+            }
+
         }
 
     }
 
-    public static void tryconnection(String receiver, byte[] notifTosend) {
+    public static void tryconnection(String ipReceiver, byte[] notifTosend, String receiverEmail) {
 
-        try (Socket sendSocket = new Socket(ConnectedStudent
-                    .getStudentConnectedemailHashmap().get(receiver), 5461)) {
-                if (sendSocket != null) {
-                    try {
-                        System.out.println("le socket d'envoie est " + sendSocket);
-                        OutputStream outputStream = sendSocket.getOutputStream();
-                        outputStream.write(notifTosend);
-                        System.out.println("Message sent to " + receiver);
+        try (Socket sendSocket = new Socket(ipReceiver, 5461)) {
+            if (sendSocket != null) {
+                try {
+                    System.out.println("le socket d'envoie est " + sendSocket);
+                    OutputStream outputStream = sendSocket.getOutputStream();
+                    outputStream.write(notifTosend);
+                    System.out.println("Message sent to " + receiverEmail);
 
-                        sendSocket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    sendSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (ConnectException e) {
-
-                Thread tryagainThread = new Thread(() -> {
-                    try {
-
-                        Thread.sleep(3000);
-
-                        try (Socket sendSocket = new Socket(ConnectedStudent
-                                .getStudentConnectedemailHashmap().get(receiver), 5460)) {
-                            if (sendSocket != null) {
-
-                                System.out.println("le socket d'envoie est " + sendSocket);
-                                OutputStream outputStream = sendSocket.getOutputStream();
-                                outputStream.write(notifTosend);
-                                System.out.println("Message sent to " + receiver);
-                                sendSocket.close();
-
-                            }
-                        } catch (ConnectException e2) {
-                            logger.debug(" Student disconnect {} ", receiver);
-
-                        } catch (IOException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                        }
-                    } catch (InterruptedException i) {
-                        i.printStackTrace();
-                    }
-                });
-                tryagainThread.start();
-
-               
-
-            } catch (JsonProcessingException e) {
-               
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }finally{
-                // sendSocket.close();
             }
-        
+        } catch (ConnectException e) {
+
+            Thread tryagainThread = new Thread(() -> {
+                try {
+
+                    Thread.sleep(3000);
+
+                    try (Socket sendSocket = new Socket(ipReceiver, 5461)) {
+                        if (sendSocket != null) {
+
+                            System.out.println("le socket d'envoie est " + sendSocket);
+                            OutputStream outputStream = sendSocket.getOutputStream();
+                            outputStream.write(notifTosend);
+                            System.out.println("Message sent to " + receiverEmail);
+                            sendSocket.close();
+
+                        }
+                    } catch (ConnectException e2) {
+                        logger.debug(" Student disconnect {} ", receiverEmail);
+
+                    } catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                } catch (InterruptedException i) {
+                    i.printStackTrace();
+                }
+            });
+            tryagainThread.start();
+
+        } catch (JsonProcessingException e) {
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            // sendSocket.close();
+        }
 
     }
     // static synchronized void broadcast(Query message, Set<String> friends, Object
