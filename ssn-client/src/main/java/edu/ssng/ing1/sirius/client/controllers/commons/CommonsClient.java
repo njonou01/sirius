@@ -9,6 +9,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.ScaleTransition;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -48,6 +51,7 @@ public class CommonsClient {
         profileimageClip.setFill(new ImagePattern(profilImage));
         profileimageClip.setStroke(Color.TRANSPARENT);
     }
+
     public static void setImageOnClip(Circle profileimageClip, byte[] tbytes) {
         Image profilImage = getImage(tbytes);
         profileimageClip.setFill(new ImagePattern(profilImage));
@@ -73,7 +77,7 @@ public class CommonsClient {
         } else if (months >= 1) {
             return months + " mois";
         } else if (days >= 1) {
-            return days + " jour(s)" + (days == 1 ? "" : "s");
+            return days + " jour" + (days == 1 ? "" : "s");
         } else if (hours >= 1) {
             return hours + " h";
         } else if (minutes >= 1) {
@@ -106,8 +110,29 @@ public class CommonsClient {
         return new Image(convertBytesToInputStream(byteArray));
     }
 
-    public  static InputStream convertBytesToInputStream(byte[] byteArray) {
+    public static InputStream convertBytesToInputStream(byte[] byteArray) {
         return new ByteArrayInputStream(byteArray);
+    }
+
+    public static void animateFadeIn(Node node, javafx.util.Duration duration) {
+        FadeTransition fadeTransition = new FadeTransition(duration, node);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
+    }
+     public static void animateScaleIn(Node node, javafx.util.Duration duration, double fromScale, double toScale) {
+        ScaleTransition scaleTransition = new ScaleTransition(duration, node);
+        scaleTransition.setFromX(fromScale);
+        scaleTransition.setFromY(fromScale);
+        scaleTransition.setToX(toScale);
+        scaleTransition.setToY(toScale);
+        scaleTransition.play();
+    }
+    public static void animateFadeOut(Node node, javafx.util.Duration duration) {
+        FadeTransition fadeTransition = new FadeTransition(duration, node);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.play();
     }
 
 }

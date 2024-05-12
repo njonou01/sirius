@@ -1,9 +1,12 @@
 package edu.ssng.ing1.sirius.client.controllers.messaging;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
+import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.CommonsClient;
+import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -46,7 +49,18 @@ public class FriendBtn extends HBox {
     public void setIsOnline(Boolean isOnline) {
         this.isOnline = isOnline;
     }
+
     public Button getButton() {
         return button;
+    }
+
+    public Timestamp getBefriendDate() {
+        for (BeFriend friend : Initializer.getFriends()) {
+            if (friend.getSender().getId_student() == student.getId_student() ||
+                    friend.getReceiver().getId_student() == student.getId_student()) {
+                return friend.getBefriend_since();
+            }
+        }
+        return null;
     }
 }
