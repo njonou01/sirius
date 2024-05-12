@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.client.controllers.commons.CommonsClient;
+import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 
 public class PrivateMessagingController implements Initializable {
 
@@ -75,7 +76,7 @@ public class PrivateMessagingController implements Initializable {
             logoApp.setImage(CommonsClient.getImage(CommonsClient.logoApppath));
             CommonsClient.setImageOnClip(profileImageRight, "media/images/profil.jpg");
             Message message1 = new Message(1, 952, 44,
-                    "Salut les gars ! J'ai rencontré un problème avec la configuration du serveur pour Sirius.", null,
+                    "Salut  gars ! J'ai rencontré un problème avec la configuration du serveur pour Sirius.", null,
                     Timestamp.valueOf("2024-05-01 10:00:00"));
             Message message2 = new Message(2, 44, 952, "Salut ! Quel est le problème exactement ?", null,
                     Timestamp.valueOf("2024-05-01 10:05:00"));
@@ -140,11 +141,19 @@ public class PrivateMessagingController implements Initializable {
             currentListOfMessages.getChildren().add(new PrivateMessage(message18));
             currentListOfMessages.getChildren().add(new PrivateMessage(message19));
             currentListOfMessages.getChildren().add(new PrivateMessage(message20));
+            for (int i = 0; i < 20; i++) {
+                allFriends.getChildren().add(new FriendBtn(UserInfo.getUser(), false));
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+    private void selectStudent(Button button) {
+        button.setOnAction(event -> {
+
+        });}
 
 }

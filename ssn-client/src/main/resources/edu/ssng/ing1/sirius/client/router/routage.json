@@ -75,6 +75,10 @@
   "my-messageUI": {
     "path": "messaging/mymessage",
     "title": "mymessage"
+  },
+  "btnfriend_msg": {
+    "path": "messaging/friend",
+    "title": "Mon App"
   }
 
   

@@ -48,6 +48,11 @@ public class CommonsClient {
         profileimageClip.setFill(new ImagePattern(profilImage));
         profileimageClip.setStroke(Color.TRANSPARENT);
     }
+    public static void setImageOnClip(Circle profileimageClip, byte[] tbytes) {
+        Image profilImage = getImage(tbytes);
+        profileimageClip.setFill(new ImagePattern(profilImage));
+        profileimageClip.setStroke(Color.TRANSPARENT);
+    }
 
     public static String durationOfEvent(Timestamp timestamp) {
         Instant now = Instant.now();
