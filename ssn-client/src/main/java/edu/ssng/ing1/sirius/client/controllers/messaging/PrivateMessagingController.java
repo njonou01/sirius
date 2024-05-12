@@ -1,19 +1,27 @@
 package edu.ssng.ing1.sirius.client.controllers.messaging;
 
-import edu.ssng.ing1.sirius.business.dto.Message;
-import edu.ssng.ing1.sirius.business.dto.Student;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import ch.qos.logback.core.net.server.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import edu.ssng.ing1.sirius.client.controllers.commons.CommonsClient;
+import edu.ssng.ing1.sirius.client.controllers.messaging.PrivateMessage.MessageType;
+public class PrivateMessagingController implements Initializable {
 
-public class PrivateMessagingController {
+    @FXML
+    private VBox allFriends;
 
     @FXML
     private BorderPane borderPane;
@@ -22,7 +30,16 @@ public class PrivateMessagingController {
     private Button buttonSend;
 
     @FXML
-    private ListView<Message> chatPane;
+    private HBox currentUserChat;
+
+    @FXML
+    private Circle currentUserChatImage;
+
+    @FXML
+    private Label currentUserChatNameLabel;
+
+    @FXML
+    private ImageView logoApp;
 
     @FXML
     private TextArea messageBox;
@@ -34,13 +51,10 @@ public class PrivateMessagingController {
     private HBox onlineUsersHbox;
 
     @FXML
-    private ImageView userImageView;
+    private Circle profileImageRight;
 
     @FXML
-    private ListView<Student> userList;
-
-    @FXML
-    private Label usernameLabel;
+    private VBox currentListOfMessages;
 
     @FXML
     void sendButtonAction(ActionEvent event) {
@@ -50,6 +64,20 @@ public class PrivateMessagingController {
     @FXML
     void sendMethod(KeyEvent event) {
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        CommonsClient.setImageOnClip(currentUserChatImage, "media/images/profil.jpg");
+        logoApp.setImage(CommonsClient.getImage(CommonsClient.logoApppath));
+        CommonsClient.setImageOnClip(profileImageRight, "media/images/profil.jpg");
+        currentListOfMessages.getChildren().add(new PrivateMessage(MessageType.ME));
+        currentListOfMessages.getChildren().add(new PrivateMessage(MessageType.ME));
+        currentListOfMessages.getChildren().add(new PrivateMessage(MessageType.FRIEND_MESSAGE));
+        currentListOfMessages.getChildren().add(new PrivateMessage(MessageType.ME));
+        currentListOfMessages.getChildren().add(new PrivateMessage(MessageType.FRIEND_MESSAGE));
+        currentListOfMessages.getChildren().add(new PrivateMessage(MessageType.FRIEND_MESSAGE));
+        currentListOfMessages.getChildren().add(new PrivateMessage(MessageType.ME));
     }
 
 }

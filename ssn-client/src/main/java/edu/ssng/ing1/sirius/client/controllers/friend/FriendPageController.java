@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.BeFriends;
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.requests.friend.FriendCommonRequest;
@@ -74,13 +75,8 @@ public class FriendPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            int student_id = UserInfo.getUser().getId_student();
-            friends = FriendCommonRequest.selectFriends(new Student(student_id));
-            System.out.println(friends.getBefriends().size());
-        } catch (NullPointerException | IOException | InterruptedException e) {
-            friends = null;
-        }
+        Initializer.invitationsFetcher();
+        friends = Initializer.friends;
         btnmapper.put(allFriendBtn, allFriendPanel);
         btnmapper.put(friendHomeBtn, homePanel);
         btnmapper.put(friendInvitationsBtn, invatationPane);
@@ -178,8 +174,8 @@ public class FriendPageController implements Initializable {
             Map<String, Integer> map = new LinkedHashMap<>();
             map.put("receiver", UserInfo.getUser().getId_student());
             map.put("sender", sender.getId_student());
-            setIgnoreOnAction(fr.getIgnoreBtn(),invitationZone, pane, map);
-            setAcceptOnAction(fr.getAcceptBtn(),invitationZone, pane, map);
+            setIgnoreOnAction(fr.getIgnoreBtn(), invitationZone, pane, map);
+            setAcceptOnAction(fr.getAcceptBtn(), invitationZone, pane, map);
             fr.getName().setText(sender.getFamilyname() + " " + sender.getFirstname());
             Image image = new Image(convertBytesToInputStream(sender.getProfileImageStream()));
             fr.getProfileImage().setImage(image);
@@ -204,7 +200,8 @@ public class FriendPageController implements Initializable {
             return new AnchorPane();
         }
     }
-    public void setAcceptOnAction(Button acceptBtn ,FlowPane parent, AnchorPane pane, Map<String, Integer> map){
+
+    public void setAcceptOnAction(Button acceptBtn, FlowPane parent, AnchorPane pane, Map<String, Integer> map) {
         acceptBtn.setOnAction(event -> {
             parent.getChildren().remove(pane);
             try {
@@ -214,7 +211,8 @@ public class FriendPageController implements Initializable {
             }
         });
     }
-    public void setIgnoreOnAction(Button ignoreBtn ,FlowPane parent, AnchorPane pane, Map<String, Integer> map){
+
+    public void setIgnoreOnAction(Button ignoreBtn, FlowPane parent, AnchorPane pane, Map<String, Integer> map) {
         ignoreBtn.setOnAction(event -> {
             parent.getChildren().remove(pane);
             try {
@@ -224,6 +222,5 @@ public class FriendPageController implements Initializable {
             }
         });
     }
-    
-}
 
+}

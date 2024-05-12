@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
+
+<HBox style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane style="-fx-background-color: reansparent;">
+         <children>
+            <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox>
+                           <children>
+                              <AnchorPane prefWidth="60.0">
+                                 <children>
+                                    <Polygon fill="#0076f7" points="50.0, 48.0, 82.0, 36.0, 69.0, 36.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="15.0" translateY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <VBox maxWidth="450.0">
+                                 <children>
+                                    <Label style="-fx-background-color: #0076F7; -fx-border-radius: 10px; -fx-background-radius: 10;" text="dddddddddd jfgkdgkfsk ffldslfslfj fjfjdjffdqdj rksfsmmflslsdflfdslsf fjdjfidfssn jfdsjfjsqfn ldfglsdgldfglfdlgdflgdlfgf fdjdfjdsjdfsfjsds fdjfjfdjfsfdsdf kfkgkgfdkgkfg djfdjflgkfkjgjfg fhfdhfhdf jfdjfdjdfjdf lslsls kjdfdfdj djdfjdd dkdkdkd dsdmdsfdsgj  jvsjdfsjfdjgfjgdjgfdfjdgfgjdgjdfj" textFill="WHITE" wrapText="true">
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <VBox>
+                           <children>
+                              <HBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                                       <image>
+                                          <Image url="@../../../../../../../../../../../../../../Downloads/CFA_AFIA_Bootcamp_DSF5850-removebg-preview%20(3).png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label text="hier a 19h30">
+                                       <font>
+                                          <Font size="8.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

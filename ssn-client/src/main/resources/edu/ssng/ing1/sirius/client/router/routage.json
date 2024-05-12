@@ -67,6 +67,14 @@
   "messaging": {
     "path": "messaging/private_messaging",
     "title": "Mon App"
+  },
+  "friend-messageUI": {
+    "path": "messaging/myFriendMessage",
+    "title": "friend message"
+  },
+  "my-messageUI": {
+    "path": "messaging/mymessage",
+    "title": "mymessage"
   }
 
   
