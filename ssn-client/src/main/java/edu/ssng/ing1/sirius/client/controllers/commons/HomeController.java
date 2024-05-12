@@ -84,9 +84,10 @@ public class HomeController implements Initializable {
         initializeBtn(homePageBtn, friendPageBtn);
 
         deconnexionbtn.setOnAction(event -> {
+            Student student=UserInfo.getUser();
             UserInfo.removeUser();
             ClientConnexion.closersocket();
-            Student student=UserInfo.getUser();
+            
             try {
                 Disconnection.disconnection(student.getEmail());
             } catch (NullPointerException e) {

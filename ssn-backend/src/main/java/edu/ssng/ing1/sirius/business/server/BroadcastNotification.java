@@ -58,9 +58,10 @@ public class BroadcastNotification {
         notification.setMessage(notificationType.getMessage(messageArguments));
         notification.setOrder(type);
         ObjectMapper objectMapper = new ObjectMapper();
-        String bject = objectMapper.writeValueAsString(object);
+        
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-
+        String bject = objectMapper.writeValueAsString(object);
+        
         notification.setBody(bject);
         byte[] notifTosend = objectMapper.writeValueAsBytes(notification);
 

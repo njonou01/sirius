@@ -291,7 +291,8 @@ public class XMartCityService {
         }
         listOfStudents.close();
         bodyResponse = mapper.writeValueAsString(student);
-
+                // Student studentt= new Student();
+                // studentt.setEmail("elokamichel@gmail.com");
                 // Set<String> set = new HashSet<>();
                 // // set.add("kshemwell0@4shared.com");
                 ConnectedStudent.addNewStudentConnected(someInfo);
