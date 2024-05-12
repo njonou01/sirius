@@ -11,6 +11,8 @@ public enum Queries {
         SELECT_ALL_STUDENTS(
                         "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
                                         "\tFROM \"ssn-db-ing1\".student"),
+        DISCONNECTION_STUDENT(
+                        "La requete de mis à jour ici"),
         STUDENT_INFO(
                         "SELECT student.id_student, student.familly_name as familyname , student.first_name as firstname, student.email as email, student.phone_number as phoneNumber, student.gender as gender,student.profile_image as profile_image , student.password as password , student.birthday as bithday\n"
                                         + //

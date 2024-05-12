@@ -30,6 +30,7 @@ public class MainClient extends Application {
         }
         UserInfo.getInstance();
         Router router = Router.getInstance();
+        primaryStage.setOnCloseRequest(event -> ClientConnexion.closersocket());
         router.setStage(primaryStage);
         router.setFullScreenStage();
         Student user = UserInfo.getUser();

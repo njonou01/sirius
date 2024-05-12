@@ -20,7 +20,8 @@ public class ClientConnexion extends Thread {
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private static NetworkConfig networkConfig;
     Socket clientSocket ;
-    ServerSocket serverSocket = null;
+    private static Boolean isCloseSocket=true;
+    private static ServerSocket serverSocket = null;
     // private final Set<RequestHandler> setHandlers = Collections
     //         .synchronizedSet(new LinkedHashSet<RequestHandler>());
 
@@ -71,8 +72,10 @@ public class ClientConnexion extends Thread {
                 System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLL<<");
                 System.out.println("Une nouvelle notif :" + i);
                 System.out.println(clientSocket);
+                
                 i++;
                 new NotifyHandler(clientSocket).start();
+                if (!isCloseSocket) break; 
             }
 
 
@@ -81,6 +84,9 @@ public class ClientConnexion extends Thread {
         } finally {
             if (serverSocket != null) {
                 try {
+                    System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+                    System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
+                    System.out.println("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK");
                     serverSocket.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -89,4 +95,14 @@ public class ClientConnexion extends Thread {
         }
     }
 
+
+    public static void closersocket(){
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        isCloseSocket=false;
+    }
 }

@@ -4,6 +4,7 @@ edu\ssng\ing1\sirius\Main.class
 edu\ssng\ing1\sirius\requests\activities\SelectActivitesClientRequest.class
 edu\ssng\ing1\sirius\requests\activities\InsertActivityQuery.class
 edu\ssng\ing1\sirius\requests\authentification\SignInClientRequest$1.class
+edu\ssng\ing1\sirius\requests\Disconnection\Disconnection.class
 edu\ssng\ing1\sirius\requests\authentification\CommonRequest.class
 edu\ssng\ing1\sirius\requests\friend\SelectFriendsClientRequest.class
 edu\ssng\ing1\sirius\requests\authentification\AuthRequest.class

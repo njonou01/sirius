@@ -8,6 +8,13 @@ public enum NotificationType {
                  
         }
     },
+    DISCONNECTION_STUDENT("Votre Amie  est connecté"){
+        @Override
+        public String getMessage(String ...messageArgument) {
+            return "Votre Amie " + messageArgument[0] +  " est déconnecté ";
+                 
+        }
+    },
     END_ACTIVITY("Votre Activité est terminée"){
         @Override
         public String getMessage(String ...messageArgument) {

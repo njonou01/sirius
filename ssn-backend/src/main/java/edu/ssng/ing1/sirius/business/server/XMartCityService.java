@@ -65,6 +65,9 @@ public class XMartCityService {
                 case SELECT_ALL_ACTIVITY:
 
                     return SelectAllActivite(preparedStatement);
+                case DISCONNECTION_STUDENT:
+
+                    return disconnection(request,preparedStatement,connection);
                 case SELECT_MY_ACTIVITY:
 
                     return SelectMyActivite(request, preparedStatement);
@@ -189,6 +192,27 @@ public class XMartCityService {
             logger.error("Error handling SELECT_ALL_STUDENTS request: {}", e.getMessage());
 
         }
+        return response;
+
+    }
+
+    private Response disconnection(Request request,PreparedStatement preparedStatement,Connection connection){
+        Response response= new Response();
+        ObjectMapper objectMapper= new ObjectMapper();
+        try {
+            Student student=objectMapper.readValue(request.getRequestBody(),Student.class);
+            SomeInfo someInfo= new SomeInfo();
+            someInfo.setInfo(student.getEmail());
+            ConnectedStudent.removeNewStudentConnected(someInfo);
+            BroadcastNotification.broadcast("DISCONNECTION_STUDENT",
+            StudentConnectedProcess.getFriends(someInfo.getInfo(),
+            connection),someInfo.getInfo());
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         return response;
 
     }

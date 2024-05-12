@@ -1,14 +1,17 @@
 package edu.ssng.ing1.sirius.client.controllers.commons;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.client.commons.ClientConnexion;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
+import edu.ssng.ing1.sirius.requests.Disconnection.Disconnection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -82,6 +85,20 @@ public class HomeController implements Initializable {
 
         deconnexionbtn.setOnAction(event -> {
             UserInfo.removeUser();
+            ClientConnexion.closersocket();
+            Student student=UserInfo.getUser();
+            try {
+                Disconnection.disconnection(student.getEmail());
+            } catch (NullPointerException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             Router.getInstance().navigateTo("authentification");
             Router.getInstance().getStage().sizeToScene();
             Router.getInstance().setFullScreenStage();
