@@ -123,30 +123,7 @@
                   </HBox>
                   <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="716.0" prefWidth="230.0" style="-fx-background-color: #F0F2F5; -fx-border-color: transparent;" vbarPolicy="NEVER" VBox.vgrow="NEVER">
                      <content>
-                        <VBox fx:id="allFriends" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-color: #F0F2F5;">
-                           <children>
-                              <Button mnemonicParsing="false" prefHeight="58.0" prefWidth="232.0" style="-fx-background-color: transparent;">
-                                 <graphic>
-                                    <HBox spacing="5.0">
-                                       <children>
-                                          <AnchorPane>
-                                             <children>
-                                                <Circle fill="#1f93ff38" radius="25.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                <VBox layoutX="41.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                   <children>
-                                                      <FontIcon iconColor="#00ff1e" iconLiteral="fas-circle" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </AnchorPane>
-                                          <VBox />
-                                          <Label text="Nom de l'ami" />
-                                       </children>
-                                    </HBox>
-                                 </graphic>
-                              </Button>
-                           </children>
-                        </VBox>
+                        <VBox fx:id="allFriends" prefHeight="200.0" prefWidth="100.0" spacing="5.0" style="-fx-background-color: #F0F2F5;" />
                      </content>
                   </ScrollPane>
                </children>
@@ -198,7 +175,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="232.0">
                      <children>
                         <Circle fx:id="profileImageRight" fill="DODGERBLUE" layoutX="142.0" layoutY="100.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="0.0" />
-                        <FontIcon iconColor="RED" iconLiteral="fas-circle" iconSize="25" layoutX="183.0" layoutY="27.0" />
+                        <FontIcon fx:id="isConnectedStudentInfo" iconColor="RED" iconLiteral="fas-circle" iconSize="25" layoutX="183.0" layoutY="27.0" />
                      </children>
                   </AnchorPane>
                   <Label fx:id="currentUserName" text="Nom de l'ami " />

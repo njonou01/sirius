@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import ch.qos.logback.core.net.server.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +31,9 @@ public class PrivateMessagingController implements Initializable {
 
         @FXML
         private VBox allFriends;
+
+        @FXML
+        private FontIcon isConnectedStudentInfo;
 
         @FXML
         private BorderPane borderPane;
@@ -86,6 +91,13 @@ public class PrivateMessagingController implements Initializable {
 
         @FXML
         void sendButtonAction(ActionEvent event) {
+                int id_sender = UserInfo.getUser().getId_student();
+                int id_receiver = activeStudent.getId_student();
+                String message = messageBox.getText();
+                Message msg = new Message(12 ,id_sender, id_receiver, message, null , Timestamp.valueOf("2024-05-01 10:55:00"));
+                messageBox.clear();
+                currentListOfMessages.getChildren().add(new PrivateMessage(msg));
+                concversationArea.setVvalue(1.0);
 
         }
 
@@ -177,7 +189,7 @@ public class PrivateMessagingController implements Initializable {
                         currentListOfMessages.getChildren().add(new PrivateMessage(message19));
                         currentListOfMessages.getChildren().add(new PrivateMessage(message20));
                         for (int i = 0; i < 20; i++) {
-                                FriendBtn btn = new FriendBtn(UserInfo.getUser(), false);
+                                FriendBtn btn = new FriendBtn(UserInfo.getUser(), i % 2 == 0);
                                 allFriends.getChildren().add(btn);
                                 setEventStudentActive(btn);
                         }
@@ -199,6 +211,8 @@ public class PrivateMessagingController implements Initializable {
                         myFriendSince.setText(
                                         "Amis depuis " + CommonsClient.durationOfEvent(fbutton.getBefriendDate()));
                         currentUserName.setText(activeStudent.getFamilyname() + " " + activeStudent.getFirstname());
+                        isConnectedStudentInfo.setFill(fbutton.getIsOnline() ? javafx.scene.paint.Color.GREEN
+                                        : javafx.scene.paint.Color.RED);
                         hideAllArea(false);
                 });
 
@@ -210,13 +224,12 @@ public class PrivateMessagingController implements Initializable {
                 sendingArea.setVisible(!hide);
                 concversationArea.setVisible(!hide);
                 studentInfoArea.setVisible(!hide);
-                Duration delay = Duration.millis(500);
+                Duration delay = Duration.millis(300);
                 CommonsClient.animateFadeIn(currentUserChatArea, delay);
                 CommonsClient.animateFadeIn(hidderConversationArea, delay);
                 CommonsClient.animateFadeIn(sendingArea, delay);
                 CommonsClient.animateFadeIn(concversationArea, delay);
                 CommonsClient.animateFadeIn(studentInfoArea, delay);
-
         }
 
 }
