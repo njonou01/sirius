@@ -37,9 +37,9 @@
                         </Label>
                      </children>
                   </VBox>
-                  <ScrollPane prefHeight="717.0" prefWidth="635.0" style="-fx-background-color: #F0F2F5;" styleClass="scroll-bar" stylesheets="@scroll-bar.css">
+                  <ScrollPane fitToWidth="true" prefHeight="717.0" prefWidth="635.0" style="-fx-background-color: #F0F2F5;" styleClass="scroll-bar" stylesheets="@scroll-bar.css">
                      <content>
-                        <VBox fx:id="currentListOfMessages" style="-fx-background-color: #F0F2F5;" />
+                        <VBox fx:id="currentListOfMessages" spacing="10.0" style="-fx-background-color: #F0F2F5;" />
                      </content>
                   </ScrollPane>
                </children>

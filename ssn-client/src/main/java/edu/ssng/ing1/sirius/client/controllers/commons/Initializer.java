@@ -53,7 +53,7 @@ public class Initializer {
     public static Set<BeFriend> getFriends() {
         Set<BeFriend> acceptedfriend = friends.getBefriends()
                 .stream()
-                .filter(f -> f.getStatus() == "accepted")
+                .filter(f -> f.getStatus().equalsIgnoreCase("accepted"))
                 .collect(Collectors.toSet());
         return acceptedfriend;
     }
