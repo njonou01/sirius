@@ -65,5 +65,6 @@ public class Initializer {
                 .collect(Collectors.toSet());
         return friendshipRequest;
     }
+    
 
 }
