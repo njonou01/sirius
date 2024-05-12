@@ -22,7 +22,10 @@ public class Initializer {
     public static BorderPane initMessagingPage() {
         FXMLLoader fxml = Router.getInstance().getParentNode("messaging");
         try {
-            return (BorderPane) fxml.load();
+           BorderPane pane = (BorderPane) fxml.load();
+            fxml.getController();
+
+            return pane;
         } catch (IOException e) {
             return null;
         }

@@ -1,5 +1,7 @@
 package edu.ssng.ing1.sirius.client.controllers.messaging;
 
+import edu.ssng.ing1.sirius.business.dto.Message;
+import edu.ssng.ing1.sirius.business.dto.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,7 +22,7 @@ public class PrivateMessagingController {
     private Button buttonSend;
 
     @FXML
-    private ListView<?> chatPane;
+    private ListView<Message> chatPane;
 
     @FXML
     private TextArea messageBox;
@@ -35,7 +37,7 @@ public class PrivateMessagingController {
     private ImageView userImageView;
 
     @FXML
-    private ListView<?> userList;
+    private ListView<Student> userList;
 
     @FXML
     private Label usernameLabel;

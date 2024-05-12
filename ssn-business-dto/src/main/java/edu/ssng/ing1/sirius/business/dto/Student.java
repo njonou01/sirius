@@ -347,4 +347,6 @@ public class Student {
         this.training_followed = training_followed;
     }
 
+    
+
 }

@@ -87,7 +87,7 @@
                <children>
                   <HBox fx:id="onlineUsersHbox" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="217.0">
                      <children>
-                        <Label prefHeight="50.0" prefWidth="225.0" text="Utilisateurs en ligne:" textAlignment="CENTER" textFill="#fc6747">
+                        <Label prefHeight="50.0" prefWidth="225.0" style="-fx-text-fill: #283593;" text="Ami(e)s en ligne:" textAlignment="CENTER" textFill="#fc6747">
                            <font>
                               <Font name="SansSerif Regular" size="14.0" />
                            </font>
@@ -98,7 +98,7 @@
                               <Insets bottom="10.0" />
                            </opaqueInsets>
                         </Label>
-                        <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" text="0" textFill="#fc6747">
+                        <Label fx:id="onlineCountLabel" prefHeight="48.0" prefWidth="94.0" style="-fx-text-fill: #283593;" text="0" textFill="#fc6747">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
