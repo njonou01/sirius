@@ -1,5 +1,6 @@
 package edu.ssng.ing1.sirius.client.controllers.messaging;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -11,10 +12,14 @@ import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class PrivateMessage extends HBox {
     private Student me = UserInfo.getUser();
+    private final double MAX_HEIGHT = 533;
 
     public PrivateMessage(Message message) {
         super();
@@ -25,6 +30,9 @@ public class PrivateMessage extends HBox {
             FXMLLoader loader = Router.getInstance().getParentNode(whichMessage);
             Parent root = loader.load();
             PrivateMessageControler controller = loader.getController();
+            updateSizeOfImage(
+                    message.getMedia() == null ? null : new Image(new ByteArrayInputStream(message.getMedia())),
+                    controller.getImage());
             controller.getMessage().setText(message.getMessageText());
             controller.getSendingDate().setText(CommonsClient.dateOfEvent(message.getSentAt()));
             this.getChildren().setAll(root);
@@ -54,5 +62,27 @@ public class PrivateMessage extends HBox {
                             : f.getSender();
                 });
         return friendInfo[0];
+    }
+
+    private void updateSizeOfImage(Image image, ImageView imageView) {
+        if (image == null) {
+            VBox Parent = (VBox) imageView.getParent();
+            Parent.getChildren().remove(imageView);
+        }
+
+        else {
+            double width = image.getWidth();
+            double height = image.getHeight();
+            if (height > MAX_HEIGHT) {
+                double ratio = MAX_HEIGHT / height;
+                height *= ratio;
+                width *= ratio;
+            }
+
+            imageView.setFitWidth(width);
+            imageView.setFitHeight(height);
+            imageView.setImage(image);
+        }
+
     }
 }

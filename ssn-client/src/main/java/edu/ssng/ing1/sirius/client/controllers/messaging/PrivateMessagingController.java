@@ -1,6 +1,9 @@
 package edu.ssng.ing1.sirius.client.controllers.messaging;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
@@ -99,23 +102,21 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
 
         ImageFileChooser imageFileChooser = new ImageFileChooser();
 
-        @FXML
-        private ImageView tester;
-
-        private File selectedFile;
+  
+        private byte[] currentimageBytes = null;
 
         @FXML
         void sendButtonAction(ActionEvent event) {
                 int id_sender = UserInfo.getUser().getId_student();
                 int id_receiver = activeStudent.getId_student();
                 String message = messageBox.getText();
-                Message msg = new Message(12, id_sender, id_receiver, message, null,
+                Message msg = new Message(12, id_sender, id_receiver, message, currentimageBytes,
                                 Timestamp.valueOf("2024-05-01 10:55:00"));
                 messageBox.clear();
                 currentListOfMessages.getChildren().add(new PrivateMessage(msg));
-                selectedFile = null;
                 fileIsChooseLabel.setVisible(false);
-                concversationArea.setVvalue(15);
+                concversationArea.setVvalue(1);
+                currentimageBytes = null;
         }
 
         @FXML
@@ -134,14 +135,27 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
                         CommonsClient.setImageOnClip(currentUserChatImage, "media/images/profil.jpg");
                         logoApp.setImage(CommonsClient.getImage(CommonsClient.logoApppath));
                         CommonsClient.setImageOnClip(profileImageRight, "media/images/profil.jpg");
+                        fileIsChooseLabel.setVisible(false);
+
                         addImageToMessageBtn.setOnAction(e -> {
-                                selectedFile = imageFileChooser.showOpenDialog(Router.getInstance().getStage());
+                                File selectedFile = imageFileChooser.showOpenDialog(Router.getInstance().getStage());
                                 if (selectedFile != null) {
-                                        Image image = new Image(selectedFile.toURI().toString());
-                                        tester.setImage(image);
-                                        fileIsChooseLabel.setVisible(true);
+                                        try {
+                                                InputStream selectedImageinputStream = null;
+
+                                                selectedImageinputStream = imageFileChooser
+                                                                .openInputStream(selectedFile);
+                                                currentimageBytes = CommonsClient
+                                                                .encodeInputStream(selectedImageinputStream);
+                                                Image image = new Image(new ByteArrayInputStream(currentimageBytes));
+                                                selectedImageinputStream.close();
+                                                fileIsChooseLabel.setVisible(true);
+                                        } catch (IOException ex) {
+                                                ex.printStackTrace();
+                                        }
                                 }
                         });
+
                 } catch (Exception e) {
                         e.printStackTrace();
                 }

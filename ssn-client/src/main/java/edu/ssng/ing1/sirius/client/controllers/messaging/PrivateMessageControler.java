@@ -39,4 +39,13 @@ public class PrivateMessageControler {
     @FXML
     private Label sendingDate;
 
+
+    @FXML
+    private ImageView image;
+
+    public ImageView getImage() {
+        return image;
+    }
+
+
 }

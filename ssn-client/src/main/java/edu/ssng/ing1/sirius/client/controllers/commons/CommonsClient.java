@@ -1,7 +1,12 @@
 package edu.ssng.ing1.sirius.client.controllers.commons;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
@@ -120,7 +125,8 @@ public class CommonsClient {
         fadeTransition.setToValue(1.0);
         fadeTransition.play();
     }
-     public static void animateScaleIn(Node node, javafx.util.Duration duration, double fromScale, double toScale) {
+
+    public static void animateScaleIn(Node node, javafx.util.Duration duration, double fromScale, double toScale) {
         ScaleTransition scaleTransition = new ScaleTransition(duration, node);
         scaleTransition.setFromX(fromScale);
         scaleTransition.setFromY(fromScale);
@@ -128,6 +134,7 @@ public class CommonsClient {
         scaleTransition.setToY(toScale);
         scaleTransition.play();
     }
+
     public static void animateFadeOut(Node node, javafx.util.Duration duration) {
         FadeTransition fadeTransition = new FadeTransition(duration, node);
         fadeTransition.setFromValue(1.0);
@@ -135,4 +142,19 @@ public class CommonsClient {
         fadeTransition.play();
     }
 
+    public static byte[] encodeFile(File file) throws IOException {
+        return Files.readAllBytes(file.toPath());
+    }
+
+    public static byte[] encodeInputStream(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byteOutputStream.write(buffer, 0, bytesRead);
+        }
+        byte[] imageBytes = byteOutputStream.toByteArray();
+        byteOutputStream.close();
+        return imageBytes;
+    }
 }

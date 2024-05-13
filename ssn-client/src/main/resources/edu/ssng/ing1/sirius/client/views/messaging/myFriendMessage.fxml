@@ -18,24 +18,32 @@
                <children>
                   <VBox>
                      <children>
-                        <HBox>
+                        <VBox>
                            <children>
-                              <AnchorPane prefWidth="60.0">
+                              <HBox>
                                  <children>
-                                    <Polygon fill="#0076f7" points="50.0, 48.0, 82.0, 36.0, 69.0, 36.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="15.0" translateY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                    <AnchorPane prefWidth="60.0">
+                                       <children>
+                                          <Polygon fill="#0076f7" points="50.0, 48.0, 82.0, 36.0, 69.0, 36.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="15.0" translateY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                    <VBox maxWidth="450.0" style="-fx-background-color: #0076F7; -fx-background-radius: 10px; -fx-border-radius: 10px;">
+                                       <children>
+                                          <ImageView fx:id="image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label fx:id="message" style="-fx-background-color: #0076F7; -fx-border-radius: 10px; -fx-background-radius: 10;" text="dddddddddd jfgkdgkfsk ffldslfslfj fjfjdjffdqdj rksfsmmflslsdflfdslsf fjdjfidfssn jfdsjfjsqfn ldfglsdgldfglfdlgdflgdlfgf fdjdfjdsjdfsfjsds fdjfjfdjfsfdsdf kfkgkgfdkgkfg djfdjflgkfkjgjfg fhfdhfhdf jfdjfdjdfjdf lslsls kjdfdfdj djdfjdd dkdkdkd dsdmdsfdsgj  jvsjdfsjfdjgfjgdjgfdfjdgfgjdgjdfj" textFill="WHITE" wrapText="true">
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </padding>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </VBox>
                                  </children>
-                              </AnchorPane>
-                              <VBox maxWidth="450.0">
-                                 <children>
-                                    <Label fx:id="message" style="-fx-background-color: #0076F7; -fx-border-radius: 10px; -fx-background-radius: 10;" text="dddddddddd jfgkdgkfsk ffldslfslfj fjfjdjffdqdj rksfsmmflslsdflfdslsf fjdjfidfssn jfdsjfjsqfn ldfglsdgldfglfdlgdflgdlfgf fdjdfjdsjdfsfjsds fdjfjfdjfsfdsdf kfkgkgfdkgkfg djfdjflgkfkjgjfg fhfdhfhdf jfdjfdjdfjdf lslsls kjdfdfdj djdfjdd dkdkdkd dsdmdsfdsgj  jvsjdfsjfdjgfjgdjgfdfjdgfgjdgjdfj" textFill="WHITE" wrapText="true">
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                    </Label>
-                                 </children>
-                              </VBox>
+                              </HBox>
                            </children>
-                        </HBox>
+                        </VBox>
                         <VBox>
                            <children>
                               <HBox alignment="CENTER_LEFT">
