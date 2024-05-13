@@ -66,11 +66,24 @@
                               <FontIcon iconLiteral="fas-paperclip" iconSize="20" />
                            </graphic>
                         </Button>
-                        <Button alignment="CENTER" layoutX="605.0" layoutY="11.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: transparent;">
-                           <graphic>
-                              <FontIcon iconLiteral="far-file-image" iconSize="20" />
-                           </graphic>
-                        </Button>
+                        <AnchorPane prefHeight="43.0" prefWidth="29.0">
+                           <children>
+                              <VBox alignment="TOP_RIGHT" layoutY="11.0" prefHeight="43.0" prefWidth="43.0" style="-fx-background-radius: 1000px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <Label fx:id="fileIsChooseLabel" alignment="TOP_RIGHT" style="-fx-background-color: red; -fx-text-fill: white; -fx-background-radius: 110px; -fx-border-radius: 110px; -fx-font-weight: bold;" text="1" translateX="-2.0" translateY="2.0">
+                                       <padding>
+                                          <Insets left="4.0" right="4.0" />
+                                       </padding>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <Button fx:id="addImageToMessageBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: transparent;">
+                                 <graphic>
+                                    <FontIcon iconLiteral="far-file-image" iconSize="20" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
                      </children>
                      <padding>
                         <Insets left="5.0" />
@@ -175,6 +188,7 @@
          <center>
             <VBox fx:id="studentInfoArea" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                <children>
+                  <ImageView fx:id="tester" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                   <AnchorPane prefHeight="200.0" prefWidth="232.0">
                      <children>
                         <Circle fx:id="profileImageRight" fill="DODGERBLUE" layoutX="142.0" layoutY="100.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="41.0" AnchorPane.topAnchor="0.0" />

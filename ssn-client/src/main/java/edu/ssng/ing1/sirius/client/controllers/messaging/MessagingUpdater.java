@@ -1,5 +1,10 @@
 package edu.ssng.ing1.sirius.client.controllers.messaging;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.business.dto.Student;
@@ -52,12 +57,17 @@ public class MessagingUpdater {
         });
     }
 
-    public static void updateMesageArea(Student student ) {
+    public static void updateMesageArea(Student student) {
         messageArea.getChildren().clear();
-        Initializer.getAllMessages().stream().map(null);
-        // messageArea.getChildren().add(new Label(message));
+        List<PrivateMessage> filter = Initializer.getMessagesOfStudent(student.getId_student())
+                .stream()
+                .map(msg -> new PrivateMessage(msg))
+                .collect(Collectors.toList());
 
+        messageArea.getChildren().setAll(filter);
     }
+
+    // messageArea.getChildren().add(new Label(message));
 
     public static void addMessageInArea(Message msg) {
         messageArea.getChildren().add(new PrivateMessage(msg));
