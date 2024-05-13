@@ -76,7 +76,7 @@ public class FriendPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Initializer.invitationsFetcher();
-        friends = Initializer.friends;
+        friends = Initializer.getinvitationsFetcher();
         btnmapper.put(allFriendBtn, allFriendPanel);
         btnmapper.put(friendHomeBtn, homePanel);
         btnmapper.put(friendInvitationsBtn, invatationPane);

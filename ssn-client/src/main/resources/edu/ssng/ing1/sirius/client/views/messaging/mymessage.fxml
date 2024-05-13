@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="BOTTOM_RIGHT" prefWidth="510.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.messaging.PrivateMessageControler">
+<HBox alignment="BOTTOM_RIGHT" prefWidth="635.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.messaging.PrivateMessageControler">
    <children>
       <VBox>
          <children>

@@ -19,7 +19,7 @@
 
 <BorderPane fx:id="borderPane" prefHeight="862.0" prefWidth="1208.0" style="-fx-background-color: #F0F2F5;" stylesheets="@scroll-bar.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.messaging.PrivateMessagingController">
    <center>
-      <VBox maxHeight="783.0" maxWidth="856.0" prefHeight="772.0" prefWidth="662.0">
+      <VBox maxHeight="783.0" maxWidth="635.0" prefHeight="772.0" prefWidth="662.0">
          <children>
             <StackPane style="-fx-background-color: #F0F2F5;" VBox.vgrow="ALWAYS">
                <children>
@@ -37,14 +37,17 @@
                         </Label>
                      </children>
                   </VBox>
-                  <ScrollPane fx:id="concversationArea" fitToWidth="true" prefHeight="717.0" prefWidth="635.0" style="-fx-background-color: #F0F2F5;" styleClass="scroll-bar" stylesheets="@scroll-bar.css">
+                  <ScrollPane fx:id="concversationArea" fitToWidth="true" maxWidth="635.0" prefHeight="717.0" prefWidth="635.0" style="-fx-background-color: #F0F2F5;" styleClass="scroll-bar" stylesheets="@scroll-bar.css" StackPane.alignment="TOP_CENTER">
                      <content>
                         <VBox fx:id="currentListOfMessages" spacing="10.0" style="-fx-background-color: #F0F2F5;" />
                      </content>
+                     <padding>
+                        <Insets right="10.0" />
+                     </padding>
                   </ScrollPane>
                </children>
             </StackPane>
-            <HBox fx:id="sendingArea" minHeight="-Infinity" spacing="10.0" visible="false">
+            <HBox fx:id="sendingArea" maxWidth="635.0" minHeight="-Infinity" spacing="10.0">
                <children>
                   <HBox alignment="CENTER" style="-fx-border-color: gray; -fx-background-color: transparent; -fx-border-radius: 10px; -fx-background-radius: 10px;" HBox.hgrow="ALWAYS">
                      <children>
