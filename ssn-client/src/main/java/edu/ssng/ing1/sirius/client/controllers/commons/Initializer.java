@@ -76,7 +76,7 @@ public class Initializer {
         public static Set<BeFriend> friendshipRequestReceiver() {
                 Set<BeFriend> friendshipRequest = friends.getBefriends()
                                 .stream()
-                                .filter(f -> f.getStatus() == "no reponse")
+                                .filter(f -> f.getStatus().equalsIgnoreCase("no reponse"))
                                 .collect(Collectors.toSet());
                 return friendshipRequest;
         }

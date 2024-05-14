@@ -77,6 +77,7 @@ public class FriendPageController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Initializer.invitationsFetcher();
         Initializer.messagesFetcher();
+        FriendUpdater.getInstance(friendZone, invitationPanelZone, null, invitationZone, null);
         friends = Initializer.getinvitationsFetcher();
         btnmapper.put(allFriendBtn, allFriendPanel);
         btnmapper.put(friendHomeBtn, homePanel);
@@ -87,41 +88,42 @@ public class FriendPageController implements Initializable {
         Button invViewMoreBtn = (Button) invitationViewMore.getChildren().get(0);
         invViewMoreBtn.setOnAction(event -> friendInvitationsBtn.fire());
         try {
-            initializeInvitationPanel(friends);
-            initializeFriendPanel(friends);
+            FriendUpdater.updateAcceptedFriend();
+            FriendUpdater.updateDemandedFriend();
+            FriendUpdater.updateLimitedDemandedFriend();
+            // initializeInvitationPanel(friends);
+            // initializeFriendPanel(friends);
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void initializeFriendPanel(BeFriends allfriends) {
-        List<AnchorPane> acceptedfriend = allfriends.getBefriends().stream()
-                .filter(friend -> "accepted".equals(friend.getStatus())).map(friend -> {
-                    return buildFriendCard(friend.getSender());
-                }).collect(Collectors.toList());
-        friendZone.getChildren().setAll(acceptedfriend);
-        numberOfFriends.setText(acceptedfriend.size() + " " + (acceptedfriend.size() <= 1 ? "ami(e)" : "ami(e)s"));
-    }
+    // private void initializeFriendPanel(BeFriends allfriends) {
+    // List<AnchorPane> acceptedfriend = Initializer.getFriends().stream()
+    // .map(friend -> {
+    // return buildFriendCard(friend.getSender());
+    // }).collect(Collectors.toList());
+    // friendZone.getChildren().setAll(acceptedfriend);
+    // numberOfFriends.setText(acceptedfriend.size() + " " + (acceptedfriend.size()
+    // <= 1 ? "ami(e)" : "ami(e)s"));
+    // }
 
-    private void initializeInvitationPanel(BeFriends allfriends) {
-        Set<BeFriend> friends_invitation = allfriends.getBefriends().stream()
-                .filter(friend -> "no reponse".equals(friend.getStatus()))
-                .collect(Collectors.toSet());
+    // private void initializeInvitationPanel(BeFriends allfriends) {
+    // if (Initializer.friendshipRequestReceiver().size() <= 5) {
+    // Pane parent = (Pane) invitationViewMore.getParent();
+    // parent.getChildren().remove(invitationViewMore);
+    // }
+    // invitationZone.getChildren().setAll(
+    // Initializer.friendshipRequestReceiver().stream().limit(5).map(friend -> {
+    // return buildInvitation(friend.getSender());
+    // }).collect(Collectors.toList()));
 
-        if (friends_invitation.size() <= 5) {
-            Pane parent = (Pane) invitationViewMore.getParent();
-            parent.getChildren().remove(invitationViewMore);
-        }
-        invitationZone.getChildren().setAll(
-                friends_invitation.stream().limit(5).map(friend -> {
-                    return buildInvitation(friend.getSender());
-                }).collect(Collectors.toList()));
+    // invitationPanelZone.getChildren().setAll(Initializer.friendshipRequestReceiver().stream().map(friend
+    // -> {
+    // return buildInvitation(friend.getSender());
+    // }).collect(Collectors.toList()));
 
-        invitationPanelZone.getChildren().setAll(friends_invitation.stream().map(friend -> {
-            return buildInvitation(friend.getSender());
-        }).collect(Collectors.toList()));
-
-    }
+    // }
 
     public void initializeBtn(Button... btnsListf) {
         for (Button button : btnsListf) {
@@ -134,94 +136,69 @@ public class FriendPageController implements Initializable {
         }
     }
 
-    private static InputStream convertBytesToInputStream(byte[] byteArray) {
-        return new ByteArrayInputStream(byteArray);
-    }
+    // private static InputStream convertBytesToInputStream(byte[] byteArray) {
+    // return new ByteArrayInputStream(byteArray);
+    // }
 
-    public static String durationOfInvitation(Timestamp timestamp) {
-        Instant now = Instant.now();
-        Instant then = timestamp.toInstant();
-        Duration duration = Duration.between(then, now);
+    // private AnchorPane buildInvitation(Student sender) {
+    // try {
+    // FXMLLoader loader = Router.getInstance().getParentNode("friend-invitation");
+    // AnchorPane pane = (AnchorPane) loader.load();
+    // FriendInvitationController fr = loader.getController();
+    // Map<String, Integer> map = new LinkedHashMap<>();
+    // map.put("receiver", UserInfo.getUser().getId_student());
+    // map.put("sender", sender.getId_student());
+    // setIgnoreOnAction(fr.getIgnoreBtn(), invitationZone, pane, map);
+    // setAcceptOnAction(fr.getAcceptBtn(), invitationZone, pane, map);
+    // fr.getName().setText(sender.getFamilyname() + " " + sender.getFirstname());
+    // Image image = new
+    // Image(convertBytesToInputStream(sender.getProfileImageStream()));
+    // fr.getProfileImage().setImage(image);
+    // fr.getFormation().setText(sender.getUniversity());
+    // return pane;
+    // } catch (Exception e) {
+    // return new AnchorPane();
+    // }
+    // }
 
-        long seconds = duration.getSeconds();
-        long absSeconds = Math.abs(seconds);
-        long days = absSeconds / 86400;
-        long months = days / 30;
-        long hours = (absSeconds % 86400) / 3600;
-        long minutes = (absSeconds % 3600) / 60;
-        long secs = absSeconds % 60;
+    // private AnchorPane buildFriendCard(Student friend) {
+    // try {
+    // FXMLLoader loader = Router.getInstance().getParentNode("friend-card");
+    // AnchorPane pane = (AnchorPane) loader.load();
+    // FriendCardController fr = loader.getController();
+    // Image image = new
+    // Image(convertBytesToInputStream(friend.getProfileImageStream()));
+    // fr.getName().setText(friend.getFamilyname() + " " + friend.getFirstname());
+    // fr.getProfileImage().setImage(image);
+    // fr.getFormation().setText(friend.getUniversity());
+    // return pane;
+    // } catch (Exception e) {
+    // return new AnchorPane();
+    // }
+    // }
 
-        if (months >= 12) {
-            long years = months / 12;
-            return years + " an" + (years == 1 ? "" : "s");
-        } else if (months >= 1) {
-            return months + " mois";
-        } else if (days >= 1) {
-            return days + " jour(s)" + (days == 1 ? "" : "s");
-        } else if (hours >= 1) {
-            return hours + " h";
-        } else if (minutes >= 1) {
-            return minutes + " min";
-        } else {
-            return secs + " s";
-        }
-    }
+    // public void setAcceptOnAction(Button acceptBtn, FlowPane parent, AnchorPane
+    // pane, Map<String, Integer> map) {
+    // acceptBtn.setOnAction(event -> {
+    // parent.getChildren().remove(pane);
+    // try {
+    // System.out.println(FriendCommonRequest.becomeFriend(map));
+    // } catch (Exception e) {
+    // System.out.println("ffffffffff rrrrrrrrrrrrr");
+    // }
+    // });
+    // }
 
-    private AnchorPane buildInvitation(Student sender) {
-        try {
-            FXMLLoader loader = Router.getInstance().getParentNode("friend-invitation");
-            AnchorPane pane = (AnchorPane) loader.load();
-            FriendInvitationController fr = loader.getController();
-            Map<String, Integer> map = new LinkedHashMap<>();
-            map.put("receiver", UserInfo.getUser().getId_student());
-            map.put("sender", sender.getId_student());
-            setIgnoreOnAction(fr.getIgnoreBtn(), invitationZone, pane, map);
-            setAcceptOnAction(fr.getAcceptBtn(), invitationZone, pane, map);
-            fr.getName().setText(sender.getFamilyname() + " " + sender.getFirstname());
-            Image image = new Image(convertBytesToInputStream(sender.getProfileImageStream()));
-            fr.getProfileImage().setImage(image);
-            fr.getFormation().setText(sender.getUniversity());
-            return pane;
-        } catch (Exception e) {
-            return new AnchorPane();
-        }
-    }
-
-    private AnchorPane buildFriendCard(Student friend) {
-        try {
-            FXMLLoader loader = Router.getInstance().getParentNode("friend-card");
-            AnchorPane pane = (AnchorPane) loader.load();
-            FriendCardController fr = loader.getController();
-            Image image = new Image(convertBytesToInputStream(friend.getProfileImageStream()));
-            fr.getName().setText(friend.getFamilyname() + " " + friend.getFirstname());
-            fr.getProfileImage().setImage(image);
-            fr.getFormation().setText(friend.getUniversity());
-            return pane;
-        } catch (Exception e) {
-            return new AnchorPane();
-        }
-    }
-
-    public void setAcceptOnAction(Button acceptBtn, FlowPane parent, AnchorPane pane, Map<String, Integer> map) {
-        acceptBtn.setOnAction(event -> {
-            parent.getChildren().remove(pane);
-            try {
-                System.out.println(FriendCommonRequest.becomeFriend(map));
-            } catch (Exception e) {
-                System.out.println("ffffffffff rrrrrrrrrrrrr");
-            }
-        });
-    }
-
-    public void setIgnoreOnAction(Button ignoreBtn, FlowPane parent, AnchorPane pane, Map<String, Integer> map) {
-        ignoreBtn.setOnAction(event -> {
-            parent.getChildren().remove(pane);
-            try {
-                System.out.println(FriendCommonRequest.deleteInvitation(map));
-            } catch (Exception e) {
-                System.out.println("ffffffffff rrrrrrrrrrrrr");
-            }
-        });
-    }
+    // public void setIgnoreOnAction(Button ignoreBtn, FlowPane parent, AnchorPane
+    // pane, Map<String, Integer> map) {
+    // ignoreBtn.setOnAction(event -> {
+    // parent.getChildren().remove(pane);
+    // try {
+    // System.out.println(FriendCommonRequest.deleteInvitation(map));
+    // } catch (Exception e) {
+    // System.out.println("ffffffffff rrrrrrrrrrrrr");
+    // }
+    // });
+    // }
 
 }

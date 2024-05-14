@@ -114,15 +114,14 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
                                 Timestamp.valueOf("2024-05-01 10:55:00"));
                 try {
                         Object result = CommonsMessageRequest.sendMessage(msg);
-                        
+
                         if (result instanceof Message) {
                                 messageBox.clear();
-                                currentListOfMessages.getChildren().add(new PrivateMessage((Message)result));
+                                currentListOfMessages.getChildren().add(new PrivateMessage((Message) result));
                                 fileIsChooseLabel.setVisible(false);
                                 concversationArea.setVvalue(1);
                                 currentimageBytes = null;
-                        }
-                        else {
+                        } else {
                                 System.out.println("Error while sending message 1 ");
                         }
                 } catch (NullPointerException | IOException | InterruptedException e) {
@@ -159,7 +158,6 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
                                                                 .openInputStream(selectedFile);
                                                 currentimageBytes = CommonsClient
                                                                 .encodeInputStream(selectedImageinputStream);
-                                                Image image = new Image(new ByteArrayInputStream(currentimageBytes));
                                                 selectedImageinputStream.close();
                                                 fileIsChooseLabel.setVisible(true);
                                         } catch (IOException ex) {

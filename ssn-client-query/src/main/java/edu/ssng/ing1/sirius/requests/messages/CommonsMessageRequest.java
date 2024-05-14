@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.business.dto.Messages;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
@@ -55,6 +56,43 @@ public class CommonsMessageRequest {
             return message;
         }
         return null;
+    }
+
+    public static Object sendMessage(Message message) throws NullPointerException, IOException, InterruptedException {
+        final String LoggingLabel = "S E N D - M E S S A G E";
+        final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+        final String threadName = "send-message";
+        Deque<ClientRequest<Object, Object>> clientRequests = new ArrayDeque<>();
+        final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
+        logger.debug("Load Network config file : {}", networkConfig.toString());
+        String requestOrder = "SEND_AND_SAVE_MESSAGE";
+        int birthdate = 0;
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final String jsonifiedUser = objectMapper.writerWithDefaultPrettyPrinter()
+                .writeValueAsString(message);
+        logger.trace("User with its JSON face : {}", jsonifiedUser);
+        final String requestId = UUID.randomUUID().toString();
+        final Request request = new Request();
+        request.setRequestId(requestId);
+        request.setRequestOrder(requestOrder);
+
+        request.setRequestContent(jsonifiedUser);
+        objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        final byte[] requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
+
+        final SendMessageClientRequest clientRequest_ = new SendMessageClientRequest(
+                networkConfig,
+                birthdate++, request, message, requestBytes);
+        clientRequests.push(clientRequest_);
+
+        if (!clientRequests.isEmpty()) {
+            final ClientRequest<Object, Object> joinedClientRequest = clientRequests.pop();
+            joinedClientRequest.join();
+            logger.debug("Thread {} complete.", threadName);
+            final Object response = (Object) joinedClientRequest.getResult();
+            return response;
+        }
+        return new Object();
     }
 
 }

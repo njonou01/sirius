@@ -25,14 +25,21 @@ import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Map;
-import java.util.stream.Collector;
+import java.util.UUID;
 import java.util.stream.Collectors;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 public class XMartCityService {
 
@@ -95,7 +102,7 @@ public class XMartCityService {
                     return becomeFriendsResponse(preparedStatement, request);
                 case FETCH_STUDENT_MESSAGES:
                     return fetchStudentMessages(preparedStatement, request);
-                case SEND_AND_SEND_MESSAGE:
+                case SEND_AND_SAVE_MESSAGE:
                     return sendAndSaveMessage(preparedStatement, request);
                 default:
                     break;
@@ -107,8 +114,10 @@ public class XMartCityService {
             System.out.println(e.getMessage() + " --> " + e.getClass());
         } catch (SQLException e) {
             System.out.println(e.getMessage() + " --> " + e.getClass());
+            e.printStackTrace();
         } catch (NoSuchFieldException e) {
             System.out.println(e.getMessage() + " --> " + e.getClass());
+            e.printStackTrace();
         } catch (JsonProcessingException e) {
             System.out.println(e.getMessage() + " --> " + e.getClass());
         } catch (IOException e) {
@@ -118,21 +127,36 @@ public class XMartCityService {
         return new Response("error", "Requete impossible");
     }
 
+    public static String generateUniqueFileName() {
+        java.util.Date now = new java.util.Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String timestamp = dateFormat.format(now);
+        String uniqueID = UUID.randomUUID().toString().replaceAll("-", "");
+
+        String extension = "png";
+
+        String newFileName = "image_" + timestamp + "_" + uniqueID + "." + extension;
+
+        return newFileName;
+    }
+
     private Response sendAndSaveMessage(PreparedStatement preparedStatement, Request request) throws JsonParseException,
             JsonMappingException, IOException, NoSuchFieldException, IllegalAccessException, SQLException {
         final ObjectMapper mapper = new ObjectMapper();
         final Message message = mapper.readValue(request.getRequestBody(), Message.class);
-        // int rowsAffected = message.build(preparedStatement).executeUpdate();
-        // if (rowsAffected > 0) {
-        //     ResultSet resultSet = preparedStatement.getResultSet();
-        //     if (resultSet.next()) {
-        //         final Message newMessage = new Message().build(resultSet);
-        //     }
-        //     resultSet.close();
-        // } else {
-
-        // }
-        return null;
+        message.build(preparedStatement);
+        String fileName = generateUniqueFileName();
+        Boolean isSave = writeByteArrayToPNG(message.getMedia(), fileName);
+        preparedStatement.setString(4, isSave ? fileName : null);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            final Message newMessage = new Message().build(resultSet);
+            newMessage.setMedia(message.getMedia());
+            resultSet.close();
+            // Todo: send message to the other user
+            return new Response(request.getRequestId(), mapper.writeValueAsString(newMessage));
+        }
+        return new Response(request.getRequestId(), "{\"error\": \"error\"}");
     }
 
     private Response fetchStudentMessages(PreparedStatement preparedStatement, Request request)
@@ -146,6 +170,9 @@ public class XMartCityService {
             Messages messages = new Messages();
             while (resultSet.next()) {
                 Message message = new Message().build(resultSet);
+                System.out.println(resultSet.getString("media"));
+                String mediaEncoded = resultSet.getString("media");
+                message.setMedia(mediaEncoded != null ? getImageEncoded("media/conversation/images/" + mediaEncoded) : null);
                 messages.add(message);
             }
             resultSet.close();
@@ -189,6 +216,27 @@ public class XMartCityService {
 
         bodyResponse = mapper.writeValueAsString(students);
         return new Response(request.getRequestId(), bodyResponse);
+    }
+
+    private byte[] getImageEncoded(String path) throws IOException {
+        if (path != null && !path.isEmpty()) {
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream(path);
+            return convertInputStreamToBytes(inputStream);
+        }
+        return null;
+    }
+
+    public static Boolean writeByteArrayToPNG(byte[] bytes, String filename) {
+        String outputPath = "src/main/resources/media/conversation/images/" + filename;
+
+        try (FileOutputStream fos = new FileOutputStream(outputPath)) {
+            fos.write(bytes);
+            System.out.println("PNG image created successfully at: " + outputPath);
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     private Response becomeFriendsResponse(PreparedStatement preparedStatement, Request request)

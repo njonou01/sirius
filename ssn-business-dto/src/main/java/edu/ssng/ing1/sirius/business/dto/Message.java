@@ -7,114 +7,117 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-
 public class Message {
-    private int idMessage;
-    private int senderId;
-    private int receiverId;
-    private String messageText;
-    private String media;
-    private Timestamp sentAt;
+    private int id_message;
+    private int sender_id;
+    private int receiver_id;
+    private String message_text;
+    private byte[] media;
+    private Timestamp sent_at;
+
 
     public final Message build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
         setFieldsFromResultSet(resultSet, "id_message", "sender_id", "receiver_id",
-                "message_text", "media", "sent_at");
+                "message_text", "sent_at");
         return this;
     }
+
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        return saveMessageStatement(preparedStatement, senderId, receiverId, messageText, media);
+        return saveMessageStatement(preparedStatement, sender_id, receiver_id, message_text);
     }
 
     public Message() {
     }
-
-    public Message(Integer idMessage, Integer senderId, Integer receiverId, String messageText, String media,
-            Timestamp sentAt) {
-        this.idMessage = idMessage;
-        this.senderId = senderId;
-        this.receiverId = receiverId;
-        this.messageText = messageText;
+    public Message(Integer sender_id, Integer receiver_id, String message_text, byte[] media) {
+        this.sender_id = sender_id;
+        this.receiver_id = receiver_id;
+        this.message_text = message_text;
         this.media = media;
-        this.sentAt = sentAt;
+    }
+
+    public Message(Integer id_message, Integer sender_id, Integer receiver_id, String message_text, byte[] media,
+            Timestamp sent_at) {
+        this.id_message = id_message;
+        this.sender_id = sender_id;
+        this.receiver_id = receiver_id;
+        this.message_text = message_text;
+        this.media = media;
+        this.sent_at = sent_at;
     }
 
     public Integer getIdMessage() {
-        return this.idMessage;
+        return this.id_message;
     }
 
-    public void setIdMessage(Integer idMessage) {
-        this.idMessage = idMessage;
+    public void setIdMessage(Integer id_message) {
+        this.id_message = id_message;
     }
 
     public Integer getSenderId() {
-        return this.senderId;
+        return this.sender_id;
     }
 
-    public void setSenderId(Integer senderId) {
-        this.senderId = senderId;
+    public void setSenderId(Integer sender_id) {
+        this.sender_id = sender_id;
     }
 
     public Integer getReceiverId() {
-        return this.receiverId;
+        return this.receiver_id;
     }
 
-    public void setReceiverId(Integer receiverId) {
-        this.receiverId = receiverId;
+    public void setReceiverId(Integer receiver_id) {
+        this.receiver_id = receiver_id;
     }
 
     public String getMessageText() {
-        return this.messageText;
+        return this.message_text;
     }
 
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
+    public void setMessageText(String message_text) {
+        this.message_text = message_text;
     }
 
-    public String getMedia() {
+    public byte[] getMedia() {
         return this.media;
     }
 
-    public void setMedia(String media) {
+    public void setMedia(byte[] media) {
         this.media = media;
     }
 
     public Timestamp getSentAt() {
-        return this.sentAt;
+        return this.sent_at;
     }
 
-    public void setSentAt(Timestamp sentAt) {
-        this.sentAt = sentAt;
+    public void setSentAt(Timestamp sent_at) {
+        this.sent_at = sent_at;
     }
 
-    public Message idMessage(Integer idMessage) {
-        setIdMessage(idMessage);
+    public Message id_message(Integer id_message) {
+        setIdMessage(id_message);
         return this;
     }
 
-    public Message senderId(Integer senderId) {
-        setSenderId(senderId);
+    public Message sender_id(Integer sender_id) {
+        setSenderId(sender_id);
         return this;
     }
 
-    public Message receiverId(Integer receiverId) {
-        setReceiverId(receiverId);
+    public Message receiver_id(Integer receiver_id) {
+        setReceiverId(receiver_id);
         return this;
     }
 
-    public Message messageText(String messageText) {
-        setMessageText(messageText);
+    public Message message_text(String message_text) {
+        setMessageText(message_text);
         return this;
     }
 
-    public Message media(String media) {
-        setMedia(media);
-        return this;
-    }
-
-    public Message sentAt(Timestamp sentAt) {
-        setSentAt(sentAt);
+    
+    public Message sent_at(Timestamp sent_at) {
+        setSentAt(sent_at);
         return this;
     }
 
@@ -126,9 +129,9 @@ public class Message {
             return false;
         }
         Message message = (Message) o;
-        return Objects.equals(idMessage, message.idMessage) && Objects.equals(senderId, message.senderId)
-                && Objects.equals(receiverId, message.receiverId) && Objects.equals(messageText, message.messageText)
-                && Objects.equals(media, message.media) && Objects.equals(sentAt, message.sentAt);
+        return Objects.equals(id_message, message.id_message) && Objects.equals(sender_id, message.sender_id)
+                && Objects.equals(receiver_id, message.receiver_id) && Objects.equals(message_text, message.message_text)
+                && Objects.equals(media, message.media) && Objects.equals(sent_at, message.sent_at);
     }
 
     private void setFieldsFromResultSet(final ResultSet resultSet, final String... fieldNames)
@@ -154,24 +157,24 @@ public class Message {
                 throw new IllegalArgumentException("Unsupported field value type: " + fieldValue.getClass().getName());
             }
         }
-        preparedStatement.setTimestamp(++ix, sentAt);
+        preparedStatement.setTimestamp(++ix, sent_at);
         return preparedStatement;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idMessage, senderId, receiverId, messageText, media, sentAt);
+        return Objects.hash(id_message, sender_id, receiver_id, message_text, media, sent_at);
     }
 
     @Override
     public String toString() {
         return "{" +
-                " idMessage='" + getIdMessage() + "'" +
-                ", senderId='" + getSenderId() + "'" +
-                ", receiverId='" + getReceiverId() + "'" +
-                ", messageText='" + getMessageText() + "'" +
+                " id_message='" + getIdMessage() + "'" +
+                ", sender_id='" + getSenderId() + "'" +
+                ", receiver_id='" + getReceiverId() + "'" +
+                ", message_text='" + getMessageText() + "'" +
                 ", media='" + getMedia() + "'" +
-                ", sentAt='" + getSentAt() + "'" +
+                ", sent_at='" + getSentAt() + "'" +
                 "}";
     }
 }
