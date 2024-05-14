@@ -30,6 +30,10 @@
   -fx-background-radius: 10px;
 }
 
+
+.InvitSend{
+  -fx-text-fill: rgb(24, 155, 50); 
+}
 .leftBoxStudent{
   -fx-background-color: rgb(235, 243, 251);
   -fx-background-radius: 10px;

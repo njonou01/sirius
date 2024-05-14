@@ -13,7 +13,7 @@
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="881.0" spacing="10.0" stylesheets="@../asset/css/addActivity.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.createActivityPage4Controller">
    <children>
-      <VBox prefHeight="596.0" prefWidth="329.0" styleClass="leftBox">
+      <VBox fx:id="inviteVbox" prefHeight="596.0" prefWidth="329.0" styleClass="leftBox">
          <children>
             <Label text="Invitez depuis :">
                <VBox.margin>
@@ -22,20 +22,20 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="25.0" prefWidth="264.0" spacing="16.0">
                <children>
-                  <Button mnemonicParsing="false" text="Vos Amis" />
-                  <Button mnemonicParsing="false" text="Dernière Activité" />
+                  <Button mnemonicParsing="false" styleClass="btn" text="Vos Amis" />
+                  <Button fx:id="lastActivityBtn" mnemonicParsing="false" styleClass="btn" text="Dernière Activité" />
                </children>
                <VBox.margin>
                   <Insets bottom="25.0" />
                </VBox.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="254.0" styleClass="leftBoxStudent">
                <children>
                   <ImageView fitHeight="65.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                  <VBox fx:id="friendVBox" alignment="CENTER" prefHeight="77.0" prefWidth="200.0" spacing="20.0">
                      <children>
                         <Label text="Label" />
-                        <Button mnemonicParsing="false" text="Testttt" />
+                        <Button fx:id="inviteFriendsBtn" mnemonicParsing="false" styleClass="btn" text="Inviter" />
                      </children>
                   </VBox>
                </children>
@@ -61,7 +61,7 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="Vos Invitations :" />
-                  <FlowPane prefHeight="184.0" prefWidth="617.0">
+                  <FlowPane prefHeight="184.0" prefWidth="617.0" styleClass="leftBoxStudent">
                      <effect>
                         <InnerShadow />
                      </effect>
