@@ -17,6 +17,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import edu.ssng.ing1.sirius.requests.activities.SelectActivityQuery;
@@ -65,8 +66,9 @@ public class SeeMyActivityController implements Initializable {
         
 
         router = Router.getInstance();
-        Student student = new Student();
-        student.setId_student(3);
+        Student student = UserInfo.getUser();
+
+        
 
         Activites activites = new Activites();
         try {

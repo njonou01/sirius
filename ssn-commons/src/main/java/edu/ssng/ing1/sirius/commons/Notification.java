@@ -1,5 +1,7 @@
 package edu.ssng.ing1.sirius.commons;
 
+import java.sql.Timestamp;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -12,6 +14,7 @@ public class Notification {
     String message;
     String order;
     String body;
+    String HoursReceive;
 
 
     public Notification(){
@@ -21,10 +24,11 @@ public class Notification {
         this.message=message;
     }
     
-    public Notification(String message,String order, String body){
+    public Notification(String message,String order, String body, String HoursReceive){
         this.message=message;
         this.order=order;
         this.body=body;
+        this.HoursReceive=HoursReceive;
 
     }
 
@@ -45,6 +49,15 @@ public class Notification {
     public void setBody(String body) {
         this.body = body;
     }
+    @JsonProperty("HoursReceive")
+    public String getHoursReceive() {
+        return HoursReceive;
+    }
+    @JsonProperty("HoursReceive")
+    public void setHoursReceive(String hoursReceive) {
+        HoursReceive = hoursReceive;
+    }
+
 
     @JsonProperty("order")
     public String getOrder() {

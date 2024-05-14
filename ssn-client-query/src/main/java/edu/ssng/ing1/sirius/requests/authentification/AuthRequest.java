@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import edu.ssng.commons.LoggingUtils;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
-import edu.ssng.ing1.sirius.client.commons.ClientConnexion;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;

@@ -20,10 +20,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.MainClient;
-import edu.ssng.ing1.sirius.client.commons.ClientConnexion;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
+import edu.ssng.ing1.sirius.client.notificationManagement.ClientConnexion;
 import edu.ssng.ing1.sirius.commons.Request;
 import edu.ssng.ing1.sirius.commons.SomeInfo;
 

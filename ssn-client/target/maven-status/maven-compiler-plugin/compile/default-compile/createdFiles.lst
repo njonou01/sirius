@@ -9,10 +9,13 @@ edu\ssng\ing1\sirius\client\controllers\createActivity\createActivityPage1Contro
 edu\ssng\ing1\sirius\client\controllers\commons\InterfaceInitilizer.class
 edu\ssng\ing1\sirius\client\controllers\friend\FriendCardController.class
 edu\ssng\ing1\sirius\client\HomeBuild$MainPreload$1.class
+edu\ssng\ing1\sirius\client\platFormeManager\PlatFormeManager.class
 edu\ssng\ing1\sirius\client\controllers\authentification\Authentification.class
 edu\ssng\ing1\sirius\client\controllers\createActivity\ActivityCreatedController.class
+edu\ssng\ing1\sirius\client\notificationManagement\business\SsnNotifyService.class
 edu\ssng\ing1\sirius\client\controllers\friend\FriendPageController.class
 edu\ssng\ing1\sirius\client\App.class
+edu\ssng\ing1\sirius\client\notificationManagement\ClientConnexion.class
 edu\ssng\ing1\sirius\client\controllers\commons\LoadingController.class
 edu\ssng\ing1\sirius\client\controllers\authentification\SignUpStudentInfoController.class
 edu\ssng\ing1\sirius\client\MainClient.class
@@ -20,6 +23,7 @@ edu\ssng\ing1\sirius\client\controllers\createActivity\createActivityPage4Contro
 edu\ssng\ing1\sirius\client\controllers\post\PostController.class
 edu\ssng\ing1\sirius\client\controllers\authentification\SignInController.class
 edu\ssng\ing1\sirius\client\HomeBuild$PreloadUI.class
+edu\ssng\ing1\sirius\client\notificationManagement\NotifyHandler.class
 edu\ssng\ing1\sirius\client\controllers\commons\HomeController.class
 edu\ssng\ing1\sirius\client\HomeBuild$MainPreload.class
 edu\ssng\ing1\sirius\client\controllers\authentification\SignUpSchoolController$1.class

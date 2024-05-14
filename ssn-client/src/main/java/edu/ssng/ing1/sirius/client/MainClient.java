@@ -3,11 +3,13 @@ package edu.ssng.ing1.sirius.client;
 import java.io.IOException;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
-import edu.ssng.ing1.sirius.client.commons.ClientConnexion;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
+import edu.ssng.ing1.sirius.client.notificationManagement.ClientConnexion;
+import edu.ssng.ing1.sirius.client.platFormeManager.PlatFormeManager;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,8 +23,6 @@ public class MainClient extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
        
-
-
         try {
             LoadingNotificationPanel();
         } catch (IOException e) {
@@ -48,14 +48,7 @@ public class MainClient extends Application {
         notificationVBOX = (VBox) scene.lookup("#notificationVBOX");
 
 
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println(notificationVBOX);
+        
 
     }
 
