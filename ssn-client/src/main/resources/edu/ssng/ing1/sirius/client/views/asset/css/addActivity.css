@@ -26,7 +26,12 @@
   -fx-background-radius: 10px;
 }
 .leftBox{
-  -fx-background-color: #b8cfef;
+  -fx-background-color: WHITE;
+  -fx-background-radius: 10px;
+}
+
+.leftBoxStudent{
+  -fx-background-color: rgb(235, 243, 251);
   -fx-background-radius: 10px;
 }
 .activitycreatedBG{
