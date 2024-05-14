@@ -3,10 +3,25 @@ package edu.ssng.ing1.sirius.business.server;
 public enum Queries {
         SELECT_ALL_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t"),
         SELECT_MY_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t WHERE t.id_student = ?"),
-
+        ACTIVITY_INVITATION("INSERT INTO \"ssn-db-ing1\".activityinvitation (sender, receiver) VALUES (?, ?)"),
+        RESPONSE_UPDATE("UPDATE ssn-db-ing1.activityinvitation\n" + 
+                                "SET state = ?\n" + 
+                                "WHERE sender = ? AND receiver = ?"),
         INSERT_ACTIVITY("INSERT into \"ssn-db-ing1\".Activite (\"datecreation\", \"datedebut\", \"datefin\", \"nom_interet_activite\", \"libelle\", \"categorie\", \"provenance\", \"confidentialite\", \"nomcreateur\", \"id_student\",\"nbrparticipant\" , \"state\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
-
-
+        ALREADY_ACTIVITY("SELECT DISTINCT s.id_student, s.nom, s.prenom " +
+                "FROM \"ssn-db-ing1\".student s " +
+                "JOIN \"ssn-db-ing1\".participationactivite pa ON s.id_student = pa.id_student " +
+                "JOIN \"ssn-db-ing1\".participationactivite pa2 ON pa.idactivite = pa2.idactivite " +
+                "JOIN \"ssn-db-ing1\".activite a ON pa.idactivite = a.idactivite " +
+                "WHERE pa2.id_student = ? " +
+                "AND pa.dateparticipation < CURRENT_DATE " +
+                "AND a.state = false"),
+        ACTIVITY_PARTICIPATION("SELECT s.id_student, s.nom, s.prenom " +
+                "FROM \"ssn-db-ing1\".student s " +
+                "JOIN \"ssn-db-ing1\".participationactivite pa ON s.id_student = pa.id_student " +
+                "WHERE pa.idactivite = ?"),
+        OVER_ACTIVITY("UPDATE \"ssn-db-ing1\".activite SET state = false WHERE idactivite = ?"),
+        DELETE_PARTICIPATION("DELETE FROM \"ssn-db-ing1\".participationactivite WHERE id_student = ? AND idactivite = ?"),
         SELECT_ALL_CITIES("SELECT t.id_city , t.zipcode , t.city_name FROM \"ssn-db-ing1\".city t"),
         SELECT_ALL_STUDENTS(
                         "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
