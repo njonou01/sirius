@@ -29,6 +29,7 @@ import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.CommonsClient;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.Router;
+import edu.ssng.ing1.sirius.requests.messages.CommonsMessageRequest;
 
 public class PrivateMessagingController implements Initializable, StudentBtnAction {
         private static Student activeStudent;
@@ -102,7 +103,6 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
 
         ImageFileChooser imageFileChooser = new ImageFileChooser();
 
-  
         private byte[] currentimageBytes = null;
 
         @FXML
@@ -112,11 +112,23 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
                 String message = messageBox.getText();
                 Message msg = new Message(12, id_sender, id_receiver, message, currentimageBytes,
                                 Timestamp.valueOf("2024-05-01 10:55:00"));
-                messageBox.clear();
-                currentListOfMessages.getChildren().add(new PrivateMessage(msg));
-                fileIsChooseLabel.setVisible(false);
-                concversationArea.setVvalue(1);
-                currentimageBytes = null;
+                try {
+                        Object result = CommonsMessageRequest.sendMessage(msg);
+                        
+                        if (result instanceof Message) {
+                                messageBox.clear();
+                                currentListOfMessages.getChildren().add(new PrivateMessage((Message)result));
+                                fileIsChooseLabel.setVisible(false);
+                                concversationArea.setVvalue(1);
+                                currentimageBytes = null;
+                        }
+                        else {
+                                System.out.println("Error while sending message 1 ");
+                        }
+                } catch (NullPointerException | IOException | InterruptedException e) {
+                        System.out.println("Error while sending message 2 ");
+                }
+
         }
 
         @FXML
