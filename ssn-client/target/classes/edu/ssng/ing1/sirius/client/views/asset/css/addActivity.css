@@ -21,6 +21,10 @@
 .btn{
   -fx-background-color: #39809F;
 }
+.btn:hover{
+  -fx-background-color: #5ca3c1;
+  -fx-cursor: hand;
+}
 .centerBox{
   -fx-background-color: #ffffff;
   -fx-background-radius: 10px;
@@ -38,6 +42,17 @@
   -fx-background-color: rgb(235, 243, 251);
   -fx-background-radius: 10px;
 }
+
+.toShare{
+  -fx-background-radius: 30px;
+  -fx-background-color: #39809F;
+}
+
+.toShare:hover{
+  -fx-background-color: #5ca3c1;
+  -fx-cursor: hand;
+}
+
 .activitycreatedBG{
   -fx-background-color: #ffffff;
   -fx-background-radius: 10px;

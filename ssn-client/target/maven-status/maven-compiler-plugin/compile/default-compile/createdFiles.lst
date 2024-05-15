@@ -19,7 +19,6 @@ edu\ssng\ing1\sirius\client\notificationManagement\ClientConnexion.class
 edu\ssng\ing1\sirius\client\controllers\commons\LoadingController.class
 edu\ssng\ing1\sirius\client\controllers\authentification\SignUpStudentInfoController.class
 edu\ssng\ing1\sirius\client\MainClient.class
-edu\ssng\ing1\sirius\client\controllers\createActivity\createActivityPage4Controller.class
 edu\ssng\ing1\sirius\client\controllers\post\PostController.class
 edu\ssng\ing1\sirius\client\controllers\authentification\SignInController.class
 edu\ssng\ing1\sirius\client\HomeBuild$PreloadUI.class
@@ -31,7 +30,6 @@ edu\ssng\ing1\sirius\client\router\RouterPopUp.class
 edu\ssng\ing1\sirius\client\controllers\createActivity\ParticipantList.class
 edu\ssng\ing1\sirius\client\controllers\friend\FriendInvitationController.class
 edu\ssng\ing1\sirius\client\router\Router.class
-edu\ssng\ing1\sirius\client\controllers\createActivity\createActivityPage2Controller.class
 edu\ssng\ing1\sirius\client\controllers\createActivity\SeeMyActivityController.class
 edu\ssng\ing1\sirius\client\toast\ToastType.class
 edu\ssng\ing1\sirius\client\controllers\commons\UserInfo$SelectSelfInfoRequest.class

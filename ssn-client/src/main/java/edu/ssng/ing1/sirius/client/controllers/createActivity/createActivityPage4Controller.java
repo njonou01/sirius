@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
@@ -20,10 +23,13 @@ import edu.ssng.ing1.sirius.requests.activities.InsertActivityQuery;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -35,8 +41,6 @@ public class createActivityPage4Controller implements Initializable {
 
     Button overBtn;
 
-    
-
     @FXML
     Button inviteFriendsBtn;
 
@@ -45,9 +49,17 @@ public class createActivityPage4Controller implements Initializable {
 
     @FXML
     VBox friendVBox;
-    
+
     @FXML
     VBox inviteVbox;
+
+    @FXML
+    FlowPane flowPaneInvitation;
+
+    @FXML
+    ScrollPane scrollPane;
+
+    public static Set<Student> studentToBeInvited = new HashSet<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -58,18 +70,17 @@ public class createActivityPage4Controller implements Initializable {
             lastActivityBtn.setOnAction(event -> displayFriendsInvite(student));
         });
 
+        scrollPane.setFitToWidth(true);
+
     }
 
     @FXML
     public void insertActivity() {
         Student student = UserInfo.getUser();
-        long timestamp = System.currentTimeMillis(); 
+        long timestamp = System.currentTimeMillis();
         Timestamp ts = new Timestamp(timestamp);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timestampString = sdf.format(ts);
-
-        
-
 
         RouterPopUp.activite.setId_student(student.getId_student());
         RouterPopUp.activite.setNomCreateur(student.getFirstname());
@@ -83,7 +94,6 @@ public class createActivityPage4Controller implements Initializable {
         } catch (IOException | InterruptedException | SQLException e) {
             System.out.println("OOOOOOOOOOOOO" + e.getMessage() + "OOOOOOOOOOOOO");
         }
-        
 
         router.getStage().close();
 
@@ -91,29 +101,25 @@ public class createActivityPage4Controller implements Initializable {
 
     @FXML
     public void closePage() {
-       
 
         router.getStage().close();
 
     }
 
-    public void displayFriendsInvite(Student student){
+    public void displayFriendsInvite(Student student) {
         Platform.runLater(() -> {
-            System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-            System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-            System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
 
-
-
-            Label labelInvite= new Label("Amis Invité");
+            Label labelInvite = new Label("Amis Invité");
             labelInvite.getStyleClass().add("InvitSend");
 
-
             HBox leftBoxStudent = new HBox();
-            leftBoxStudent.getStyleClass().add("leftBoxStudent");
             leftBoxStudent.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
             leftBoxStudent.setPrefHeight(77.0);
             leftBoxStudent.setPrefWidth(254.0);
+            // leftBoxStudent.setTranslateY(30);
+            leftBoxStudent.setMinHeight(77.0);
+            leftBoxStudent.setMaxWidth(254.0);
+            leftBoxStudent.setPadding(new Insets(0, 0, 30, 0));
 
             ImageView imageView = new ImageView();
             imageView.setFitHeight(65.0);
@@ -127,33 +133,41 @@ public class createActivityPage4Controller implements Initializable {
             friendVBox.setPrefWidth(200.0);
             friendVBox.setSpacing(20.0);
             friendVBox.setId("friendVBox");
+            leftBoxStudent.getStyleClass().add("leftBoxStudent");
 
-            Label label = new Label("Nom :" +student.getFamilyname()+ " prenom :"+student.getFirstname());
+            Label label = new Label(student.getFamilyname() + student.getFirstname());
 
             Button inviteFriendsBtn = new Button("Inviter");
             inviteFriendsBtn.setId("inviteFriendsBtn");
             inviteFriendsBtn.getStyleClass().add("btn");
             inviteFriendsBtn.setMnemonicParsing(false);
 
-            
-
             friendVBox.getChildren().addAll(label, inviteFriendsBtn);
-            int index= friendVBox.getChildren().indexOf(inviteFriendsBtn);
+            int index = friendVBox.getChildren().indexOf(inviteFriendsBtn);
 
-            
             leftBoxStudent.getChildren().addAll(imageView, friendVBox);
-            inviteFriendsBtn.setOnAction(event->{
-                friendVBox.getChildren().set(index, labelInvite);
+            Button button = new Button(student.getFirstname());
+            button.getStyleClass().add("toShare");
+
+            button.setOnAction(event -> {
+                flowPaneInvitation.getChildren().remove(button);
+                friendVBox.getChildren().set(index, inviteFriendsBtn);
+                studentToBeInvited.remove(student);
+
             });
 
-            inviteVbox.getChildren().add(friendVBox);
+            inviteFriendsBtn.setOnAction(event -> {
+                friendVBox.getChildren().set(index, labelInvite);
+                flowPaneInvitation.getChildren().add(button);
+                studentToBeInvited.add(student);
 
+            });
+
+            inviteVbox.getChildren().add(leftBoxStudent);
+            // inviteVbox.setMargin(leftBoxStudent, new Insets(12.0,0,0,0));
 
         });
-            
-            
-            
-       
+
     }
 
 }

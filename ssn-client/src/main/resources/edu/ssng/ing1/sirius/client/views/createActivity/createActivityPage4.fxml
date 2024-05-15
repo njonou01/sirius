@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -13,35 +14,42 @@
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="881.0" spacing="10.0" stylesheets="@../asset/css/addActivity.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.createActivityPage4Controller">
    <children>
-      <VBox fx:id="inviteVbox" prefHeight="596.0" prefWidth="329.0" styleClass="leftBox">
-         <children>
-            <Label text="Invitez depuis :">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="30.0" />
-               </VBox.margin>
-            </Label>
-            <HBox alignment="CENTER" prefHeight="25.0" prefWidth="264.0" spacing="16.0">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" opacity="0.97" prefHeight="429.0" prefWidth="254.0" vbarPolicy="NEVER">
+         <content>
+            <VBox fx:id="inviteVbox" prefHeight="628.0" prefWidth="329.0" styleClass="leftBox">
                <children>
-                  <Button mnemonicParsing="false" styleClass="btn" text="Vos Amis" />
-                  <Button fx:id="lastActivityBtn" mnemonicParsing="false" styleClass="btn" text="Dernière Activité" />
-               </children>
-               <VBox.margin>
-                  <Insets bottom="25.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="254.0" styleClass="leftBoxStudent">
-               <children>
-                  <ImageView fitHeight="65.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                  <VBox fx:id="friendVBox" alignment="CENTER" prefHeight="77.0" prefWidth="200.0" spacing="20.0">
+                  <Label text="Invitez depuis :">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="25.0" prefWidth="264.0" spacing="16.0">
                      <children>
-                        <Label text="Label" />
-                        <Button fx:id="inviteFriendsBtn" mnemonicParsing="false" styleClass="btn" text="Inviter" />
+                        <Button mnemonicParsing="false" styleClass="btn" text="Vos Amis" />
+                        <Button fx:id="lastActivityBtn" mnemonicParsing="false" styleClass="btn" text="Dernière Activité" />
                      </children>
-                  </VBox>
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="254.0" styleClass="leftBoxStudent">
+                     <children>
+                        <ImageView fitHeight="65.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+                        <VBox fx:id="friendVBox" alignment="CENTER" prefHeight="77.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Label text="Label" />
+                              <Button fx:id="inviteFriendsBtn" mnemonicParsing="false" styleClass="btn" text="Inviter" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
-            </HBox>
-         </children>
-      </VBox>
+            </VBox>
+         </content>
+      </ScrollPane>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="617.0" styleClass="centerBox">
          <children>
             <Label text="Invitez vos amis">
@@ -61,10 +69,22 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
                   <Label text="Vos Invitations :" />
-                  <FlowPane prefHeight="184.0" prefWidth="617.0" styleClass="leftBoxStudent">
+                  <FlowPane fx:id="flowPaneInvitation" prefHeight="183.0" prefWidth="569.0" styleClass="leftBoxStudent">
                      <effect>
                         <InnerShadow />
                      </effect>
+                     <children>
+                        <Button mnemonicParsing="false" styleClass="toShare" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                        <Button mnemonicParsing="false" text="Button" />
+                     </children>
+                     <padding>
+                        <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
                   </FlowPane>
                </children>
             </VBox>
