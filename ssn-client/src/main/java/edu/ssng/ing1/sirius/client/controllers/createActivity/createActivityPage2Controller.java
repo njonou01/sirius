@@ -229,6 +229,7 @@ public class createActivityPage2Controller implements Initializable {
     @FXML
     public void nextPage() {
         RouterPopUp.activite.setNbrparticipant(numberChoice);
+        RouterPopUp.activite.setCategorie((String) choiceConfidentSelection.getValue());
         RouterPopUp.MinousProgress += 0.33;
         RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
         RouterPopUp.activite.setDatedebut("" + addTimer(dateDebut, plusHourDebut, plusMinuteDebut));

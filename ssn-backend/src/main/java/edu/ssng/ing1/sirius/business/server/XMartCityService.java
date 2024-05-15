@@ -77,7 +77,7 @@ public class XMartCityService {
                     return selectStudentsResponse(preparedStatement, request);
 
                 case INSERT_ACTIVITY:
-                    return InsertActivite(preparedStatement, request);
+                    return InsertActivite(preparedStatement, request,connection);
 
                 case SELECT_ALL_CITIES:
                     return selectCitiesResponse(preparedStatement, request);
@@ -122,7 +122,7 @@ public class XMartCityService {
         return new Response("error", "Requete impossible");
     }
 
-    private Response InsertActivite(final PreparedStatement preparedStatement, final Request request)
+    private Response InsertActivite(final PreparedStatement preparedStatement, final Request request, Connection connection)
             throws NoSuchFieldException, IllegalAccessException, JsonParseException, JsonMappingException, IOException {
         Response response = new Response();
         try {
@@ -144,6 +144,7 @@ public class XMartCityService {
                 }
             }
             response.setRequestId(request.getRequestId());
+            
 
             String responseBody = objectMapper.writeValueAsString(activite);
 
@@ -151,10 +152,20 @@ public class XMartCityService {
 
             System.out.println("Eloka" + responseBody + "Michel");
             System.out.println(response.getResponseBody());
+            Set<Student> students=activite.getStudents();
+            Set<String> emailToSend =new HashSet<>();
+
+            for (Student student : students) {
+                emailToSend.add(student.getEmail());
+                
+            }
 
             System.out.println(
                     "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-
+            BroadcastNotification.broadcast("NEW_ACTIVITY", StudentConnectedProcess.getFriends(activite.getEmailCreateur(),
+            connection), activite, activite.getNomCreateur(), activite.getNom_interet_activite());
+            response.setRequestId(request.getRequestId());
+            BroadcastNotification.broadcast("INVITE_ACTIVITY", emailToSend, activite, activite.getNom_interet_activite());
             response.setRequestId(request.getRequestId());
 
         } catch (SQLException e) {

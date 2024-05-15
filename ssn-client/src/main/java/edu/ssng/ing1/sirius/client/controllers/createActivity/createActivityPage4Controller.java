@@ -76,6 +76,8 @@ public class createActivityPage4Controller implements Initializable {
 
     @FXML
     public void insertActivity() {
+
+        RouterPopUp.activite.setStudents(studentToBeInvited);
         Student student = UserInfo.getUser();
         long timestamp = System.currentTimeMillis();
         Timestamp ts = new Timestamp(timestamp);
@@ -84,8 +86,8 @@ public class createActivityPage4Controller implements Initializable {
 
         RouterPopUp.activite.setId_student(student.getId_student());
         RouterPopUp.activite.setNomCreateur(student.getFirstname());
+        RouterPopUp.activite.setEmailCreateur(student.getEmail());
         RouterPopUp.activite.setProvenance("HomePage");
-        RouterPopUp.activite.setConfidentialite("Privé");
         RouterPopUp.activite.setDatecreation(timestampString);
         RouterPopUp.activite.setState(true);
         Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");

@@ -8,6 +8,20 @@ public enum NotificationType {
                  
         }
     },
+    NEW_ACTIVITY("Une nouvelle activité a été créée"){
+        @Override
+        public String getMessage(String ...messageArgument) {
+            return "Votre Amie " + messageArgument[0] +  " a créé l'activité "+messageArgument[1];
+                 
+        }
+    },
+    INVITE_ACTIVITY("Vous etes invit2"){
+        @Override
+        public String getMessage(String ...messageArgument) {
+            return "Votre Amie " + messageArgument[0] +  " Vous Invite participer à l'activité : "+messageArgument[1];
+                 
+        }
+    },
     DISCONNECTION_STUDENT("Votre Amie  est connecté"){
         @Override
         public String getMessage(String ...messageArgument) {
