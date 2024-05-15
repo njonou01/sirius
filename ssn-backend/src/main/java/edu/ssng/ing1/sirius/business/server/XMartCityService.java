@@ -224,6 +224,7 @@ public class XMartCityService {
         ResultSet listOfStudents = preparedStatement.executeQuery();
         while (listOfStudents.next()) {
             Student student = new Student().build(listOfStudents);
+            student.buildUniversity(listOfStudents);
             student.setProfileImage(listOfStudents.getString("profile_image"));
             InputStream inputStream = classLoader.getResourceAsStream("media/images/" + student.getProfileImage());
             student.setProfileImageStream(convertInputStreamToBytes(inputStream));

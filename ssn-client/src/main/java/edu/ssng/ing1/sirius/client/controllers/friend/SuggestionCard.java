@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.business.dto.StudentSuggestion;
 import edu.ssng.ing1.sirius.client.controllers.commons.CommonsClient;
 import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
@@ -29,6 +30,10 @@ public class SuggestionCard extends AnchorPane {
             controller.getFullName().setText(friend.getFamilyname() + " " + friend.getFirstname());
             controller.getSchool().setText(friend.getTraining_followed());
             controller.getImage().setImage(CommonsClient.getImage(friend.getProfileImageStream()));
+            CommonsClient.setclipOnImage(controller.getImage());
+            controller.getCommonFriendsCount().setText("");
+            // controller.getCommonFriendsCount().setText(new StudentSuggestion().getCommonFriendsCount() + " amis en commun");
+
             controller.getDemandFriendBtn().setOnAction(e -> {
                 Map<String, Integer> map = new HashMap<String, Integer>();
                 map.put("receiver", friend.getId_student());

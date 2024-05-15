@@ -9,6 +9,10 @@ public class StudentSuggestion {
         this.common_friends_count = common_friends_count;
     }
 
+    public StudentSuggestion() {
+        //TODO Auto-generated constructor stub
+    }
+
     public Student getStudent() {
         return student;
     }

@@ -2,6 +2,7 @@ package edu.ssng.ing1.sirius.client.controllers.friend;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
@@ -44,11 +45,11 @@ public class SuggestionCardController {
         return this.image;
     }
 
-    public Text getSchool() {
+    public Label getSchool() {
         return this.school;
     }
     @FXML
-    private Text school;
+    private Label school;
     
 
 }
