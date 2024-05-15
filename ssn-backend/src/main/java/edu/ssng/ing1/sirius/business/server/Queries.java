@@ -110,7 +110,11 @@ enum Queries {
                         "    message.sent_at DESC;"),
         SEND_AND_SAVE_MESSAGE("INSERT INTO \"ssn-db-ing1\".message (sender_id, receiver_id, message_text, media)\n" +
                         "VALUES (?, ?, ?, ?)\n" +
-                        "RETURNING *;");
+                        "RETURNING *;"),
+        ASK_FRIENDSHIP("INSERT INTO\n" +
+                        "\t\"ssn-db-ing1\".BEFRIEND (SENDER, RECEIVER)\n" +
+                        "VALUES\n" +
+                        "\t(?, ?);");
 
         private final String query;
 

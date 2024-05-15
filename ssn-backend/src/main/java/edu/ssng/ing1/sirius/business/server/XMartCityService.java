@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.text.similarity.JaccardDistance;
 
 import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.BeFriends;
@@ -25,21 +26,18 @@ import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 
 public class XMartCityService {
 
@@ -104,6 +102,8 @@ public class XMartCityService {
                     return fetchStudentMessages(preparedStatement, request);
                 case SEND_AND_SAVE_MESSAGE:
                     return sendAndSaveMessage(preparedStatement, request);
+                case ASK_FRIENDSHIP:
+                    return addFriendShipResponse(preparedStatement, request);
                 default:
                     break;
             }
@@ -125,6 +125,27 @@ public class XMartCityService {
         }
 
         return new Response("error", "Requete impossible");
+    }
+
+    private Response addFriendShipResponse(PreparedStatement preparedStatement, Request request)
+            throws NoSuchFieldException,
+            IllegalAccessException, SQLException, JsonParseException, JsonMappingException, IOException {
+        try {
+            final ObjectMapper mapper = new ObjectMapper();
+            Map<String, Integer> map = mapper.readValue(request.getRequestBody(),
+                    new TypeReference<Map<String, Integer>>() {
+                    });
+
+            preparedStatement.setInt(1, map.get("sender"));
+            preparedStatement.setInt(2, map.get("receiver"));
+            preparedStatement.executeUpdate();
+            String bodyResponse = String.format("{\"response\": \"%s\"}", "success");
+            return new Response(request.getRequestId(), bodyResponse);
+        } catch (Exception e) {
+            String bodyResponse = String.format("{\"response\": \"%s\"}", "error");
+            return new Response(request.getRequestId(), bodyResponse);
+        }
+
     }
 
     public static String generateUniqueFileName() {
@@ -172,7 +193,8 @@ public class XMartCityService {
                 Message message = new Message().build(resultSet);
                 System.out.println(resultSet.getString("media"));
                 String mediaEncoded = resultSet.getString("media");
-                message.setMedia(mediaEncoded != null ? getImageEncoded("media/conversation/images/" + mediaEncoded) : null);
+                message.setMedia(
+                        mediaEncoded != null ? getImageEncoded("media/conversation/images/" + mediaEncoded) : null);
                 messages.add(message);
             }
             resultSet.close();
@@ -211,10 +233,10 @@ public class XMartCityService {
         Students suggestedStudents = new Students();
         suggestedStudents.setStudents(students.getStudents()
                 .stream()
-                // .filter(student -> {}).limit(75)
+                .limit(25)
                 .collect(Collectors.toSet()));
 
-        bodyResponse = mapper.writeValueAsString(students);
+        bodyResponse = mapper.writeValueAsString(suggestedStudents);
         return new Response(request.getRequestId(), bodyResponse);
     }
 
@@ -225,6 +247,21 @@ public class XMartCityService {
             return convertInputStreamToBytes(inputStream);
         }
         return null;
+    }
+
+    public static double compareStudents(Student student1, Student student2) {
+        JaccardDistance jaccardDistance = new JaccardDistance();
+        double distUniversity = jaccardDistance.apply(student1.getUniversity(), student2.getUniversity());
+        new Student().getAdress();
+        double distAdress = jaccardDistance.apply(student1.getAdress(), student2.getAdress());
+        new Student().getFormation_description();
+        double distFormationDescription = jaccardDistance.apply(student1.getFormation_description(),
+                student2.getFormation_description());
+        new Student().getGender();
+        double distGender = student1.getGender().equals(student2.getGender()) ? 1 : 0;
+
+        return Math.sqrt(Math.pow(distUniversity, 2) + Math.pow(distAdress, 2) + Math.pow(distFormationDescription, 2)
+                + Math.pow(distGender, 2));
     }
 
     public static Boolean writeByteArrayToPNG(byte[] bytes, String filename) {

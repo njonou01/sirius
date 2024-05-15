@@ -1,17 +1,10 @@
  package edu.ssng.ing1.sirius.client;
 
-import java.io.IOException;
-
-import edu.ssng.ing1.sirius.business.dto.Message;
-import edu.ssng.ing1.sirius.business.dto.Messages;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.Router;
-import edu.ssng.ing1.sirius.requests.friend.FriendCommonRequest;
-import edu.ssng.ing1.sirius.requests.messages.CommonsMessageRequest;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import okhttp3.Route;
 
 public class MainClient extends Application {
 

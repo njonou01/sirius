@@ -14,8 +14,10 @@ import edu.ssng.ing1.sirius.commons.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
-
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Map;
+import java.util.UUID;
 
 public class FriendCommonRequest {
 
@@ -167,4 +169,41 @@ public class FriendCommonRequest {
         }
         return null;
     }
+
+    public static Map<String, String> askFriendship(Map<String, Integer> map) throws IOException, InterruptedException {
+        Deque<ClientRequest<Object, Map<String, String>>> clientRequests_ = new ArrayDeque<ClientRequest<Object, Map<String, String>>>();
+        final String LoggingLabel = "A S K - F R I E N D S H I P";
+        final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+        final String networkConfigFile = "network.yaml";
+        String requestOrder;
+
+        requestOrder = "ASK_FRIENDSHIP";
+
+        final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
+
+        int birthdate = 0;
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final String jsonifiedStudent = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
+        final String requestId = UUID.randomUUID().toString();
+        final Request request = new Request();
+        request.setRequestId(requestId);
+        request.setRequestOrder(requestOrder);
+        request.setRequestContent(jsonifiedStudent);
+        objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        final byte[] requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
+
+        final FriendDemandRequest clientRequest_ = new FriendDemandRequest(
+                networkConfig,
+                birthdate++, request, map, requestBytes);
+        clientRequests_.push(clientRequest_);
+
+        while (!clientRequests_.isEmpty()) {
+            final ClientRequest<Object, Map<String, String>> joinedClientRequest = clientRequests_.pop();
+            joinedClientRequest.join();
+            final Map<String, String> result = (Map<String, String>) joinedClientRequest.getResult();
+            return result;
+        }
+        return null;
+    }
+
 }

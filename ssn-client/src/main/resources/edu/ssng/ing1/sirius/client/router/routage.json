@@ -26,8 +26,7 @@
   "main": {
     "path": "main/ssn-home",
     "title": "Fil d'Actualité | U-CONNECT"
-  }
-  ,
+  },
   "tester": {
     "path": "main/test-icon",
     "title": "Mon App"
@@ -38,6 +37,10 @@
   },
   "friend-card": {
     "path": "friend/friend-card",
+    "title": "Mon App"
+  },
+  "suggestion-card": {
+    "path": "friend/friend-suggestion",
     "title": "Mon App"
   },
   "friend-invitation": {
@@ -80,6 +83,4 @@
     "path": "messaging/friend",
     "title": "Mon App"
   }
-
-  
 }

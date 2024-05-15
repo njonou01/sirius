@@ -11,6 +11,7 @@ import edu.ssng.ing1.sirius.business.dto.BeFriends;
 import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.business.dto.Messages;
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.requests.friend.FriendCommonRequest;
 import edu.ssng.ing1.sirius.requests.messages.CommonsMessageRequest;
@@ -20,9 +21,14 @@ import javafx.scene.layout.BorderPane;
 public class Initializer {
         private static BeFriends friends;
         private static Messages messages;
+        private static Students suggestions;
 
-        public static BeFriends getinvitationsFetcher() {
+        public static BeFriends getinvitations() {
                 return friends;
+        }
+
+        public static Students getSuggestions() {
+                return suggestions;
         }
 
         public static BorderPane initInvitationPage() {
@@ -53,6 +59,16 @@ public class Initializer {
                         friends = FriendCommonRequest.selectFriends(new Student(student_id));
                 } catch (NullPointerException | IOException | InterruptedException e) {
                         friends = new BeFriends();
+                }
+        }
+
+        public static void suggestionsFetcher() {
+                try {
+                        int student_id = UserInfo.getUser().getId_student();
+                        suggestions = FriendCommonRequest.selectSuggestedFriends(new Student(student_id));
+                } catch (NullPointerException | IOException | InterruptedException e) {
+                        suggestions = new Students();
+                        e.printStackTrace();
                 }
         }
 

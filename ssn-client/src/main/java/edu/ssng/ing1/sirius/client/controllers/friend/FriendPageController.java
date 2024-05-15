@@ -1,40 +1,22 @@
 package edu.ssng.ing1.sirius.client.controllers.friend;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.sql.Timestamp;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.stream.Collectors;
-import edu.ssng.ing1.sirius.business.dto.BeFriend;
-import edu.ssng.ing1.sirius.business.dto.BeFriends;
-import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
-import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
-import edu.ssng.ing1.sirius.client.router.Router;
-import edu.ssng.ing1.sirius.requests.friend.FriendCommonRequest;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 public class FriendPageController implements Initializable {
+    @FXML
+    private FlowPane suggestionFlowPanePanel;
     @FXML
     private Button allFriendBtn;
     @FXML
@@ -68,7 +50,8 @@ public class FriendPageController implements Initializable {
     @FXML
     private Label numberOfFriends;
     private Map<Button, ScrollPane> btnmapper = new HashMap<Button, ScrollPane>();
-    private BeFriends friends;
+    @FXML
+    private FlowPane limitedSuggestionFlowPanePanel;
 
     public FriendPageController() {
     }
@@ -76,9 +59,15 @@ public class FriendPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Initializer.invitationsFetcher();
+        Initializer.suggestionsFetcher();
         Initializer.messagesFetcher();
-        FriendUpdater.getInstance(friendZone, invitationPanelZone, null, invitationZone, null);
-        friends = Initializer.getinvitationsFetcher();
+
+        FriendUpdater.getInstance(friendZone, invitationPanelZone, suggestionFlowPanePanel, invitationZone,
+                limitedSuggestionFlowPanePanel);
+
+        // Initializer.getinvitations();
+        // Initializer.getSuggestions();
+
         btnmapper.put(allFriendBtn, allFriendPanel);
         btnmapper.put(friendHomeBtn, homePanel);
         btnmapper.put(friendInvitationsBtn, invatationPane);
@@ -90,7 +79,9 @@ public class FriendPageController implements Initializable {
         try {
             FriendUpdater.updateAcceptedFriend();
             FriendUpdater.updateDemandedFriend();
+            FriendUpdater.updateSuggestedFriend();
             FriendUpdater.updateLimitedDemandedFriend();
+            FriendUpdater.updateLimitedSuggestedFriend();
             // initializeInvitationPanel(friends);
             // initializeFriendPanel(friends);
         } catch (NullPointerException e) {

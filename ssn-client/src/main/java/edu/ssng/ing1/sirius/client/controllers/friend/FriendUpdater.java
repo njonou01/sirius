@@ -20,7 +20,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
 public class FriendUpdater {
     private static FriendUpdater instance;
@@ -49,6 +48,8 @@ public class FriendUpdater {
         if (instance == null) {
             instance = new FriendUpdater(acceptedFriend, demandedFriend, suggestedFriend, limitedDemandedFriend,
                     limitedSuggestedFriend);
+            UserInfo.getInstance();
+
             System.out.println("FriendUpdater instance created");
         }
         return instance;
@@ -70,6 +71,24 @@ public class FriendUpdater {
                     return buildFriendCard(friend.getSender());
                 }).collect(Collectors.toList());
         FriendUpdater.demandedFriend.getChildren().setAll(demanded);
+    }
+
+    public static void updateSuggestedFriend() {
+        suggestedFriend.getChildren().clear();
+        List<AnchorPane> suggested = Initializer.getSuggestions().getStudents().stream()
+                .map(friend -> {
+                    System.out.println("dddddddddddddd");
+                    return new SuggestionCard(friend);
+                }).collect(Collectors.toList());
+        FriendUpdater.suggestedFriend.getChildren().setAll(suggested);
+    }
+
+    public static void updateLimitedSuggestedFriend() {
+        limitedSuggestedFriend.getChildren().clear();
+        List<AnchorPane> suggested = Initializer.getSuggestions().getStudents().stream().limit(8).map(friend -> {
+            return new SuggestionCard(friend);
+        }).collect(Collectors.toList());
+        FriendUpdater.limitedSuggestedFriend.getChildren().setAll(suggested);
     }
 
     public static void updateLimitedDemandedFriend() {
@@ -121,7 +140,7 @@ public class FriendUpdater {
             try {
                 Map<String, String> result = FriendCommonRequest.becomeFriend(map);
                 if (result.get("response").equals("success")) {
-                    Initializer.getinvitationsFetcher().getBefriends().forEach(f -> {
+                    Initializer.getinvitations().getBefriends().forEach(f -> {
                         if (f.getSender().getId_student() == map.get("sender")
                                 && f.getReceiver().getId_student() == map.get("receiver")) {
                             f.setStatus("accepted");
@@ -146,7 +165,7 @@ public class FriendUpdater {
             try {
                 Map<String, String> result = FriendCommonRequest.deleteInvitation(map);
                 if (result.get("response").equals("success")) {
-                    Initializer.getinvitationsFetcher().getBefriends()
+                    Initializer.getinvitations().getBefriends()
                             .removeIf(f -> f.getSender().getId_student() == map.get("sender")
                                     && f.getReceiver().getId_student() == map.get("receiver"));
                     updateDemandedFriend();
