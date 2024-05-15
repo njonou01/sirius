@@ -75,6 +75,9 @@ public class XMartCityService {
                 case SELECT_ALL_STUDENTS:
 
                     return selectStudentsResponse(preparedStatement, request);
+                case SELECT_FRIENDS_FOR_CONNEXION:
+
+                    return selectMyfriends(preparedStatement, request);
 
                 case INSERT_ACTIVITY:
                     return InsertActivite(preparedStatement, request,connection);
@@ -264,6 +267,22 @@ public class XMartCityService {
     }
 
     public Response selectStudentsResponse(PreparedStatement preparedStatement, Request request)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, JsonProcessingException {
+
+        Students students = new Students();
+        final ObjectMapper mapper = new ObjectMapper();
+        String bodyResponse = "";
+
+        ResultSet listOfStudents = preparedStatement.executeQuery();
+        while (listOfStudents.next()) {
+            Student student = new Student().build(listOfStudents);
+            students.add(student);
+        }
+        listOfStudents.close();
+        bodyResponse = mapper.writeValueAsString(students);
+        return new Response(request.getRequestId(), bodyResponse);
+    }
+    public Response selectMyfriends(PreparedStatement preparedStatement, Request request)
             throws SQLException, NoSuchFieldException, IllegalAccessException, JsonProcessingException {
 
         Students students = new Students();

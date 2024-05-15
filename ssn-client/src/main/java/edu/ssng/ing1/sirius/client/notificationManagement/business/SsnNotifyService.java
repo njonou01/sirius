@@ -29,6 +29,10 @@ public class SsnNotifyService {
 
             case "CONNECT_USER":
                 connectUser(Notify);
+            case "INVITE_ACTIVITY":
+                inviteActicity(Notify);
+            case "NEW_ACTIVITY":
+                newActivity(Notify);
 
             default:
                 break;
@@ -53,8 +57,25 @@ public class SsnNotifyService {
 
     }
 
+    public void inviteActicity(Notification notification) {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = sdf.format(date);
+        notification.setHoursReceive(dateString);
+
+        HomeController.getNotificationToBedisplayed().add(notification);
+        Platform.runLater(() -> HomeController.displayOnnotifPanel());
+
+    }
+    public void newActivity(Notification notification) {
+
+
+
+    }
     public void connectUser(Notification notification) {
 
     }
 
+
+    
 }

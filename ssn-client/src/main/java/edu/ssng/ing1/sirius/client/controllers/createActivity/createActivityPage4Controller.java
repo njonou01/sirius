@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import edu.ssng.ing1.sirius.client.toast.Toast;
@@ -20,6 +21,7 @@ import edu.ssng.ing1.sirius.client.toast.ToastType;
 // import edu.ssng.ing1.sirius.MainInsertClient;
 
 import edu.ssng.ing1.sirius.requests.activities.InsertActivityQuery;
+import edu.ssng.ing1.sirius.requests.activities.SelectMyFriends;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -64,10 +66,28 @@ public class createActivityPage4Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         router = RouterPopUp.getInstance();
-
+        Student student = UserInfo.getUser();
         Platform.runLater(() -> {
-            Student student = UserInfo.getUser();
-            lastActivityBtn.setOnAction(event -> displayFriendsInvite(student));
+            lastActivityBtn.setOnAction(event -> {
+
+                
+                try {
+                    Students students= SelectMyFriends.SelectStudent(student);
+                    for (Student MyFriend : students.getStudents()) {
+                        displayFriendsInvite(MyFriend);
+                    }
+                    
+                } catch (IOException | InterruptedException | SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                        
+                
+            
+            });
+           
+
+            
         });
 
         scrollPane.setFitToWidth(true);
