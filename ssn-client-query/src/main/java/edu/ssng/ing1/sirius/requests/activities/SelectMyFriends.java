@@ -72,4 +72,38 @@ public class SelectMyFriends {
            
         return students;
     }
+    public static Students SelectStudentLast(Student student) throws IOException, InterruptedException, SQLException {
+
+        final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
+        logger.debug("Load Network config file : {}", networkConfig.toString());
+
+        int birthdate = 0;
+        final ObjectMapper objectMapper = new ObjectMapper();
+        final String requestId = UUID.randomUUID().toString();
+        final Request request = new Request();
+        request.setRequestId(requestId);
+        String body=objectMapper.writeValueAsString(student);
+        request.setRequestContent(body);
+        request.setRequestOrder("SELECT_LAST_ACTIVITY_FRIENDS");
+        objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
+        final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
+        LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
+
+        
+        final SelectStudentClientRequest clientRequest = new SelectStudentClientRequest(
+                                                                    networkConfig,
+                                                                    birthdate++, request, null, requestBytes);
+                                                                  
+        clientRequests.push(clientRequest);
+
+        
+            final SelectStudentClientRequest joinedClientRequest = clientRequests.pop();
+            joinedClientRequest.join();
+            logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
+            final Students students = (Students) joinedClientRequest.getResult();
+
+            System.out.println( "ddd"+students.toString());
+           
+        return students;
+    }
 }

@@ -50,6 +50,9 @@ public class createActivityPage4Controller implements Initializable {
     Button lastActivityBtn;
 
     @FXML
+    Button myFriends;
+
+    @FXML
     VBox friendVBox;
 
     @FXML
@@ -68,11 +71,28 @@ public class createActivityPage4Controller implements Initializable {
         router = RouterPopUp.getInstance();
         Student student = UserInfo.getUser();
         Platform.runLater(() -> {
-            lastActivityBtn.setOnAction(event -> {
+            myFriends.setOnAction(event -> {
 
                 
                 try {
                     Students students= SelectMyFriends.SelectStudent(student);
+                    for (Student MyFriend : students.getStudents()) {
+                        displayFriendsInvite(MyFriend);
+                    }
+                    
+                } catch (IOException | InterruptedException | SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                        
+                
+            
+            });
+            lastActivityBtn.setOnAction(event -> {
+
+                
+                try {
+                    Students students= SelectMyFriends.SelectStudentLast(student);
                     for (Student MyFriend : students.getStudents()) {
                         displayFriendsInvite(MyFriend);
                     }

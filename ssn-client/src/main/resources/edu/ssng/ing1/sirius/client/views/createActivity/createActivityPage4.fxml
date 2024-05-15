@@ -16,7 +16,7 @@
    <children>
       <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" opacity="0.97" prefHeight="429.0" prefWidth="254.0" vbarPolicy="NEVER">
          <content>
-            <VBox fx:id="inviteVbox" prefHeight="628.0" prefWidth="329.0" styleClass="leftBox">
+            <VBox fx:id="inviteVbox" prefHeight="628.0" prefWidth="329.0" spacing="10.0" styleClass="leftBox">
                <children>
                   <Label text="Invitez depuis :">
                      <VBox.margin>
@@ -25,7 +25,7 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="25.0" prefWidth="264.0" spacing="16.0">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="btn" text="Vos Amis" />
+                        <Button fx:id="myFriends" mnemonicParsing="false" styleClass="btn" text="Vos Amis" />
                         <Button fx:id="lastActivityBtn" mnemonicParsing="false" styleClass="btn" text="Dernière Activité" />
                      </children>
                      <VBox.margin>
