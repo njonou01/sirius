@@ -20,7 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
-
+import edu.ssng.ing1.sirius.client.controllers.friend.FriendCardController;
 public class FriendUpdater {
     private static FriendUpdater instance;
     private static FlowPane acceptedFriend;
@@ -28,6 +28,11 @@ public class FriendUpdater {
     private static FlowPane suggestedFriend;
     private static FlowPane limitedDemandedFriend;
     private static FlowPane limitedSuggestedFriend;
+
+    public static void renitialize() {
+        instance = null;
+    }
+
 
     private FriendUpdater(FlowPane acceptedFriend, FlowPane demandedFriend, FlowPane suggestedFriend,
             FlowPane limitedDemandedFriend,

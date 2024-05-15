@@ -18,7 +18,7 @@ public class MainClient extends Application {
         UserInfo.getInstance();
         Router router = Router.getInstance();
         router.setStage(primaryStage);
-        router.setFullScreenStage();
+        // router.setFullScreenStage();
         System.out.println("****************************************************");
         System.out.println(primaryStage);
         System.out.println("****************************************************");

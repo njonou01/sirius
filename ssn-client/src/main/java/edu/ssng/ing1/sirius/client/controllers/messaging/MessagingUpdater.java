@@ -17,6 +17,9 @@ public class MessagingUpdater {
     private static StudentBtnAction action;
     private static VBox messageArea;
 
+    public static void renitialize() {
+        instance = null;
+    }
     private MessagingUpdater(StudentBtnAction action, VBox studentList, VBox messageArea) {
         MessagingUpdater.studentList = studentList;
         MessagingUpdater.action = action;

@@ -2,7 +2,10 @@ package edu.ssng.ing1.sirius.client;
 
 import java.io.IOException;
 
+import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
+import edu.ssng.ing1.sirius.client.controllers.friend.FriendUpdater;
+import edu.ssng.ing1.sirius.client.controllers.messaging.MessagingUpdater;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -36,6 +39,8 @@ public class HomeBuild {
                     Initializer.invitationsFetcher();
                     Initializer.suggestionsFetcher();
                     Initializer.messagesFetcher();
+                    FriendUpdater.renitialize();
+                    MessagingUpdater.renitialize();
 
                     return null;
                 }

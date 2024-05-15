@@ -83,6 +83,7 @@ public class Router {
         FXMLLoader fxmlLoader = loadFxml(getPath(node));
         Parent parent = fxmlLoader.load();
         Platform.runLater(() -> {
+            this.setFullScreenStage();
             stage.setTitle(getTitle(node));
             stage.setScene(new Scene(parent));
             stage.show();

@@ -107,7 +107,7 @@ public class HomeController implements Initializable {
             UserInfo.removeUser();
             Router.getInstance().navigateTo("authentification");
             Router.getInstance().getStage().sizeToScene();
-            Router.getInstance().setFullScreenStage();
+            // Router.getInstance().setFullScreenStage();
         });
         createActivityBtn.setOnAction(event -> {
             routerPoUp.navigateTo("createActivityPage1");

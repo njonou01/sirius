@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -52,6 +53,12 @@ public class FriendPageController implements Initializable {
     private Map<Button, ScrollPane> btnmapper = new HashMap<Button, ScrollPane>();
     @FXML
     private FlowPane limitedSuggestionFlowPanePanel;
+
+    @FXML
+    void testfonction(MouseEvent event) {
+       FlowPane paneee =  (FlowPane) event.getSource();
+       System.out.println("size = " + paneee.getChildren().size());
+    }
 
     public FriendPageController() {
     }
