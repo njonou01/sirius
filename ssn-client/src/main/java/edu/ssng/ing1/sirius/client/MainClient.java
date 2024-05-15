@@ -23,6 +23,7 @@ public class MainClient extends Application {
         System.out.println(primaryStage);
         System.out.println("****************************************************");
         Student user = UserInfo.getUser();
+        
         if (user == null)
             Platform.runLater(() -> router.navigateTo("authentification"));
         else {

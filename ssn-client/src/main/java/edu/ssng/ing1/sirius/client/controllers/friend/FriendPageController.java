@@ -58,9 +58,7 @@ public class FriendPageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Initializer.invitationsFetcher();
-        Initializer.suggestionsFetcher();
-        Initializer.messagesFetcher();
+
 
         FriendUpdater.getInstance(friendZone, invitationPanelZone, suggestionFlowPanePanel, invitationZone,
                 limitedSuggestionFlowPanePanel);

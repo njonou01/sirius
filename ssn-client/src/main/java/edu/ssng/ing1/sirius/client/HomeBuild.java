@@ -2,6 +2,7 @@ package edu.ssng.ing1.sirius.client;
 
 import java.io.IOException;
 
+import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -17,10 +18,10 @@ public class HomeBuild {
         MainPreload MainBackgroundService = new MainPreload();
         MainBackgroundService.setOnSucceeded(event -> {
             preloadStage.close();
-            
             System.out.println("****************************************************");
             System.out.println(Router.getInstance().getStage());
-            System.out.println("****************************************************");;
+            System.out.println("****************************************************");
+            ;
             Router.getInstance().navigateTo("main");
         });
         MainBackgroundService.start();
@@ -32,7 +33,10 @@ public class HomeBuild {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    
+                    Initializer.invitationsFetcher();
+                    Initializer.suggestionsFetcher();
+                    Initializer.messagesFetcher();
+
                     return null;
                 }
             };

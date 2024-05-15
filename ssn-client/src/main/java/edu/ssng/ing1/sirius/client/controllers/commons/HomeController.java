@@ -23,6 +23,19 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 public class HomeController implements Initializable {
+    private static HomeController instance;
+
+    public static HomeController getinstance() {
+        if (instance == null) {
+            instance = new HomeController();
+            System.out.println("-----------------------------------------");
+            System.out.println("HomeController instance created");
+            System.out.println("-----------------------------------------");
+
+        }
+        return instance;
+    }
+
     HashMap<Button, BorderPane> btnmapper = new HashMap<Button, BorderPane>();
     @FXML
     private Button seeActivitybtn;
@@ -63,6 +76,11 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("-----------------------------------------");
+        System.out.println("HomeController INITIAL instance created");
+        System.out.println("HomeController INITIAL instance created");
+        System.out.println("-----------------------------------------");
+
         RouterPopUp routerPoUp = RouterPopUp.getInstance();
         logo.setImage(getImage("media/images/ssn-logo.png"));
         Student user = UserInfo.getUser();
@@ -83,7 +101,7 @@ public class HomeController implements Initializable {
             btnmapper.put(messagingBtn, messaging);
 
         }
-        initializeBtn(homePageBtn, friendPageBtn , messagingBtn);
+        initializeBtn(homePageBtn, friendPageBtn, messagingBtn);
 
         deconnexionbtn.setOnAction(event -> {
             UserInfo.removeUser();

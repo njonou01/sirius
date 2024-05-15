@@ -3,13 +3,7 @@ package edu.ssng.ing1.sirius.client.router;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import edu.ssng.ing1.sirius.client.MainClient;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -17,11 +11,19 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.ssng.ing1.sirius.client.MainClient;
+
 public class Router {
     private static Router instance;
     private Stage stage;
-    private final static String LoggingLabel = "ROUTAGE";
-    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
+    private static final String LOGGING_LABEL = "ROUTAGE";
+    private final Logger logger = LoggerFactory.getLogger(LOGGING_LABEL);
     private static JsonNode data;
 
     private Router() {
@@ -30,12 +32,12 @@ public class Router {
     public synchronized static Router getInstance() {
         if (instance == null) {
             instance = new Router();
-            Router.readRoutageJson("routage.json");
+            readRoutageJson("routage.json");
         }
         return instance;
     }
 
-    public synchronized  void setStage(Stage stage) {
+    public synchronized void setStage(Stage stage) {
         this.stage = stage;
     }
 
@@ -44,29 +46,26 @@ public class Router {
         return new FXMLLoader(MainClient.class.getResource(finalPath));
     }
 
-    public synchronized void  navigateTo(String name) {
-
+    public synchronized void navigateTo(String name) {
         try {
             JsonNode node = Router.data.get(name);
-            if (!displayScene(node))
+            if (node == null || !displayScene(node))
                 logger.error("Page {} does not exist", name);
             else
-                logger.info("the {} scene was correctly loaded", name);
+                logger.info("The {} scene was correctly loaded", name);
 
-        } catch (Exception e) {
-            logger.error("{}", e.getMessage());
-            e.printStackTrace();
+        } catch (IOException e) {
+            logger.error("Error navigating to {}: {}", name, e.getMessage());
         }
-
     }
 
     private static void readRoutageJson(String file) {
-        InputStream inputStream = Router.class.getResourceAsStream(file);
-        ObjectMapper mapper = new ObjectMapper();
-        try {
+        try (InputStream inputStream = Router.class.getResourceAsStream(file)) {
+            ObjectMapper mapper = new ObjectMapper();
             Router.data = mapper.readTree(inputStream);
-        } catch (Exception e) {
-            System.out.println("error");
+        } catch (IOException e) {
+            // Log the error
+            LoggerFactory.getLogger(Router.class).error("Error reading JSON file {}: {}", file, e.getMessage());
         }
     }
 
@@ -74,39 +73,33 @@ public class Router {
         return node.get("path").asText();
     }
 
-    private String getTile(JsonNode node) {
+    private String getTitle(JsonNode node) {
         return node.get("title").asText();
     }
 
     private synchronized boolean displayScene(JsonNode node) throws IOException {
-        if (node.isNull())
+        if (node == null)
             return false;
         FXMLLoader fxmlLoader = loadFxml(getPath(node));
         Parent parent = fxmlLoader.load();
-        stage.setTitle(getTile(node));
-        stage.setScene(new Scene(parent));
+        Platform.runLater(() -> {
+            stage.setTitle(getTitle(node));
+            stage.setScene(new Scene(parent));
+            stage.show();
 
-        stage.show();
+        });
         return true;
     }
 
     public synchronized FXMLLoader getParentNode(String name) {
         JsonNode node = Router.data.get(name);
-        try {
-            if (node.isNull()) {
-                logger.error("parent nod {} does not exist", name);
-                return null;
-            } else {
-                logger.info("the {} node parent was correctly loaded", name);
-                FXMLLoader fxmlLoader = loadFxml(getPath(node));
-                return fxmlLoader;
-            }
-
-        } catch (Exception e) {
-            logger.error("{} merde", e.getMessage());
+        if (node == null) {
+            logger.error("Parent node {} does not exist", name);
             return null;
+        } else {
+            logger.info("The {} node parent was correctly loaded", name);
+            return loadFxml(getPath(node));
         }
-
     }
 
     public Stage getStage() {
@@ -125,5 +118,4 @@ public class Router {
         stage.setWidth(bounds.getWidth());
         stage.setHeight(bounds.getHeight());
     }
-
 }
