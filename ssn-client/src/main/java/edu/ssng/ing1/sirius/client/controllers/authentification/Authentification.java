@@ -3,6 +3,8 @@ package edu.ssng.ing1.sirius.client.controllers.authentification;
 import java.io.IOException;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.client.HomeBuild;
+import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.Router;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,7 +58,7 @@ public class Authentification {
     private SignUpSchoolController signUpSchoolController;
     private SignUpFinalController signUpFinalController;
     private String appName = "S-Connect";
-    private Student student = new Student() ;
+    private Student student = new Student();
 
     @FXML
     public void changePosition(ActionEvent event) {
@@ -72,9 +74,9 @@ public class Authentification {
             setASignupPaneVisible(this.signupStartPane);
             this.signinPane.setVisible(false);
             router.getStage().setTitle(appName + " " + "Sign Up");
-            
+
         } else {
-            setASignupPaneVisible(null); 
+            setASignupPaneVisible(null);
             this.signinPane.setVisible(true);
             router.getStage().setTitle(appName + " " + "Sign In");
         }
@@ -141,7 +143,15 @@ public class Authentification {
         });
 
         this.signUpFinalController.getSignupBtn().setOnAction(event -> {
-            
+            Boolean serverResult = this.signUpFinalController.signUpAs(student);
+            if (serverResult) {
+                System.out.println("Sign up success");
+                UserInfo.getInstance();
+                UserInfo.registerUser(student.getEmail());
+                new HomeBuild();
+            } else {
+                System.out.println("Sign up failed");
+            }
         });
         this.stackPane.getChildren().addAll(this.signinPane,
                 this.signupStartPane,

@@ -24,7 +24,6 @@ import javafx.scene.shape.Circle;
 
 public class HomeController implements Initializable {
     HashMap<Button, BorderPane> btnmapper = new HashMap<Button, BorderPane>();
-
     @FXML
     private Button seeActivitybtn;
     @FXML

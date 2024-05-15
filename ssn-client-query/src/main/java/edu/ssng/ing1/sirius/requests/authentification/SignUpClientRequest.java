@@ -23,7 +23,7 @@ public class SignUpClientRequest extends ClientRequest<Student, String> {
     public String readResult(String body) throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         final Map<String, String> studentIdMap = mapper.readValue(body, new TypeReference<Map<String, String>>() {});
-        final String result = studentIdMap.get("msg").toString();
+        final String result = studentIdMap.get("response").toString();
         return result;
     }
 }

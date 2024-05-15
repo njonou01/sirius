@@ -11,6 +11,7 @@ import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.toast.Toast;
 import edu.ssng.ing1.sirius.client.toast.ToastType;
 import edu.ssng.ing1.sirius.requests.authentification.AuthRequest;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -89,7 +90,10 @@ public class SignInController implements Initializable {
 
         if (isValidRegister) {
             UserInfo.registerUser(emailField.getText());
-            new HomeBuild();
+            Platform.runLater(() -> {
+                new HomeBuild();
+            });
+
         } else
             Toast.buildToast(ToastType.ERROR,
                     "L'utilisateur n'existe pas our le mot de passe est incorrect");

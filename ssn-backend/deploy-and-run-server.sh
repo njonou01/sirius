@@ -16,6 +16,6 @@ main_backend_destination_path="ssn/ssn-backend/"
 scp -rp $m2_source_file $user@$ip:$m2_destination_path || ssh "$user@$ip" "mkdir -p $m2_destination_path && scp $m2_source_file $user@$ip:$m2_destination_path && exit"
 
 ssh "$user@$ip" "pkill -f java && exit"
-ssh "$user@$ip" "java -jar .m2/repository/$backend_repo/ssn-backend-1.0-SNAPSHOT-jar-with-dependencies.jar"
+ssh "$user@$ip" "java -jar .m2/repository/$backend_repo/ssn-backend-1.0-SNAPSHOT-jar-with-dependencies.jar" >> sirius.log &
 
 

@@ -23,15 +23,15 @@ public class Initializer {
         private static Messages messages;
         private static Students suggestions;
 
-        public static BeFriends getinvitations() {
+        public static synchronized BeFriends getinvitations() {
                 return friends;
         }
 
-        public static Students getSuggestions() {
+        public static synchronized Students getSuggestions() {
                 return suggestions;
         }
 
-        public static BorderPane initInvitationPage() {
+        public static synchronized BorderPane initInvitationPage() {
                 FXMLLoader fxml = Router.getInstance().getParentNode("friend-page");
                 System.out.println(fxml);
                 try {
@@ -41,7 +41,7 @@ public class Initializer {
                 }
         }
 
-        public static BorderPane initMessagingPage() {
+        public static synchronized BorderPane initMessagingPage() {
                 FXMLLoader fxml = Router.getInstance().getParentNode("messaging");
                 try {
                         BorderPane pane = (BorderPane) fxml.load();
@@ -53,7 +53,7 @@ public class Initializer {
                 }
         }
 
-        public static void invitationsFetcher() {
+        public static synchronized void invitationsFetcher() {
                 try {
                         int student_id = UserInfo.getUser().getId_student();
                         friends = FriendCommonRequest.selectFriends(new Student(student_id));
@@ -62,7 +62,7 @@ public class Initializer {
                 }
         }
 
-        public static void suggestionsFetcher() {
+        public static synchronized void suggestionsFetcher() {
                 try {
                         int student_id = UserInfo.getUser().getId_student();
                         suggestions = FriendCommonRequest.selectSuggestedFriends(new Student(student_id));
@@ -72,7 +72,7 @@ public class Initializer {
                 }
         }
 
-        public static void messagesFetcher() {
+        public static synchronized void messagesFetcher() {
                 try {
                         int student_id = UserInfo.getUser().getId_student();
                         messages = CommonsMessageRequest.selectMessages(student_id);
@@ -89,7 +89,7 @@ public class Initializer {
                 return acceptedfriend;
         }
 
-        public static Set<BeFriend> friendshipRequestReceiver() {
+        public static synchronized Set<BeFriend> friendshipRequestReceiver() {
                 Set<BeFriend> friendshipRequest = friends.getBefriends()
                                 .stream()
                                 .filter(f -> f.getStatus().equalsIgnoreCase("no reponse"))
@@ -97,7 +97,7 @@ public class Initializer {
                 return friendshipRequest;
         }
 
-        public static Set<Message> getAllMessages() {
+        public static synchronized Set<Message> getAllMessages() {
                 // Message message1 = new Message(1, 952, 44,
                 // "Salut gars ! J'ai rencontré un problème avec la configuration du serveur
                 // pour Sirius.",
@@ -186,7 +186,7 @@ public class Initializer {
                 return messages.getMessages();
         }
 
-        public static List<Message> getMessagesOfStudent(int id_student) {
+        public static synchronized List<Message> getMessagesOfStudent(int id_student) {
                 return getAllMessages().stream()
                                 .filter(msg -> msg.getSenderId() == id_student || msg.getReceiverId() == id_student)
                                 .sorted((msg1, msg2) -> msg1.getSentAt().compareTo(msg2.getSentAt()))

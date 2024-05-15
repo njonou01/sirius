@@ -66,7 +66,19 @@ enum Queries {
         DOES_STUDENT_EXIST(
                         "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
                                         "\tFROM \"ssn-db-ing1\".student where email = ? "),
-        INSERT_STUDENT("INSERT INTO \"ssn-db-ing1\".student (familly_name, first_name, email, phone_number, gender, username, \"password\", birthday) VALUES(?, ?, ?, ?, ?, ?, ? , ?)"),
+        SIGN_UP_AS("WITH inserted_student AS (\n" +
+                        "    INSERT INTO \"ssn-db-ing1\".student(familly_name, first_name, email, birthday, phone_number, gender, password, zip, adress)\n"
+                        +
+                        "    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)\n" +
+                        "    RETURNING id_student\n" +
+                        "), university_data AS (\n" +
+                        "    SELECT id_university\n" +
+                        "    FROM \"ssn-db-ing1\".university\n" +
+                        "    WHERE label = ?\n" +
+                        ")\n" +
+                        "INSERT INTO \"ssn-db-ing1\".attended(id_student, id_university, start, \"end\", description, training_followed)\n"
+                        +
+                        "VALUES ((SELECT id_student FROM inserted_student), (SELECT id_university FROM university_data), ?, ?, ?, ?);"),
         SIGN_IN_AS("SELECT  password FROM \"ssn-db-ing1\".student where email=?"),
         GET_DATA_CONNEXION("SELECT * FROM \"ssn-db-ing1\".student where email=?"),
         BECOME_FRIENDS("UPDATE \"ssn-db-ing1\".befriend\n" +

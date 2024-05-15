@@ -77,7 +77,6 @@ public class FriendUpdater {
         suggestedFriend.getChildren().clear();
         List<AnchorPane> suggested = Initializer.getSuggestions().getStudents().stream()
                 .map(friend -> {
-                    System.out.println("dddddddddddddd");
                     return new SuggestionCard(friend);
                 }).collect(Collectors.toList());
         FriendUpdater.suggestedFriend.getChildren().setAll(suggested);

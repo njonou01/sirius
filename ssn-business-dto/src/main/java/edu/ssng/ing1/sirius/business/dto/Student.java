@@ -280,14 +280,14 @@ public class Student {
 
     public final Student build(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResulset(resultSet, "id_student","familyname", "firstname",
+        setFieldsFromResulset(resultSet, "id_student", "familyname", "firstname",
                 "email", "phoneNumber", "gender", "bithday");
         return this;
     }
 
     public final void buildUniversity(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResulset(resultSet,  "university",
+        setFieldsFromResulset(resultSet, "university",
                 "formation_start",
                 "formation_stop",
                 "formation_description",
@@ -302,9 +302,10 @@ public class Student {
     public final PreparedStatement build(PreparedStatement preparedStatement)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
 
-        return createStudentStatement(preparedStatement, bithday, familyname, firstname,
-                email, phoneNumber, gender,
-                BCrypt.hashpw(password, BCrypt.gensalt()));
+        return createStudentStatement(preparedStatement,
+                familyname, firstname, email, bithday, phoneNumber,
+                gender, password, zipcode, adress, university,
+                formation_start, formation_stop, formation_description, training_followed);
     }
 
     private void setFieldsFromResulset(final ResultSet resultSet, final String... fieldNames)
@@ -316,13 +317,20 @@ public class Student {
     }
 
     private final PreparedStatement createStudentStatement(PreparedStatement preparedStatement,
-            final Date date, final String... fieldNames)
+            final Object... fieldNames)
             throws NoSuchFieldException, SQLException, IllegalAccessException {
         int ix = 0;
-        for (final String fieldName : fieldNames) {
-            preparedStatement.setString(++ix, fieldName);
+        for (final Object fieldName : fieldNames) {
+            if (fieldName instanceof java.sql.Date) {
+                preparedStatement.setDate(++ix, (java.sql.Date) fieldName);
+            } else if (fieldName instanceof Date) {
+                preparedStatement.setDate(++ix, (Date) fieldName);
+            } else if (fieldName instanceof Integer) {
+                preparedStatement.setInt(++ix, (Integer) fieldName);
+            } else if (fieldName instanceof String) {
+                preparedStatement.setString(++ix, (String) fieldName);
+            }
         }
-        preparedStatement.setDate(++ix, date);
         return preparedStatement;
     }
 
@@ -346,7 +354,5 @@ public class Student {
     public void setTraining_followed(String training_followed) {
         this.training_followed = training_followed;
     }
-
-    
 
 }

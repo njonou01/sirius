@@ -27,7 +27,7 @@ public class Router {
     private Router() {
     }
 
-    public static Router getInstance() {
+    public synchronized static Router getInstance() {
         if (instance == null) {
             instance = new Router();
             Router.readRoutageJson("routage.json");
@@ -35,18 +35,16 @@ public class Router {
         return instance;
     }
 
-    public void setStage(Stage stage) {
+    public synchronized  void setStage(Stage stage) {
         this.stage = stage;
     }
-
-
 
     private FXMLLoader loadFxml(String path) {
         String finalPath = "views/" + path + ".fxml";
         return new FXMLLoader(MainClient.class.getResource(finalPath));
     }
 
-    public void navigateTo(String name) {
+    public synchronized void  navigateTo(String name) {
 
         try {
             JsonNode node = Router.data.get(name);
@@ -80,7 +78,7 @@ public class Router {
         return node.get("title").asText();
     }
 
-    private boolean displayScene(JsonNode node) throws IOException {
+    private synchronized boolean displayScene(JsonNode node) throws IOException {
         if (node.isNull())
             return false;
         FXMLLoader fxmlLoader = loadFxml(getPath(node));
@@ -92,7 +90,7 @@ public class Router {
         return true;
     }
 
-    public FXMLLoader getParentNode(String name) {
+    public synchronized FXMLLoader getParentNode(String name) {
         JsonNode node = Router.data.get(name);
         try {
             if (node.isNull()) {

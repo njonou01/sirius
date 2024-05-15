@@ -82,7 +82,7 @@ public class XMartCityService {
                     return selectFriendResponse(preparedStatement, request);
                 case SELECT_ALL_UNIVERSITIES:
                     return selectUniversitiesResponse(preparedStatement, request);
-                case INSERT_STUDENT:
+                case SIGN_UP_AS:
                     return insertStudentResponse(preparedStatement, request);
                 case DOES_STUDENT_EXIST:
                     return doesStudentExistResponse(preparedStatement, request);
@@ -544,14 +544,14 @@ public class XMartCityService {
             final ObjectMapper mapper = new ObjectMapper();
             final Student student = mapper.readValue(request.getRequestBody(), Student.class);
             int row = student.build(preparedStatement).executeUpdate();
-            String errormsg = "L'etudiant existe deja ";
-            String bodyResponse = String.format("{\"tester\": \"%s\"}", errormsg);
+            String errormsg = "success";
+            String bodyResponse = String.format("{\"response\": \"%s\"}", errormsg);
             return new Response(request.getRequestId(), bodyResponse);
 
         } catch (PSQLException e) {
             e.printStackTrace();
-            String errormsg = "werrrr";
-            String bodyResponse = String.format("{\"error\": \"%s\"}", errormsg);
+            String errormsg = "error";
+            String bodyResponse = String.format("{\"response\": \"%s\"}", errormsg);
             return new Response(request.getRequestId(), bodyResponse);
         }
 

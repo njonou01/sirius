@@ -21,14 +21,14 @@ public class AuthRequest {
     private static String requestOrder;
     private static final Deque<ClientRequest<Student, String>> clientRequests = new ArrayDeque<ClientRequest<Student, String>>();
 
-    public static void signUpAs(Student student) throws NullPointerException, IOException, InterruptedException {
-        final String LoggingLabel = "C R E A T E - U S E R - C L I E N T";
+    public static Boolean signUpAs(Student student) throws NullPointerException, IOException, InterruptedException {
+        final String LoggingLabel = "S I G N - U P - C L I E N T";
         final Logger logger = LoggerFactory.getLogger(LoggingLabel);
-        final String threadName = "create-user";
+        final String threadName = "signup-client";
 
-        requestOrder = "INSERT_STUDENT";
+        requestOrder = "SIGN_UP_AS";
+
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
-        logger.trace("Students loaded : {}", student.toString());
         logger.debug("Load Network config file : {}", networkConfig.toString());
 
         int birthdate = 0;
@@ -43,19 +43,19 @@ public class AuthRequest {
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte[] requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
 
-        final SignInClientRequest clientRequest_ = new SignInClientRequest(
+        final SignUpClientRequest clientRequest_ = new SignUpClientRequest(
                 networkConfig,
                 birthdate++, request, student, requestBytes);
         clientRequests.push(clientRequest_);
 
         while (!clientRequests.isEmpty()) {
-            final ClientRequest<Student, String> clientRequest = clientRequests.pop();
-            clientRequest.join();
-            final Student student_response = (Student) clientRequest.getInfo();
-            logger.debug("Thread {} complete : {}  --> {}",
-                    threadName, student_response.toString(),
-                    clientRequest.getResult());
+            final ClientRequest<Student, String> joinedClientRequest = clientRequests.pop();
+            joinedClientRequest.join();
+            logger.debug("Thread {} complete.", threadName);
+            String signResponse = joinedClientRequest.getResult();
+            return signResponse.equalsIgnoreCase("success");
         }
+        return false;
     }
 
     public static Boolean signInAs(Student student) throws NullPointerException, IOException, InterruptedException {

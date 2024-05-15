@@ -5,6 +5,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.mindrot.jbcrypt.BCrypt;
 
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.toast.Toast;
@@ -240,7 +241,6 @@ public class SignUpStartContoller {
         });
     }
 
-    
     private String getFielName(TextField field) {
         if (field.equals(emailField))
             return "email";
@@ -250,14 +250,15 @@ public class SignUpStartContoller {
             return "confirm-password";
         return "bad field";
     }
-    private void removeAllClassError(Node ... nodes){
+
+    private void removeAllClassError(Node... nodes) {
         for (Node node : nodes) {
-         node.getStyleClass().removeAll("errortextfield")   ;
+            node.getStyleClass().removeAll("errortextfield");
         }
     }
 
     protected void renitialize() {
-        removeAllClassError(emailField,passwordField,passwordConfirmField,textFielPassword,textFielPasswordConfirm);
+        removeAllClassError(emailField, passwordField, passwordConfirmField, textFielPassword, textFielPasswordConfirm);
         removeErrorMsgFrom("all");
         emailField.clear();
         passwordConfirmField.clear();
@@ -268,7 +269,7 @@ public class SignUpStartContoller {
 
     protected void setStudentData(Student student) {
         student.setEmail(emailField.getText());
-        student.setPassword(passwordField.getText());
+        student.setPassword(BCrypt.hashpw(passwordField.getText().trim(), BCrypt.gensalt()));
     }
 
 }

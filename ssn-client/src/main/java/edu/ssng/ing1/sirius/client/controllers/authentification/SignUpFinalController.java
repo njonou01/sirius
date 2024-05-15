@@ -34,10 +34,11 @@ public class SignUpFinalController implements Initializable {
         return acceptCheckBox;
     }
 
-    protected void setStudentInfo(Student student) {
+    protected Boolean signUpAs(Student student) {
         try {
-            AuthRequest.signUpAs(student);
+            return AuthRequest.signUpAs(student);
         } catch (NullPointerException | IOException | InterruptedException e) {
+            return false;
         }
     }
 
