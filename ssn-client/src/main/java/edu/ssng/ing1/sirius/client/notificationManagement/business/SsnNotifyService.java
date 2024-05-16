@@ -11,7 +11,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.client.controllers.commons.HomeController;
+import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
+import edu.ssng.ing1.sirius.client.controllers.messaging.MessagingUpdater;
 import edu.ssng.ing1.sirius.commons.Notification;
 import javafx.application.Platform;
 
@@ -34,9 +37,23 @@ public class SsnNotifyService {
             case "NEW_ACTIVITY":
                 newActivity(Notify);
 
+            case "NEW_MESSAGE":
+                getNewMessage(Notify);
+
             default:
                 break;
         }
+    }
+
+    private void getNewMessage(Notification notification) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            Message newMessage = mapper.readValue(notification.getBody(), Message.class);
+            Initializer.getMessages().getMessages().add(newMessage);
+        } catch (IOException e) {
+
+        }
+
     }
 
     public void notifyConnection(Notification notification) {
@@ -60,15 +77,13 @@ public class SsnNotifyService {
         Platform.runLater(() -> HomeController.displayOnnotifPanel());
 
     }
+
     public void newActivity(Notification notification) {
 
-
-
     }
+
     public void connectUser(Notification notification) {
 
     }
 
-
-    
 }

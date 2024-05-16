@@ -1,10 +1,7 @@
 #!/bin/bash
 
-
-
-
 # Variables
-ip="172.31.252.91"
+ip="172.31.252.197"
 user="ssnserver"
 
 ssh "$user@$ip" "pkill -f java && exit"

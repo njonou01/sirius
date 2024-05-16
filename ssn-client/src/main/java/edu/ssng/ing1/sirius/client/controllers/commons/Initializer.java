@@ -97,6 +97,10 @@ public class Initializer {
                 return friendshipRequest;
         }
 
+        public static Messages getMessages(){
+                return messages;
+        }
+
         public static synchronized Set<Message> getAllMessages() {
                 // Message message1 = new Message(1, 952, 44,
                 // "Salut gars ! J'ai rencontré un problème avec la configuration du serveur

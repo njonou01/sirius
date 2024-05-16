@@ -64,6 +64,9 @@ public class CommonsClient {
     }
 
     public static String durationOfEvent(Timestamp timestamp) {
+        if (timestamp == null) {
+            return "";
+        }
         Instant now = Instant.now();
         Instant then = timestamp.toInstant();
         Duration duration = Duration.between(then, now);

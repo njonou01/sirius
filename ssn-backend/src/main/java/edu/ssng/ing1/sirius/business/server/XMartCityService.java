@@ -72,7 +72,6 @@ public class XMartCityService {
                 case SELECT_ALL_ACTIVITY:
                     return SelectAllActivite(preparedStatement);
                 case DISCONNECTION_STUDENT:
-
                     return disconnection(request, preparedStatement, connection);
                 case SELECT_MY_ACTIVITY:
                     return SelectMyActivite(request, preparedStatement);
@@ -115,7 +114,7 @@ public class XMartCityService {
                 case FETCH_STUDENT_MESSAGES:
                     return fetchStudentMessages(preparedStatement, request);
                 case SEND_AND_SAVE_MESSAGE:
-                    return sendAndSaveMessage(preparedStatement, request);
+                    return sendAndSaveMessage(preparedStatement, request, connection);
                 case ASK_FRIENDSHIP:
                     return addFriendShipResponse(preparedStatement, request);
                 default:
@@ -175,7 +174,8 @@ public class XMartCityService {
         return newFileName;
     }
 
-    private Response sendAndSaveMessage(PreparedStatement preparedStatement, Request request) throws JsonParseException,
+    private Response sendAndSaveMessage(PreparedStatement preparedStatement, Request request, Connection connection)
+            throws JsonParseException,
             JsonMappingException, IOException, NoSuchFieldException, IllegalAccessException, SQLException {
         final ObjectMapper mapper = new ObjectMapper();
         final Message message = mapper.readValue(request.getRequestBody(), Message.class);
@@ -188,6 +188,8 @@ public class XMartCityService {
             final Message newMessage = new Message().build(resultSet);
             newMessage.setMedia(message.getMedia());
             resultSet.close();
+            Set<String> receiver = getUserEmailById(connection, newMessage.getReceiverId());
+            BroadcastNotification.broadcast("NEW_MESSAGE", receiver);
             // Todo: send message to the other user
             return new Response(request.getRequestId(), mapper.writeValueAsString(newMessage));
         }
@@ -732,6 +734,22 @@ public class XMartCityService {
 
         buffer.flush();
         return buffer.toByteArray();
+    }
+
+    public static Set<String> getUserEmailById(Connection connection, int userId) throws SQLException {
+        Set<String> email = new HashSet<>();
+        String sql = "SELECT email FROM \"ssn-db-ing1\".student where id_student = ?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                email.add(resultSet.getString("email"));
+                return email;
+            } else {
+                return null;
+            }
+        }
     }
 
 }
