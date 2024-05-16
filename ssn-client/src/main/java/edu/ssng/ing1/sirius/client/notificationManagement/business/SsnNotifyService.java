@@ -29,16 +29,21 @@ public class SsnNotifyService {
 
             case "NEW_CONNECTION":
                 notifyConnection(Notify);
-
+                break;
             case "CONNECT_USER":
                 connectUser(Notify);
+                break;
             case "INVITE_ACTIVITY":
                 inviteActicity(Notify);
+                break;
+
             case "NEW_ACTIVITY":
                 newActivity(Notify);
+                break;
 
             case "NEW_MESSAGE":
                 getNewMessage(Notify);
+                break;
 
             default:
                 break;
@@ -50,6 +55,7 @@ public class SsnNotifyService {
         try {
             Message newMessage = mapper.readValue(notification.getBody(), Message.class);
             Initializer.getMessages().getMessages().add(newMessage);
+            MessagingUpdater.addMessageInArea(newMessage);
         } catch (IOException e) {
 
         }

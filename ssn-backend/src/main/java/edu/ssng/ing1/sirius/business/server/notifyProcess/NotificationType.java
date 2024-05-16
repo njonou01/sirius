@@ -35,6 +35,13 @@ public enum NotificationType {
             return "Votre Activité " + messageArgument[0] +  " est terminée le "+messageArgument[1];
                  
         }
+    },
+    NEW_MESSAGE("Message Recu"){
+        @Override
+        public String getMessage(String... messageArgument) {
+           return "recu" ;
+        }
+
     };
     
 

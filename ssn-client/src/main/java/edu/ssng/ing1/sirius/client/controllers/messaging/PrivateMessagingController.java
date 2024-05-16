@@ -113,7 +113,7 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
                 int id_sender = UserInfo.getUser().getId_student();
                 int id_receiver = activeStudent.getId_student();
                 String message = messageBox.getText();
-                Message msg = new Message(null, id_sender, id_receiver, message, currentimageBytes,
+                Message msg = new Message(1, id_sender, id_receiver, message, currentimageBytes,
                                 null);
                 try {
                         Object result = CommonsMessageRequest.sendMessage(msg);
