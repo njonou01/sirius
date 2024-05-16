@@ -85,14 +85,14 @@ public class AuthRequest {
                 birthdate++, request, student, requestBytes);
         clientRequests.push(clientRequest_);
 
-        while (!clientRequests.isEmpty()) {
+         {
             final ClientRequest<Student, String> joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", threadName);
             String signResponse = joinedClientRequest.getResult();
             return signResponse.equalsIgnoreCase("success");
         }
-        return false;
+        
     }
 
     public static Boolean isUser(Student student) throws NullPointerException, IOException, InterruptedException {

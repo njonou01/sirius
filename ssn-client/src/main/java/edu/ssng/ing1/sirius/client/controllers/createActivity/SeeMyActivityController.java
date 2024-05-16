@@ -3,7 +3,9 @@ package edu.ssng.ing1.sirius.client.controllers.createActivity;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.Duration;
+import javafx.util.Duration;
+
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import org.kordamp.ikonli.fontawesome5.FontAwesomeBrands;
@@ -15,10 +17,12 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
 import edu.ssng.ing1.sirius.business.dto.Student;
+import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import edu.ssng.ing1.sirius.requests.activities.SelectActivityQuery;
 import edu.ssng.ing1.sirius.requests.activities.SelectMyActivityQuery;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -39,14 +43,32 @@ public class SeeMyActivityController implements Initializable {
     @FXML
     VBox parentVBox;
 
+    @FXML
+    ProgressIndicator progress1;
+
+    @FXML
+    ProgressIndicator progress2;
+
+    @FXML
+    ProgressIndicator progress3;
+
+    @FXML
+    FontIcon chatIcon;
+
     Router router;
 
+    HashMap<Activite,ProgressIndicator> progessActivityMap;
+
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        
+
         router = Router.getInstance();
-        Student student = new Student();
-        student.setId_student(3);
+        Student student = UserInfo.getUser();
+
+        
 
         Activites activites = new Activites();
         try {
@@ -70,8 +92,32 @@ public class SeeMyActivityController implements Initializable {
             // activite.getDatecreation()
             // + activite.getNomCreateur() + activite.getNbrparticipant());
         }
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            double newValue = progress1.getProgress() + 0.1;
+            if (newValue > 1) {
+                newValue = 0;
+            }
+            progress1.setProgress(newValue);
+
+            newValue = progress2.getProgress() + 0.1;
+            if (newValue > 1) {
+                newValue = 0;
+            }
+            progress2.setProgress(newValue);
+
+            newValue = progress3.getProgress() + 0.1;
+            if (newValue > 1) {
+                newValue = 0;
+            }
+            progress3.setProgress(newValue);
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
 
     }
+
+
+   
 
     @FXML
     public void addActivity() {
@@ -127,6 +173,7 @@ public class SeeMyActivityController implements Initializable {
         HBox.setMargin(hBox, new Insets(10, 0, 0, 0));
         // setPadding(hBox, new Insets(10, 0, 0, 0));
         parentVBox.getChildren().add(hBox);
+        
 
     }
     // public void oneActivity2(Activite activite) {
@@ -214,6 +261,7 @@ public class SeeMyActivityController implements Initializable {
 
     @FXML
     public void goToDiscution() {
+        router.navigateTo("groupeActivity");
 
     }
 

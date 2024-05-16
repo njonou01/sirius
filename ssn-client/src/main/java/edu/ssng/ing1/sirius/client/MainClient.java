@@ -1,13 +1,24 @@
 package edu.ssng.ing1.sirius.client;
 
+import java.io.IOException;
+
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
+import edu.ssng.ing1.sirius.client.notificationManagement.ClientConnexion;
+import edu.ssng.ing1.sirius.client.platFormeManager.PlatFormeManager;
 import edu.ssng.ing1.sirius.client.router.Router;
+import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MainClient extends Application {
+
+    public static VBox notificationVBOX;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -15,8 +26,15 @@ public class MainClient extends Application {
         // router.setStage(primaryStage);
         // router.setFullScreenStage();
         // router.navigateTo("messaging");
+       
+        try {
+            LoadingNotificationPanel();
+        } catch (IOException e) {
+            System.out.println("Error in loading Notification Panel :" + e.getMessage());
+        }
         UserInfo.getInstance();
         Router router = Router.getInstance();
+        primaryStage.setOnCloseRequest(event -> ClientConnexion.closersocket());
         router.setStage(primaryStage);
         // router.setFullScreenStage();
         System.out.println("****************************************************");
@@ -29,6 +47,17 @@ public class MainClient extends Application {
         else {
             new HomeBuild();
         }
+    }
+    private static void LoadingNotificationPanel() throws IOException{
+        FXMLLoader homeFXML =RouterPopUp.loadFxml("main/ssn-home");
+        Parent parent = homeFXML.load();
+        Scene scene = new Scene(parent);
+        scene.setRoot(parent);
+        notificationVBOX = (VBox) scene.lookup("#notificationVBOX");
+
+
+        
+
     }
 
     public static void main(String[] args) {

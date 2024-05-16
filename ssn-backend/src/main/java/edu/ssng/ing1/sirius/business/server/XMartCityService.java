@@ -19,8 +19,11 @@ import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.business.dto.Universities;
 import edu.ssng.ing1.sirius.business.dto.University;
+import edu.ssng.ing1.sirius.business.server.notifyProcess.StudentConnectedProcess;
 import edu.ssng.ing1.sirius.commons.Request;
 import edu.ssng.ing1.sirius.commons.Response;
+import edu.ssng.ing1.sirius.commons.SomeInfo;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
@@ -32,12 +35,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.Comparator;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class XMartCityService {
 
@@ -68,12 +65,17 @@ public class XMartCityService {
             switch (query) {
                 case SELECT_ALL_ACTIVITY:
                     return SelectAllActivite(preparedStatement);
+                case DISCONNECTION_STUDENT:
+
+                    return disconnection(request,preparedStatement,connection);
                 case SELECT_MY_ACTIVITY:
                     return SelectMyActivite(request, preparedStatement);
                 case SELECT_ALL_STUDENTS:
                     return selectStudentsResponse(preparedStatement, request);
+
                 case INSERT_ACTIVITY:
                     return InsertActivite(preparedStatement, request);
+
                 case SELECT_ALL_CITIES:
                     return selectCitiesResponse(preparedStatement, request);
                 case SELECT_FRIEND_REQUEST_WITHOUT_ANSWER:
@@ -82,7 +84,8 @@ public class XMartCityService {
                     return selectFriendResponse(preparedStatement, request);
                 case SELECT_ALL_UNIVERSITIES:
                     return selectUniversitiesResponse(preparedStatement, request);
-                case SIGN_UP_AS:
+
+                case INSERT_STUDENT:
                     return insertStudentResponse(preparedStatement, request);
                 case DOES_STUDENT_EXIST:
                     return doesStudentExistResponse(preparedStatement, request);
@@ -91,7 +94,7 @@ public class XMartCityService {
                 case SIGN_IN_AS:
                     return signinAsResponse(preparedStatement, request);
                 case STUDENT_INFO:
-                    return selectSelfInfoResponse(preparedStatement, request);
+                    return selectSelfInfoResponse(preparedStatement, request, connection);
                 case GET_DATA_CONNEXION:
                     return getConnexionData(preparedStatement, request);
                 case REJECT_INVITATION:
@@ -324,7 +327,7 @@ public class XMartCityService {
 
     }
 
-    private Response InsertActivite(final PreparedStatement preparedStatement, final Request request)
+    private Response InsertActivite(final PreparedStatement preparedStatement, final Request request, Connection connection)
             throws NoSuchFieldException, IllegalAccessException, JsonParseException, JsonMappingException, IOException {
         Response response = new Response();
         try {
@@ -346,6 +349,7 @@ public class XMartCityService {
                 }
             }
             response.setRequestId(request.getRequestId());
+            
 
             String responseBody = objectMapper.writeValueAsString(activite);
 
@@ -353,10 +357,20 @@ public class XMartCityService {
 
             System.out.println("Eloka" + responseBody + "Michel");
             System.out.println(response.getResponseBody());
+            Set<Student> students=activite.getStudents();
+            Set<String> emailToSend =new HashSet<>();
+
+            for (Student student : students) {
+                emailToSend.add(student.getEmail());
+                
+            }
 
             System.out.println(
                     "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-
+            BroadcastNotification.broadcast("NEW_ACTIVITY", StudentConnectedProcess.getFriends(activite.getEmailCreateur(),
+            connection), activite, activite.getNomCreateur(), activite.getNom_interet_activite());
+            response.setRequestId(request.getRequestId());
+            BroadcastNotification.broadcast("INVITE_ACTIVITY", emailToSend, activite, activite.getNom_interet_activite());
             response.setRequestId(request.getRequestId());
 
         } catch (SQLException e) {
@@ -397,7 +411,6 @@ public class XMartCityService {
         return response;
 
     }
-
     private Response SelectMyActivite(final Request request, PreparedStatement preparedStatement)
             throws NoSuchFieldException, IllegalAccessException, IOException {
 
@@ -449,13 +462,45 @@ public class XMartCityService {
         bodyResponse = mapper.writeValueAsString(students);
         return new Response(request.getRequestId(), bodyResponse);
     }
+    public Response selectMyfriends(PreparedStatement preparedStatement, Request request)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, JsonProcessingException {
 
-    public Response selectSelfInfoResponse(PreparedStatement preparedStatement, Request request)
+        Students students = new Students();
+        final ObjectMapper mapper = new ObjectMapper();
+        String bodyResponse = "";
+
+        ResultSet listOfStudents = preparedStatement.executeQuery();
+        while (listOfStudents.next()) {
+            Student student = new Student().build(listOfStudents);
+            students.add(student);
+        }
+        listOfStudents.close();
+        bodyResponse = mapper.writeValueAsString(students);
+        return new Response(request.getRequestId(), bodyResponse);
+    }
+    public Response selectLastActivityFriends(PreparedStatement preparedStatement, Request request)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, JsonProcessingException {
+
+        Students students = new Students();
+        final ObjectMapper mapper = new ObjectMapper();
+        String bodyResponse = "";
+
+        ResultSet listOfStudents = preparedStatement.executeQuery();
+        while (listOfStudents.next()) {
+            Student student = new Student().build(listOfStudents);
+            students.add(student);
+        }
+        listOfStudents.close();
+        bodyResponse = mapper.writeValueAsString(students);
+        return new Response(request.getRequestId(), bodyResponse);
+    }
+
+    public Response selectSelfInfoResponse(PreparedStatement preparedStatement, Request request,Connection connection)
             throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
         Student student = new Student();
         final ObjectMapper mapper = new ObjectMapper();
-        String email = mapper.readValue(request.getRequestBody(), String.class);
-        preparedStatement.setString(1, email);
+        SomeInfo someInfo = mapper.readValue(request.getRequestBody(), SomeInfo.class);
+        preparedStatement.setString(1, someInfo.getInfo());
 
         String bodyResponse = "";
 
@@ -472,6 +517,14 @@ public class XMartCityService {
         }
         listOfStudents.close();
         bodyResponse = mapper.writeValueAsString(student);
+                // Student studentt= new Student();
+                // studentt.setEmail("elokamichel@gmail.com");
+                // Set<String> set = new HashSet<>();
+                // // set.add("kshemwell0@4shared.com");
+                ConnectedStudent.addNewStudentConnected(someInfo);
+                BroadcastNotification.broadcast("NEW_CONNECTION",
+                StudentConnectedProcess.getFriends(someInfo.getInfo(),
+                connection),someInfo.getInfo());
         return new Response(request.getRequestId(), bodyResponse);
     }
 
@@ -501,6 +554,19 @@ public class XMartCityService {
         listOfStudents.close();
         bodyResponse = mapper.writeValueAsString(friends);
         return new Response(request.getRequestId(), bodyResponse);
+    }
+
+    private static byte[] convertInputStreamToBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[4096]; 
+        
+        int nRead;
+        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        
+        buffer.flush();
+        return buffer.toByteArray();
     }
 
     public Response selectUniversitiesResponse(PreparedStatement preparedStatement, Request request)
@@ -569,6 +635,7 @@ public class XMartCityService {
 
             final String hashedPassword = resultSet.getString("password");
             if (BCrypt.checkpw(student.getPassword(), hashedPassword)) {
+                System.out.println(ConnectedStudent.getStudentConnectedemailHashmap());
                 String bodyResponse = String.format("{\"msg\": \"%s\"}", "success");
                 return new Response(request.getRequestId(), bodyResponse);
             }

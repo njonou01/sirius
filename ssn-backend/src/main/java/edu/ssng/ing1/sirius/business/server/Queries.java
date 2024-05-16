@@ -1,50 +1,74 @@
 package edu.ssng.ing1.sirius.business.server;
 
-enum Queries {
-        SELECT_ALL_ACTIVITY(
-                        "SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t"),
-        SELECT_MY_ACTIVITY(
-                        "SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t WHERE t.id_student = ?"),
-        INSERT_ACTIVITY("INSERT into \"ssn-db-ing1\".Activite (\"datecreation\", \"datedebut\", \"datefin\", \"nom_interet_activite\", \"libelle\", \"categorie\", \"provenance\", \"confidentialite\", \"nomcreateur\",\"nbrparticipant\", \"id_student\" , \"state\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+public enum Queries {
+        SELECT_ALL_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t"),
+        SELECT_MY_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t WHERE t.id_student = ?"),
+        ACTIVITY_INVITATION("INSERT INTO \"ssn-db-ing1\".activityinvitation (sender, receiver) VALUES (?, ?)"),
+        RESPONSE_UPDATE("UPDATE ssn-db-ing1.activityinvitation\n" + 
+                                "SET state = ?\n" + 
+                                "WHERE sender = ? AND receiver = ?"),
+        INSERT_ACTIVITY("INSERT into \"ssn-db-ing1\".Activite (\"datecreation\", \"datedebut\", \"datefin\", \"nom_interet_activite\", \"libelle\", \"categorie\", \"provenance\", \"confidentialite\", \"nomcreateur\", \"id_student\",\"nbrparticipant\" , \"state\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+        ALREADY_ACTIVITY("SELECT DISTINCT s.id_student, s.nom, s.prenom " +
+                "FROM \"ssn-db-ing1\".student s " +
+                "JOIN \"ssn-db-ing1\".participationactivite pa ON s.id_student = pa.id_student " +
+                "JOIN \"ssn-db-ing1\".participationactivite pa2 ON pa.idactivite = pa2.idactivite " +
+                "JOIN \"ssn-db-ing1\".activite a ON pa.idactivite = a.idactivite " +
+                "WHERE pa2.id_student = ? " +
+                "AND pa.dateparticipation < CURRENT_DATE " +
+                "AND a.state = false"),
+        ACTIVITY_PARTICIPATION("SELECT s.id_student, s.nom, s.prenom " +
+                "FROM \"ssn-db-ing1\".student s " +
+                "JOIN \"ssn-db-ing1\".participationactivite pa ON s.id_student = pa.id_student " +
+                "WHERE pa.idactivite = ?"),
+        OVER_ACTIVITY("UPDATE \"ssn-db-ing1\".activite SET state = false WHERE idactivite = ?"),
+        DELETE_PARTICIPATION("DELETE FROM \"ssn-db-ing1\".participationactivite WHERE id_student = ? AND idactivite = ?"),
         SELECT_ALL_CITIES("SELECT t.id_city , t.zipcode , t.city_name FROM \"ssn-db-ing1\".city t"),
         SELECT_ALL_STUDENTS(
                         "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
                                         "\tFROM \"ssn-db-ing1\".student"),
-        STUDENT_INFO("SELECT student.id_student, student.familly_name as familyname , student.first_name as firstname, student.email as email, student.phone_number as phoneNumber, student.gender as gender,student.profile_image as profile_image , student.password as password , student.birthday as bithday\n"
-                        + //
-                        "FROM \"ssn-db-ing1\".student student where email = ?"),
-        SELECT_FRIENDS("WITH\n" +
-                        "\tLASTATTENDEDUNIVERSITY AS (\n" +
-                        "\t\tSELECT\n" +
-                        "\t\t\tID_STUDENT,\n" +
-                        "\t\t\tID_UNIVERSITY,\n" +
-                        "\t\t\tMAX(\"end\") AS MAX_END\n" +
-                        "\t\tFROM\n" +
-                        "\t\t\t\"ssn-db-ing1\".ATTENDED\n" +
-                        "\t\tGROUP BY\n" +
-                        "\t\t\tID_STUDENT,\n" +
-                        "\t\t\tID_UNIVERSITY\n" +
-                        "\t)\n" +
-                        "SELECT DISTINCT\n" +
-                        "\tON (S.EMAIL) S.ID_STUDENT AS ID_STUDENT,\n" +
-                        "\tS.FAMILLY_NAME AS FAMILYNAME,\n" +
-                        "\tS.FIRST_NAME AS FIRSTNAME,\n" +
-                        "\tS.EMAIL AS EMAIL,\n" +
-                        "\tS.PHONE_NUMBER AS PHONENUMBER,\n" +
-                        "\tS.GENDER AS GENDER,\n" +
-                        "\tS.USERNAME AS USERNAME,\n" +
-                        "\tS.PROFILE_IMAGE AS PROFILE_IMAGE,\n" +
-                        "\tS.PASSWORD AS PASSWORD,\n" +
-                        "\tS.BIRTHDAY AS BITHDAY,\n" +
-                        "\tBEF.STATUS AS STATUS,\n" +
-                        "\tBEF.BEFRIEND_SINCE AS BEFRIEND_SINCE,\n" +
-                        "\tBEF.RECEIVED_AT AS RECEIVED_AT,\n" +
-                        "\tBEF.END_RELATION_AT AS END_RELATION_AT,\n" +
-                        "\tU.LABEL AS UNIVERSITY,\n" +
-                        "\tA.START AS FORMATION_START,\n" +
-                        "\tA.END AS FORMATION_STOP,\n" +
-                        "\tA.DESCRIPTION AS FORMATION_DESCRIPTION,\n" +
-                        "\tA.TRAINING_FOLLOWED AS TRAINING_FOLLOWED\n" +
+        SELECT_LAST_ACTIVITY_FRIENDS(
+                        "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
+                                        "\tFROM \"ssn-db-ing1\".student"),
+        DISCONNECTION_STUDENT(
+                        "La requete de mis à jour ici"),
+        STUDENT_INFO(
+                        "SELECT student.id_student, student.familly_name as familyname , student.first_name as firstname, student.email as email, student.phone_number as phoneNumber, student.gender as gender,student.profile_image as profile_image , student.password as password , student.birthday as bithday\n"
+                                        + //
+                                        "FROM \"ssn-db-ing1\".student student where email = ?"),
+        SELECT_FRIENDS_FOR_CONNEXION(
+                "SELECT \n" +
+                "distinct (email)\n" +
+                "FROM \n" +
+                "    \"ssn-db-ing1\".student s\n" +
+                "JOIN \n" +
+                "    \"ssn-db-ing1\".befriend b ON s.id_student = b.sender OR s.id_student = b.receiver\n" +
+                "WHERE \n" +
+                "    (b.sender IN (SELECT id_student FROM \"ssn-db-ing1\".student WHERE email = ? )\n"
+                +
+                "    OR b.receiver IN (SELECT id_student FROM \"ssn-db-ing1\".student WHERE email = ? ))\n"
+                +
+                "    AND b.status = 'accepted'\n" +
+                "    AND (b.end_relation_at IS NULL OR b.end_relation_at > now())\n" +
+                "\tAND email <> ? "),
+        SELECT_FRIENDS("SELECT DISTINCT ON (STUDENT.EMAIL)\n" +
+                        "    STUDENT.FAMILLY_NAME AS FAMILYNAME,\n" +
+                        "    STUDENT.FIRST_NAME AS FIRSTNAME,\n" +
+                        "    STUDENT.EMAIL AS EMAIL,\n" +
+                        "    STUDENT.PHONE_NUMBER AS PHONENUMBER,\n" +
+                        "    STUDENT.GENDER AS GENDER,\n" +
+                        "    STUDENT.USERNAME AS USERNAME,\n" +
+                        "    STUDENT.PROFILE_IMAGE AS PROFILE_IMAGE,\n" +
+                        "    STUDENT.PASSWORD AS PASSWORD,\n" +
+                        "    STUDENT.BIRTHDAY AS BITHDAY,\n" +
+                        "    BEFRIEND.STATUS,\n" +
+                        "    BEFRIEND.BEFRIEND_SINCE,\n" +
+                        "    BEFRIEND.RECEIVED_AT,\n" +
+                        "    BEFRIEND.END_RELATION_AT,\n" +
+                        "    UNIVERSITY.LABEL AS UNIVERSITY,\n" +
+                        "    ATTENDED.START AS FORMATION_START,\n" +
+                        "    ATTENDED.END AS FORMATION_STOP,\n" +
+                        "    ATTENDED.DESCRIPTION AS FORMATION_DESCRIPTION,\n" +
+                        "    ATTENDED.TRAINING_FOLLOWED \n" +
                         "FROM\n" +
                         "\t\"ssn-db-ing1\".BEFRIEND AS BEF\n" +
                         "\tJOIN \"ssn-db-ing1\".STUDENT AS S ON BEF.SENDER = S.ID_STUDENT\n" +

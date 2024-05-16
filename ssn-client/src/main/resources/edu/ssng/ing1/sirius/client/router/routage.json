@@ -11,6 +11,10 @@
     "path": "authentification/signup-school",
     "title": "SSN Group 9"
   },
+  "groupeActivity": {
+    "path": "createActivity/groupeActivity",
+    "title": "SSN Group 9"
+  },
   "signup-student-info": {
     "path": "authentification/signup-student-info",
     "title": "SSN Group 9"

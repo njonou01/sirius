@@ -1,8 +1,15 @@
 package edu.ssng.ing1.sirius.client.controllers.commons;
 
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.prefs.Preferences;
 
@@ -16,7 +23,9 @@ import edu.ssng.ing1.sirius.client.MainClient;
 import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
+import edu.ssng.ing1.sirius.client.notificationManagement.ClientConnexion;
 import edu.ssng.ing1.sirius.commons.Request;
+import edu.ssng.ing1.sirius.commons.SomeInfo;
 
 public class UserInfo {
     private static UserInfo instance;
@@ -25,6 +34,7 @@ public class UserInfo {
     private static Preferences prefs = Preferences.userRoot()
             .node(MainClient.class.getName());
     private final static Logger logger = LoggerFactory.getLogger("U S E R - I N F O");
+    private Set<String> ipAdress;
 
     private UserInfo() {
 
@@ -81,14 +91,18 @@ public class UserInfo {
         final Logger logger = LoggerFactory.getLogger(LoggingLabel);
         final String networkConfigFile = "network.yaml";
         String requestOrder;
+        new ClientConnexion().start();
 
         requestOrder = "STUDENT_INFO";
+        SomeInfo infoToshare= new SomeInfo();
 
+        infoToshare.setInfo(email);
+        infoToshare.setIpAdress(getIpAdress());
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
 
         int birthdate = 0;
         final ObjectMapper objectMapper = new ObjectMapper();
-        final String jsonifiedStudent = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(email);
+        final String jsonifiedStudent = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(infoToshare);
         final String requestId = UUID.randomUUID().toString();
         final Request request = new Request();
         request.setRequestId(requestId);
@@ -111,6 +125,32 @@ public class UserInfo {
         return null;
     }
 
+    public static Set<String> getIpAdress(){
+
+        Set<String> ips = new HashSet<>();
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            
+            while (interfaces.hasMoreElements()) {
+                NetworkInterface iface = interfaces.nextElement();
+                
+                if (iface.isUp() && !iface.isLoopback()) {
+                    Enumeration<InetAddress> addresses = iface.getInetAddresses();
+                    while (addresses.hasMoreElements()) {
+                        InetAddress addr = addresses.nextElement();
+                        if (addr instanceof Inet4Address && addr.getHostAddress().startsWith("172.31.240")) {
+                            ips.add(addr.getHostAddress());
+                        }
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+        return ips;
+
+    }
+
     private static class SelectSelfInfoRequest extends ClientRequest<Object, Student> {
 
         public SelectSelfInfoRequest(
@@ -118,6 +158,8 @@ public class UserInfo {
                 throws IOException {
             super(networkConfig, myBirthDate, request, info, bytes);
         }
+
+       
 
         @Override
         public Student readResult(String body) throws IOException {

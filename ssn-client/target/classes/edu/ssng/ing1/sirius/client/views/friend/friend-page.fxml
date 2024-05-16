@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.friend.FriendPageController">
+   <center>
+      <SplitPane dividerPositions="0.22, 1.0" prefHeight="850.0" prefWidth="1200.0">
+         <items>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="TOP_RIGHT" prefHeight="848.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="848.0" prefWidth="370.0">
+                           <padding>
+                              <Insets left="8.0" right="8.0" top="15.0" />
+                           </padding>
+                           <children>
+                              <Button mnemonicParsing="false" styleClass="node-transparent">
+                                 <graphic>
+                                    <AnchorPane prefHeight="0.0" prefWidth="248.0" styleClass="btn-transparent">
+                                       <children>
+                                          <Label prefHeight="30.0" prefWidth="85.0" style="-fx-font-size: 25;" text="Amis" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="157.0" AnchorPane.topAnchor="0.0">
+                                             <font>
+                                                <Font name="System Bold" size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" top="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="friendHomeBtn" mnemonicParsing="false" styleClass="node-transparent">
+                                 <graphic>
+                                    <HBox prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
+                                       <children>
+                                          <AnchorPane prefWidth="253.0">
+                                             <children>
+                                                <VBox>
+                                                   <children>
+                                                      <HBox>
+                                                         <children>
+                                                            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                               <graphic>
+                                                                  <VBox alignment="CENTER">
+                                                                     <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Acceuil" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="interaction-btn" />
+                                                               </styleClass>
+                                                            </Button>
+                                                            <Button mnemonicParsing="false" style="-fx-padding: 0;">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="fas-angle-right" iconSize="25" styleClass="icon" />
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="interaction-btn" />
+                                                               </styleClass>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="friendInvitationsBtn" mnemonicParsing="false" styleClass="node-transparent">
+                                 <graphic>
+                                    <HBox prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
+                                       <children>
+                                          <AnchorPane prefWidth="253.0">
+                                             <children>
+                                                <VBox>
+                                                   <children>
+                                                      <HBox>
+                                                         <children>
+                                                            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                               <graphic>
+                                                                  <VBox alignment="CENTER">
+                                                                     <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Demandes d'amitié" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="interaction-btn" />
+                                                               </styleClass>
+                                                            </Button>
+                                                            <Button mnemonicParsing="false" style="-fx-padding: 0;">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="fas-angle-right" iconSize="25" styleClass="icon" />
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="interaction-btn" />
+                                                               </styleClass>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="friendSuggestionsBtn" mnemonicParsing="false" styleClass="node-transparent">
+                                 <graphic>
+                                    <HBox prefHeight="20.0" prefWidth="222.0" styleClass="node-transparent">
+                                       <children>
+                                          <AnchorPane prefWidth="253.0">
+                                             <children>
+                                                <VBox>
+                                                   <children>
+                                                      <HBox>
+                                                         <children>
+                                                            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                               <graphic>
+                                                                  <VBox alignment="CENTER">
+                                                                     <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Suggestions" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="interaction-btn" />
+                                                               </styleClass>
+                                                            </Button>
+                                                            <Button mnemonicParsing="false" style="-fx-padding: 0;">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="fas-angle-right" iconSize="25" styleClass="icon" />
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="interaction-btn" />
+                                                               </styleClass>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="allFriendBtn" mnemonicParsing="false" styleClass="node-transparent">
+                                 <graphic>
+                                    <HBox prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
+                                       <children>
+                                          <AnchorPane prefWidth="253.0">
+                                             <children>
+                                                <VBox>
+                                                   <children>
+                                                      <HBox>
+                                                         <children>
+                                                            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                               <graphic>
+                                                                  <VBox alignment="CENTER">
+                                                                     <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="221.0" spacing="8.0" styleClass="btn-transparent">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Tous vos amis" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="interaction-btn" />
+                                                               </styleClass>
+                                                            </Button>
+                                                            <Button mnemonicParsing="false" style="-fx-padding: 0;">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="fas-angle-right" iconSize="25" styleClass="node-transparent" />
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="interaction-btn" />
+                                                               </styleClass>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="birthdayBtn" mnemonicParsing="false" styleClass="node-transparent">
+                                 <graphic>
+                                    <HBox prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
+                                       <children>
+                                          <AnchorPane prefWidth="253.0">
+                                             <children>
+                                                <VBox>
+                                                   <children>
+                                                      <HBox>
+                                                         <children>
+                                                            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0">
+                                                               <graphic>
+                                                                  <VBox alignment="CENTER" prefHeight="18.0" prefWidth="167.0">
+                                                                     <children>
+                                                                        <HBox alignment="CENTER_LEFT" prefHeight="18.0" prefWidth="185.0" spacing="8.0">
+                                                                           <children>
+                                                                              <FontIcon iconLiteral="fas-users" styleClass="icon" />
+                                                                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="interaction-title" text="Anniversaires" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="node-transparent" />
+                                                                  <String fx:value="btn-transparent" />
+                                                               </styleClass>
+                                                            </Button>
+                                                            <Button mnemonicParsing="false" style="-fx-padding: 0;">
+                                                               <graphic>
+                                                                  <FontIcon iconLiteral="fas-angle-right" iconSize="25">
+                                                                     <styleClass>
+                                                                        <String fx:value="icon" />
+                                                                        <String fx:value="node-transparent" />
+                                                                     </styleClass>
+                                                                  </FontIcon>
+                                                               </graphic>
+                                                               <styleClass>
+                                                                  <String fx:value="interaction-btn" />
+                                                                  <String fx:value="node-transparent" />
+                                                               </styleClass>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                     <children>
+                        <StackPane fx:id="workStackZone">
+                           <children>
+                              <ScrollPane fx:id="homePanel" hbarPolicy="NEVER" vbarPolicy="NEVER">
+                                 <content>
+                                    <VBox prefHeight="848.0" prefWidth="915.0">
+                                       <padding>
+                                          <Insets bottom="30.0" left="30.0" right="28.0" top="10.0" />
+                                       </padding>
+                                       <children>
+                                          <VBox prefWidth="855.0" style="-fx-border-width: 0 0 1px; -fx-border-color: #ccc;">
+                                             <children>
+                                                <AnchorPane prefHeight="31.0" prefWidth="895.0">
+                                                   <children>
+                                                      <Label layoutX="14.0" layoutY="7.0" style="-fx-font-size: 25px;" text="Invitations" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="42.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button layoutX="692.0" layoutY="30.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="141.0" style="-fx-font-size: 20; -fx-padding: 0;" styleClass="node-transparent" text="Afficher Tout" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="10.0" top="25.0" />
+                                                   </padding>
+                                                </AnchorPane>
+                                                <FlowPane fx:id="invitationZone" hgap="5.0" prefWidth="857.0" vgap="19.0" />
+                                                <HBox fx:id="invitationViewMore" alignment="CENTER" prefWidth="200.0">
+                                                   <children>
+                                                      <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="23.0" prefWidth="137.0" style="-fx-font-size: 18;" styleClass="node-transparent" text="Voir Plus">
+                                                         <graphic>
+                                                            <FontIcon iconLiteral="fas-caret-down" />
+                                                         </graphic>
+                                                      </Button>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="15.0" top="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox layoutX="40.0" layoutY="20.0" prefWidth="855.0">
+                                             <children>
+                                                <AnchorPane prefHeight="31.0" prefWidth="895.0">
+                                                   <padding>
+                                                      <Insets bottom="10.0" top="25.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label layoutX="14.0" layoutY="7.0" style="-fx-font-size: 25px;" text="Vous connaissez peut-être" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="42.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Button layoutX="692.0" layoutY="30.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="141.0" style="-fx-font-size: 20; -fx-padding: 0;" styleClass="node-transparent" text="Afficher Tout" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                                <FlowPane hgap="5.0" prefWidth="857.0" vgap="5.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                              <ScrollPane fx:id="invatationPane" hbarPolicy="NEVER" vbarPolicy="NEVER" visible="false">
+                                 <content>
+                                    <VBox prefHeight="848.0" prefWidth="915.0">
+                                       <padding>
+                                          <Insets bottom="30.0" left="30.0" right="28.0" top="10.0" />
+                                       </padding>
+                                       <children>
+                                          <VBox prefWidth="855.0" style="-fx-border-width: 0 0 1px;">
+                                             <children>
+                                                <AnchorPane prefHeight="31.0" prefWidth="895.0">
+                                                   <children>
+                                                      <Label layoutX="14.0" layoutY="7.0" style="-fx-font-size: 25px;" text="Invitations" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="42.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                   <padding>
+                                                      <Insets bottom="10.0" top="25.0" />
+                                                   </padding>
+                                                </AnchorPane>
+                                                <FlowPane fx:id="invitationPanelZone" hgap="5.0" prefWidth="857.0" vgap="19.0" />
+                                                <HBox alignment="CENTER" prefWidth="200.0">
+                                                   <padding>
+                                                      <Insets bottom="15.0" top="15.0" />
+                                                   </padding>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                              <ScrollPane fx:id="sugggestionPanel" hbarPolicy="NEVER" vbarPolicy="NEVER" visible="false">
+                                 <content>
+                                    <VBox prefHeight="848.0" prefWidth="915.0">
+                                       <padding>
+                                          <Insets bottom="30.0" left="30.0" right="28.0" top="10.0" />
+                                       </padding>
+                                       <children>
+                                          <VBox layoutX="40.0" layoutY="20.0" prefWidth="855.0">
+                                             <children>
+                                                <AnchorPane prefHeight="31.0" prefWidth="895.0">
+                                                   <padding>
+                                                      <Insets bottom="10.0" top="25.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label layoutX="14.0" layoutY="7.0" style="-fx-font-size: 25px;" text="Vous connaissez peut-être" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="42.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <FlowPane hgap="5.0" prefWidth="857.0" vgap="5.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                              <ScrollPane fx:id="allFriendPanel" hbarPolicy="NEVER" vbarPolicy="NEVER" visible="false">
+                                 <content>
+                                    <VBox prefHeight="848.0" prefWidth="915.0">
+                                       <padding>
+                                          <Insets bottom="30.0" left="30.0" right="28.0" top="10.0" />
+                                       </padding>
+                                       <children>
+                                          <VBox layoutX="40.0" layoutY="20.0" prefWidth="855.0">
+                                             <children>
+                                                <AnchorPane prefHeight="31.0" prefWidth="895.0">
+                                                   <padding>
+                                                      <Insets bottom="10.0" top="25.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label fx:id="numberOfFriends" layoutX="14.0" layoutY="7.0" style="-fx-font-size: 25px;" text="67 Ami(e)s" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font size="42.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <HBox prefHeight="34.0" prefWidth="855.0">
+                                                   <children>
+                                                      <ComboBox prefWidth="150.0" promptText="Classer par" style="-fx-background-color: transparent;" />
+                                                      <AnchorPane prefHeight="23.0" prefWidth="704.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" layoutX="293.0" spacing="10.0">
+                                                               <children>
+                                                                  <Label prefHeight="15.0" text="Chercher mot clé" />
+                                                                  <TextField prefHeight="34.0" prefWidth="247.0" promptText="Entrer le mot" />
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                </HBox>
+                                                <FlowPane fx:id="friendZone" hgap="5.0" prefWidth="857.0" vgap="5.0">
+                                                   <VBox.margin>
+                                                      <Insets top="20.0" />
+                                                   </VBox.margin>
+                                                </FlowPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="848.0" prefWidth="0.0" />
+         </items>
+      </SplitPane>
+   </center>
+   <stylesheets>
+      <URL value="@../asset/css/all.css" />
+      <URL value="@friend.css" />
+   </stylesheets>
+</BorderPane>
