@@ -47,10 +47,8 @@ public class SsnNotifyService {
         System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
         System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
         System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateString = sdf.format(date);
-        notification.setHoursReceive(dateString);
+       
+        
 
         HomeController.getNotificationToBedisplayed().add(notification);
         Platform.runLater(() -> HomeController.displayOnnotifPanel());

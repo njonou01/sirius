@@ -74,6 +74,7 @@ public class createActivityPage4Controller implements Initializable {
         student.setProfileImage(null);
         Platform.runLater(() -> {
             myFriends.setOnAction(event -> {
+                inviteVbox.getChildren().clear();
 
                 
                 try {
@@ -91,7 +92,8 @@ public class createActivityPage4Controller implements Initializable {
             
             });
             lastActivityBtn.setOnAction(event -> {
-
+                inviteVbox.getChildren().clear();
+                
                 
                 try {
                     Students students= SelectMyFriends.SelectStudentLast(student);

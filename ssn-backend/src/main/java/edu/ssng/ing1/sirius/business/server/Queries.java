@@ -27,8 +27,15 @@ public enum Queries {
                         "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
                                         "\tFROM \"ssn-db-ing1\".student"),
         SELECT_LAST_ACTIVITY_FRIENDS(
-                        "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
-                                        "\tFROM \"ssn-db-ing1\".student"),
+                "SELECT DISTINCT s2.* " +
+                       "FROM \"ssn-db-ing1\".participationactivite p1 " +
+                       "JOIN \"ssn-db-ing1\".participationactivite p2 ON p1.idactivite = p2.idactivite " +
+                       "JOIN \"ssn-db-ing1\".student s1 ON p1.id_student = s1.id_student " +
+                       "JOIN \"ssn-db-ing1\".student s2 ON p2.id_student = s2.id_student " +
+                       "WHERE s1.email = ? " +
+                       "  AND p1.dateparticipation < CURRENT_DATE " +
+                       "  AND p2.dateparticipation < CURRENT_DATE " +
+                       "  AND s2.id_student <> s1.id_student"),
         DISCONNECTION_STUDENT(
                         "La requete de mis à jour ici"),
         STUDENT_INFO(

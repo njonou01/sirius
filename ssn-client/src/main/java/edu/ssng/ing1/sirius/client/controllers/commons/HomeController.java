@@ -116,7 +116,7 @@ public class HomeController implements Initializable {
         deconnexionbtn.setOnAction(event -> {
             Student student = UserInfo.getUser();
             UserInfo.removeUser();
-            ClientConnexion.closersocket();
+            // ClientConnexion.closersocket();
 
             // try {
             // Disconnection.disconnection(student.getEmail());
@@ -148,20 +148,20 @@ public class HomeController implements Initializable {
 
         Platform.runLater(() -> {
             for (Notification notification : notificationToBedisplayed) {
-                if (isAlreadyDisplay && notificationToBedisplayed.contains(notification)) {
+                // if (isAlreadyDisplay && notificationToBedisplayed.contains(notification)) {
                     System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                     System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                     System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                     System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                    continue;
-                }
+                //     continue;
+                // }
 
-                Label label = new Label(notification.getMessage());
-                Label labelHour = new Label(notification.getHoursReceive());
+                Label label = new Label(notification.getMessage()+" "+ notification.getHoursReceive());
+                // Label labelHour = new Label(notification.getHoursReceive());
                 label.setWrapText(true);
-                labelHour.setWrapText(true);
+                // labelHour.setWrapText(true);
                 final HBox hbox = new HBox();
-                hbox.getChildren().addAll(label, labelHour);
+                hbox.getChildren().addAll(label);
                 vBoxN.getChildren().add(hbox);
             }
 

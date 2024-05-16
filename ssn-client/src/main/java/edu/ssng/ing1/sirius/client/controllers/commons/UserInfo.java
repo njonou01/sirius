@@ -91,6 +91,7 @@ public class UserInfo {
         final Logger logger = LoggerFactory.getLogger(LoggingLabel);
         final String networkConfigFile = "network.yaml";
         String requestOrder;
+        ClientConnexion.isCloseSocket=true;
         new ClientConnexion().start();
 
         requestOrder = "STUDENT_INFO";
