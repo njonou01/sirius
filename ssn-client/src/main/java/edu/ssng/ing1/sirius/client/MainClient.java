@@ -5,7 +5,6 @@ import java.io.IOException;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.notificationManagement.ClientConnexion;
-import edu.ssng.ing1.sirius.client.platFormeManager.PlatFormeManager;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.application.Application;
@@ -62,19 +61,6 @@ public class MainClient extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        // UserInfo.getInstance();
-        // Student user = UserInfo.getUser();
-        // try {
-        // Messages messages =
-        // CommonsMessageRequest.selectMessages(user.getId_student());
-        // for (Message message : messages.getMessages()) {
-        // System.out.println(message.toString());
-        // }
-        // // FriendCommonRequest.selectSuggestedFriends(new
-        // Student(user.getId_student()));
-        // } catch (IOException | InterruptedException e) {
-        // System.out.println("erreur");
-        // }
     }
 
 }

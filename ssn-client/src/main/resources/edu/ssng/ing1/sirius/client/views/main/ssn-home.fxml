@@ -40,7 +40,7 @@
                                        <children>
                                           <VBox maxWidth="263.0" prefWidth="263.0" spacing="15.0" style="-fx-background-radius: 15px; -fx-background-color: white;">
                                              <children>
-                                                <VBox alignment="CENTER" prefHeight="29.0" prefWidth="268.0">
+                                                <VBox alignment="CENTER" prefWidth="268.0">
                                                    <children>
                                                       <HBox prefHeight="20.0" prefWidth="222.0" styleClass="interaction-block">
                                                          <children>
@@ -218,6 +218,7 @@
                                                             <Insets bottom="5.0" top="5.0" />
                                                          </padding>
                                                       </HBox>
+                                                      <Accordion />
                                                       <Accordion>
                                                         <panes>
                                                           <TitledPane animated="false" style="-fx-background-color: transparent;" styleClass="btn-transparent" text="En découvrir plus">
