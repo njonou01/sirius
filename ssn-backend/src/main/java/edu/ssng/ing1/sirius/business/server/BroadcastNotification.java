@@ -24,8 +24,7 @@ public class BroadcastNotification {
 
     static synchronized void broadcast(String type, Set<String> receivers, String... messageArguments)
             throws JsonProcessingException {
-        System.out.println("Broadcasting message to " + receivers.size() + " friends.");
-        int triedConnection = 0;
+        logger.info("Broadcasting message to " + receivers.size() + " friends.");
         Notification notification = new Notification();
         NotificationType notificationType = NotificationType.valueOf(type);
 
@@ -38,7 +37,7 @@ public class BroadcastNotification {
         for (String receiver : receivers) {
             Set<String> ipReceivers = ConnectedStudent
                     .getStudentConnectedemailHashmap().get(receiver);
-            System.out.println("Address found : " + ipReceivers);
+            logger.info("Address found : " + ipReceivers);
 
             for (String ipReceiver : ipReceivers) {
                 tryconnection(ipReceiver, notifTosend, receiver);
@@ -50,25 +49,24 @@ public class BroadcastNotification {
 
     static synchronized void broadcast(String type, Set<String> receivers, Object object, String... messageArguments)
             throws JsonProcessingException {
-        System.out.println("Broadcasting message to " + receivers.size() + " friends.");
-        int triedConnection = 0;
+        logger.info("Broadcasting message to " + receivers.size() + " friends.");
         Notification notification = new Notification();
         NotificationType notificationType = NotificationType.valueOf(type);
 
         notification.setMessage(notificationType.getMessage(messageArguments));
         notification.setOrder(type);
         ObjectMapper objectMapper = new ObjectMapper();
-        
+
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         String bject = objectMapper.writeValueAsString(object);
-        
+
         notification.setBody(bject);
         byte[] notifTosend = objectMapper.writeValueAsBytes(notification);
 
         for (String receiver : receivers) {
             Set<String> ipReceivers = ConnectedStudent
                     .getStudentConnectedemailHashmap().get(receiver);
-            System.out.println("Address found : " + ipReceivers);
+            logger.info("Address found : " + ipReceivers);
 
             for (String ipReceiver : ipReceivers) {
                 tryconnection(ipReceiver, notifTosend, receiver);
@@ -83,10 +81,10 @@ public class BroadcastNotification {
         try (Socket sendSocket = new Socket(ipReceiver, 5461)) {
             if (sendSocket != null) {
                 try {
-                    System.out.println("le socket d'envoie est " + sendSocket);
+                    logger.info("le socket d'envoie est " + sendSocket);
                     OutputStream outputStream = sendSocket.getOutputStream();
                     outputStream.write(notifTosend);
-                    System.out.println("Message sent to " + receiverEmail);
+                    logger.info("Message sent to " + receiverEmail);
 
                     sendSocket.close();
                 } catch (IOException e) {
@@ -103,10 +101,10 @@ public class BroadcastNotification {
                     try (Socket sendSocket = new Socket(ipReceiver, 5461)) {
                         if (sendSocket != null) {
 
-                            System.out.println("le socket d'envoie est " + sendSocket);
+                            logger.info("le socket d'envoie est " + sendSocket);
                             OutputStream outputStream = sendSocket.getOutputStream();
                             outputStream.write(notifTosend);
-                            System.out.println("Message sent to " + receiverEmail);
+                            logger.info("Message sent to " + receiverEmail);
                             sendSocket.close();
 
                         }
@@ -114,7 +112,6 @@ public class BroadcastNotification {
                         logger.debug(" Student disconnect {} ", receiverEmail);
 
                     } catch (IOException e1) {
-                        // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
                 } catch (InterruptedException i) {

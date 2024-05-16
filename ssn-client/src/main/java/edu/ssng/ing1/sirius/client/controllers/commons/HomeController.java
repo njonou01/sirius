@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.notificationManagement.ClientConnexion;
 import edu.ssng.ing1.sirius.client.router.Router;
@@ -35,14 +38,12 @@ import javafx.scene.layout.VBox;
 
 public class HomeController implements Initializable {
     private static HomeController instance;
+    private static Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     public static HomeController getinstance() {
         if (instance == null) {
             instance = new HomeController();
-            System.out.println("-----------------------------------------");
-            System.out.println("HomeController instance created");
-            System.out.println("-----------------------------------------");
-
+            logger.info("HomeController instance created");
         }
         return instance;
     }
@@ -97,23 +98,13 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("-----------------------------------------");
-        System.out.println("HomeController INITIAL instance created");
-        System.out.println("HomeController INITIAL instance created");
-        System.out.println("-----------------------------------------");
 
         RouterPopUp routerPoUp = RouterPopUp.getInstance();
         logo.setImage(getImage("media/images/ssn-logo.png"));
         Student user = UserInfo.getUser();
 
         getPanenotif();
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("VVVVVVVVVVVVVVVVVVVVVIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+
         System.out.println(vBoxN);
         displayOnnotifPanel();
         isAlreadyDisplay = true;
@@ -172,10 +163,10 @@ public class HomeController implements Initializable {
         Platform.runLater(() -> {
             for (Notification notification : notificationToBedisplayed) {
                 if (isAlreadyDisplay && notificationToBedisplayed.contains(notification)) {
-                    System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                    System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                    System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                    System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    // System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    // System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    // System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    // System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
                     continue;
                 }
 

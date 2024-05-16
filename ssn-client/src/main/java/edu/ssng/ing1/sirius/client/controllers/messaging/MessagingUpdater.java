@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.slf4j.LoggerFactory;
+
 import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.business.dto.Student;
@@ -20,6 +22,7 @@ public class MessagingUpdater {
     public static void renitialize() {
         instance = null;
     }
+
     private MessagingUpdater(StudentBtnAction action, VBox studentList, VBox messageArea) {
         MessagingUpdater.studentList = studentList;
         MessagingUpdater.action = action;
@@ -29,7 +32,7 @@ public class MessagingUpdater {
     public static MessagingUpdater getInstance(StudentBtnAction action, VBox studentList, VBox messageArea) {
         if (instance == null) {
             instance = new MessagingUpdater(action, studentList, messageArea);
-            System.out.println("MessagingUpdater instance created");
+            LoggerFactory.getLogger(MessagingUpdater.class).info("MessagingUpdater instance created");
         }
         return instance;
     }

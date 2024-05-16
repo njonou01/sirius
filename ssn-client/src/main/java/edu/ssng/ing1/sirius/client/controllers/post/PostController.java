@@ -61,11 +61,9 @@ public class PostController {
         InputStream inputStream = classLoader.getResourceAsStream("media/images/test.jpg");
 
         if (inputStream != null) {
-            // Utiliser le flux d'entrée ici
-            System.out.println("Ressource chargée avec succès.");
-            // Par exemple, vous pouvez lire le contenu de la ressource ici
+            //To do 
         } else {
-            System.out.println("Impossible de charger la ressource.");
+           // todo
         }
         imagePost.setImage(new Image(inputStream));
         inputStream = classLoader.getResourceAsStream("media/images/profil.jpg");

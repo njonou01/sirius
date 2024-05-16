@@ -64,7 +64,7 @@ public class SignUpStudentInfoController implements Initializable {
     }
 
     private Boolean manageDate() {
-        System.out.println(birthdayField.getValue() == null);
+        // System.out.println(birthdayField.getValue() == null);
         if (birthdayField.getValue() == null) {
             validateField(birthdayField, (date) -> !(date == null));
         }

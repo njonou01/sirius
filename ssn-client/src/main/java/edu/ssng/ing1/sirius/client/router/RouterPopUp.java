@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.ssng.ing1.sirius.business.dto.Activite;
 import edu.ssng.ing1.sirius.business.dto.Activites;
 import edu.ssng.ing1.sirius.client.MainClient;
+import edu.ssng.ing1.sirius.client.controllers.messaging.PrivateMessagingController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -37,7 +38,7 @@ public class RouterPopUp {
     public static Activite activite = new Activite();
     public static Activites activites = new Activites();
     private static String[] categorie = { "JeuxVideos", "Visionage", "Lecture" };
-    private static String[] type = { "en ligne", "presentielle"};
+    private static String[] type = { "en ligne", "presentielle" };
     private static String[] confi = { "Public", "private" };
     public Circle circle = new Circle(50, Color.BLUE);
     private Router root;
@@ -135,12 +136,12 @@ public class RouterPopUp {
         return new FXMLLoader(MainClient.class.getResource(finalPath));
     }
 
-
     public void navigateTo(String name) {
         currentPagePopUp = name;
         if (stageReduce.isShowing()) {
             stageReduce.close();
-        };
+        }
+        ;
 
         try {
             JsonNode node = RouterPopUp.data.get(name);
@@ -162,7 +163,7 @@ public class RouterPopUp {
         try {
             RouterPopUp.data = mapper.readTree(inputStream);
         } catch (Exception e) {
-            System.out.println("error");
+            LoggerFactory.getLogger(RouterPopUp.class).error("error", e);
         }
     }
 
@@ -234,7 +235,6 @@ public class RouterPopUp {
     public static String[] getType() {
         return type;
     }
-
 
     public static void setCategorie(String[] categorie) {
         RouterPopUp.categorie = categorie;

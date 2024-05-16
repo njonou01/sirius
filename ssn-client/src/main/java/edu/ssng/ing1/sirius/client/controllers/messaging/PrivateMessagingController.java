@@ -8,6 +8,8 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.slf4j.LoggerFactory;
+
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +30,7 @@ import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.CommonsClient;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
+import edu.ssng.ing1.sirius.client.controllers.friend.FriendUpdater;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.requests.messages.CommonsMessageRequest;
 
@@ -110,8 +113,8 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
                 int id_sender = UserInfo.getUser().getId_student();
                 int id_receiver = activeStudent.getId_student();
                 String message = messageBox.getText();
-                Message msg = new Message(12, id_sender, id_receiver, message, currentimageBytes,
-                                Timestamp.valueOf("2024-05-01 10:55:00"));
+                Message msg = new Message(null, id_sender, id_receiver, message, currentimageBytes,
+                                null);
                 try {
                         Object result = CommonsMessageRequest.sendMessage(msg);
 
@@ -122,10 +125,10 @@ public class PrivateMessagingController implements Initializable, StudentBtnActi
                                 concversationArea.setVvalue(1);
                                 currentimageBytes = null;
                         } else {
-                                System.out.println("Error while sending message 1 ");
+                                LoggerFactory.getLogger(PrivateMessagingController.class).error("error in message {}", result.toString());
                         }
                 } catch (NullPointerException | IOException | InterruptedException e) {
-                        System.out.println("Error while sending message 2 ");
+                        LoggerFactory.getLogger(PrivateMessagingController.class).error("error", e);
                 }
 
         }

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.LoggerFactory;
+
 import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.BeFriends;
 import edu.ssng.ing1.sirius.business.dto.Student;
@@ -73,7 +75,7 @@ public class FriendUpdater {
         demandedFriend.getChildren().clear();
         List<AnchorPane> demanded = Initializer.friendshipRequestReceiver().stream()
                 .map(friend -> {
-                    return buildFriendCard(friend.getSender());
+                    return buildInvitation(friend.getSender());
                 }).collect(Collectors.toList());
         FriendUpdater.demandedFriend.getChildren().setAll(demanded);
     }
@@ -154,11 +156,10 @@ public class FriendUpdater {
                     updateDemandedFriend();
                     updateLimitedDemandedFriend();
                     MessagingUpdater.updateStudentList();
-                    System.out.println("Friendship request accepted");
                 }
 
             } catch (Exception e) {
-
+                LoggerFactory.getLogger(FriendUpdater.class).error("error", e);
             }
         });
     }
@@ -174,10 +175,10 @@ public class FriendUpdater {
                                     && f.getReceiver().getId_student() == map.get("receiver"));
                     updateDemandedFriend();
                     updateLimitedDemandedFriend();
-                    System.out.println("Friendship request ignored");
+                    // System.out.println("Friendship request ignored");
                 }
             } catch (Exception e) {
-                System.out.println("ffffffffff rrrrrrrrrrrrr");
+                LoggerFactory.getLogger(FriendUpdater.class).error("error", e);
             }
         });
     }

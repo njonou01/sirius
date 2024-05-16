@@ -35,6 +35,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 public class XMartCityService {
 
@@ -72,9 +80,12 @@ public class XMartCityService {
                     return SelectMyActivite(request, preparedStatement);
                 case SELECT_ALL_STUDENTS:
                     return selectStudentsResponse(preparedStatement, request);
+                case SELECT_FRIENDS_FOR_CONNEXION:
+
+                    return selectMyfriends(preparedStatement, request);
 
                 case INSERT_ACTIVITY:
-                    return InsertActivite(preparedStatement, request);
+                    return InsertActivite(preparedStatement, request,connection);
 
                 case SELECT_ALL_CITIES:
                     return selectCitiesResponse(preparedStatement, request);
@@ -84,8 +95,10 @@ public class XMartCityService {
                     return selectFriendResponse(preparedStatement, request);
                 case SELECT_ALL_UNIVERSITIES:
                     return selectUniversitiesResponse(preparedStatement, request);
+                case SELECT_LAST_ACTIVITY_FRIENDS:
+                    return selectLastActivityFriends(preparedStatement, request);
 
-                case INSERT_STUDENT:
+                case SIGN_UP_AS:
                     return insertStudentResponse(preparedStatement, request);
                 case DOES_STUDENT_EXIST:
                     return doesStudentExistResponse(preparedStatement, request);
@@ -194,7 +207,7 @@ public class XMartCityService {
             Messages messages = new Messages();
             while (resultSet.next()) {
                 Message message = new Message().build(resultSet);
-                System.out.println(resultSet.getString("media"));
+                // System.out.println(resultSet.getString("media"));
                 String mediaEncoded = resultSet.getString("media");
                 message.setMedia(
                         mediaEncoded != null ? getImageEncoded("media/conversation/images/" + mediaEncoded) : null);
@@ -273,7 +286,7 @@ public class XMartCityService {
 
         try (FileOutputStream fos = new FileOutputStream(outputPath)) {
             fos.write(bytes);
-            System.out.println("PNG image created successfully at: " + outputPath);
+            // System.out.println("PNG image created successfully at: " + outputPath);
             return true;
         } catch (IOException e) {
             return false;
@@ -355,8 +368,8 @@ public class XMartCityService {
 
             // response.setResponseBody("{ \"student_id\": 123 }");
 
-            System.out.println("Eloka" + responseBody + "Michel");
-            System.out.println(response.getResponseBody());
+            // System.out.println("Eloka" + responseBody + "Michel");
+            // System.out.println(response.getResponseBody());
             Set<Student> students=activite.getStudents();
             Set<String> emailToSend =new HashSet<>();
 
@@ -364,9 +377,6 @@ public class XMartCityService {
                 emailToSend.add(student.getEmail());
                 
             }
-
-            System.out.println(
-                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             BroadcastNotification.broadcast("NEW_ACTIVITY", StudentConnectedProcess.getFriends(activite.getEmailCreateur(),
             connection), activite, activite.getNomCreateur(), activite.getNom_interet_activite());
             response.setRequestId(request.getRequestId());
@@ -385,8 +395,6 @@ public class XMartCityService {
 
         Response response = new Response();
         try {
-            System.out.println(
-                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             // PreparedStatement preparedStatement =
             // connection.prepareStatement(Queries.SELECT_ALL_ACTIVITY.query);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -399,9 +407,9 @@ public class XMartCityService {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String responseBody = objectMapper.writeValueAsString(activites);
-            System.out.println(responseBody);
-            System.out.println(
-                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+            // System.out.println(responseBody);
+            // System.out.println(
+            //         "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 
             response.setResponseBody(responseBody);
         } catch (SQLException e) {
@@ -411,6 +419,28 @@ public class XMartCityService {
         return response;
 
     }
+
+    private Response disconnection(Request request,PreparedStatement preparedStatement,Connection connection){
+        Response response= new Response();
+        ObjectMapper objectMapper= new ObjectMapper();
+        try {
+            Student student=objectMapper.readValue(request.getRequestBody(),Student.class);
+            SomeInfo someInfo= new SomeInfo();
+            someInfo.setInfo(student.getEmail());
+            ConnectedStudent.removeNewStudentConnected(someInfo);
+            BroadcastNotification.broadcast("DISCONNECTION_STUDENT",
+            StudentConnectedProcess.getFriends(someInfo.getInfo(),
+            connection),someInfo.getInfo());
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return response;
+
+    }
+
     private Response SelectMyActivite(final Request request, PreparedStatement preparedStatement)
             throws NoSuchFieldException, IllegalAccessException, IOException {
 
@@ -420,8 +450,8 @@ public class XMartCityService {
 
             Student student = objectMapper.readValue(request.getRequestBody(), Student.class);
             preparedStatement.setInt(1, student.getId_student());
-            System.out.println(
-                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+            // System.out.println(
+            //         "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             // PreparedStatement preparedStatement =
             // connection.prepareStatement(Queries.SELECT_ALL_ACTIVITY.query);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -433,9 +463,9 @@ public class XMartCityService {
             }
 
             String responseBody = objectMapper.writeValueAsString(activites);
-            System.out.println(responseBody);
-            System.out.println(
-                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+            // System.out.println(responseBody);
+            // System.out.println(
+            //         "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
 
             response.setResponseBody(responseBody);
         } catch (SQLException e) {
@@ -556,19 +586,6 @@ public class XMartCityService {
         return new Response(request.getRequestId(), bodyResponse);
     }
 
-    private static byte[] convertInputStreamToBytes(InputStream inputStream) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        byte[] data = new byte[4096]; 
-        
-        int nRead;
-        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, nRead);
-        }
-        
-        buffer.flush();
-        return buffer.toByteArray();
-    }
-
     public Response selectUniversitiesResponse(PreparedStatement preparedStatement, Request request)
             throws SQLException, NoSuchFieldException, IllegalAccessException, JsonProcessingException {
 
@@ -635,7 +652,7 @@ public class XMartCityService {
 
             final String hashedPassword = resultSet.getString("password");
             if (BCrypt.checkpw(student.getPassword(), hashedPassword)) {
-                System.out.println(ConnectedStudent.getStudentConnectedemailHashmap());
+                // System.out.println(ConnectedStudent.getStudentConnectedemailHashmap());
                 String bodyResponse = String.format("{\"msg\": \"%s\"}", "success");
                 return new Response(request.getRequestId(), bodyResponse);
             }

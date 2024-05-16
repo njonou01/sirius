@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import edu.ssng.ing1.sirius.client.MainClient;
+import edu.ssng.ing1.sirius.client.controllers.messaging.PrivateMessagingController;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.fxml.FXML;
@@ -51,11 +52,9 @@ public class HomeController implements Initializable {
     Router router = Router.getInstance();
     RouterPopUp routerPoUp;
 
-   
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         routerPoUp = RouterPopUp.getInstance();
         createActivityBtn.setOnAction(event -> {
             routerPoUp.navigateTo("createActivityPage1");
@@ -69,14 +68,14 @@ public class HomeController implements Initializable {
                 BorderPane signinPane = (BorderPane) signinLoader.load();
                 corePane.setCenter(signinPane);
             } catch (IOException e) {
-                System.out.println(e);
+                LoggerFactory.getLogger(HomeController.class).error("error", e);
             }
         });
         homePageBtn.setOnAction(event -> {
             try {
                 corePane.setCenter(homePane);
             } catch (Exception e) {
-                System.out.println(e);
+                LoggerFactory.getLogger(HomeController.class).error("error", e);
             }
         });
 
@@ -99,8 +98,6 @@ public class HomeController implements Initializable {
         router.getStage().close();
 
     }
-
-    
 
     public static InputStream deserializeImage(String base64EncodedImage) {
         byte[] bytes = java.util.Base64.getDecoder().decode(base64EncodedImage);

@@ -92,7 +92,7 @@ public class createActivityPage2Controller implements Initializable {
             MenuItem item = new MenuItem(Integer.toString(i));
             int hour = i;
             item.setOnAction(event -> {
-                System.out.println("Heure sélectionnée : " + hour);
+                // System.out.println("Heure sélectionnée : " + hour);
 
                 plusHourDebut = hour;
 
@@ -103,7 +103,7 @@ public class createActivityPage2Controller implements Initializable {
             MenuItem item = new MenuItem(Integer.toString(i));
             int hour = i;
             item.setOnAction(event -> {
-                System.out.println("Heure sélectionnée : " + hour);
+                // System.out.println("Heure sélectionnée : " + hour);
                 plusHourFin = hour;
 
             });
@@ -113,7 +113,7 @@ public class createActivityPage2Controller implements Initializable {
             MenuItem item = new MenuItem(Integer.toString(i));
             int hour = i;
             item.setOnAction(event -> {
-                System.out.println("Heure sélectionnée : " + hour);
+                // System.out.println("Heure sélectionnée : " + hour);
                 plusMinuteDebut = hour;
 
             });
@@ -123,7 +123,7 @@ public class createActivityPage2Controller implements Initializable {
             MenuItem item = new MenuItem(Integer.toString(i));
             int hour = i;
             item.setOnAction(event -> {
-                System.out.println("Heure sélectionnée : " + hour);
+                // System.out.println("Heure sélectionnée : " + hour);
                 plusMinuteFin = hour;
 
             });
@@ -220,7 +220,7 @@ public class createActivityPage2Controller implements Initializable {
         LocalDateTime newLocalDateTime = localDateTime.plusHours(hour).plusMinutes(minute);
     
         Timestamp newTimestamp = Timestamp.valueOf(newLocalDateTime);
-        System.out.println("Nouveau Timestamp : " + newTimestamp);
+        // System.out.println("Nouveau Timestamp : " + newTimestamp);
 
         return newTimestamp;
 
@@ -235,13 +235,13 @@ public class createActivityPage2Controller implements Initializable {
         RouterPopUp.activite.setDatedebut("" + addTimer(dateDebut, plusHourDebut, plusMinuteDebut));
         RouterPopUp.activite.setDatefin("" + addTimer(dateFin, plusHourFin, plusMinuteFin));
 
-        System.out.println(" La date de l" + RouterPopUp.activite.getDatedebut());
-        System.out.println(" La date de l" + RouterPopUp.activite.getDatefin());
+        // System.out.println(" La date de l" + RouterPopUp.activite.getDatedebut());
+        // System.out.println(" La date de l" + RouterPopUp.activite.getDatefin());
 
         router.navigateTo("createActivityPage3");
 
-        System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
-                + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+        // System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
+        //         + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
 
     }
 

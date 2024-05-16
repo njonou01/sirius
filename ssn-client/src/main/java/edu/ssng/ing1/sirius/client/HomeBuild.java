@@ -21,10 +21,10 @@ public class HomeBuild {
         MainPreload MainBackgroundService = new MainPreload();
         MainBackgroundService.setOnSucceeded(event -> {
             preloadStage.close();
-            System.out.println("****************************************************");
-            System.out.println(Router.getInstance().getStage());
-            System.out.println("****************************************************");
-            ;
+            // System.out.println("****************************************************");
+            // System.out.println(Router.getInstance().getStage());
+            // System.out.println("****************************************************");
+            // ;
             Router.getInstance().navigateTo("main");
         });
         MainBackgroundService.start();

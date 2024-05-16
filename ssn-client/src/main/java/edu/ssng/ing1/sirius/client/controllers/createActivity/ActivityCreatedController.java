@@ -76,7 +76,7 @@ public class ActivityCreatedController implements Initializable {
     @FXML
     public void addActivity() {
 
-        System.out.println("OneActivitycreated");
+        // System.out.println("OneActivitycreated");
 
     }
 

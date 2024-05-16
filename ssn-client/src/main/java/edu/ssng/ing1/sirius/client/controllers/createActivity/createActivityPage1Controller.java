@@ -118,21 +118,19 @@ public class createActivityPage1Controller implements Initializable {
         if (nameActivityField.getText().matches("[a-zA-Z0-9]*") && !nameActivityField.getText().isEmpty()) {
             RouterPopUp.activite.setCategorie((String) choiceCategorie.getValue());
             RouterPopUp.activite.setNom_interet_activite(nameActivityField.getText());
-            System.out.println(RouterPopUp.activite);
+            // System.out.println(RouterPopUp.activite);
             backBtn.setVisible(true);
             RouterPopUp.MinousProgress += 0.33;
             RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
             router.navigateTo("createActivityPage2");
 
         } else {
-            System.out.println("IIIIIIIIIIIIII");
+            // System.out.println("IIIIIIIIIIIIII");
             if (nameActivityField.getText().isEmpty()) {
                 Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas etre vide");
 
             } else {
-
                 Toast.buildToast(ToastType.ERROR, "Pas de caractere special dans le champ \"Nom activité\" ");
-
             }
 
         }

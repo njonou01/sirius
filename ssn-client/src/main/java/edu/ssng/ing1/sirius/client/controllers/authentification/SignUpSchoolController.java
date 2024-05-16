@@ -129,7 +129,7 @@ public class SignUpSchoolController implements Initializable {
     }
 
     private Boolean manageStart() {
-        System.out.println(formationStart.getValue().toString() + "-01");
+        // System.out.println(formationStart.getValue().toString() + "-01");
         if (!Rules.isValidDate(formationStart.getValue().toString() + "-01")) {
             validateField(formationStart, (start) -> Rules.isValidDate(start + "-01"));
         }

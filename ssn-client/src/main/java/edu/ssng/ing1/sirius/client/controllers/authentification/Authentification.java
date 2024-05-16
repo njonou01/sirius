@@ -2,6 +2,8 @@ package edu.ssng.ing1.sirius.client.controllers.authentification;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.HomeBuild;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
@@ -17,7 +19,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 public class Authentification {
     @FXML
     private Button athBtn;
@@ -59,6 +62,8 @@ public class Authentification {
     private SignUpFinalController signUpFinalController;
     private String appName = "S-Connect";
     private Student student = new Student();
+
+    private Logger logger = LoggerFactory.getLogger(Authentification.class);
 
     @FXML
     public void changePosition(ActionEvent event) {
@@ -119,7 +124,7 @@ public class Authentification {
             if (this.signUpStartcontroller.handleContinious()) {
                 setASignupPaneVisible(signupStudentInfoPane);
                 this.signUpStartcontroller.setStudentData(student);
-                System.out.println(student);
+                // System.out.println(student);
 
             }
         });
@@ -128,7 +133,7 @@ public class Authentification {
             if (this.signUpStudentController.handleContinious()) {
                 setASignupPaneVisible(signupSchoolPane);
                 this.signUpStudentController.setStudentData(student);
-                System.out.println(student);
+                // System.out.println(student);
 
             }
         });
@@ -137,7 +142,7 @@ public class Authentification {
             if (this.signUpSchoolController.handleContinious()) {
                 setASignupPaneVisible(signupFinalPane);
                 this.signUpSchoolController.setStudentData(student);
-                System.out.println(student);
+                // System.out.println(student);
 
             }
         });
@@ -145,12 +150,12 @@ public class Authentification {
         this.signUpFinalController.getSignupBtn().setOnAction(event -> {
             Boolean serverResult = this.signUpFinalController.signUpAs(student);
             if (serverResult) {
-                System.out.println("Sign up success");
+                logger.info("Sign up success");
                 UserInfo.getInstance();
                 UserInfo.registerUser(student.getEmail());
                 new HomeBuild();
             } else {
-                System.out.println("Sign up failed");
+                logger.info("Sign up failed");
             }
         });
         this.stackPane.getChildren().addAll(this.signinPane,
