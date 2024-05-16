@@ -7,9 +7,11 @@ C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\ma
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\authentification\IsUserClientRequest.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\authentification\SelectAllCitiesClientRequest.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\activities\InsertActivityQuery.java
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\activities\SelectMyFriends.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\activities\SelectActivityQuery.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\authentification\SignUpClientRequest.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\authentification\SelectAllUniversitiesClientRequest.java
+C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\activities\SelectStudentClientRequest.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\friend\SelectFriendsClientRequest.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\activities\SelectActivitesClientRequest.java
 C:\Users\FERNANDY ELOKA\OneDrive\Documents\SIRIUS\sirius\ssn-client-query\src\main\java\edu\ssng\ing1\sirius\requests\authentification\AuthRequest.java

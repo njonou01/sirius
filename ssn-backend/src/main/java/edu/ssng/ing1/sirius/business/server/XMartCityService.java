@@ -68,14 +68,16 @@ public class XMartCityService {
                 case DISCONNECTION_STUDENT:
 
                     return disconnection(request,preparedStatement,connection);
+                case ACTIVITY_INVITATION:
+
+                    return activityInvitation(preparedStatement,request,connection);
                 case SELECT_MY_ACTIVITY:
 
                     return SelectMyActivite(request, preparedStatement);
-
                 case SELECT_ALL_STUDENTS:
 
                     return selectStudentsResponse(preparedStatement, request);
-                case SELECT_FRIENDS_FOR_CONNEXION:
+                case SELECT_MY_FRIENDS:
 
                     return selectMyfriends(preparedStatement, request);
 
@@ -127,6 +129,12 @@ public class XMartCityService {
         return new Response("error", "Requete impossible");
     }
 
+    private Response activityInvitation(final PreparedStatement preparedStatement, final Request request, Connection connection) throws SQLException{
+        int rows = preparedStatement.executeUpdate();
+        Response response= new Response();
+    return response;
+
+    }
     private Response InsertActivite(final PreparedStatement preparedStatement, final Request request, Connection connection)
             throws NoSuchFieldException, IllegalAccessException, JsonParseException, JsonMappingException, IOException {
         Response response = new Response();
@@ -285,19 +293,28 @@ public class XMartCityService {
         return new Response(request.getRequestId(), bodyResponse);
     }
     public Response selectMyfriends(PreparedStatement preparedStatement, Request request)
-            throws SQLException, NoSuchFieldException, IllegalAccessException, JsonProcessingException {
+            throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
 
         Students students = new Students();
         final ObjectMapper mapper = new ObjectMapper();
-        String bodyResponse = "";
+        Student stud= mapper.readValue(request.getRequestBody(),Student.class);
+        preparedStatement.setString(1, stud.getEmail().trim());
+        preparedStatement.setString(2, stud.getEmail().trim());
+        preparedStatement.setString(3, stud.getEmail().trim());
 
         ResultSet listOfStudents = preparedStatement.executeQuery();
         while (listOfStudents.next()) {
-            Student student = new Student().build(listOfStudents);
+            Student student = new Student();
+            // student.setFamilyname(listOfStudents.getString(2));
+           student.setEmail(listOfStudents.getString("email")) ;
+           student.setFirstname(listOfStudents.getString("first_name"));
+           student.setFamilyname(listOfStudents.getString("familly_name"));
+                    
+            // student.setFirstname(listOfStudents.getString(0));
             students.add(student);
         }
         listOfStudents.close();
-        bodyResponse = mapper.writeValueAsString(students);
+        String bodyResponse = mapper.writeValueAsString(students);
         return new Response(request.getRequestId(), bodyResponse);
     }
     public Response selectLastActivityFriends(PreparedStatement preparedStatement, Request request)

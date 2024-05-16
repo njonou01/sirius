@@ -50,6 +50,15 @@ public enum Queries {
                 "    AND b.status = 'accepted'\n" +
                 "    AND (b.end_relation_at IS NULL OR b.end_relation_at > now())\n" +
                 "\tAND email <> ? "),
+        SELECT_MY_FRIENDS(
+                "SELECT DISTINCT email, first_name, familly_name " +
+                       "FROM \"ssn-db-ing1\".student s " +
+                       "JOIN \"ssn-db-ing1\".befriend b ON s.id_student = b.sender OR s.id_student = b.receiver " +
+                       "WHERE (b.sender IN (SELECT id_student FROM \"ssn-db-ing1\".student WHERE email = ?) " +
+                       "       OR b.receiver IN (SELECT id_student FROM \"ssn-db-ing1\".student WHERE email = ?)) " +
+                       "  AND b.status = 'accepted' " +
+                       "  AND (b.end_relation_at IS NULL OR b.end_relation_at > now()) " +
+                       "  AND email <> ?"),
         SELECT_FRIENDS("SELECT DISTINCT ON (STUDENT.EMAIL)\n" +
                         "    STUDENT.FAMILLY_NAME AS FAMILYNAME,\n" +
                         "    STUDENT.FIRST_NAME AS FIRSTNAME,\n" +

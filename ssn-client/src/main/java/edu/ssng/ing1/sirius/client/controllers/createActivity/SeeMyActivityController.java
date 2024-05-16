@@ -44,6 +44,9 @@ public class SeeMyActivityController implements Initializable {
     VBox parentVBox;
 
     @FXML
+    VBox rightPanel;
+
+    @FXML
     ProgressIndicator progress1;
 
     @FXML
@@ -51,6 +54,16 @@ public class SeeMyActivityController implements Initializable {
 
     @FXML
     ProgressIndicator progress3;
+
+    @FXML
+    Button acceptBtn;
+
+    @FXML
+    Button denyBtn;
+
+    
+    public static VBox notiFyItem;
+    
 
     @FXML
     FontIcon chatIcon;

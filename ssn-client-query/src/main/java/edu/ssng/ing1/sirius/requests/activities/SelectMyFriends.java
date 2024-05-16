@@ -50,7 +50,7 @@ public class SelectMyFriends {
         request.setRequestId(requestId);
         String body=objectMapper.writeValueAsString(student);
         request.setRequestContent(body);
-        request.setRequestOrder("SELECT_FRIENDS_FOR_CONNEXION");
+        request.setRequestOrder("SELECT_MY_FRIENDS");
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);

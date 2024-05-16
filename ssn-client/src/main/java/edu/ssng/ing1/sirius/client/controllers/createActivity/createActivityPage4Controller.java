@@ -70,6 +70,8 @@ public class createActivityPage4Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         router = RouterPopUp.getInstance();
         Student student = UserInfo.getUser();
+        student.setProfileImageStream(null);
+        student.setProfileImage(null);
         Platform.runLater(() -> {
             myFriends.setOnAction(event -> {
 
