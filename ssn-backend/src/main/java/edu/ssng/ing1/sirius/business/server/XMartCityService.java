@@ -39,6 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -118,13 +119,13 @@ public class XMartCityService {
                 case REJECT_INVITATION:
                     return deleteInvitationResponse(preparedStatement, request);
                 case BECOME_FRIENDS:
-                    return becomeFriendsResponse(preparedStatement, request);
+                    return becomeFriendsResponse(preparedStatement, request, connection);
                 case FETCH_STUDENT_MESSAGES:
                     return fetchStudentMessages(preparedStatement, request);
                 case SEND_AND_SAVE_MESSAGE:
                     return sendAndSaveMessage(preparedStatement, request, connection);
                 case ASK_FRIENDSHIP:
-                    return addFriendShipResponse(preparedStatement, request);
+                    return addFriendShipResponse(preparedStatement, request, connection);
                 default:
                     break;
             }
@@ -153,10 +154,10 @@ public class XMartCityService {
         int rows = preparedStatement.executeUpdate();
         Response response = new Response();
         return response;
- 
+
     }
 
-    private Response addFriendShipResponse(PreparedStatement preparedStatement, Request request)
+    private Response addFriendShipResponse(PreparedStatement preparedStatement, Request request, Connection connection)
             throws NoSuchFieldException,
             IllegalAccessException, SQLException, JsonParseException, JsonMappingException, IOException {
         try {
@@ -165,6 +166,7 @@ public class XMartCityService {
                     new TypeReference<Map<String, Integer>>() {
                     });
 
+            acceptanceMessageForFriend("ACCEPTED_INVITATION", map.get("receiver"), connection);
             preparedStatement.setInt(1, map.get("sender"));
             preparedStatement.setInt(2, map.get("receiver"));
             preparedStatement.executeUpdate();
@@ -175,6 +177,55 @@ public class XMartCityService {
             return new Response(request.getRequestId(), bodyResponse);
         }
 
+    }
+
+    private void acceptanceMessageForFriend(String header, Integer receiver, Connection connection)
+            throws SQLException, IOException, NoSuchFieldException, IllegalAccessException {
+        Student receiverStudent = getStudent(connection, receiver);
+        Student senderStudent = getStudent(connection, receiver);
+        BeFriend friend = new BeFriend(senderStudent, receiverStudent);
+
+        Set<String> receiverSet = new HashSet<>();
+        receiverSet.add(receiverStudent.getEmail());
+        BroadcastNotification.broadcast(header, receiverSet, friend);
+    }
+
+    public Student getStudent(Connection connection, int id)
+            throws SQLException, NoSuchFieldException, IllegalAccessException, IOException {
+        String sql = "SELECT\n" +
+                "    STUDENT.ID_STUDENT AS ID_STUDENT,\n" +
+                "    STUDENT.FAMILLY_NAME AS FAMILYNAME,\n" +
+                "    STUDENT.FIRST_NAME AS FIRSTNAME,\n" +
+                "    STUDENT.EMAIL AS EMAIL,\n" +
+                "    STUDENT.PHONE_NUMBER AS PHONENUMBER,\n" +
+                "    STUDENT.GENDER AS GENDER,\n" +
+                "    STUDENT.USERNAME AS USERNAME,\n" +
+                "    STUDENT.PROFILE_IMAGE AS PROFILE_IMAGE,\n" +
+                "    STUDENT.BIRTHDAY AS BITHDAY,\n" +
+                "    UNIVERSITY.LABEL AS UNIVERSITY,\n" +
+                "    ATTENDED.START AS FORMATION_START,\n" +
+                "    ATTENDED.END AS FORMATION_STOP,\n" +
+                "    ATTENDED.DESCRIPTION AS FORMATION_DESCRIPTION,\n" +
+                "    ATTENDED.TRAINING_FOLLOWED\n" +
+                "FROM\n" +
+                "    \"ssn-db-ing1\".STUDENT AS STUDENT\n" +
+                "    NATURAL JOIN \"ssn-db-ing1\".ATTENDED AS ATTENDED\n" +
+                "    NATURAL JOIN \"ssn-db-ing1\".UNIVERSITY AS UNIVERSITY\n" +
+                "WHERE\n" +
+                "    STUDENT.ID_STUDENT = ?;\n" +
+                "";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, id);
+        ResultSet rs = preparedStatement.executeQuery();
+        Student student = null;
+        if (rs.next()) {
+            student = new Student().build(rs);
+            student.buildUniversity(rs);
+            student.setId_student(rs.getInt("id_student"));
+            student.setProfileImage(rs.getString("profile_image"));
+            student.setProfileImageStream(getImageEncoded("media/images/" + student.getProfileImage()));
+        }
+        return student;
     }
 
     public static String generateUniqueFileName() {
@@ -205,7 +256,7 @@ public class XMartCityService {
             newMessage.setMedia(message.getMedia());
             resultSet.close();
             Set<String> receiver = getUserEmailById(connection, newMessage.getReceiver_id());
-            BroadcastNotification.broadcast("NEW_MESSAGE", receiver , newMessage);
+            BroadcastNotification.broadcast("NEW_MESSAGE", receiver, newMessage);
             // Todo: send message to the other user
             return new Response(request.getRequestId(), mapper.writeValueAsString(newMessage));
         }
@@ -309,7 +360,7 @@ public class XMartCityService {
         }
     }
 
-    private Response becomeFriendsResponse(PreparedStatement preparedStatement, Request request)
+    private Response becomeFriendsResponse(PreparedStatement preparedStatement, Request request, Connection connection)
             throws NoSuchFieldException,
             IllegalAccessException, SQLException, JsonParseException, JsonMappingException, IOException {
         try {
@@ -322,6 +373,7 @@ public class XMartCityService {
             preparedStatement.setInt(2, map.get("receiver"));
             preparedStatement.executeUpdate();
             String bodyResponse = String.format("{\"response\": \"%s\"}", "success");
+            acceptanceMessageForFriend("DEMAND_INVITATION", map.get("receiver"), connection);
             return new Response(request.getRequestId(), bodyResponse);
 
         } catch (Exception e) {
@@ -807,7 +859,7 @@ public class XMartCityService {
             if (resultSet.next()) {
                 email.add(resultSet.getString("email"));
                 System.out.println("------------------------------------------------");
-                email .stream().forEach(System.out::println);
+                email.stream().forEach(System.out::println);
                 System.out.println("------------------------------------------------");
 
                 return email;
