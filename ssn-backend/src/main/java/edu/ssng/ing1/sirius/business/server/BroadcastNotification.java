@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.business.server.notifyProcess.NotificationType;
 import edu.ssng.ing1.sirius.commons.Notification;
 
@@ -58,7 +59,8 @@ public class BroadcastNotification {
         ObjectMapper objectMapper = new ObjectMapper();
 
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
-        String bject = objectMapper.writeValueAsString(object);
+        String bject = objectMapper.writeValueAsString(object instanceof Message ? (Message) object : object);
+        
 
         notification.setBody(bject);
         byte[] notifTosend = objectMapper.writeValueAsBytes(notification);

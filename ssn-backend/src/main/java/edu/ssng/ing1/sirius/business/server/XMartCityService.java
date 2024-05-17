@@ -188,7 +188,7 @@ public class XMartCityService {
             final Message newMessage = new Message().build(resultSet);
             newMessage.setMedia(message.getMedia());
             resultSet.close();
-            Set<String> receiver = getUserEmailById(connection, newMessage.getId_message());
+            Set<String> receiver = getUserEmailById(connection, newMessage.getReceiver_id());
             BroadcastNotification.broadcast("NEW_MESSAGE", receiver , newMessage);
             // Todo: send message to the other user
             return new Response(request.getRequestId(), mapper.writeValueAsString(newMessage));
