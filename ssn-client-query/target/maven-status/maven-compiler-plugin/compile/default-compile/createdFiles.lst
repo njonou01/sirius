@@ -19,3 +19,4 @@ edu\ssng\ing1\sirius\requests\authentification\SelectAllCitiesClientRequest.clas
 edu\ssng\ing1\sirius\requests\authentification\SignUpClientRequest.class
 edu\ssng\ing1\sirius\requests\activities\InsertActivityClientRequest.class
 edu\ssng\ing1\sirius\requests\authentification\IsUserClientRequest.class
+edu\ssng\ing1\sirius\requests\activities\AcceptActivityRequest.class

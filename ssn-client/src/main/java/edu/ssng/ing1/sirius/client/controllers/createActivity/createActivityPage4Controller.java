@@ -134,6 +134,7 @@ public class createActivityPage4Controller implements Initializable {
         RouterPopUp.activite.setProvenance("HomePage");
         RouterPopUp.activite.setDatecreation(timestampString);
         RouterPopUp.activite.setState(true);
+        RouterPopUp.activite.setId_student(student.getId_student());
         Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
         try {
             InsertActivityQuery.InsertActivite(RouterPopUp.activite);

@@ -76,6 +76,8 @@ public class HomeController implements Initializable {
 
     RouterPopUp routerPoUp;
 
+    public static Boolean passage=false;
+
     private static Boolean isAlreadyDisplay = false;
 
     private static Set<Notification> notificationToBedisplayed = new HashSet<>();
@@ -88,17 +90,11 @@ public class HomeController implements Initializable {
         Student user = UserInfo.getUser();
 
         getPanenotif();
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("VVVVVVVVVVVVVVVVVVVVVIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println(vBoxN);
+        
         displayOnnotifPanel();
         isAlreadyDisplay = true;
-        if (user != null) {
+        if (user != null && passage !=true) {
+            passage=true;
             profileImage.setImage(getImage(user.getProfileImageStream()));
             profileImage2.setImage(getImage(user.getProfileImageStream()));
             btnmapper.put(homePageBtn, homePane);
@@ -116,7 +112,7 @@ public class HomeController implements Initializable {
         deconnexionbtn.setOnAction(event -> {
             Student student = UserInfo.getUser();
             UserInfo.removeUser();
-            // ClientConnexion.closersocket();
+            ClientConnexion.closersocket();
 
             // try {
             // Disconnection.disconnection(student.getEmail());

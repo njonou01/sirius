@@ -123,7 +123,7 @@ public class createActivityPage1Controller implements Initializable {
             RouterPopUp.MinousProgress += 0.33;
             RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
             router.navigateTo("createActivityPage2");
-
+            
         } else {
             System.out.println("IIIIIIIIIIIIII");
             if (nameActivityField.getText().isEmpty()) {

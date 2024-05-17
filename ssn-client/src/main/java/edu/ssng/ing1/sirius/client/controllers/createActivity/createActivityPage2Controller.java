@@ -96,6 +96,7 @@ public class createActivityPage2Controller implements Initializable {
 
                 plusHourDebut = hour;
 
+                menuButton1.setText(hour + "");
             });
             menuButton1.getItems().add(item);
         }
@@ -105,7 +106,7 @@ public class createActivityPage2Controller implements Initializable {
             item.setOnAction(event -> {
                 System.out.println("Heure sélectionnée : " + hour);
                 plusHourFin = hour;
-
+                menuButton2.setText(hour + "");
             });
             menuButton2.getItems().add(item);
         }
@@ -115,6 +116,7 @@ public class createActivityPage2Controller implements Initializable {
             item.setOnAction(event -> {
                 System.out.println("Heure sélectionnée : " + hour);
                 plusMinuteDebut = hour;
+                menuButton3.setText(hour + "");
 
             });
             menuButton3.getItems().add(item);
@@ -125,6 +127,7 @@ public class createActivityPage2Controller implements Initializable {
             item.setOnAction(event -> {
                 System.out.println("Heure sélectionnée : " + hour);
                 plusMinuteFin = hour;
+                menuButton4.setText(hour + "");
 
             });
             menuButton4.getItems().add(item);
@@ -218,7 +221,7 @@ public class createActivityPage2Controller implements Initializable {
         LocalDateTime localDateTime = timestamp.toLocalDateTime();
 
         LocalDateTime newLocalDateTime = localDateTime.plusHours(hour).plusMinutes(minute);
-    
+
         Timestamp newTimestamp = Timestamp.valueOf(newLocalDateTime);
         System.out.println("Nouveau Timestamp : " + newTimestamp);
 
@@ -228,6 +231,8 @@ public class createActivityPage2Controller implements Initializable {
 
     @FXML
     public void nextPage() {
+
+        
         RouterPopUp.activite.setNbrparticipant(numberChoice);
         RouterPopUp.activite.setConfidentialite((String) choiceConfidentSelection.getValue());
         RouterPopUp.MinousProgress += 0.33;

@@ -22,6 +22,20 @@ public enum NotificationType {
                  
         }
     },
+    ACCEPTED_ACTIVITY("Activité accepté"){
+        @Override
+        public String getMessage(String ...messageArgument) {
+            return "Votre Amie " + messageArgument[0] +  " Viens d'accepter votre invitation";
+                 
+        }
+    },
+    DENY_INVITATION("Activité accepté"){
+        @Override
+        public String getMessage(String ...messageArgument) {
+            return "Votre Amie " + messageArgument[0] +  " a refusé votre invitation";
+                 
+        }
+    },
     DISCONNECTION_STUDENT("Votre Amie  est connecté"){
         @Override
         public String getMessage(String ...messageArgument) {

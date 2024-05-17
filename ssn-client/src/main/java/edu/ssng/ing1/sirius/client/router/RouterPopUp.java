@@ -51,13 +51,14 @@ public class RouterPopUp {
     public RouterPopUp() {
 
         Router root = Router.getInstance();
-        Stage primaryStage = root.getStage();
+        
 
         stage = new Stage();
         stageReduce = new Stage();
         setReducePopUp();
+        stage.initStyle(StageStyle.UTILITY);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(primaryStage);
+        stage.initOwner(root.getStage());
         stage.initStyle(StageStyle.UNDECORATED);
 
         VBox popupRoot = new VBox(10);

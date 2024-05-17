@@ -105,26 +105,34 @@
       </AnchorPane>
    </top>
    <right>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minWidth="350.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="scroolPane" fitToWidth="true" hbarPolicy="NEVER" minWidth="350.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="rightPanel" prefHeight="578.0" prefWidth="241.0" spacing="10.0" styleClass="activitycreatedBG">
                <children>
-                  <VBox alignment="CENTER" prefHeight="112.0" prefWidth="347.0" styleClass="notifBG">
+                  <AnchorPane fx:id="anchorePane" prefHeight="539.0" prefWidth="347.0">
                      <children>
-                        <Label text="Vous invite : Eloka" />
-                        <Label text="FiFa">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                        <HBox alignment="CENTER" prefHeight="57.0" prefWidth="347.0" spacing="30.0">
+                        <VBox fx:id="VBoxx" prefHeight="537.0" prefWidth="350.0">
                            <children>
-                              <Button fx:id="denyBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" styleClass="btndeny" text="Refuser" />
-                              <Button fx:id="acceptBtn" mnemonicParsing="false" styleClass="btnAccept" text="Accepter" />
+                              <VBox alignment="CENTER" prefHeight="112.0" prefWidth="347.0" styleClass="notifBG">
+                                 <children>
+                                    <Label text="Vous invite : Eloka" />
+                                    <Label text="FiFa">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER" prefHeight="57.0" prefWidth="347.0" spacing="30.0">
+                                       <children>
+                                          <Button fx:id="denyBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" styleClass="btndeny" text="Refuser" />
+                                          <Button fx:id="acceptBtn" mnemonicParsing="false" styleClass="btnAccept" text="Accepter" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
-                        </HBox>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </AnchorPane>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -186,7 +194,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </VBox>
-                        <ProgressIndicator fx:id="progress11" minHeight="100.0" minWidth="85.0" prefHeight="41.0" prefWidth="126.0" progress="0.0">
+                        <ProgressIndicator fx:id="progress1" minHeight="100.0" minWidth="85.0" prefHeight="41.0" prefWidth="126.0" progress="0.0">
                            <HBox.margin>
                               <Insets top="10.0" />
                            </HBox.margin>
@@ -221,7 +229,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </VBox>
-                        <ProgressIndicator fx:id="progress21" minHeight="100.0" minWidth="85.0" prefHeight="41.0" prefWidth="126.0" progress="0.0">
+                        <ProgressIndicator fx:id="progress2" minHeight="100.0" minWidth="85.0" prefHeight="41.0" prefWidth="126.0" progress="0.0">
                            <HBox.margin>
                               <Insets top="10.0" />
                            </HBox.margin>
@@ -256,7 +264,7 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </VBox>
-                        <ProgressIndicator fx:id="progress31" minHeight="100.0" minWidth="85.0" prefHeight="41.0" prefWidth="126.0" progress="0.0">
+                        <ProgressIndicator fx:id="progress3" minHeight="100.0" minWidth="85.0" prefHeight="41.0" prefWidth="126.0" progress="0.0">
                            <HBox.margin>
                               <Insets top="10.0" />
                            </HBox.margin>
