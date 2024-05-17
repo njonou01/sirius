@@ -92,25 +92,26 @@ public class HomeController implements Initializable {
 
     RouterPopUp routerPoUp;
 
-    public static Boolean passage = false;
-
     private static Boolean isAlreadyDisplay = false;
 
     private static Set<Notification> notificationToBedisplayed = new HashSet<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         RouterPopUp routerPoUp = RouterPopUp.getInstance();
         logo.setImage(getImage("media/images/ssn-logo.png"));
         Student user = UserInfo.getUser();
 
         getPanenotif();
 
+        System.out.println(vBoxN);
         displayOnnotifPanel();
         isAlreadyDisplay = true;
-        if (user != null && passage != true) {
-            passage = true;
-            CommonsClient.setImageOnClip(profileimageClip, user.getProfileImageStream());
+        if (user != null) {
+            Image profilImage = getImage(user.getProfileImageStream());
+            profileimageClip.setFill(new ImagePattern(profilImage));
+            profileimageClip.setStroke(Color.TRANSPARENT);
             profileImage2.setImage(getImage(user.getProfileImageStream()));
             CommonsClient.setclipOnImage(profileImage2);
             btnmapper.put(homePageBtn, homePane);
@@ -131,18 +132,18 @@ public class HomeController implements Initializable {
             UserInfo.removeUser();
             ClientConnexion.closersocket();
 
-            try {
-                Disconnection.disconnection(student.getEmail());
-            } catch (NullPointerException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            // try {
+            // Disconnection.disconnection(student.getEmail());
+            // } catch (NullPointerException e) {
+            // // TODO Auto-generated catch block
+            // e.printStackTrace();
+            // } catch (IOException e) {
+            // // TODO Auto-generated catch block
+            // e.printStackTrace();
+            // } catch (InterruptedException e) {
+            // // TODO Auto-generated catch block
+            // e.printStackTrace();
+            // }
             Router.getInstance().navigateTo("authentification");
             Router.getInstance().getStage().sizeToScene();
             // Router.getInstance().setFullScreenStage();
@@ -161,11 +162,20 @@ public class HomeController implements Initializable {
 
         Platform.runLater(() -> {
             for (Notification notification : notificationToBedisplayed) {
+                if (isAlreadyDisplay && notificationToBedisplayed.contains(notification)) {
+                    // System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    // System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    // System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    // System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                    continue;
+                }
 
-                Label label = new Label(notification.getMessage() + " " + notification.getHoursReceive());
+                Label label = new Label(notification.getMessage());
+                Label labelHour = new Label(notification.getHoursReceive());
                 label.setWrapText(true);
+                labelHour.setWrapText(true);
                 final HBox hbox = new HBox();
-                hbox.getChildren().addAll(label);
+                hbox.getChildren().addAll(label, labelHour);
                 vBoxN.getChildren().add(hbox);
             }
 
