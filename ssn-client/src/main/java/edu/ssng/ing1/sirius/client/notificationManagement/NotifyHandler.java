@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,13 +58,17 @@ public class NotifyHandler extends Thread{
         
     }
 
-    private final Notification getToNotify(byte[] data) throws IOException {
+    final Notification getToNotify(byte[] data) throws IOException {
         logger.debug("data received {} bytes", data.length);
         LoggingUtils.logDataMultiLine(logger, Level.DEBUG, data);
         final ObjectMapper mapper = new ObjectMapper();
         mapper.enable(DeserializationFeature.UNWRAP_ROOT_VALUE);
         final Notification Notify = mapper.readValue(data, Notification.class);
         logger.debug(Notify.toString());
+         Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = sdf.format(date);
+        Notify.setHoursReceive(dateString);
         return Notify;
     }
     

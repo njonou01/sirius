@@ -21,6 +21,12 @@
 .btn{
   -fx-background-color: #39809F;
 }
+.btnAccept{
+  -fx-background-color: #4e8a17;
+}
+.btndeny{
+  -fx-background-color: #c14915;
+}
 .btn:hover{
   -fx-background-color: #5ca3c1;
   -fx-cursor: hand;
@@ -55,6 +61,11 @@
 
 .activitycreatedBG{
   -fx-background-color: #ffffff;
+  -fx-background-radius: 10px;
+}
+
+.notifBG{
+  -fx-background-color: #dfecf2;
   -fx-background-radius: 10px;
 }
 

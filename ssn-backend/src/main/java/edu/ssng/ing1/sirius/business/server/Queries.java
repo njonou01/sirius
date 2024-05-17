@@ -2,7 +2,10 @@ package edu.ssng.ing1.sirius.business.server;
 
 public enum Queries {
         SELECT_ALL_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t"),
-        SELECT_MY_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t WHERE t.id_student = ?"),
+        SELECT_MY_ACTIVITY("SELECT a.* " +
+        "FROM \"ssn-db-ing1\".activite a " +
+        "JOIN \"ssn-db-ing1\".participationactivite pa ON a.idactivite = pa.idactivite " +
+        "WHERE pa.id_student = ?"),
         ACTIVITY_INVITATION("INSERT INTO \"ssn-db-ing1\".activityinvitation (sender, receiver) VALUES (?, ?)"),
         RESPONSE_UPDATE("UPDATE ssn-db-ing1.activityinvitation\n" + 
                                 "SET state = ?\n" + 
@@ -26,10 +29,24 @@ public enum Queries {
         SELECT_ALL_STUDENTS(
                         "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
                                         "\tFROM \"ssn-db-ing1\".student"),
+        INSERT_PARTICIPATION(
+                "INSERT INTO \"ssn-db-ing1\".participationactivite (id_student, idactivite, dateparticipation) " +
+                "SELECT ?, idactivite, CURRENT_TIMESTAMP " +
+                "FROM \"ssn-db-ing1\".activite " +
+                "WHERE id_student = ?"),
         SELECT_LAST_ACTIVITY_FRIENDS(
-                        "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
-                                        "\tFROM \"ssn-db-ing1\".student"),
+                "SELECT DISTINCT s2.* " +
+                       "FROM \"ssn-db-ing1\".participationactivite p1 " +
+                       "JOIN \"ssn-db-ing1\".participationactivite p2 ON p1.idactivite = p2.idactivite " +
+                       "JOIN \"ssn-db-ing1\".student s1 ON p1.id_student = s1.id_student " +
+                       "JOIN \"ssn-db-ing1\".student s2 ON p2.id_student = s2.id_student " +
+                       "WHERE s1.email = ? " +
+                       "  AND p1.dateparticipation < CURRENT_DATE " +
+                       "  AND p2.dateparticipation < CURRENT_DATE " +
+                       "  AND s2.id_student <> s1.id_student"),
         DISCONNECTION_STUDENT(
+                        "La requete de mis à jour ici"),
+        DENY_INVITATION(
                         "La requete de mis à jour ici"),
         STUDENT_INFO(
                         "SELECT student.id_student, student.familly_name as familyname , student.first_name as firstname, student.email as email, student.phone_number as phoneNumber, student.gender as gender,student.profile_image as profile_image , student.password as password , student.birthday as bithday\n"

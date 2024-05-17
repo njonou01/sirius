@@ -19,6 +19,10 @@
     "path": "createActivity/activityCreated",
     "title": "SSN Group 9"
   },
+  "finishPageActivity": {
+    "path": "createActivity/finishPageActivity",
+    "title": "SSN Group 9"
+  },
   "seeMyActivity": {
     "path": "createActivity/seeMyActivity",
     "title": "SSN Group 9"

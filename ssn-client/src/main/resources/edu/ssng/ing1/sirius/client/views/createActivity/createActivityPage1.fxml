@@ -46,6 +46,7 @@
          <children>
             <VBox alignment="CENTER" maxWidth="600.0" prefHeight="557.0" prefWidth="600.0" spacing="10.0" styleClass="centerBox">
                <children>
+                  <Label fx:id="emptyField" prefHeight="17.0" prefWidth="383.0" text="Remplissez tous les Champs !!!" textFill="#c73030" />
                   <ImageView fitHeight="100.0" fitWidth="135.0">
                      <image>
                         <Image url="@../../../../../../../media/images/UconnectLogo.png" />

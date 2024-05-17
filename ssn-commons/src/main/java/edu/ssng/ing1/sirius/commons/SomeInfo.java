@@ -1,5 +1,6 @@
 package edu.ssng.ing1.sirius.commons;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.*;
@@ -14,6 +15,8 @@ public class SomeInfo {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Set<String> ipAdress;
 
+    private HashMap<String,String> mapInfo;
+
 
 
     public SomeInfo(){
@@ -22,7 +25,7 @@ public class SomeInfo {
     }
 
 
-    public SomeInfo(String info,Set<String> ipAdress){
+    public SomeInfo(String info,Set<String> ipAdress,HashMap<String,String> mapInfo){
         this.info=info;
         this.ipAdress=ipAdress;
 
@@ -39,6 +42,16 @@ public class SomeInfo {
     @JsonSetter("ipAdress")
     public Set<String> getIpAdress() {
         return ipAdress;
+    }
+
+    @JsonSetter("mapInfo")
+    public HashMap<String, String> getMapInfo() {
+        return mapInfo;
+    }
+
+    @JsonSetter("mapInfo")
+    public void setMapInfo(HashMap<String, String> mapInfo) {
+        this.mapInfo = mapInfo;
     }
 
 

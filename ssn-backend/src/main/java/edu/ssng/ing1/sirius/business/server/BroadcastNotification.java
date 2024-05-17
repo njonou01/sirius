@@ -40,10 +40,19 @@ public class BroadcastNotification {
                     .getStudentConnectedemailHashmap().get(receiver);
             logger.info("Address found : " + ipReceivers);
 
-            for (String ipReceiver : ipReceivers) {
-                tryconnection(ipReceiver, notifTosend, receiver);
+            if (ipReceivers==null) {
+                continue;
+            } else {
+                for (String ipReceiver : ipReceivers) {
+                    if (ipReceiver == null) {
+                        continue;
+                    }else{
+                        tryconnection(ipReceiver, notifTosend, receiver);
+                    }
+                    
+                }
+                
             }
-
         }
 
     }
@@ -68,11 +77,22 @@ public class BroadcastNotification {
         for (String receiver : receivers) {
             Set<String> ipReceivers = ConnectedStudent
                     .getStudentConnectedemailHashmap().get(receiver);
-            logger.info("Address found : " + ipReceivers);
-
-            for (String ipReceiver : ipReceivers) {
-                tryconnection(ipReceiver, notifTosend, receiver);
+            System.out.println("Address found : " + ipReceivers);
+            
+            if (ipReceivers==null) {
+                continue;
+            } else {
+                for (String ipReceiver : ipReceivers) {
+                    if (ipReceiver == null) {
+                        continue;
+                    }else{
+                        tryconnection(ipReceiver, notifTosend, receiver);
+                    }
+                    
+                }
+                
             }
+                
 
         }
 

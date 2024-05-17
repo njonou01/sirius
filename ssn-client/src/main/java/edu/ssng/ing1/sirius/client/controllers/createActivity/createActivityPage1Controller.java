@@ -2,34 +2,22 @@ package edu.ssng.ing1.sirius.client.controllers.createActivity;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-
-import org.kordamp.ikonli.fontawesome5.FontAwesomeBrands;
-import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import edu.ssng.ing1.sirius.client.controllers.authentification.Rules;
-import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import edu.ssng.ing1.sirius.client.toast.Toast;
 import edu.ssng.ing1.sirius.client.toast.ToastType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * createActivityPage2Controller
@@ -74,6 +62,9 @@ public class createActivityPage1Controller implements Initializable {
     @FXML
     private VBox VBoxCenter;
 
+    @FXML
+    private Label emptyField;
+
     // @FXML
     // private BorderPane borderPaneActivity;
 
@@ -87,6 +78,7 @@ public class createActivityPage1Controller implements Initializable {
         router = RouterPopUp.getInstance();
         nameActivityField.setPromptText("Entrez le nom de votre activité");
         // borderPaneRoot.getStyleClass().add("popup-window");
+        emptyField.setText("");
 
         // borderPaneActivity.getStylesheets().add(getClass().getResource("addActivity.css").toExternalForm());
         choiceCategorie.getItems().addAll(RouterPopUp.getCategorie());
@@ -125,9 +117,11 @@ public class createActivityPage1Controller implements Initializable {
             router.navigateTo("createActivityPage2");
 
         } else {
-            // System.out.println("IIIIIIIIIIIIII");
+            System.out.println("IIIIIIIIIIIIII");
             if (nameActivityField.getText().isEmpty()) {
-                Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas etre vide");
+                // Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas
+                // etre vide");
+                emptyField.setText("Remplissez tous les champts");
 
             } else {
                 Toast.buildToast(ToastType.ERROR, "Pas de caractere special dans le champ \"Nom activité\" ");

@@ -70,44 +70,40 @@ public class createActivityPage4Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         router = RouterPopUp.getInstance();
         Student student = UserInfo.getUser();
+        student.setProfileImageStream(null);
+        student.setProfileImage(null);
         Platform.runLater(() -> {
             myFriends.setOnAction(event -> {
+                inviteVbox.getChildren().clear();
 
-                
                 try {
-                    Students students= SelectMyFriends.SelectStudent(student);
+                    Students students = SelectMyFriends.SelectStudent(student);
                     for (Student MyFriend : students.getStudents()) {
                         displayFriendsInvite(MyFriend);
                     }
-                    
+
                 } catch (IOException | InterruptedException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                        
-                
-            
+
             });
             lastActivityBtn.setOnAction(event -> {
+                inviteVbox.getChildren().clear();
 
-                
                 try {
-                    Students students= SelectMyFriends.SelectStudentLast(student);
+                    Students students = SelectMyFriends.SelectStudentLast(student);
                     for (Student MyFriend : students.getStudents()) {
                         displayFriendsInvite(MyFriend);
                     }
-                    
+
                 } catch (IOException | InterruptedException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                        
-                
-            
-            });
-           
 
-            
+            });
+
         });
 
         scrollPane.setFitToWidth(true);
@@ -130,14 +126,22 @@ public class createActivityPage4Controller implements Initializable {
         RouterPopUp.activite.setProvenance("HomePage");
         RouterPopUp.activite.setDatecreation(timestampString);
         RouterPopUp.activite.setState(true);
-        Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
+        RouterPopUp.activite.setId_student(student.getId_student());
+        // Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
         try {
             InsertActivityQuery.InsertActivite(RouterPopUp.activite);
         } catch (IOException | InterruptedException | SQLException e) {
             System.out.println("OOOOOOOOOOOOO" + e.getMessage() + "OOOOOOOOOOOOO");
         }
+        router.navigateTo("finishPageActivity");
 
-        router.getStage().close();
+        // try {
+        // Thread.sleep(3000);
+        // } catch (InterruptedException e) {
+        // e.printStackTrace();
+        // }
+
+        // router.getStage().close();
 
     }
 

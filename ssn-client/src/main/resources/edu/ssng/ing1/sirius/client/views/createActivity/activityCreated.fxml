@@ -1,38 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="921.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.ActivityCreatedController">
-   <content>
-      <VBox fx:id="parentVBox" alignment="CENTER" prefHeight="560.0" prefWidth="927.0" spacing="10.0" stylesheets="@../asset/css/addActivity.css">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="627.0" prefWidth="880.0" stylesheets="@../asset/css/addActivity.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.ActivityCreatedController">
+   <top>
+      <AnchorPane prefHeight="65.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="60.0" prefWidth="880.0">
                <children>
-                  <FontIcon iconColor="#175684" iconLiteral="fas-arrow-left" iconSize="20" onMouseClicked="#backBTN">
-                     <HBox.margin>
-                        <Insets right="50.0" />
-                     </HBox.margin>
-                  </FontIcon>
-                  <Label prefHeight="63.0" prefWidth="315.0" text="Vos Activitées Actives">
-                     <font>
-                        <Font size="32.0" />
-                     </font>
+                  <ImageView fx:id="logo" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox prefHeight="88.0" prefWidth="432.0">
+                     <children>
+                        <AnchorPane prefHeight="87.0" prefWidth="432.0" styleClass="search-bar">
+                           <children>
+                              <TextField layoutX="47.0" prefHeight="38.0" prefWidth="392.0" styleClass="TextField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="46.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="0.0" />
+                              <Button layoutY="2.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="47.0" styleClass="btn-transparent">
+                                 <graphic>
+                                    <FontIcon iconLiteral="fas-search" iconSize="30" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
                      <padding>
-                        <Insets bottom="30.0" />
+                        <Insets bottom="10.0" top="10.0" />
                      </padding>
-                  </Label>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="navbar-elmt">
+                     <children>
+                        <Button fx:id="homePageBtn" mnemonicParsing="false" prefHeight="55.0" prefWidth="80.0" styleClass="btn-transparent">
+                           <graphic>
+                              <FontIcon iconLiteral="fas-home" iconSize="25" onMouseClicked="#backBTN" selectionEnd="0" styleClass="navbar-icon" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="navbar-elmt">
+                     <children>
+                        <Button fx:id="friendPageBtn" mnemonicParsing="false" prefHeight="78.0" prefWidth="70.0" styleClass="btn-transparent">
+                           <graphic>
+                              <FontIcon iconLiteral="fas-users" iconSize="25" styleClass="navbar-icon" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="navbar-elmt">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" styleClass="btn-transparent">
+                           <graphic>
+                              <FontIcon iconLiteral="fas-newspaper" iconSize="25" styleClass="navbar-icon" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="navbar-elmt">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" styleClass="btn-transparent">
+                           <graphic>
+                              <FontIcon iconLiteral="fas-envelope" iconSize="25" styleClass="navbar-icon" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="navbar-elmt">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="70.0" styleClass="btn-transparent">
+                           <graphic>
+                              <FontIcon iconLiteral="fas-bell" iconSize="25" styleClass="navbar-icon" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <MenuButton mnemonicParsing="false" styleClass="btn-transparent">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem fx:id="deconnexionbtn" mnemonicParsing="false" text="Deconnection" />
+                     </items>
+                     <graphic>
+                        <ImageView fx:id="profileImage2" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../../../../Downloads/360_F_553796090_XHrE6R9jwmBJUMo9HKl41hyHJ5gqt9oz.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuButton>
                </children>
             </HBox>
          </children>
-         <padding>
-            <Insets left="300.0" right="20.0" />
-         </padding>
-      </VBox>
-   </content>
-</ScrollPane>
+      </AnchorPane>
+   </top>
+   <right>
+      <ScrollPane fx:id="scroolPane" fitToWidth="true" hbarPolicy="NEVER" minWidth="350.0" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="rightPanel" prefHeight="578.0" prefWidth="241.0" spacing="10.0" styleClass="activitycreatedBG">
+               <children>
+                  <AnchorPane fx:id="anchorePane" prefHeight="539.0" prefWidth="347.0">
+                     <children>
+                        <VBox fx:id="VBoxx" prefHeight="537.0" prefWidth="350.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </right>
+   <center>
+      <ScrollPane fitToWidth="true" prefHeight="562.0" prefWidth="561.0" BorderPane.alignment="CENTER">
+         <content>
+            <VBox fx:id="parentVBox" prefHeight="459.0" prefWidth="675.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="600.0">
+                     <children>
+                        <FontIcon iconColor="#254b84" iconLiteral="fas-arrow-left" iconSize="20" onMouseClicked="#backBTN" text="">
+                           <HBox.margin>
+                              <Insets right="100.0" />
+                           </HBox.margin>
+                        </FontIcon>
+                        <Label prefHeight="46.0" prefWidth="315.0" text="Vos Activitées Actives">
+                           <font>
+                              <Font size="32.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="30.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="127.0" prefWidth="730.0" styleClass="activitycreatedBG">
+                     <children>
+                        <ImageView fitHeight="107.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" />
+                        <VBox prefHeight="107.0" prefWidth="454.0" spacing="10.0">
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="369.0" text="Nom Activité : échec" />
+                              <Label prefHeight="17.0" prefWidth="370.0" text="Createur : Vous" />
+                              <HBox prefHeight="57.0" prefWidth="323.0" spacing="40.0">
+                                 <children>
+                                    <Label prefHeight="17.0" prefWidth="173.0" text="Début : 122" />
+                                    <Label prefHeight="17.0" prefWidth="156.0" text="Fin : 133" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="50.0" stylesheets="@../asset/css/addActivity.css">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#seePart" styleClass="btn" text="Participants" />
+                                    <FontIcon fx:id="chatIcon1" iconColor="#2361a6" iconLiteral="far-comment-dots" iconSize="25" onMouseClicked="#goToDiscution" wrappingWidth="31.3333740234375" />
+                                    <FontIcon iconColor="#b03a65" iconLiteral="fas-sign-out-alt" iconSize="25" onMouseClicked="#quitActivity" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                        <ProgressIndicator fx:id="progress1" minHeight="100.0" minWidth="85.0" prefHeight="41.0" prefWidth="126.0" progress="0.0">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </ProgressIndicator>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>

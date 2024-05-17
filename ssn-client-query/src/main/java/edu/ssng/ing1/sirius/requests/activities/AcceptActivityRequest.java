@@ -12,6 +12,7 @@ import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
 import edu.ssng.ing1.sirius.commons.Request;
+import edu.ssng.ing1.sirius.commons.SomeInfo;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +25,10 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.UUID;
 
-public class SelectMyFriends {
+public class AcceptActivityRequest {
 
     private final static String LoggingLabel = "I n s e r t e r - C l i e n t";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
@@ -38,7 +40,7 @@ public class SelectMyFriends {
 
 
 
-    public static Students SelectStudent(Student student) throws IOException, InterruptedException, SQLException {
+    public static void acceptActivity(Integer idStudent ,String studentEmail, Integer idActivityCreator, String email) throws IOException, InterruptedException, SQLException {
 
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
@@ -48,9 +50,19 @@ public class SelectMyFriends {
         final String requestId = UUID.randomUUID().toString();
         final Request request = new Request();
         request.setRequestId(requestId);
-        String body=objectMapper.writeValueAsString(student);
+        SomeInfo someInfo = new SomeInfo();
+        someInfo.setInfo(email);
+        HashMap<String,String> hashMap=new HashMap<>();
+        hashMap.put("id_student", idStudent+"");
+        hashMap.put("idActivityCreator", idActivityCreator+"");
+        hashMap.put("studentEmail", studentEmail);
+        hashMap.put("email", email);
+
+
+        someInfo.setMapInfo(hashMap);
+        String body=objectMapper.writeValueAsString(someInfo);
         request.setRequestContent(body);
-        request.setRequestOrder("SELECT_MY_FRIENDS");
+        request.setRequestOrder("INSERT_PARTICIPATION");
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
@@ -70,9 +82,8 @@ public class SelectMyFriends {
 
             System.out.println( "ddd"+students.toString());
            
-        return students;
     }
-    public static Students SelectStudentLast(Student student) throws IOException, InterruptedException, SQLException {
+    public static void denyActivity(String studentEmail, String email) throws IOException, InterruptedException, SQLException {
 
         final NetworkConfig networkConfig = ConfigLoader.loadConfig(NetworkConfig.class, networkConfigFile);
         logger.debug("Load Network config file : {}", networkConfig.toString());
@@ -82,9 +93,18 @@ public class SelectMyFriends {
         final String requestId = UUID.randomUUID().toString();
         final Request request = new Request();
         request.setRequestId(requestId);
-        String body=objectMapper.writeValueAsString(student);
+        SomeInfo someInfo = new SomeInfo();
+        someInfo.setInfo(email);
+        HashMap<String,String> hashMap=new HashMap<>();
+        
+        hashMap.put("studentEmail", studentEmail);
+        hashMap.put("email", email);
+
+
+        someInfo.setMapInfo(hashMap);
+        String body=objectMapper.writeValueAsString(someInfo);
         request.setRequestContent(body);
-        request.setRequestOrder("SELECT_LAST_ACTIVITY_FRIENDS");
+        request.setRequestOrder("DENY_INVITATION");
         objectMapper.enable(SerializationFeature.WRAP_ROOT_VALUE);
         final byte []  requestBytes = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsBytes(request);
         LoggingUtils.logDataMultiLine(logger, Level.TRACE, requestBytes);
@@ -104,6 +124,6 @@ public class SelectMyFriends {
 
             System.out.println( "ddd"+students.toString());
            
-        return students;
     }
+    
 }
