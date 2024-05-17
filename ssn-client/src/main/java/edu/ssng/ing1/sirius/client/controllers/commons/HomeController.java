@@ -114,18 +114,18 @@ public class HomeController implements Initializable {
             UserInfo.removeUser();
             ClientConnexion.closersocket();
 
-            // try {
-            // Disconnection.disconnection(student.getEmail());
-            // } catch (NullPointerException e) {
-            // // TODO Auto-generated catch block
-            // e.printStackTrace();
-            // } catch (IOException e) {
-            // // TODO Auto-generated catch block
-            // e.printStackTrace();
-            // } catch (InterruptedException e) {
-            // // TODO Auto-generated catch block
-            // e.printStackTrace();
-            // }
+            try {
+            Disconnection.disconnection(student.getEmail());
+            } catch (NullPointerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            }
             Router.getInstance().navigateTo("authentification");
             Router.getInstance().getStage().sizeToScene();
             Router.getInstance().setFullScreenStage();
@@ -144,18 +144,10 @@ public class HomeController implements Initializable {
 
         Platform.runLater(() -> {
             for (Notification notification : notificationToBedisplayed) {
-                // if (isAlreadyDisplay && notificationToBedisplayed.contains(notification)) {
-                    System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                    System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                    System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                    System.out.println("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-                //     continue;
-                // }
+                
 
                 Label label = new Label(notification.getMessage()+" "+ notification.getHoursReceive());
-                // Label labelHour = new Label(notification.getHoursReceive());
                 label.setWrapText(true);
-                // labelHour.setWrapText(true);
                 final HBox hbox = new HBox();
                 hbox.getChildren().addAll(label);
                 vBoxN.getChildren().add(hbox);
