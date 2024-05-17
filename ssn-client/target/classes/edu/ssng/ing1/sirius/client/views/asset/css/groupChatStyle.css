@@ -1,0 +1,18 @@
+ @font-face {
+    font-family: "Jomhuria";
+    src: url("../font/Jomhuria/Jomhuria-Regular.ttf");
+  }
+
+  .groupChatPanel{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+  }
+  
+.searchBar{
+  -fx-background-color: #8fcbe5;
+  -fx-background-radius: 10px;
+}
+
+.searchBarField{
+  -fx-background-color: #ddf5ff;
+}

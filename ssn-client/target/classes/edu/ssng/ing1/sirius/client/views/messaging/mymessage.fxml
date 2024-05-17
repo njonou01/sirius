@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="BOTTOM_RIGHT" maxWidth="635.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.messaging.PrivateMessageControler">
+   <children>
+      <VBox>
+         <children>
+            <HBox>
+               <children>
+                  <HBox alignment="BASELINE_RIGHT">
+                     <children>
+                        <AnchorPane maxWidth="482.0">
+                           <children>
+                              <HBox maxWidth="482.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <VBox>
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <VBox maxWidth="450.0">
+                                                   <children>
+                                                      <VBox style="-fx-background-color: white; -fx-background-radius: 10px; -fx-border-radius: 10px;">
+                                                         <children>
+                                                            <ImageView fx:id="image" fitHeight="573.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../../../../../../../../../../../../Downloads/a-sleek-black-men-or-women-with-computer-and-moder-QU2UKxvgQzmStnbZ0qe2xQ-UvaVQBIrSGSdxwxf5qufNQ.jpeg" />
+                                                               </image>
+                                                               <VBox.margin>
+                                                                  <Insets right="5.0" top="5.0" />
+                                                               </VBox.margin>
+                                                            </ImageView>
+                                                            <Label fx:id="message" maxWidth="573.0" style="-fx-background-color: white; -fx-border-radius: 10px; -fx-background-radius: 10;" text="message" wrapText="true">
+                                                               <padding>
+                                                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                               </padding>
+                                                            </Label>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="BOTTOM_LEFT">
+                                                   <children>
+                                                      <Polygon fill="WHITE" points="50.0, 48.0, 82.0, 36.0, 69.0, 36.0" rotate="-120.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="-13.0" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets right="25.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </HBox>
+            <VBox>
+               <children>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <ImageView fx:id="profileImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../../../../../../../../../../../../../Downloads/CFA_AFIA_Bootcamp_DSF5850-removebg-preview%20(3).png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Label fx:id="sendingDate" text="hier a 19h30">
+                           <font>
+                              <Font size="8.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="3.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" top="5.0" />
+   </padding>
+</HBox>
