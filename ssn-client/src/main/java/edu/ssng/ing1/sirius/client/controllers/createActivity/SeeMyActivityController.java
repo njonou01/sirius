@@ -227,32 +227,38 @@ public class SeeMyActivityController implements Initializable {
             buttonBox.setPrefSize(347.0, 57.0);
 
             VBox vbox = new VBox(inviteLabel, gameLabel, buttonBox);
-            int index2 = vbox.getChildren().indexOf(buttonBox);
+            int index2 = buttonBox.getChildren().indexOf(acceptBtn);
+            int index1 = buttonBox.getChildren().indexOf(denyBtn);
 
             denyBtn.setOnAction(event -> {
-
+ 
                 try {
+                    buttonBox.getChildren().remove(acceptBtn);
+                    buttonBox.getChildren().set(index1, labelDeny);
                     AcceptActivityRequest.denyActivity(student.getEmail(),
                             activite.getEmailCreateur());
-                    vbox.getChildren().set(index2, labelDeny);
+                           
                 } catch (IOException | InterruptedException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
+ 
             });
-
+ 
             acceptBtn.setOnAction(event -> {
-
+ 
                 try {
+                            buttonBox.getChildren().remove(denyBtn);
+                            buttonBox.getChildren().set(index2, labelAccept);
                     AcceptActivityRequest.acceptActivity(student.getId_student(), student.getEmail(),
                             activite.getId_student(), activite.getEmailCreateur());
-                    vbox.getChildren().set(index2, labelAccept);
+                    // vbox.getChildren().set(index2, labelAccept);
+                           
                 } catch (IOException | InterruptedException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
+ 
             });
 
             vbox.setAlignment(javafx.geometry.Pos.CENTER);
