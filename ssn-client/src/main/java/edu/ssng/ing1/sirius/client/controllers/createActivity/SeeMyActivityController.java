@@ -55,14 +55,12 @@ public class SeeMyActivityController implements Initializable {
     @FXML
     ProgressIndicator progress1;
 
-    @FXML
-    ProgressIndicator progress2;
+    
 
     @FXML
     ScrollPane scroolPane;
 
-    @FXML
-    ProgressIndicator progress3;
+    
 
     @FXML
     Button acceptBtn;
@@ -141,17 +139,6 @@ public class SeeMyActivityController implements Initializable {
             }
             progress1.setProgress(newValue);
 
-            newValue = progress2.getProgress() + 0.1;
-            if (newValue > 1) {
-                newValue = 0;
-            }
-            progress2.setProgress(newValue);
-
-            newValue = progress3.getProgress() + 0.1;
-            if (newValue > 1) {
-                newValue = 0;
-            }
-            progress3.setProgress(newValue);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();

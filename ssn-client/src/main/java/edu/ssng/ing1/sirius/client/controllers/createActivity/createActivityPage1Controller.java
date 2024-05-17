@@ -74,6 +74,9 @@ public class createActivityPage1Controller implements Initializable {
     @FXML
     private VBox VBoxCenter;
 
+    @FXML
+    private Label emptyField;
+
     // @FXML
     // private BorderPane borderPaneActivity;
 
@@ -87,6 +90,7 @@ public class createActivityPage1Controller implements Initializable {
         router = RouterPopUp.getInstance();
         nameActivityField.setPromptText("Entrez le nom de votre activité");
         // borderPaneRoot.getStyleClass().add("popup-window");
+        emptyField.setText("");
 
         // borderPaneActivity.getStylesheets().add(getClass().getResource("addActivity.css").toExternalForm());
         choiceCategorie.getItems().addAll(RouterPopUp.getCategorie());
@@ -123,11 +127,12 @@ public class createActivityPage1Controller implements Initializable {
             RouterPopUp.MinousProgress += 0.33;
             RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
             router.navigateTo("createActivityPage2");
-            
+
         } else {
-            System.out.println("IIIIIIIIIIIIII");
+            
             if (nameActivityField.getText().isEmpty()) {
-                Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas etre vide");
+                // Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas etre vide");
+                emptyField.setText("Remplissez tous les champts");
 
             } else {
 

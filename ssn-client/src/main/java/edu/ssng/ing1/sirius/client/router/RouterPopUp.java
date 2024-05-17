@@ -48,6 +48,8 @@ public class RouterPopUp {
     public static ProgressBar progressBar;
     public static double MinousProgress;
 
+   
+
     public RouterPopUp() {
 
         Router root = Router.getInstance();

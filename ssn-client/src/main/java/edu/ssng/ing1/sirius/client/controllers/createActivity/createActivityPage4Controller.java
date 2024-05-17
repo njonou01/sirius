@@ -135,14 +135,22 @@ public class createActivityPage4Controller implements Initializable {
         RouterPopUp.activite.setDatecreation(timestampString);
         RouterPopUp.activite.setState(true);
         RouterPopUp.activite.setId_student(student.getId_student());
-        Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
+        // Toast.buildToast(ToastType.SUCCESS, "Félicitation Activité Créée ");
         try {
             InsertActivityQuery.InsertActivite(RouterPopUp.activite);
         } catch (IOException | InterruptedException | SQLException e) {
             System.out.println("OOOOOOOOOOOOO" + e.getMessage() + "OOOOOOOOOOOOO");
         }
+        router.navigateTo("finishPageActivity");
 
-        router.getStage().close();
+        // try {
+        //     Thread.sleep(3000);  
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }
+
+
+        // router.getStage().close();
 
     }
 

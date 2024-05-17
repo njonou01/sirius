@@ -32,20 +32,6 @@
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="77.0" prefWidth="254.0" styleClass="leftBoxStudent">
-                     <children>
-                        <ImageView fitHeight="65.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                        <VBox fx:id="friendVBox" alignment="CENTER" prefHeight="77.0" prefWidth="200.0" spacing="20.0">
-                           <children>
-                              <Label text="Label" />
-                              <Button fx:id="inviteFriendsBtn" mnemonicParsing="false" styleClass="btn" text="Inviter" />
-                           </children>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="12.0" />
-                     </VBox.margin>
-                  </HBox>
                   <VBox fx:id="inviteVbox" prefHeight="200.0" prefWidth="244.0" />
                </children>
             </VBox>
@@ -74,12 +60,6 @@
                      <effect>
                         <InnerShadow />
                      </effect>
-                     <children>
-                        <Button mnemonicParsing="false" styleClass="toShare" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Button mnemonicParsing="false" text="Button" />
-                     </children>
                      <padding>
                         <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
                      </padding>

@@ -2,7 +2,10 @@ package edu.ssng.ing1.sirius.business.server;
 
 public enum Queries {
         SELECT_ALL_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t"),
-        SELECT_MY_ACTIVITY("SELECT t.datecreation, t.datedebut, t.datefin, t.nom_interet_activite, t.libelle, t.categorie, t.provenance, t.confidentialite, t.nomcreateur, t.id_student, t.nbrparticipant, t.state FROM \"ssn-db-ing1\".Activite t WHERE t.id_student = ?"),
+        SELECT_MY_ACTIVITY("SELECT a.* " +
+        "FROM \"ssn-db-ing1\".activite a " +
+        "JOIN \"ssn-db-ing1\".participationactivite pa ON a.idactivite = pa.idactivite " +
+        "WHERE pa.id_student = ?"),
         ACTIVITY_INVITATION("INSERT INTO \"ssn-db-ing1\".activityinvitation (sender, receiver) VALUES (?, ?)"),
         RESPONSE_UPDATE("UPDATE ssn-db-ing1.activityinvitation\n" + 
                                 "SET state = ?\n" + 

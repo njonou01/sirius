@@ -33,7 +33,6 @@ public class SelectMyActivityQuery {
     private final static String studentsToBeInserted = "students-to-be-inserted.yaml";
     private final static String networkConfigFile = "network.yaml";
     private static final String threadName = "inserter-client";
-    private static final String requestOrder = "SELECT_ALL_STUDENTS";
 
     private static final Deque<SelectActivitesClientRequest> clientRequests = new ArrayDeque<SelectActivitesClientRequest>();
 

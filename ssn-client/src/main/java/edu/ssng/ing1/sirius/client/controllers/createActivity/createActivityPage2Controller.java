@@ -73,18 +73,22 @@ public class createActivityPage2Controller implements Initializable {
 
     private Timestamp dateFin;
 
-    private int plusHourDebut;
+    private int plusHourDebut=0;
 
-    private int plusMinuteFin;
+    private int plusMinuteFin=0;
 
-    private int plusHourFin;
+    private int plusHourFin=0;
 
-    private int plusMinuteDebut;
+    private int plusMinuteDebut=0;
+
+    @FXML
+    private Label emptyField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         router = RouterPopUp.getInstance();
 
+        emptyField.setText("");
         choiceConfidentSelection.getItems().addAll(RouterPopUp.getConfi());
         choiceConfidentSelection.getSelectionModel().selectFirst();
 
@@ -232,7 +236,9 @@ public class createActivityPage2Controller implements Initializable {
     @FXML
     public void nextPage() {
 
-        
+        if (numberChoice == null || dateDebut == null || dateFin == null) {
+            emptyField.setText(" Remplissez les champs: Nombre de participant, Date début et date de Fin !!");
+        }else{
         RouterPopUp.activite.setNbrparticipant(numberChoice);
         RouterPopUp.activite.setConfidentialite((String) choiceConfidentSelection.getValue());
         RouterPopUp.MinousProgress += 0.33;
@@ -247,6 +253,10 @@ public class createActivityPage2Controller implements Initializable {
 
         System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
                 + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+
+
+        }
+        
 
     }
 
