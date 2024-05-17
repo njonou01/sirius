@@ -35,19 +35,12 @@ public class StudentConnectedProcess {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            // System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            // System.out.println(myfriends);
-            // System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            // System.out.println(ConnectedStudent.getStudentConnectedemailHashmap().keySet());
+            
+            System.out.println(myfriends);
+            System.out.println(ConnectedStudent.getStudentConnectedemailHashmap().keySet());
             myfriends.retainAll(ConnectedStudent.getStudentConnectedemailHashmap().keySet());
 
-            // System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            //     System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            //     System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            //     System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            //     System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            //     System.out.println("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-            //     System.out.println(myfriends);
+                System.out.println(myfriends);
             
        
 

@@ -73,18 +73,22 @@ public class createActivityPage2Controller implements Initializable {
 
     private Timestamp dateFin;
 
-    private int plusHourDebut;
+    private int plusHourDebut = 0;
 
-    private int plusMinuteFin;
+    private int plusMinuteFin = 0;
 
-    private int plusHourFin;
+    private int plusHourFin = 0;
 
-    private int plusMinuteDebut;
+    private int plusMinuteDebut = 0;
+
+    @FXML
+    private Label emptyField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         router = RouterPopUp.getInstance();
 
+        emptyField.setText("");
         choiceConfidentSelection.getItems().addAll(RouterPopUp.getConfi());
         choiceConfidentSelection.getSelectionModel().selectFirst();
 
@@ -96,6 +100,7 @@ public class createActivityPage2Controller implements Initializable {
 
                 plusHourDebut = hour;
 
+                menuButton1.setText(hour + "");
             });
             menuButton1.getItems().add(item);
         }
@@ -105,7 +110,7 @@ public class createActivityPage2Controller implements Initializable {
             item.setOnAction(event -> {
                 // System.out.println("Heure sélectionnée : " + hour);
                 plusHourFin = hour;
-
+                menuButton2.setText(hour + "");
             });
             menuButton2.getItems().add(item);
         }
@@ -115,6 +120,7 @@ public class createActivityPage2Controller implements Initializable {
             item.setOnAction(event -> {
                 // System.out.println("Heure sélectionnée : " + hour);
                 plusMinuteDebut = hour;
+                menuButton3.setText(hour + "");
 
             });
             menuButton3.getItems().add(item);
@@ -125,6 +131,7 @@ public class createActivityPage2Controller implements Initializable {
             item.setOnAction(event -> {
                 // System.out.println("Heure sélectionnée : " + hour);
                 plusMinuteFin = hour;
+                menuButton4.setText(hour + "");
 
             });
             menuButton4.getItems().add(item);
@@ -218,7 +225,7 @@ public class createActivityPage2Controller implements Initializable {
         LocalDateTime localDateTime = timestamp.toLocalDateTime();
 
         LocalDateTime newLocalDateTime = localDateTime.plusHours(hour).plusMinutes(minute);
-    
+
         Timestamp newTimestamp = Timestamp.valueOf(newLocalDateTime);
         // System.out.println("Nouveau Timestamp : " + newTimestamp);
 
@@ -228,20 +235,26 @@ public class createActivityPage2Controller implements Initializable {
 
     @FXML
     public void nextPage() {
-        RouterPopUp.activite.setNbrparticipant(numberChoice);
-        RouterPopUp.activite.setCategorie((String) choiceConfidentSelection.getValue());
-        RouterPopUp.MinousProgress += 0.33;
-        RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
-        RouterPopUp.activite.setDatedebut("" + addTimer(dateDebut, plusHourDebut, plusMinuteDebut));
-        RouterPopUp.activite.setDatefin("" + addTimer(dateFin, plusHourFin, plusMinuteFin));
 
-        // System.out.println(" La date de l" + RouterPopUp.activite.getDatedebut());
-        // System.out.println(" La date de l" + RouterPopUp.activite.getDatefin());
+        if (numberChoice == null || dateDebut == null || dateFin == null) {
+            emptyField.setText(" Remplissez les champs: Nombre de participant, Date début et date de Fin !!");
+        } else {
+            RouterPopUp.activite.setNbrparticipant(numberChoice);
+            RouterPopUp.activite.setConfidentialite((String) choiceConfidentSelection.getValue());
+            RouterPopUp.MinousProgress += 0.33;
+            RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
+            RouterPopUp.activite.setDatedebut("" + addTimer(dateDebut, plusHourDebut, plusMinuteDebut));
+            RouterPopUp.activite.setDatefin("" + addTimer(dateFin, plusHourFin, plusMinuteFin));
 
-        router.navigateTo("createActivityPage3");
+            System.out.println(" La date de l" + RouterPopUp.activite.getDatedebut());
+            System.out.println(" La date de l" + RouterPopUp.activite.getDatefin());
 
-        // System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
-        //         + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+            router.navigateTo("createActivityPage3");
+
+            System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
+                    + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+
+        }
 
     }
 

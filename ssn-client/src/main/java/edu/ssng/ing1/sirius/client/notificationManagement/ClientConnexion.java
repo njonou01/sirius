@@ -13,8 +13,8 @@ public class ClientConnexion extends Thread {
     private final static String networkConfigFile = "network.yaml";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private static NetworkConfig networkConfig;
-    Socket clientSocket;
-    private static Boolean isCloseSocket = true;
+    Socket clientSocket ;
+    public static Boolean isCloseSocket=true;
     private static ServerSocket serverSocket = null;
     // private final Set<RequestHandler> setHandlers = Collections
     // .synchronizedSet(new LinkedHashSet<RequestHandler>());
@@ -39,24 +39,28 @@ public class ClientConnexion extends Thread {
         try {
             logger.info("Ready To get All Notification in port {}....", networkConfig.getTcpportServerNotify());
             serverSocket = new ServerSocket(networkConfig.getTcpportServerNotify());
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                try {
-                    serverSocket.close();
-                    logger.info("Client  notification stopped.");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }));
-            while (true) {
+         
+            int i = 0;
+
+            while (isCloseSocket) {
+                
                 Socket clientSocket = serverSocket.accept();
-                logger.info("new notification {}" + clientSocket);
+                System.out.println("Client connected: " + clientSocket.getInetAddress());
+               
+                System.out.println("Une nouvelle notif :" + i);
+                System.out.println(clientSocket);
+                
+                i++;
                 new NotifyHandler(clientSocket).start();
-                if (!isCloseSocket)
-                    break;
+                
             }
 
         } catch (IOException e) {
-            // e.printStackTrace();
+            if (!isCloseSocket) {
+                System.out.println("Server stopped.");
+            } else {
+                e.printStackTrace();
+            }
         } finally {
             if (serverSocket != null) {
                 try {
@@ -68,12 +72,16 @@ public class ClientConnexion extends Thread {
         }
     }
 
-    public static void closersocket() {
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            logger.error("Error", e);
-        }
+
+    public static void closersocket(){
         isCloseSocket = false;
+        if (serverSocket != null && !serverSocket.isClosed()) {
+            try {
+                serverSocket.close();
+                System.out.println("Server socket closed.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

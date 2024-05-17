@@ -21,9 +21,9 @@ import edu.ssng.ing1.sirius.client.MainClient;
 
 public class Router {
     private static Router instance;
-    private Stage stage;
-    private static final String LOGGING_LABEL = "ROUTAGE";
-    private final Logger logger = LoggerFactory.getLogger(LOGGING_LABEL);
+    private static Stage stage;
+    private final static String LoggingLabel = "ROUTAGE";
+    private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private static JsonNode data;
 
     private Router() {
