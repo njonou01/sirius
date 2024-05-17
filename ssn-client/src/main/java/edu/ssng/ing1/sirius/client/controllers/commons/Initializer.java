@@ -192,8 +192,8 @@ public class Initializer {
 
         public static synchronized List<Message> getMessagesOfStudent(int id_student) {
                 return getAllMessages().stream()
-                                .filter(msg -> msg.getSenderId() == id_student || msg.getReceiverId() == id_student)
-                                .sorted((msg1, msg2) -> msg1.getSentAt().compareTo(msg2.getSentAt()))
+                                .filter(msg -> msg.getSender_id() == id_student || msg.getReceiver_id() == id_student)
+                                .sorted((msg1, msg2) -> msg1.getSent_at().compareTo(msg2.getSent_at()))
                                 .collect(Collectors.toList());
         }
 

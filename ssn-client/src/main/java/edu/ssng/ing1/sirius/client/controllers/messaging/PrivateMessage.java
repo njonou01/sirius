@@ -23,7 +23,7 @@ public class PrivateMessage extends HBox {
 
     public PrivateMessage(Message message) {
         super();
-        String whichMessage = me.getId_student() == message.getSenderId()
+        String whichMessage = me.getId_student() == message.getSender_id()
                 ? "my-messageUI"
                 : "friend-messageUI";
         try {
@@ -33,20 +33,24 @@ public class PrivateMessage extends HBox {
             updateSizeOfImage(
                     message.getMedia() == null ? null : new Image(new ByteArrayInputStream(message.getMedia())),
                     controller.getImage());
-            controller.getMessage().setText(message.getMessageText());
-            controller.getSendingDate().setText(CommonsClient.dateOfEvent(message.getSentAt()));
+            controller.getMessage().setText(message.getMessage_text());
+            controller.getSendingDate().setText(CommonsClient.dateOfEvent(message.getSent_at()));
             this.getChildren().setAll(root);
-            if (message.getSenderId() == me.getId_student()) {
+            if (message.getSender_id() == me.getId_student()) {
                 controller.getProfileImage().setImage(CommonsClient.getImage(me.getProfileImageStream()));
             } else {
-                Student friend = getFriendInfo(message.getSenderId() == me.getId_student()
-                        ? message.getReceiverId()
-                        : message.getSenderId());
+                Student friend = getFriendInfo(message.getSender_id() == me.getId_student()
+                        ? message.getId_message()
+                        : message.getSender_id());
                 controller.getProfileImage().setImage(CommonsClient.getImage(friend.getProfileImageStream()));
             }
+            System.out.println("ajouté");
 
         } catch (IOException e) {
-
+            System.out.println(e);
+        }
+        catch(Exception e){
+            System.out.println("erreur");
         }
     }
 

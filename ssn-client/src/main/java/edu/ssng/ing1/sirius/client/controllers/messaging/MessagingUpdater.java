@@ -11,6 +11,7 @@ import edu.ssng.ing1.sirius.business.dto.BeFriend;
 import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
+import javafx.application.Platform;
 import javafx.scene.layout.VBox;
 
 public class MessagingUpdater {
@@ -76,7 +77,10 @@ public class MessagingUpdater {
     // messageArea.getChildren().add(new Label(message));
 
     public static void addMessageInArea(Message msg) {
-        messageArea.getChildren().add(new PrivateMessage(msg));
+        Platform.runLater(() -> {
+            messageArea.getChildren().add(new PrivateMessage(msg));
+            System.out.println("executé");
+        });
     }
 
 }

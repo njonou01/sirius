@@ -188,8 +188,8 @@ public class XMartCityService {
             final Message newMessage = new Message().build(resultSet);
             newMessage.setMedia(message.getMedia());
             resultSet.close();
-            Set<String> receiver = getUserEmailById(connection, newMessage.getReceiverId());
-            BroadcastNotification.broadcast("NEW_MESSAGE", receiver);
+            Set<String> receiver = getUserEmailById(connection, newMessage.getId_message());
+            BroadcastNotification.broadcast("NEW_MESSAGE", receiver , newMessage);
             // Todo: send message to the other user
             return new Response(request.getRequestId(), mapper.writeValueAsString(newMessage));
         }
@@ -745,6 +745,10 @@ public class XMartCityService {
 
             if (resultSet.next()) {
                 email.add(resultSet.getString("email"));
+                System.out.println("------------------------------------------------");
+                email .stream().forEach(System.out::println);
+                System.out.println("------------------------------------------------");
+
                 return email;
             } else {
                 return null;

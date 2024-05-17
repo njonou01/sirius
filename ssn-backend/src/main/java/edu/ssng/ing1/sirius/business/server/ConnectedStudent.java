@@ -38,6 +38,11 @@ public class ConnectedStudent {
     }
 
     public static HashMap<String, Set<String>> getStudentConnectedemailHashmap() {
+        System.out.println("**************************************************************");
+        studentConnectedemailHashmap.values().stream().forEach(System.out::println);
+        setOfStudentConnected.stream().forEach(System.out::println);
+        System.out.println("**************************************************************");
+
         return studentConnectedemailHashmap;
     }
     public static void setStudentConnectedemailHashmap(HashMap<String, Set<String>> studentConnectedemailHashmap) {
