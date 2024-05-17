@@ -58,7 +58,7 @@ public class NotifyHandler extends Thread{
         
     }
 
-    private final Notification getToNotify(byte[] data) throws IOException {
+    final Notification getToNotify(byte[] data) throws IOException {
         logger.debug("data received {} bytes", data.length);
         LoggingUtils.logDataMultiLine(logger, Level.DEBUG, data);
         final ObjectMapper mapper = new ObjectMapper();

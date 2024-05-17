@@ -73,13 +73,13 @@ public class createActivityPage2Controller implements Initializable {
 
     private Timestamp dateFin;
 
-    private int plusHourDebut=0;
+    private int plusHourDebut = 0;
 
-    private int plusMinuteFin=0;
+    private int plusMinuteFin = 0;
 
-    private int plusHourFin=0;
+    private int plusHourFin = 0;
 
-    private int plusMinuteDebut=0;
+    private int plusMinuteDebut = 0;
 
     @FXML
     private Label emptyField;
@@ -238,25 +238,23 @@ public class createActivityPage2Controller implements Initializable {
 
         if (numberChoice == null || dateDebut == null || dateFin == null) {
             emptyField.setText(" Remplissez les champs: Nombre de participant, Date début et date de Fin !!");
-        }else{
-        RouterPopUp.activite.setNbrparticipant(numberChoice);
-        RouterPopUp.activite.setConfidentialite((String) choiceConfidentSelection.getValue());
-        RouterPopUp.MinousProgress += 0.33;
-        RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
-        RouterPopUp.activite.setDatedebut("" + addTimer(dateDebut, plusHourDebut, plusMinuteDebut));
-        RouterPopUp.activite.setDatefin("" + addTimer(dateFin, plusHourFin, plusMinuteFin));
+        } else {
+            RouterPopUp.activite.setNbrparticipant(numberChoice);
+            RouterPopUp.activite.setConfidentialite((String) choiceConfidentSelection.getValue());
+            RouterPopUp.MinousProgress += 0.33;
+            RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
+            RouterPopUp.activite.setDatedebut("" + addTimer(dateDebut, plusHourDebut, plusMinuteDebut));
+            RouterPopUp.activite.setDatefin("" + addTimer(dateFin, plusHourFin, plusMinuteFin));
 
-        System.out.println(" La date de l" + RouterPopUp.activite.getDatedebut());
-        System.out.println(" La date de l" + RouterPopUp.activite.getDatefin());
+            System.out.println(" La date de l" + RouterPopUp.activite.getDatedebut());
+            System.out.println(" La date de l" + RouterPopUp.activite.getDatefin());
 
-        router.navigateTo("createActivityPage3");
+            router.navigateTo("createActivityPage3");
 
-        System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
-                + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
-
+            System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
+                    + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
 
         }
-        
 
     }
 

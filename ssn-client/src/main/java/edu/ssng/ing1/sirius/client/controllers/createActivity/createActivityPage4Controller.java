@@ -76,42 +76,34 @@ public class createActivityPage4Controller implements Initializable {
             myFriends.setOnAction(event -> {
                 inviteVbox.getChildren().clear();
 
-                
                 try {
-                    Students students= SelectMyFriends.SelectStudent(student);
+                    Students students = SelectMyFriends.SelectStudent(student);
                     for (Student MyFriend : students.getStudents()) {
                         displayFriendsInvite(MyFriend);
                     }
-                    
+
                 } catch (IOException | InterruptedException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                        
-                
-            
+
             });
             lastActivityBtn.setOnAction(event -> {
                 inviteVbox.getChildren().clear();
-                
-                
+
                 try {
-                    Students students= SelectMyFriends.SelectStudentLast(student);
+                    Students students = SelectMyFriends.SelectStudentLast(student);
                     for (Student MyFriend : students.getStudents()) {
                         displayFriendsInvite(MyFriend);
                     }
-                    
+
                 } catch (IOException | InterruptedException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                        
-                
-            
-            });
-           
 
-            
+            });
+
         });
 
         scrollPane.setFitToWidth(true);
@@ -144,11 +136,10 @@ public class createActivityPage4Controller implements Initializable {
         router.navigateTo("finishPageActivity");
 
         // try {
-        //     Thread.sleep(3000);  
+        // Thread.sleep(3000);
         // } catch (InterruptedException e) {
-        //     e.printStackTrace();
+        // e.printStackTrace();
         // }
-
 
         // router.getStage().close();
 

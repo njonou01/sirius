@@ -55,12 +55,8 @@ public class SeeMyActivityController implements Initializable {
     @FXML
     ProgressIndicator progress1;
 
-    
-
     @FXML
     ScrollPane scroolPane;
-
-    
 
     @FXML
     Button acceptBtn;
@@ -114,13 +110,6 @@ public class SeeMyActivityController implements Initializable {
             // + activite.getNomCreateur() + activite.getNbrparticipant());
         }
         getPanenotif();
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        System.out.println("VVVVVVVVVVVVVVVVVVVVVIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
         System.out.println(anchorePane);
         System.out.println(anchorePane.lookup("#VBoxx"));
         Activite activitee = new Activite();

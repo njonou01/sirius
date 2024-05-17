@@ -129,9 +129,10 @@ public class createActivityPage1Controller implements Initializable {
             router.navigateTo("createActivityPage2");
 
         } else {
-            
+
             if (nameActivityField.getText().isEmpty()) {
-                // Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas etre vide");
+                // Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas
+                // etre vide");
                 emptyField.setText("Remplissez tous les champts");
 
             } else {
