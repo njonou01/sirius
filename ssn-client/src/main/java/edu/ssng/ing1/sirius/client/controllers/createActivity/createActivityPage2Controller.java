@@ -235,8 +235,12 @@ public class createActivityPage2Controller implements Initializable {
 
     @FXML
     public void nextPage() {
+        LocalDateTime now=LocalDateTime.now();
+        Timestamp currentDate=Timestamp.valueOf(now);
+        if(currentDate.after(dateDebut)|| currentDate.after(dateFin)){
+            emptyField.setText(" Rentrez une date superieur à la date actuelle");
 
-        if (numberChoice == null || dateDebut == null || dateFin == null) {
+        }else if (numberChoice == null || dateDebut == null || dateFin == null) {
             emptyField.setText(" Remplissez les champs: Nombre de participant, Date début et date de Fin !!");
         } else {
             RouterPopUp.activite.setNbrparticipant(numberChoice);
