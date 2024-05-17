@@ -4,11 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import edu.ssng.commons.LoggingUtils;
-import edu.ssng.ing1.sirius.business.dto.Activite;
-import edu.ssng.ing1.sirius.business.dto.Activites;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
-import edu.ssng.ing1.sirius.client.commons.ClientRequest;
 import edu.ssng.ing1.sirius.client.commons.ConfigLoader;
 import edu.ssng.ing1.sirius.client.commons.NetworkConfig;
 import edu.ssng.ing1.sirius.commons.Request;
@@ -16,11 +13,7 @@ import edu.ssng.ing1.sirius.commons.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.event.Level;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -66,10 +59,7 @@ public class SelectMyFriends {
             final SelectStudentClientRequest joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-            final Students students = (Students) joinedClientRequest.getResult();
-
-            System.out.println( "ddd"+students.toString());
-           
+            final Students students = (Students) joinedClientRequest.getResult();           
         return students;
     }
     public static Students SelectStudentLast(Student student) throws IOException, InterruptedException, SQLException {
@@ -100,10 +90,7 @@ public class SelectMyFriends {
             final SelectStudentClientRequest joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-            final Students students = (Students) joinedClientRequest.getResult();
-
-            System.out.println( "ddd"+students.toString());
-           
+            final Students students = (Students) joinedClientRequest.getResult();           
         return students;
     }
 }

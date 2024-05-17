@@ -1,11 +1,10 @@
 package edu.ssng.ing1.sirius.client.notificationManagement.business;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
+
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -13,8 +12,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.ssng.ing1.sirius.business.dto.Activite;
+import edu.ssng.ing1.sirius.business.dto.Message;
 import edu.ssng.ing1.sirius.client.controllers.commons.HomeController;
+import edu.ssng.ing1.sirius.client.controllers.commons.Initializer;
 import edu.ssng.ing1.sirius.client.controllers.createActivity.SeeMyActivityController;
+import edu.ssng.ing1.sirius.client.controllers.messaging.MessagingUpdater;
 import edu.ssng.ing1.sirius.commons.Notification;
 import javafx.application.Platform;
 
@@ -26,31 +28,25 @@ public class SsnNotifyService {
             throws JsonParseException, JsonMappingException, IOException {
 
         switch (Notify.getOrder()) {
-
             case "NEW_CONNECTION":
                 notifyConnection(Notify);
-
                 break;
             case "CONNECT_USER":
                 connectUser(Notify);
-
                 break;
-
             case "INVITE_ACTIVITY":
                 inviteActicity(Notify);
-
                 break;
-
-
             case "NEW_ACTIVITY":
                 newActivity(Notify);
-
+                break;
             case "ACCEPTED_ACTIVITY":
                 acceptActivity(Notify);
-
+            case "NEW_MESSAGE":
+                getNewMessage(Notify);
+                break;
             case "DENY_INVITATION":
                 denyActivity(Notify);
-
             default:
                 break;
         }
@@ -65,8 +61,7 @@ public class SsnNotifyService {
             MessagingUpdater.addMessageInArea(newMessage);
             System.out.println(newMessage.toString());
         } catch (IOException e) {
-            System.out.println(e);
-
+            LoggerFactory.getLogger(SsnNotifyService.class).error("error", e);
         }
 
     }
@@ -77,8 +72,6 @@ public class SsnNotifyService {
         String dateString = sdf.format(date);
         notification.setHoursReceive(dateString);
 
-
-       
         HomeController.getNotificationToBedisplayed().add(notification);
         Platform.runLater(() -> HomeController.displayOnnotifPanel());
 
@@ -115,5 +108,4 @@ public class SsnNotifyService {
     public void connectUser(Notification notification) {
 
     }
-
 }

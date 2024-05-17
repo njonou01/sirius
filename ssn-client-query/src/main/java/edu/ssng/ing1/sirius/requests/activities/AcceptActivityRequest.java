@@ -80,7 +80,6 @@ public class AcceptActivityRequest {
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
             final Students students = (Students) joinedClientRequest.getResult();
 
-            System.out.println( "ddd"+students.toString());
            
     }
     public static void denyActivity(String studentEmail, String email) throws IOException, InterruptedException, SQLException {
@@ -122,7 +121,6 @@ public class AcceptActivityRequest {
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
             final Students students = (Students) joinedClientRequest.getResult();
 
-            System.out.println( "ddd"+students.toString());
            
     }
     

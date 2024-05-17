@@ -43,16 +43,8 @@ public class ClientConnexion extends Thread {
             int i = 0;
 
             while (isCloseSocket) {
-                System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPP");
-                System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPP");
-                System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPP<<");
-                System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPP<<");
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Client connected: " + clientSocket.getInetAddress());
-                System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLL<<");
-                System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLL<<");
-                System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLL<<");
-                System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLL<<");
                 System.out.println("Une nouvelle notif :" + i);
                 System.out.println(clientSocket);
                 

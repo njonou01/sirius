@@ -69,10 +69,7 @@ public static void main(String[] args) throws IOException, InterruptedException,
             final SelectActivitesClientRequest joinedClientRequest = clientRequests.pop();
             joinedClientRequest.join();
             logger.debug("Thread {} complete.", joinedClientRequest.getThreadName());
-            final Activites students = (Activites) joinedClientRequest.getResult();
-            
-            System.out.println( "ddd"+students.getActivites());
-           
+            final Activites students = (Activites) joinedClientRequest.getResult();           
         return students;
     }
 }
