@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import javafx.util.Duration;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.kordamp.ikonli.fontawesome5.FontAwesomeBrands;
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
@@ -20,11 +22,13 @@ import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
+import edu.ssng.ing1.sirius.requests.activities.AcceptActivityRequest;
 import edu.ssng.ing1.sirius.requests.activities.SelectActivityQuery;
 import edu.ssng.ing1.sirius.requests.activities.SelectMyActivityQuery;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -32,43 +36,60 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class SeeMyActivityController implements Initializable {
 
     @FXML
     VBox parentVBox;
 
+    public static VBox rightPanel;
+
     @FXML
     ProgressIndicator progress1;
 
-    @FXML
-    ProgressIndicator progress2;
+    
 
     @FXML
-    ProgressIndicator progress3;
+    ScrollPane scroolPane;
+
+    
+
+    @FXML
+    Button acceptBtn;
+
+    @FXML
+    Button denyBtn;
+
+    public static VBox notiFyItem;
 
     @FXML
     FontIcon chatIcon;
 
+    public static VBox VBoxx;
+
+    @FXML
+    AnchorPane anchorePane;
+
     Router router;
 
-    HashMap<Activite,ProgressIndicator> progessActivityMap;
+    static Student student;
 
-    
+    HashMap<Activite, ProgressIndicator> progessActivityMap;
+    public static Set<Activite> activiteInvitationSet = new HashSet<>();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        
-
         router = Router.getInstance();
-        Student student = UserInfo.getUser();
-
-        
+        student = UserInfo.getUser();
 
         Activites activites = new Activites();
         try {
@@ -92,6 +113,25 @@ public class SeeMyActivityController implements Initializable {
             // activite.getDatecreation()
             // + activite.getNomCreateur() + activite.getNbrparticipant());
         }
+        getPanenotif();
+        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+        System.out.println("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+        System.out.println("VVVVVVVVVVVVVVVVVVVVVIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
+        System.out.println(anchorePane);
+        System.out.println(anchorePane.lookup("#VBoxx"));
+        Activite activitee = new Activite();
+        activitee.setEmailCreateur("elokamichel@gamil.com");
+        activitee.setId_student(1);
+        activitee.setNomCreateur("eloka");
+        activitee.setNom_interet_activite("Fornite");
+        activiteInvitationSet.add(activitee);
+        for (Activite activite : activiteInvitationSet) {
+            displayInvitation(activite);
+        }
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             double newValue = progress1.getProgress() + 0.1;
             if (newValue > 1) {
@@ -99,25 +139,15 @@ public class SeeMyActivityController implements Initializable {
             }
             progress1.setProgress(newValue);
 
-            newValue = progress2.getProgress() + 0.1;
-            if (newValue > 1) {
-                newValue = 0;
-            }
-            progress2.setProgress(newValue);
-
-            newValue = progress3.getProgress() + 0.1;
-            if (newValue > 1) {
-                newValue = 0;
-            }
-            progress3.setProgress(newValue);
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
     }
 
-
-   
+    public void getPanenotif() {
+        VBoxx = (VBox) anchorePane.lookup("#VBoxx");
+    }
 
     @FXML
     public void addActivity() {
@@ -126,54 +156,121 @@ public class SeeMyActivityController implements Initializable {
 
     }
 
+    public static Set<Activite> getActiviteInvitationSet() {
+        return activiteInvitationSet;
+    }
+
+    public static void setActiviteInvitationSet(Set<Activite> activiteInvitationSet) {
+        SeeMyActivityController.activiteInvitationSet = activiteInvitationSet;
+    }
+
     public void oneActivity(Activite activite) {
+        Platform.runLater(() -> {
+            ImageView imageView = new ImageView();
+            // imageView.setImage();
+            imageView.setFitWidth(102);
 
-        ImageView imageView = new ImageView();
-        // imageView.setImage();
-        imageView.setFitWidth(102);
+            Label labelNomActivite = new Label("Nom Activite : " + activite.getNom_interet_activite());
+            Label labelCreateur = new Label("Createur :" + activite.getNomCreateur());
 
-        Label labelNomActivite = new Label("Nom Activite : " + activite.getNom_interet_activite());
-        Label labelCreateur = new Label("Createur :" + activite.getNomCreateur());
+            Label labelDebut = new Label("Debut : " + activite.getDatedebut());
+            Label labelFin = new Label("Fin : " + activite.getDatefin());
 
-        Label labelDebut = new Label("Debut : " + activite.getDatedebut());
-        Label labelFin = new Label("Fin : " + activite.getDatefin());
+            Button buttonParticipants = new Button("Participants :" + activite.getNbrparticipant());
+            buttonParticipants.setOnAction(event -> seePart());
 
-        Button buttonParticipants = new Button("Participants :" + activite.getNbrparticipant());
-        buttonParticipants.setOnAction(event -> seePart());
+            FontIcon discussIcon = new FontIcon(FontAwesomeRegular.COMMENT_DOTS);
+            discussIcon.setIconColor(Color.valueOf("#2361a6"));
+            discussIcon.setIconSize(25);
 
-        FontIcon discussIcon = new FontIcon(FontAwesomeRegular.COMMENT_DOTS);
-        discussIcon.setIconColor(Color.valueOf("#2361a6"));
-        discussIcon.setIconSize(25);
+            FontIcon quitIcon = new FontIcon(FontAwesomeSolid.SIGN_OUT_ALT);
+            quitIcon.setIconColor(Color.valueOf("#b03a65"));
+            quitIcon.setIconSize(25);
 
-        FontIcon quitIcon = new FontIcon(FontAwesomeSolid.SIGN_OUT_ALT);
-        quitIcon.setIconColor(Color.valueOf("#b03a65"));
-        quitIcon.setIconSize(25);
+            ProgressIndicator progressIndicator = new ProgressIndicator(0.0);
+            progressIndicator.setMinWidth(85);
+            progressIndicator.setMinHeight(100.0);
+            progressIndicator.setMinWidth(85.0);
+            progressIndicator.setPrefHeight(41.0);
+            progressIndicator.setPrefWidth(126.0);
 
-        ProgressIndicator progressIndicator = new ProgressIndicator(0.0);
-        progressIndicator.setMinWidth(85);
-        progressIndicator.setMinHeight(100.0);
-        progressIndicator.setMinWidth(85.0);
-        progressIndicator.setPrefHeight(41.0);
-        progressIndicator.setPrefWidth(126.0);
+            HBox hBoxLabels = new HBox(40);
+            hBoxLabels.getChildren().addAll(labelDebut, labelFin);
 
-        HBox hBoxLabels = new HBox(40);
-        hBoxLabels.getChildren().addAll(labelDebut, labelFin);
+            HBox hBoxButtons = new HBox(50);
+            hBoxButtons.getChildren().addAll(buttonParticipants, quitIcon, discussIcon);
+            buttonParticipants.getStyleClass().add("btn");
+            VBox vBoxLabelsAndButtons = new VBox(10);
+            vBoxLabelsAndButtons.getChildren().addAll(labelNomActivite, labelCreateur, hBoxLabels, hBoxButtons);
+            VBox.setMargin(vBoxLabelsAndButtons, new Insets(0, 0, 0, 20));
 
-        HBox hBoxButtons = new HBox(50);
-        hBoxButtons.getChildren().addAll(buttonParticipants, quitIcon, discussIcon);
-        buttonParticipants.getStyleClass().add("btn");
-        VBox vBoxLabelsAndButtons = new VBox(10);
-        vBoxLabelsAndButtons.getChildren().addAll(labelNomActivite, labelCreateur, hBoxLabels, hBoxButtons);
-        VBox.setMargin(vBoxLabelsAndButtons, new Insets(0, 0, 0, 20));
+            HBox hBox = new HBox();
+            hBox.getStyleClass().add("centerBox");
 
-        HBox hBox = new HBox();
-        hBox.getStyleClass().add("centerBox");
+            hBox.getChildren().addAll(imageView, vBoxLabelsAndButtons, progressIndicator);
+            HBox.setMargin(hBox, new Insets(10, 0, 0, 0));
+            // setPadding(hBox, new Insets(10, 0, 0, 0));
+            parentVBox.getChildren().add(hBox);
+        });
 
-        hBox.getChildren().addAll(imageView, vBoxLabelsAndButtons, progressIndicator);
-        HBox.setMargin(hBox, new Insets(10, 0, 0, 0));
-        // setPadding(hBox, new Insets(10, 0, 0, 0));
-        parentVBox.getChildren().add(hBox);
-        
+    }
+
+    public static synchronized void displayInvitation(Activite activite) {
+        Platform.runLater(() -> {
+            Label inviteLabel = new Label("Vous invite : " + activite.getNomCreateur());
+            Label labelAccept = new Label("Acceptée");
+            Label labelDeny = new Label("Refusée");
+            labelDeny.setStyle("-fx-text-fill: red;");
+            labelAccept.setStyle("-fx-text-fill: green;");
+
+            Label gameLabel = new Label(activite.getNom_interet_activite());
+            gameLabel.setFont(new Font(24.0));
+
+            Button denyBtn = new Button("Refuser");
+            denyBtn.setPrefSize(66.0, 25.0);
+            denyBtn.getStyleClass().add("btndeny");
+
+            Button acceptBtn = new Button("Accepter");
+            acceptBtn.getStyleClass().add("btnAccept");
+
+            HBox buttonBox = new HBox(30.0, denyBtn, acceptBtn);
+            buttonBox.setAlignment(javafx.geometry.Pos.CENTER);
+            buttonBox.setPrefSize(347.0, 57.0);
+
+            VBox vbox = new VBox(inviteLabel, gameLabel, buttonBox);
+            int index2 = vbox.getChildren().indexOf(buttonBox);
+
+            denyBtn.setOnAction(event -> {
+
+                try {
+                    AcceptActivityRequest.denyActivity(student.getEmail(),
+                            activite.getEmailCreateur());
+                    vbox.getChildren().set(index2, labelDeny);
+                } catch (IOException | InterruptedException | SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            });
+
+            acceptBtn.setOnAction(event -> {
+
+                try {
+                    AcceptActivityRequest.acceptActivity(student.getId_student(), student.getEmail(),
+                            activite.getId_student(), activite.getEmailCreateur());
+                    vbox.getChildren().set(index2, labelAccept);
+                } catch (IOException | InterruptedException | SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            });
+
+            vbox.setAlignment(javafx.geometry.Pos.CENTER);
+            vbox.setPrefSize(347.0, 112.0);
+            vbox.getStyleClass().add("notifBG");
+            VBoxx.getChildren().add(vbox);
+        });
 
     }
     // public void oneActivity2(Activite activite) {

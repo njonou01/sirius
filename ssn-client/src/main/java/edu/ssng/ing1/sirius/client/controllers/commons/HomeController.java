@@ -92,6 +92,8 @@ public class HomeController implements Initializable {
 
     RouterPopUp routerPoUp;
 
+    public static Boolean passage=false;
+
     private static Boolean isAlreadyDisplay = false;
 
     private static Set<Notification> notificationToBedisplayed = new HashSet<>();
@@ -170,12 +172,12 @@ public class HomeController implements Initializable {
                     continue;
                 }
 
-                Label label = new Label(notification.getMessage());
-                Label labelHour = new Label(notification.getHoursReceive());
+                Label label = new Label(notification.getMessage()+" "+ notification.getHoursReceive());
+                // Label labelHour = new Label(notification.getHoursReceive());
                 label.setWrapText(true);
-                labelHour.setWrapText(true);
+                // labelHour.setWrapText(true);
                 final HBox hbox = new HBox();
-                hbox.getChildren().addAll(label, labelHour);
+                hbox.getChildren().addAll(label);
                 vBoxN.getChildren().add(hbox);
             }
 

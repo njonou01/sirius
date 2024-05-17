@@ -18,6 +18,7 @@
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="631.0" spacing="14.0" styleClass="centerBox" stylesheets="@../asset/css/addActivity.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ssng.ing1.sirius.client.controllers.createActivity.createActivityPage2Controller">
    <children>
       <Label text="Créer Votre activité" />
+      <Label fx:id="emptyField" text="Remplissez tous les champs" textFill="#ce4040" />
       <ImageView fitHeight="78.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../media/images/UconnectLogo.png" />
