@@ -28,7 +28,7 @@ public class NotifyHandlerTest {
     @Test
     public void testGetToNotify() throws IOException {
      
-        byte[] testData = "{\"message\": \"Test notification\"}".getBytes(); // Example test data
+        byte[] testData = "{\"message\": \"Test notification\"}".getBytes(); 
         Notification expectedNotification = new Notification();
         expectedNotification.setMessage("Test notification");
 

@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import javax.security.auth.callback.Callback;
+
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
 import javafx.fxml.FXML;
@@ -17,6 +19,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DateCell;
+import javafx.util.Callback;
 
 /**
  * createActivityPage2Controller
@@ -66,6 +70,7 @@ public class createActivityPage2Controller implements Initializable {
     private Integer numberChoice;
 
     private int maxLength = 3;
+    
 
     private Object lastFocused = null;
 
@@ -91,6 +96,24 @@ public class createActivityPage2Controller implements Initializable {
         emptyField.setText("");
         choiceConfidentSelection.getItems().addAll(RouterPopUp.getConfi());
         choiceConfidentSelection.getSelectionModel().selectFirst();
+
+        LocalDate today = LocalDate.now();
+
+        Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        // Désactive les dates antérieures à aujourd'hui
+                        if (item.isBefore(today)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #EEEEEE;"); // Couleur grisée pour les dates désactivées
+                        }
+                    }
+                };
 
         for (int i = 1; i <= 24; i++) {
             MenuItem item = new MenuItem(Integer.toString(i));
