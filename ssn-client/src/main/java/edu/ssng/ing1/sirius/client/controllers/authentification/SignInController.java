@@ -25,8 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class SignInController implements Initializable {
-    @FXML
-    private TextField emailField;
+    @FXML TextField emailField;
 
     @FXML
     private Label invalidEmail;
@@ -34,8 +33,7 @@ public class SignInController implements Initializable {
     @FXML
     private Label invalidPassword;
 
-    @FXML
-    private PasswordField passwordField;
+    @FXML PasswordField passwordField;
 
     @FXML
     private CheckBox remindCheckBox;

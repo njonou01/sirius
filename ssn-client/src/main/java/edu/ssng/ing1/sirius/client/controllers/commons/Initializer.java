@@ -19,9 +19,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;
 
 public class Initializer {
-        private static BeFriends friends;
-        private static Messages messages;
-        private static Students suggestions;
+        static BeFriends friends;
+        static Messages messages;
+        static Students suggestions;
 
         public static synchronized BeFriends getinvitations() {
                 return friends;
