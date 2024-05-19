@@ -3,6 +3,7 @@ package edu.ssng.ing1.sirius.client.commons;
 public class NetworkConfig {
     private String ipaddress;
     private int tcpport;
+    private int tcpportServerNotify;
 
     public String getIpaddress() {
         return ipaddress;
@@ -11,6 +12,14 @@ public class NetworkConfig {
     public void setIpaddress(String ipaddress) {
         this.ipaddress = ipaddress;
     }
+
+    public int getTcpportServerNotify() {
+        return tcpportServerNotify;
+    }
+    public void setTcpportServerNotify(int tcpportServerNotify) {
+        this.tcpportServerNotify = tcpportServerNotify;
+    }
+
 
     public int getTcpport() {
         return tcpport;
@@ -25,6 +34,7 @@ public class NetworkConfig {
         return "NetworkConfig{" +
                 "ipAddress='" + ipaddress + '\'' +
                 ", tcpPort=" + tcpport +
+                ", tcpPortServerNotify=" + tcpportServerNotify +
                 '}';
     }
 }

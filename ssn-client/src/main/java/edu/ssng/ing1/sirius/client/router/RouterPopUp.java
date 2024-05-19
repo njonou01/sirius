@@ -48,16 +48,19 @@ public class RouterPopUp {
     public static ProgressBar progressBar;
     public static double MinousProgress;
 
+   
+
     public RouterPopUp() {
 
         Router root = Router.getInstance();
-        Stage primaryStage = root.getStage();
+        
 
         stage = new Stage();
         stageReduce = new Stage();
         setReducePopUp();
+        stage.initStyle(StageStyle.UTILITY);
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initOwner(primaryStage);
+        stage.initOwner(root.getStage());
         stage.initStyle(StageStyle.UNDECORATED);
 
         VBox popupRoot = new VBox(10);
@@ -130,17 +133,17 @@ public class RouterPopUp {
         this.stage = stage;
     }
 
-    private FXMLLoader loadFxml(String path) {
+    public static FXMLLoader loadFxml(String path) {
         String finalPath = "views/" + path + ".fxml";
         return new FXMLLoader(MainClient.class.getResource(finalPath));
     }
+
 
     public void navigateTo(String name) {
         currentPagePopUp = name;
         if (stageReduce.isShowing()) {
             stageReduce.close();
-        }
-        ;
+        };
 
         try {
             JsonNode node = RouterPopUp.data.get(name);
@@ -182,8 +185,6 @@ public class RouterPopUp {
         stage.setTitle(getTile(node));
 
         if (node.get("path").asText().equals("createActivity/createActivityPage1")) {
-            System.out.println("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
-
             scene = new Scene(parent);
             scene.setRoot(parent);
             retrievedLayout = (VBox) scene.lookup("#VBoxCenter");

@@ -61,7 +61,6 @@ public class createActivityPage3Controller implements Initializable {
 
     @FXML
     public void closePage() {
-        
 
         router.getStage().close();
         ;

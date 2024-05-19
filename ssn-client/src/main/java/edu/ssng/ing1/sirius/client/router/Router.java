@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 public class Router {
     private static Router instance;
-    private Stage stage;
+    private static Stage stage;
     private final static String LoggingLabel = "ROUTAGE";
     private final Logger logger = LoggerFactory.getLogger(LoggingLabel);
     private static JsonNode data;

@@ -16,6 +16,7 @@
         <module>ssn-client-commons</module>
         <module>ssn-client</module>
         <module>ssn-client-query</module>
+        
     </modules>
 
     <properties>

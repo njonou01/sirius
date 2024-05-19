@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @JsonRootName(value = "activite")
 public class Activite {
@@ -23,6 +24,8 @@ public class Activite {
     private  Integer id_student;
     private  Integer nbrparticipant;
     private  Boolean state;
+    private  Set<Student> students;
+    private  String emailCreateur;
     
     
 
@@ -40,7 +43,7 @@ public class Activite {
                 // preparedStatement.setInt(++ix, id);
         return buildPreparedStatement(preparedStatement, nom_interet_activite,libelle,categorie,provenance,confidentialite,nomCreateur);
     }
-    public Activite(String datecreation, String datedebut,String datefin, String nom_interet_activite,String libelle, String categorie,String provenance,String confidentialite,String nomCreateur,Integer id_student, Integer nbrparticipant, Boolean state) {
+    public Activite(String datecreation, String datedebut,String datefin, String nom_interet_activite,String libelle, String categorie,String provenance,String confidentialite,String nomCreateur,Integer id_student, Integer nbrparticipant, Boolean state, Set<Student> students, String emailCreateur) {
         this.datecreation = datecreation;
         this.datedebut = datedebut;
         this.datefin = datefin;
@@ -52,6 +55,8 @@ public class Activite {
         this.id_student=id_student;
         this.nbrparticipant=nbrparticipant;
         this.state=state;
+        this.students=students;
+        this.emailCreateur=emailCreateur;
         
     }
 
@@ -62,6 +67,13 @@ public class Activite {
         return categorie;
     }
 
+    public String getEmailCreateur() {
+        return emailCreateur;
+    }
+    public void setEmailCreateur(String emailCreateur) {
+        this.emailCreateur = emailCreateur;
+    }
+    
     public String getConfidentialite() {
         return confidentialite;
     }
@@ -104,6 +116,15 @@ public class Activite {
     public Boolean getState() {
         return state;
     }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
+    }
+
 
 
 

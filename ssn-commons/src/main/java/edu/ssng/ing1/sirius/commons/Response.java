@@ -47,7 +47,7 @@ public class Response {
     public String toString() {
         return "Response{" +
                 "requestId='" + requestId + '\'' +
-                ", responseBody='" + responseBody + '\'' +
+                // ", responseBody='" + responseBody + '\'' +
                 '}';
     }
 }

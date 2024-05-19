@@ -5,6 +5,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.lang.reflect.Field;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,9 +39,11 @@ public class Student {
     private byte[] profileImageStream;
     private int id_student;
 
+
     public Student() {
 
     }
+
 
     public Student(String email) {
         this.email = email;
@@ -66,6 +70,7 @@ public class Student {
         this.profileImage = profileImage;
         this.profileImageStream = profileImageStream;
         this.id_student = id_student;
+      
     }
 
     public String getFirstname() {
@@ -273,9 +278,11 @@ public class Student {
                 + bithday + ", phoneNumber=" + phoneNumber + ", zipcode=" + zipcode + ", adress=" + adress + ", email="
                 + email + ", password=" + password + ", university=" + university + ", formation_start="
                 + formation_start
-                + ", formation_stop=" + formation_stop + ", formation_description=" + formation_description
-                + ", training_followed=" + training_followed + ", profileImage=" + profileImage
-                + ", profileImageStream=" + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]";
+                + ", formation_stop= " + formation_stop + ", formation_description=" + formation_description
+                + ", training_followed= " + training_followed + ", profileImage=" + profileImage
+                + ", profileImageStream= " + Arrays.toString(profileImageStream) + ", id_student=" + id_student + "]";
+               
+               
     }
 
     public final Student build(final ResultSet resultSet)
@@ -287,7 +294,7 @@ public class Student {
 
     public final void buildUniversity(final ResultSet resultSet)
             throws SQLException, NoSuchFieldException, IllegalAccessException {
-        setFieldsFromResulset(resultSet,  "university",
+        setFieldsFromResulset(resultSet, "university",
                 "formation_start",
                 "formation_stop",
                 "formation_description",

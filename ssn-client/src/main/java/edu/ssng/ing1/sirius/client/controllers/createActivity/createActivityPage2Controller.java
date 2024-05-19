@@ -3,7 +3,10 @@ package edu.ssng.ing1.sirius.client.controllers.createActivity;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+
+import javax.security.auth.callback.Callback;
 
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.router.RouterPopUp;
@@ -12,8 +15,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.DateCell;
+import javafx.util.Callback;
 
 /**
  * createActivityPage2Controller
@@ -51,18 +58,107 @@ public class createActivityPage2Controller implements Initializable {
     @FXML
     private ChoiceBox choiceConfidentSelection;
 
+    @FXML
+    private MenuButton menuButton3;
+    @FXML
+    private MenuButton menuButton1;
+    @FXML
+    private MenuButton menuButton2;
+    @FXML
+    private MenuButton menuButton4;
+
     private Integer numberChoice;
 
     private int maxLength = 3;
+    
 
     private Object lastFocused = null;
+
+    private Timestamp dateDebut;
+
+    private Timestamp dateFin;
+
+    private int plusHourDebut = 0;
+
+    private int plusMinuteFin = 0;
+
+    private int plusHourFin = 0;
+
+    private int plusMinuteDebut = 0;
+
+    @FXML
+    private Label emptyField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         router = RouterPopUp.getInstance();
 
+        emptyField.setText("");
         choiceConfidentSelection.getItems().addAll(RouterPopUp.getConfi());
         choiceConfidentSelection.getSelectionModel().selectFirst();
+
+        LocalDate today = LocalDate.now();
+
+        Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        // Désactive les dates antérieures à aujourd'hui
+                        if (item.isBefore(today)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #EEEEEE;"); // Couleur grisée pour les dates désactivées
+                        }
+                    }
+                };
+
+        for (int i = 1; i <= 24; i++) {
+            MenuItem item = new MenuItem(Integer.toString(i));
+            int hour = i;
+            item.setOnAction(event -> {
+                System.out.println("Heure sélectionnée : " + hour);
+
+                plusHourDebut = hour;
+
+                menuButton1.setText(hour + "");
+            });
+            menuButton1.getItems().add(item);
+        }
+        for (int i = 1; i <= 24; i++) {
+            MenuItem item = new MenuItem(Integer.toString(i));
+            int hour = i;
+            item.setOnAction(event -> {
+                System.out.println("Heure sélectionnée : " + hour);
+                plusHourFin = hour;
+                menuButton2.setText(hour + "");
+            });
+            menuButton2.getItems().add(item);
+        }
+        for (int i = 0; i <= 59; i++) {
+            MenuItem item = new MenuItem(Integer.toString(i));
+            int hour = i;
+            item.setOnAction(event -> {
+                System.out.println("Heure sélectionnée : " + hour);
+                plusMinuteDebut = hour;
+                menuButton3.setText(hour + "");
+
+            });
+            menuButton3.getItems().add(item);
+        }
+        for (int i = 0; i <= 59; i++) {
+            MenuItem item = new MenuItem(Integer.toString(i));
+            int hour = i;
+            item.setOnAction(event -> {
+                System.out.println("Heure sélectionnée : " + hour);
+                plusMinuteFin = hour;
+                menuButton4.setText(hour + "");
+
+            });
+            menuButton4.getItems().add(item);
+        }
 
         nbrParticipantTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.length() > maxLength) {
@@ -75,11 +171,11 @@ public class createActivityPage2Controller implements Initializable {
                 nbrParticipantTextField.setStyle("-fx-background-color: #FFCCCC;");
                 // nameActivityField.setStyle("-fx-text-fill: red;");
                 label.setText("Valeur Max 100");
-                // label.setStyle("-fx-text-fill: red;");
+                label.setStyle("-fx-text-fill: red;");
                 // nbrParticipantTextField.setText(oldValue);
             } else {
                 nbrParticipantTextField.setStyle("");
-                // label.setText("");
+                label.setText("");
             }
 
         });
@@ -118,17 +214,15 @@ public class createActivityPage2Controller implements Initializable {
         datePickerBegin.setOnAction(event -> {
             LocalDate localDate = datePickerBegin.getValue();
             if (localDate != null) {
-                Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
-                System.out.println("Timestamp : " + timestamp);
-                RouterPopUp.activite.setDatedebut("" + timestamp);
+                dateDebut = Timestamp.valueOf(localDate.atStartOfDay());
+
             }
         });
 
         datePickerEnd.setOnAction(event -> {
             LocalDate localDate = datePickerEnd.getValue();
             if (localDate != null) {
-                Timestamp timestamp = Timestamp.valueOf(localDate.atStartOfDay());
-                RouterPopUp.activite.setDatefin("" + timestamp);
+                dateFin = Timestamp.valueOf(localDate.atStartOfDay());
 
             }
         });
@@ -149,16 +243,41 @@ public class createActivityPage2Controller implements Initializable {
 
     }
 
+    private Timestamp addTimer(Timestamp timestamp, int hour, int minute) {
+
+        LocalDateTime localDateTime = timestamp.toLocalDateTime();
+
+        LocalDateTime newLocalDateTime = localDateTime.plusHours(hour).plusMinutes(minute);
+
+        Timestamp newTimestamp = Timestamp.valueOf(newLocalDateTime);
+        System.out.println("Nouveau Timestamp : " + newTimestamp);
+
+        return newTimestamp;
+
+    }
+
     @FXML
     public void nextPage() {
-        RouterPopUp.activite.setNbrparticipant(numberChoice);
-        RouterPopUp.MinousProgress += 0.33;
-        RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
 
-        router.navigateTo("createActivityPage3");
+        if (numberChoice == null || dateDebut == null || dateFin == null) {
+            emptyField.setText(" Remplissez les champs: Nombre de participant, Date début et date de Fin !!");
+        } else {
+            RouterPopUp.activite.setNbrparticipant(numberChoice);
+            RouterPopUp.activite.setConfidentialite((String) choiceConfidentSelection.getValue());
+            RouterPopUp.MinousProgress += 0.33;
+            RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
+            RouterPopUp.activite.setDatedebut("" + addTimer(dateDebut, plusHourDebut, plusMinuteDebut));
+            RouterPopUp.activite.setDatefin("" + addTimer(dateFin, plusHourFin, plusMinuteFin));
 
-        System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
-                + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+            System.out.println(" La date de l" + RouterPopUp.activite.getDatedebut());
+            System.out.println(" La date de l" + RouterPopUp.activite.getDatefin());
+
+            router.navigateTo("createActivityPage3");
+
+            System.out.println("Timestampuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu : " + RouterPopUp.activite
+                    + "uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+
+        }
 
     }
 

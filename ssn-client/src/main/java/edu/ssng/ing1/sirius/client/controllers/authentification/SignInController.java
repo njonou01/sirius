@@ -7,6 +7,7 @@ import java.util.function.Function;
 import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.client.HomeBuild;
 import edu.ssng.ing1.sirius.client.controllers.commons.UserInfo;
+import edu.ssng.ing1.sirius.client.notificationManagement.ClientConnexion;
 import edu.ssng.ing1.sirius.client.router.Router;
 import edu.ssng.ing1.sirius.client.toast.Toast;
 import edu.ssng.ing1.sirius.client.toast.ToastType;

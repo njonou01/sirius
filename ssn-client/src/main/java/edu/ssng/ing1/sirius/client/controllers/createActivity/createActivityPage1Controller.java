@@ -74,6 +74,9 @@ public class createActivityPage1Controller implements Initializable {
     @FXML
     private VBox VBoxCenter;
 
+    @FXML
+    private Label emptyField;
+
     // @FXML
     // private BorderPane borderPaneActivity;
 
@@ -87,6 +90,7 @@ public class createActivityPage1Controller implements Initializable {
         router = RouterPopUp.getInstance();
         nameActivityField.setPromptText("Entrez le nom de votre activité");
         // borderPaneRoot.getStyleClass().add("popup-window");
+        emptyField.setText("");
 
         // borderPaneActivity.getStylesheets().add(getClass().getResource("addActivity.css").toExternalForm());
         choiceCategorie.getItems().addAll(RouterPopUp.getCategorie());
@@ -100,12 +104,12 @@ public class createActivityPage1Controller implements Initializable {
 
             if (!newValue.matches("[a-zA-Z0-9]*")) {
                 nameActivityField.setStyle("-fx-background-color: #FFCCCC;");
-                //   ,nameActivityField.rrsetStyle("-fx-text-fill: red;");
+                // nameActivityFiel d.setStyle("-fx-text-fill: red;");
                 label.setText("Les caractères spéciaux ne sont pas autorisés");
-                // label.setStyle("-fx-text-fill: red;");
+                label.setStyle("-fx-text-fill: red;");
             } else {
                 nameActivityField.setStyle("");
-                // label.setText("");
+                label.setText("");
             }
 
         });
@@ -125,9 +129,11 @@ public class createActivityPage1Controller implements Initializable {
             router.navigateTo("createActivityPage2");
 
         } else {
-            System.out.println("IIIIIIIIIIIIII");
+
             if (nameActivityField.getText().isEmpty()) {
-                Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas etre vide");
+                // Toast.buildToast(ToastType.WARNING, "Le champ \"Nom activité\" ne doit pas
+                // etre vide");
+                emptyField.setText("Remplissez tous les champts");
 
             } else {
 

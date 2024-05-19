@@ -52,7 +52,7 @@ public class Request {
         return "Request{" +
                 "requestDd=" + requestId +
                 ", requestOrder='" + requestOrder + '\'' +
-                ", requestBody='" + requestBody + '\'' +
+                // ", requestBody='" + requestBody + '\'' +
                 '}';
     }
 }
