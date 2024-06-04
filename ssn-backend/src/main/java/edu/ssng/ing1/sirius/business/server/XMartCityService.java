@@ -153,7 +153,7 @@ public class XMartCityService {
         int rows = preparedStatement.executeUpdate();
         Response response = new Response();
         return response;
- 
+
     }
 
     private Response addFriendShipResponse(PreparedStatement preparedStatement, Request request)
@@ -198,14 +198,14 @@ public class XMartCityService {
         message.build(preparedStatement);
         String fileName = generateUniqueFileName();
         Boolean isSave = writeByteArrayToPNG(message.getMedia(), fileName);
-        preparedStatement.setString(4, isSave ? fileName : null);
+        preparedStatement.setString(4, isSave ? fileName : "");
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             final Message newMessage = new Message().build(resultSet);
             newMessage.setMedia(message.getMedia());
             resultSet.close();
             Set<String> receiver = getUserEmailById(connection, newMessage.getReceiver_id());
-            BroadcastNotification.broadcast("NEW_MESSAGE", receiver , newMessage);
+            BroadcastNotification.broadcast("NEW_MESSAGE", receiver, newMessage);
             // Todo: send message to the other user
             return new Response(request.getRequestId(), mapper.writeValueAsString(newMessage));
         }
@@ -223,10 +223,17 @@ public class XMartCityService {
             Messages messages = new Messages();
             while (resultSet.next()) {
                 Message message = new Message().build(resultSet);
-                // System.out.println(resultSet.getString("media"));
-                String mediaEncoded = resultSet.getString("media");
-                message.setMedia(
-                        mediaEncoded != null ? getImageEncoded("media/conversation/images/" + mediaEncoded) : null);
+                String media_name = resultSet.getString("media");
+                if (media_name != null) {
+                    byte[] media = getImageEncoded("media/conversation/images/" + media_name);
+                    if (media != null) {
+                        message.setMedia(media);
+                    }
+
+                }
+                // message.setMedia(
+                // mediaEncoded != null ? getImageEncoded("media/conversation/images/" +
+                // mediaEncoded) : null);
                 messages.add(message);
             }
             resultSet.close();
@@ -302,9 +309,8 @@ public class XMartCityService {
 
         try (FileOutputStream fos = new FileOutputStream(outputPath)) {
             fos.write(bytes);
-            // System.out.println("PNG image created successfully at: " + outputPath);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -807,7 +813,7 @@ public class XMartCityService {
             if (resultSet.next()) {
                 email.add(resultSet.getString("email"));
                 System.out.println("------------------------------------------------");
-                email .stream().forEach(System.out::println);
+                email.stream().forEach(System.out::println);
                 System.out.println("------------------------------------------------");
 
                 return email;

@@ -104,26 +104,7 @@ public enum Queries {
         REJECT_INVITATION("UPDATE \"ssn-db-ing1\".befriend\n" +
                         "SET status = 'rejected'\n" +
                         "WHERE sender = ? AND receiver = ?;"),
-        SELECT_SUGGESTED_FRIENDS("SELECT\n" +
-                        "    STUDENT.ID_STUDENT AS ID_STUDENT,\n" +
-                        "    STUDENT.FAMILLY_NAME AS FAMILYNAME,\n" +
-                        "    STUDENT.FIRST_NAME AS FIRSTNAME,\n" +
-                        "    STUDENT.EMAIL AS EMAIL,\n" +
-                        "    STUDENT.PHONE_NUMBER AS PHONENUMBER,\n" +
-                        "    STUDENT.GENDER AS GENDER,\n" +
-                        "    STUDENT.USERNAME AS USERNAME,\n" +
-                        "    STUDENT.PROFILE_IMAGE AS PROFILE_IMAGE,\n" +
-                        "    STUDENT.BIRTHDAY AS BITHDAY,\n" +
-                        "    UNIVERSITY.LABEL AS UNIVERSITY,\n" +
-                        "    ATTENDED.START AS FORMATION_START,\n" +
-                        "    ATTENDED.END AS FORMATION_STOP,\n" +
-                        "    ATTENDED.DESCRIPTION AS FORMATION_DESCRIPTION,\n" +
-                        "    ATTENDED.TRAINING_FOLLOWED\n" +
-                        "FROM\n" +
-                        "\t\"ssn-db-ing1\".STUDENT as STUDENT\n" +
-                        "\tNATURAL JOIN \"ssn-db-ing1\".ATTENDED as ATTENDED\n" +
-                        "\tNATURAL JOIN \"ssn-db-ing1\".UNIVERSITY  as UNIVERSITY\n" +
-                        "\tWHERE STUDENT.ID_STUDENT <> ?;"),
+        SELECT_SUGGESTED_FRIENDS("SELECT * FROM get_non_friends(?);"),
         FETCH_STUDENT_MESSAGES("SELECT \n" +
                         "    message.id_message, \n" +
                         "    message.sender_id, \n" +

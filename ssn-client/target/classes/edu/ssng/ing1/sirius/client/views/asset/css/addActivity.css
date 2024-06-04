@@ -1,0 +1,97 @@
+ @font-face {
+    font-family: "Jomhuria";
+    src: url("../font/Jomhuria/Jomhuria-Regular.ttf");
+  }
+
+.BorderPane {
+     -fx-font: 16px "Prager Headlines"; 
+     -fx-background-color: #ebecf8; 
+}
+
+.btn-transparent {
+  -fx-background-color: transparent;
+}
+
+.createActivityTitle{
+  /* -fx-font-family: "Jomhuria"; */
+  -fx-text-fill: #39809F;
+  
+
+} 
+.btn{
+  -fx-background-color: #39809F;
+}
+.btnAccept{
+  -fx-background-color: #4e8a17;
+}
+.btndeny{
+  -fx-background-color: #c14915;
+}
+.btn:hover{
+  -fx-background-color: #5ca3c1;
+  -fx-cursor: hand;
+}
+.centerBox{
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10px;
+}
+.leftBox{
+  -fx-background-color: WHITE;
+  -fx-background-radius: 10px;
+}
+
+
+.InvitSend{
+  -fx-text-fill: rgb(24, 155, 50); 
+}
+.leftBoxStudent{
+  -fx-background-color: rgb(235, 243, 251);
+  -fx-background-radius: 10px;
+}
+
+.toShare{
+  -fx-background-radius: 30px;
+  -fx-background-color: #39809F;
+}
+
+.toShare:hover{
+  -fx-background-color: #5ca3c1;
+  -fx-cursor: hand;
+}
+
+.activitycreatedBG{
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 10px;
+}
+
+.notifBG{
+  -fx-background-color: #dfecf2;
+  -fx-background-radius: 10px;
+}
+
+.chatleftVbox{
+  -fx-background-color: #839dc3;
+}
+
+
+.monFontIcon {
+  -fx-fill: #003045; /* Rouge */
+}
+
+.TextField{
+  -fx-background-color: #ddf5ff;
+  
+}
+
+.ProgressBar{
+
+  -fx-accent: #39809F;
+ 
+}
+
+.popup-window {
+  /* -fx-background-color: transparent;
+  -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0); */
+}
+
+

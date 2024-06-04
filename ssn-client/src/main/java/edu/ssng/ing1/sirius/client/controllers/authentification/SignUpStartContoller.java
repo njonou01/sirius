@@ -202,6 +202,9 @@ public class SignUpStartContoller {
     private Boolean doesStudentExist() throws NullPointerException, IOException, InterruptedException {
         Boolean isStudentExist;
         isStudentExist = AuthRequest.isUser(new Student(emailField.getText()));
+        if (isStudentExist) {
+            Toast.buildToast(ToastType.ERROR, "L'utilisateur existe déja");
+        }
         return isStudentExist ? true : false;
     }
 
