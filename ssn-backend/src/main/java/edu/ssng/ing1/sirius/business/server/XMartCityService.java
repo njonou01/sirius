@@ -90,7 +90,7 @@ public class XMartCityService {
                     return selectMyfriends(preparedStatement, request);
 
                 case INSERT_ACTIVITY:
-                    return InsertActivite(preparedStatement, request, connection);
+                    return InsertActivite(request, connection);
 
                 case SELECT_ALL_CITIES:
                     return selectCitiesResponse(preparedStatement, request);
@@ -362,7 +362,7 @@ public class XMartCityService {
 
     }
 
-    private Response InsertActivite(final PreparedStatement preparedStatement, final Request request,
+    private Response InsertActivite(final Request request,
             Connection connection)
             throws NoSuchFieldException, IllegalAccessException, JsonParseException, JsonMappingException, IOException {
         Response response = new Response();
@@ -370,23 +370,38 @@ public class XMartCityService {
             ObjectMapper objectMapper = new ObjectMapper();
 
             Activite activite = objectMapper.readValue(request.getRequestBody(), Activite.class);
-
-            // PreparedStatement preparedStatement =
-            // connection.prepareStatement(Queries.INSERT_ACTIVITY.query,
-            // Statement.RETURN_GENERATED_KEYS);
+            Queries query1 = Queries.valueOf("INSERT_ACTIVITY");
+            PreparedStatement preparedStatement = connection.prepareStatement(query1.getQuery(), Statement.RETURN_GENERATED_KEYS);
             activite.build(preparedStatement);
 
             int rows = preparedStatement.executeUpdate();
+            int generatedId=0;
+
             if (rows > 0) {
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
                 if (generatedKeys.next()) {
-                    int generatedId = generatedKeys.getInt(1);
+                    generatedId = generatedKeys.getInt(1);
                     response.setResponseBody("{ \"student_id\": " + generatedId + " }");
                 }
             }
+               
+            
+            response.setResponseBody("{ \"student_id\": " + generatedId + " }");
+              
+            Queries query = Queries.valueOf("INSERT_PARTICIPATION");
+
+            PreparedStatement stmt = connection.prepareStatement(query.getQuery());
+            stmt.setInt(1,activite.getId_student());
+            stmt.setInt(2,generatedId);
+            stmt.executeUpdate();
             response.setRequestId(request.getRequestId());
 
             String responseBody = objectMapper.writeValueAsString(activite);
+            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+            System.out.println(generatedId);
 
             // response.setResponseBody("{ \"student_id\": 123 }");
 

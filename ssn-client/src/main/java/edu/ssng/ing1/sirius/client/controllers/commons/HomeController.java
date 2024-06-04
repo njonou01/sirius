@@ -92,7 +92,7 @@ public class HomeController implements Initializable {
 
     RouterPopUp routerPoUp;
 
-    private static Boolean isAlreadyDisplay = false;
+    public static Boolean isAlreadyDisplay = false;
 
     private static Set<Notification> notificationToBedisplayed = new HashSet<>();
 
@@ -107,8 +107,9 @@ public class HomeController implements Initializable {
 
         System.out.println(vBoxN);
         displayOnnotifPanel();
-        isAlreadyDisplay = true;
-        if (user != null) {
+        
+        if (user != null && isAlreadyDisplay) {
+            isAlreadyDisplay = false;
             Image profilImage = getImage(user.getProfileImageStream());
             profileimageClip.setFill(new ImagePattern(profilImage));
             profileimageClip.setStroke(Color.TRANSPARENT);

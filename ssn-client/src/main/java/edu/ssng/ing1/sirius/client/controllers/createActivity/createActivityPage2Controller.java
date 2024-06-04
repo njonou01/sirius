@@ -235,20 +235,30 @@ public class createActivityPage2Controller implements Initializable {
 
     @FXML
     public void nextPage() {
+    
         LocalDateTime now=LocalDateTime.now();
         Timestamp currentDate=Timestamp.valueOf(now);
-        if(currentDate.after(dateDebut)|| currentDate.after(dateFin)){
+        if(dateDebut!=null && dateFin!=null){
+            dateDebut=addTimer(dateDebut, plusHourDebut, plusMinuteDebut);
+            dateFin=addTimer(dateFin, plusHourFin, plusMinuteFin);
+
+        }
+        
+        if(numberChoice == null || dateDebut == null || dateFin == null || dateDebut == null || dateFin == null){
+            emptyField.setText(" Remplissez les champs: Nombre de participant, Date début et date de Fin !!");
+
+        }else if (dateDebut.getTime()>dateFin.getTime()) {
+            emptyField.setText(" La date de début doit etre avant la date de fin de l'activité");
+        }else if (dateDebut.getTime()<currentDate.getTime() ||dateFin.getTime()<currentDate.getTime() ) {
             emptyField.setText(" Rentrez une date superieur à la date actuelle");
 
-        }else if (numberChoice == null || dateDebut == null || dateFin == null) {
-            emptyField.setText(" Remplissez les champs: Nombre de participant, Date début et date de Fin !!");
         } else {
             RouterPopUp.activite.setNbrparticipant(numberChoice);
             RouterPopUp.activite.setConfidentialite((String) choiceConfidentSelection.getValue());
             RouterPopUp.MinousProgress += 0.33;
             RouterPopUp.progressBar.setProgress(RouterPopUp.MinousProgress);
-            RouterPopUp.activite.setDatedebut("" + addTimer(dateDebut, plusHourDebut, plusMinuteDebut));
-            RouterPopUp.activite.setDatefin("" + addTimer(dateFin, plusHourFin, plusMinuteFin));
+            RouterPopUp.activite.setDatedebut("" + dateDebut);
+            RouterPopUp.activite.setDatefin("" + dateFin);
 
             System.out.println(" La date de l" + RouterPopUp.activite.getDatedebut());
             System.out.println(" La date de l" + RouterPopUp.activite.getDatefin());

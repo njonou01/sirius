@@ -2,9 +2,15 @@ package edu.ssng.ing1.sirius.client.controllers.createActivity;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.Timestamp;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+
 import javafx.util.Duration;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -41,6 +47,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -77,6 +84,8 @@ public class SeeMyActivityController implements Initializable {
     Router router;
 
     static Student student;
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     HashMap<Activite, ProgressIndicator> progessActivityMap;
     public static Set<Activite> activiteInvitationSet = new HashSet<>();
@@ -121,12 +130,44 @@ public class SeeMyActivityController implements Initializable {
         for (Activite activite : activiteInvitationSet) {
             displayInvitation(activite);
         }
+
+        String debutDate = "2024-07-03 18:48:00";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date parsedDate1;
+        Long debutLong = 0L;
+        try {
+            parsedDate1 = formatter.parse(debutDate);
+            debutLong = parsedDate1.getTime();
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        String findate = "2027-06-05 19:30:00";
+        SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date parsedDate;
+        Long finLong = 0L;
+        try {
+            parsedDate = formatter.parse(findate);
+            finLong = parsedDate.getTime();
+
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        Long diff = finLong - debutLong;
+
+        final Long debutLong2 = debutLong;
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            double newValue = progress1.getProgress() + 0.1;
+            Long currentTimeMillis = Instant.now().toEpochMilli();
+            Long diffstart = currentTimeMillis - debutLong2;
+            Double newState = (double) diffstart / diff;
+            double newValue = progress1.getProgress() + newState;
             if (newValue > 1) {
                 newValue = 0;
             }
-            progress1.setProgress(newValue);
+            progress1.setProgress(newState);
 
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -162,6 +203,8 @@ public class SeeMyActivityController implements Initializable {
             Label labelNomActivite = new Label("Nom Activite : " + activite.getNom_interet_activite());
             Label labelCreateur = new Label("Createur :" + activite.getNomCreateur());
 
+            Label stateLabel = new Label("");
+
             Label labelDebut = new Label("Debut : " + activite.getDatedebut());
             Label labelFin = new Label("Fin : " + activite.getDatefin());
 
@@ -182,6 +225,85 @@ public class SeeMyActivityController implements Initializable {
             progressIndicator.setMinWidth(85.0);
             progressIndicator.setPrefHeight(41.0);
             progressIndicator.setPrefWidth(126.0);
+            Long currentTimeMillis = Instant.now().toEpochMilli();
+
+            Date dateDebut;
+            Date dateEnd;
+            Date dateCreation;
+            Long activityDuration = 0L;
+            Long activityBiginDuration = 0L;
+            Long endDate = 0L;
+            Long startDate = 0L;
+            Long dateCreationLong = 0L;
+            try {
+
+                dateDebut = dateFormat.parse(activite.getDatedebut());
+                startDate = dateDebut.getTime();
+
+                dateEnd = dateFormat.parse(activite.getDatefin());
+                endDate = dateEnd.getTime();
+
+                dateCreation = dateFormat.parse(activite.getDatecreation());
+                dateCreationLong = dateCreation.getTime();
+
+                activityDuration = endDate - startDate;
+                activityBiginDuration = startDate - dateCreationLong;
+
+            } catch (ParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            final Long startDate2 = startDate;
+            final Long activityDuration2 = activityDuration;
+            final Long dateCreationLong2 = dateCreationLong;
+
+            final Long activityBiginDuration2 = activityBiginDuration;
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+
+                Long currentTimeMilli = Instant.now().toEpochMilli();
+
+                if (currentTimeMilli > startDate2) {
+                    progressIndicator.setStyle(
+                            "-fx-progress-color: green;");
+                    Long currentDuration = currentTimeMilli - startDate2;
+
+                    
+
+
+                    
+
+                    Double newState = (double) currentDuration / activityDuration2;
+                    if(newState<1){
+                        stateLabel.setText("En cours");
+                        stateLabel.setStyle(
+                            "-fx-text-fill: green;" +
+                                    "-fx-font-size: 24px;");
+
+                    }else{
+                        stateLabel.setText("Terminé");
+                        stateLabel.setStyle(
+                            "-fx-text-fill: red;" +
+                                    "-fx-font-size: 24px;");
+                    }
+                    progressIndicator.setProgress(newState);
+
+                } else {
+                    Long waitingDuration = currentTimeMilli - dateCreationLong2;
+
+                    stateLabel.setText("Débute Bientot");
+                    stateLabel.setStyle(
+                            "-fx-text-fill: #39809F;" +
+                                    "-fx-font-size: 24px;");
+
+                    Double newState = (double) waitingDuration / activityBiginDuration2;
+                    progressIndicator.setProgress(newState);
+
+                }
+
+            }));
+            timeline.setCycleCount(Animation.INDEFINITE);
+            timeline.play();
 
             HBox hBoxLabels = new HBox(40);
             hBoxLabels.getChildren().addAll(labelDebut, labelFin);
@@ -196,9 +318,16 @@ public class SeeMyActivityController implements Initializable {
             HBox hBox = new HBox();
             hBox.getStyleClass().add("centerBox");
 
-            hBox.getChildren().addAll(imageView, vBoxLabelsAndButtons, progressIndicator);
+            StackPane stackPane = new StackPane(progressIndicator);
+            StackPane stackPaneLabel = new StackPane(stateLabel);
+
+            StackPane.setMargin(stateLabel, new Insets(0, 0, 0, 200));
+            StackPane.setMargin(progressIndicator, new Insets(0, 0, 0, 50));
+            hBox.setPrefHeight(500);
+
+            hBox.getChildren().addAll(imageView, vBoxLabelsAndButtons, stackPaneLabel, stackPane);
             HBox.setMargin(hBox, new Insets(10, 0, 0, 0));
-            // setPadding(hBox, new Insets(10, 0, 0, 0));
+            // HBox.setPadding(hBox, new Insets(10, 0, 0, 0));
             parentVBox.getChildren().add(hBox);
         });
 
@@ -231,34 +360,34 @@ public class SeeMyActivityController implements Initializable {
             int index1 = buttonBox.getChildren().indexOf(denyBtn);
 
             denyBtn.setOnAction(event -> {
- 
+
                 try {
                     buttonBox.getChildren().remove(acceptBtn);
                     buttonBox.getChildren().set(index1, labelDeny);
                     AcceptActivityRequest.denyActivity(student.getEmail(),
                             activite.getEmailCreateur());
-                           
+
                 } catch (IOException | InterruptedException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
- 
+
             });
- 
+
             acceptBtn.setOnAction(event -> {
- 
+
                 try {
-                            buttonBox.getChildren().remove(denyBtn);
-                            buttonBox.getChildren().set(index2, labelAccept);
+                    buttonBox.getChildren().remove(denyBtn);
+                    buttonBox.getChildren().set(index2, labelAccept);
                     AcceptActivityRequest.acceptActivity(student.getId_student(), student.getEmail(),
                             activite.getId_student(), activite.getEmailCreateur());
                     // vbox.getChildren().set(index2, labelAccept);
-                           
+
                 } catch (IOException | InterruptedException | SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
- 
+
             });
 
             vbox.setAlignment(javafx.geometry.Pos.CENTER);

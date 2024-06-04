@@ -11,7 +11,7 @@ public enum Queries {
         RESPONSE_UPDATE("UPDATE ssn-db-ing1.activityinvitation\n" +
                         "SET state = ?\n" +
                         "WHERE sender = ? AND receiver = ?"),
-        INSERT_ACTIVITY("INSERT into \"ssn-db-ing1\".Activite (\"datecreation\", \"datedebut\", \"datefin\", \"nom_interet_activite\", \"libelle\", \"categorie\", \"provenance\", \"confidentialite\", \"nomcreateur\", \"id_student\",\"nbrparticipant\" , \"state\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"),
+        INSERT_ACTIVITY("INSERT into \"ssn-db-ing1\".Activite (\"datecreation\", \"datedebut\", \"datefin\", \"nom_interet_activite\", \"libelle\", \"categorie\", \"provenance\", \"confidentialite\", \"nomcreateur\", \"id_student\",\"nbrparticipant\" , \"state\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  RETURNING \"idactivite\""),
         ALREADY_ACTIVITY("SELECT DISTINCT s.id_student, s.nom, s.prenom " +
                         "FROM \"ssn-db-ing1\".student s " +
                         "JOIN \"ssn-db-ing1\".participationactivite pa ON s.id_student = pa.id_student " +
@@ -32,11 +32,7 @@ public enum Queries {
                         "SELECT familly_name, first_name, email, phone_number, gender, username, password, birthday\n" + //
                                         "\tFROM \"ssn-db-ing1\".student"),
         INSERT_PARTICIPATION(
-                        "INSERT INTO \"ssn-db-ing1\".participationactivite (id_student, idactivite, dateparticipation) "
-                                        +
-                                        "SELECT ?, idactivite, CURRENT_TIMESTAMP " +
-                                        "FROM \"ssn-db-ing1\".activite " +
-                                        "WHERE id_student = ?"),
+                "INSERT INTO \"ssn-db-ing1\".\"participationactivite\" (id_student, idactivite, dateparticipation) VALUES (?, ?, CURRENT_TIMESTAMP)"),
         SELECT_LAST_ACTIVITY_FRIENDS(
                         "SELECT DISTINCT s2.* " +
                                         "FROM \"ssn-db-ing1\".participationactivite p1 " +
