@@ -1,5 +1,6 @@
 package edu.ssng.ing1.sirius.client.notificationManagement;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -38,9 +39,14 @@ public class NotifyHandler extends Thread{
     public void run() {
         try {
             inputStream = this.socket.getInputStream();
-            byte[] buffer = new byte[1024];
-            int br = inputStream.read(buffer);
-            Notification notification = getToNotify(buffer);
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+                byte[] inputData = outputStream.toByteArray();
+            Notification notification = getToNotify(inputData);
             SsnNotifyService xmartNotificationService = new SsnNotifyService();
             xmartNotificationService.dispatch(notification);
             

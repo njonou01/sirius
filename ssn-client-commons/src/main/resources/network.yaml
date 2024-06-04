@@ -1,4 +1,4 @@
 ipaddress :  127.0.0.1
-# ipaddress : 172.31.252.197
+ipaddress : 172.31.252.197
 tcpport : 45065
 tcpportServerNotify : 5461
