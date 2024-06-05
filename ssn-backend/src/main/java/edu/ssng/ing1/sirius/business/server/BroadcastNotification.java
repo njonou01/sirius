@@ -23,7 +23,7 @@ public class BroadcastNotification {
     private final static String LoggingLabel = "B r o a d c a s t - N o t i f i c a t i on";
     private final static Logger logger = LoggerFactory.getLogger(LoggingLabel);
 
-    static synchronized void broadcast(String type, Set<String> receivers, String... messageArguments)
+    public static synchronized void broadcast(String type, Set<String> receivers, String... messageArguments)
             throws JsonProcessingException {
         logger.info("Broadcasting message to " + receivers.size() + " friends.");
         Notification notification = new Notification();

@@ -268,11 +268,6 @@ public class SeeMyActivityController implements Initializable {
                             "-fx-progress-color: green;");
                     Long currentDuration = currentTimeMilli - startDate2;
 
-                    
-
-
-                    
-
                     Double newState = (double) currentDuration / activityDuration2;
                     if(newState<1){
                         stateLabel.setText("En cours");

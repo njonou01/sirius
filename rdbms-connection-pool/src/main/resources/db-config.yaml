@@ -4,7 +4,7 @@ host: "172.31.252.112"
 port: 5432
 username : "ssnadmin"
 password: "ssnEN2023"
-poolSize: 1
+poolSize: 5
 
 # username : ssnadmin
 # password : ssnEN2023

@@ -46,7 +46,14 @@ public enum NotificationType {
     END_ACTIVITY("Votre Activité est terminée"){
         @Override
         public String getMessage(String ...messageArgument) {
-            return "Votre Activité " + messageArgument[0] +  " est terminée le "+messageArgument[1];
+            return "Votre Activité " + messageArgument[0] +  " est terminée le ";
+                 
+        }
+    },
+    BIGIN_ACTIVITY("Votre Activité a débuté"){
+        @Override
+        public String getMessage(String ...messageArgument) {
+            return "Votre Activité " + messageArgument[0] +  " a débuté ";
                  
         }
     },

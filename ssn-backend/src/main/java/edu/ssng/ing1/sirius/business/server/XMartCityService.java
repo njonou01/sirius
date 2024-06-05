@@ -19,6 +19,7 @@ import edu.ssng.ing1.sirius.business.dto.Student;
 import edu.ssng.ing1.sirius.business.dto.Students;
 import edu.ssng.ing1.sirius.business.dto.Universities;
 import edu.ssng.ing1.sirius.business.dto.University;
+import edu.ssng.ing1.sirius.business.server.notifyProcess.ActivityPendingProcess;
 import edu.ssng.ing1.sirius.business.server.notifyProcess.StudentConnectedProcess;
 import edu.ssng.ing1.sirius.commons.Request;
 import edu.ssng.ing1.sirius.commons.Response;
@@ -397,13 +398,6 @@ public class XMartCityService {
             response.setRequestId(request.getRequestId());
 
             String responseBody = objectMapper.writeValueAsString(activite);
-            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-            System.out.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-            System.out.println(generatedId);
-
-            // response.setResponseBody("{ \"student_id\": 123 }");
 
             System.out.println("Eloka" + responseBody + "Michel");
             System.out.println(response.getResponseBody());
@@ -415,13 +409,12 @@ public class XMartCityService {
 
             }
 
-            System.out.println(
-                    "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
             BroadcastNotification.broadcast("NEW_ACTIVITY",
                     StudentConnectedProcess.getFriends(activite.getEmailCreateur(),
                             connection),
                     activite, activite.getNomCreateur(), activite.getNom_interet_activite());
             response.setRequestId(request.getRequestId());
+            new ActivityPendingProcess(activite,generatedId).start();
             BroadcastNotification.broadcast("INVITE_ACTIVITY", emailToSend, activite, activite.getNomCreateur(),
                     activite.getNom_interet_activite());
             response.setRequestId(request.getRequestId());

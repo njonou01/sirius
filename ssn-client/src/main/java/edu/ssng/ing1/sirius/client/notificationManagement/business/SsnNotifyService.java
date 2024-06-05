@@ -47,6 +47,10 @@ public class SsnNotifyService {
                 break;
             case "DENY_INVITATION":
                 denyActivity(Notify);
+            case "BIGIN_ACTIVITY":
+                biginActivity(Notify);
+            case "END_ACTIVITY":
+                endActivity(Notify);
             default:
                 break;
         }
@@ -83,6 +87,14 @@ public class SsnNotifyService {
     }
 
     public void denyActivity(Notification notification) {
+        HomeController.getNotificationToBedisplayed().add(notification);
+        Platform.runLater(() -> HomeController.displayOnnotifPanel());
+    }
+    public void biginActivity(Notification notification) {
+        HomeController.getNotificationToBedisplayed().add(notification);
+        Platform.runLater(() -> HomeController.displayOnnotifPanel());
+    }
+    public void endActivity(Notification notification) {
         HomeController.getNotificationToBedisplayed().add(notification);
         Platform.runLater(() -> HomeController.displayOnnotifPanel());
     }
